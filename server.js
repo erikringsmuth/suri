@@ -17,4 +17,4 @@ server.get('/about.txt', function(req, res){
 });
 
 server.listen(8002);
-console.log('Listening on port 8002');
+console.log('sURI started on port 8002');
