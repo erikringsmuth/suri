@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+require('newrelic'); // Heroku performance logging
 
 var server = express();
 
