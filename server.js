@@ -1,5 +1,19 @@
 'use strict';
 
-var statik = require('statik');
-var server = statik.createServer('app');
-server.listen();
+var express = require('express');
+
+var server = express();
+
+server.configure(function(){
+  server.use('/', express.static(__dirname + '/app'));
+});
+
+server.get('/about.txt', function(req, res){
+  var body = 'sURI, hands on access to the world\'s data!';
+  res.setHeader('Content-Type', 'text/plain');
+  res.setHeader('Content-Length', Buffer.byteLength(body));
+  res.end(body);
+});
+
+server.listen(8002);
+console.log('Listening on port 8002');

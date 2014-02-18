@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="rest-panel" attributes="name send">
+<polymer-element name="rest-panel" attributes="name method url xhr send autosend">
   <template>
     <style>
       :host {
@@ -61,11 +61,15 @@
 
       // element is fully prepared
       ready: function(){
+        if (this.autosend !== false) {
+          this.send();
+        }
+      },
+      // instance of the element is created
+      created: function() {
         this.xhr.onload = this.displayResponse.bind(this);
         this.xhr.onerror = this.displayResponse.bind(this);
       },
-      // instance of the element is created
-      created: function() { },
       // instance was inserted into the document
       enteredView: function() { },
       // instance was removed from the document
@@ -78,6 +82,7 @@
       method: 'GET',
       url: 'http://',
       xhr: new XMLHttpRequest,
+      autosend: false,
       requestHeaders: 'Content-Type: application/json\nAccept: application/json',
       responseHeaders: '',
       responseBody: '',
@@ -85,17 +90,17 @@
       sendButtonDisabled: false,
 
       // event handlers
-      methodChanged: function methodChanged(event, detail, sender) {
+      methodChanged: function methodChanged(event) {
         this.method = event.target.value;
       },
 
-      sendOnEnter: function sendOnEnter(event, detail, sender) {
+      sendOnEnter: function sendOnEnter(event) {
         if (event.keyCode === 13) {
-          this.send(event);
+          this.send();
         }
       },
 
-      send: function send(event, detail, sender) {
+      send: function send() {
         this.sendButtonClass = 'default';
         this.sendButtonDisabled = true;
 
