@@ -2,4 +2,4 @@
 
 > The worlds APIs at your disposal.
 
-[suri.io](www.suri.io)
+[suri.io](http://www.suri.io)
