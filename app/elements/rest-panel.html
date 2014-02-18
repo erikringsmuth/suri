@@ -25,7 +25,7 @@
       }
     </style>
     <div class="panel panel-default">
-      <div class="panel-heading">REST</div>
+      <div class="panel-heading">{{name}}</div>
       <div class="panel-body">
         <div class="uri">
           <select on-change="{{methodChanged}}">
@@ -38,17 +38,19 @@
           <input type="text" value="{{url}}" on-keypress="{{sendOnEnter}}" placeholder="http://">
           <span class="text-muted pull-right">HTTP/1.1</span>
         </div>
-        <h4>headers</h4>
-<pre><code id="headers" contenteditable>Content-Type: application/json
-Accept: application/json
-</code></pre>
-        <button id="send" on-click="{{send}}" type="button" class="btn btn-default">Send</button>
+        <h4>request headers</h4>
+<pre>
+<code id="headers" contenteditable>{{requestHeaders}}</code>
+</pre>
+        <h4>request body</h4>
+<pre>
+<code id="headers" contenteditable>{{requestBody}}</code>
+</pre>
+        <button id="send" on-click="{{send}}" type="button" class="btn btn-{{sendButtonClass}}" disabled?="{{sendButtonDisabled}}">Send</button>
         <h4>response headers</h4>
-<pre><code id="responseHeaders">
-</code></pre>
+<pre><code id="responseHeaders">{{responseHeaders}}</code></pre>
         <h4>response body</h4>
-<pre><code id="responseBody">
-</code></pre>
+<pre><code id="responseBody"></code></pre>
       </div>
     </div>
   </template>
@@ -58,7 +60,10 @@ Accept: application/json
       //resetStyleInheritance: true,
 
       // element is fully prepared
-      ready: function(){ },
+      ready: function(){
+        this.xhr.onload = this.displayResponse.bind(this);
+        this.xhr.onerror = this.displayResponse.bind(this);
+      },
       // instance of the element is created
       created: function() { },
       // instance was inserted into the document
@@ -68,15 +73,21 @@ Accept: application/json
       // attribute added, removed or updated
       attributeChanged: function(attrName, oldVal, newVal) { },
 
-      name: '',
-
+      // properties
+      name: 'XHR',
       method: 'GET',
+      url: 'http://',
+      xhr: new XMLHttpRequest,
+      requestHeaders: 'Content-Type: application/json\nAccept: application/json',
+      responseHeaders: '',
+      responseBody: '',
+      sendButtonClass: 'default',
+      sendButtonDisabled: false,
 
+      // event handlers
       methodChanged: function methodChanged(event, detail, sender) {
         this.method = event.target.value;
       },
-
-      url: 'http://',
 
       sendOnEnter: function sendOnEnter(event, detail, sender) {
         if (event.keyCode === 13) {
@@ -85,58 +96,50 @@ Accept: application/json
       },
 
       send: function send(event, detail, sender) {
-        this.$.send.disabled = true;
-        this.$.send.classList.remove('btn-success');
-        this.$.send.classList.remove('btn-danger');
+        this.sendButtonClass = 'default';
+        this.sendButtonDisabled = true;
 
-        xhr = new XMLHttpRequest;
-        xhr.open(this.method, this.url, true);
-
-        xhr.onload = function onload() {
-          if (xhr.status >= 200 && xhr.status < 400){
-            this.$.send.disabled = false;
-            this.$.send.classList.add('btn-success');
-            this.displayResponse(xhr);
-          } else {
-            this.$.send.disabled = false;
-            this.$.send.classList.add('btn-danger');
-            this.displayResponse(xhr);
-          }
-        }.bind(this);
-
-        xhr.onerror = function onerror() {
-          this.$.send.disabled = false;
-          this.$.send.classList.add('btn-danger');
-          this.displayResponse(xhr);
-        }.bind(this);
-
-        xhr.send();
+        this.xhr.open(this.method, this.url, true);
+        try {
+          this.xhr.send();
+        } catch (exception) {
+          this.$.responseBody.innerHTML = JSON.stringify(exception, null, 2);
+        }
       },
 
-      displayResponse: function displayResponse(xhr) {
+      // helper methods
+      displayResponse: function displayResponse() {
+        // update send button
+        this.sendButtonDisabled = false;
+        if (this.xhr.status >= 200 && this.xhr.status < 400) {
+          this.sendButtonClass = 'success';
+        } else {
+          this.sendButtonClass = 'danger';
+        }
+
         // headers
-        this.$.responseHeaders.innerText = xhr.getAllResponseHeaders();
+        this.responseHeaders = this.xhr.getAllResponseHeaders();
 
         // body
-        var contentType = xhr.getResponseHeader('content-type');
+        var contentType = this.xhr.getResponseHeader('content-type');
         var text = '';
         if (contentType) {
           if (contentType.indexOf('json') !== -1) {
-            text = JSON.stringify(xhr.response, null, 2);
+            text = JSON.stringify(this.xhr.response, null, 2);
           } else if (contentType.indexOf('xml') !== -1) {
-            text = xhr.responseXML;
+            text = this.xhr.responseXML;
           } else if (contentType.indexOf('html') !== -1) {
-            text = xhr.response
+            text = this.xhr.response
               .replace(/&/g, "&amp;")
               .replace(/</g, "&lt;")
               .replace(/>/g, "&gt;")
               .replace(/"/g, "&quot;")
               .replace(/'/g, "&#039;");
           } else {
-            text = xhr.response;
+            text = this.xhr.response;
           }
         } else {
-          text = xhr.response;
+          text = this.xhr.response;
         }
 
         this.$.responseBody.innerHTML = text;

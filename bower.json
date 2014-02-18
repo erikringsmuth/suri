@@ -2,10 +2,17 @@
   "name": "suri",
   "private": true,
   "version": "0.0.0",
+  "homepage": "http://suri.io",
+  "authors": [
+    "Erik Ringsmuth <erik.ringsmuth@gmail.com>"
+  ],
+  "description": "The world's APIs at your disposal.",
+  "main": "app/index.html",
   "dependencies": {
     "sass-bootstrap": "~3.0.0",
     "platform": "Polymer/platform#master",
-    "polymer": "Polymer/polymer#master"
-  },
-  "devDependencies": {}
+    "polymer": "Polymer/polymer#master",
+    "bootswatch": "~3.0.3",
+    "google-code-prettify": "~1.0.1"
+  }
 }

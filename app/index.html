@@ -1,42 +1,54 @@
 <!doctype html>
-  <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-  <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-  <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-  <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html class="no-js">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>sURI</title>
     <meta name="description" content="sURI, hands on access to the world's data">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-    <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild-->
-
-    <!-- Place your HTML imports here -->
+    <link rel="stylesheet" href="bower_components/bootswatch/cosmo/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/google-code-prettify/src/prettify.css">
+    <link rel="stylesheet" href="styles/prettify-bootstrap-light.css">
+    <link rel="stylesheet" href="styles/styles.css">
     <script src="bower_components/platform/platform.js"></script>
     <link rel="import" href="elements/rest-panel.html">
   </head>
   <body>
-    
-    <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills navbar-right">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <h3 class="text-muted">sURI</h3>
-      </div>
+    <a class="sr-only" href="#content">Skip to main content</a>
 
-      <div class="row">
-        <div class="col-md-12">
-          <rest-panel name=""></rest-panel>
+    <div id="wrap">
+      <header class="navbar navbar-default navbar-fixed-top" role="banner">
+        <div class="container">
+          <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="#/" class="navbar-brand">sURI</a>
+          </div>
+          <nav class="collapse navbar-collapse" role="navigation">
+            <ul class="nav navbar-nav">
+              <li><a href="/about.html">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="https://github.com/erikringsmuth/suri">View on GitHub <i class="fa fa-github fa-lg"></i></a></li>
+            </ul>
+          </nav>
         </div>
-      </div>
+      </header>
 
+      <main class="container" id="content" role="main">
+        <rest-panel></rest-panel>
+      </main>
     </div>
+
+    <footer id="main-footer">
+      <div class="container">
+        <p class="text-muted text-center">&#169; Copyright 2014 <a href="https://github.com/erikringsmuth">Erik Ringsmuth</a>.</p>
+      </div>
+    </footer>
   </body>
 </html>
