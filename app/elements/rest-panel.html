@@ -40,11 +40,12 @@
         </div>
         <h4>request headers</h4>
 <pre>
-<code id="headers" contenteditable>{{requestHeaders}}</code>
+<code id="requestHeaders" contenteditable>Content-Type: application/json
+Accept: application/json</code>
 </pre>
         <h4>request body</h4>
 <pre>
-<code id="headers" contenteditable>{{requestBody}}</code>
+<code id="requestBody" contenteditable></code>
 </pre>
         <button id="send" on-click="{{send}}" type="button" class="btn btn-{{sendButtonClass}}" disabled?="{{sendButtonDisabled}}">Send</button>
         <h4>response headers</h4>
@@ -83,8 +84,6 @@
       url: 'http://',
       xhr: new XMLHttpRequest,
       autosend: false,
-      requestHeaders: 'Content-Type: application/json\nAccept: application/json',
-      responseHeaders: '',
       responseBody: '',
       sendButtonClass: 'default',
       sendButtonDisabled: false,
@@ -104,15 +103,36 @@
         this.sendButtonClass = 'default';
         this.sendButtonDisabled = true;
 
-        this.xhr.open(this.method, this.url, true);
+        var a = document.createElement('a');
+        a.href = this.url;
+
+        this.xhr.open(this.method, a.pathname, true);
+        this.xhr.setRequestHeader('api-host', a.host);
+        var headers = this.parsedRequestHeaders();
+        for (var header in headers) {
+          if (headers.hasOwnProperty(header)) {
+            this.xhr.setRequestHeader(header, headers[header]);
+          }
+        }
+
         try {
-          this.xhr.send();
+          this.xhr.send(this.$.requestBody.innerText);
         } catch (exception) {
           this.$.responseBody.innerHTML = JSON.stringify(exception, null, 2);
         }
       },
 
       // helper methods
+      parsedRequestHeaders: function parsedRequestHeaders() {
+        var headers = {};
+        var headerLines = this.$.requestHeaders.innerText.split('\n');
+        for (var i = 0; i < headerLines.length; i++) {
+          var headerParts = headerLines[i].split(':');
+          headers[headerParts[0].trim()] = headerParts.splice(1).join(':').trim();
+        }
+        return headers;
+      },
+
       displayResponse: function displayResponse() {
         // update send button
         this.sendButtonDisabled = false;
