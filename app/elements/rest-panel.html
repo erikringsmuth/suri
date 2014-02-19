@@ -103,11 +103,11 @@ Accept: application/json</code>
         this.sendButtonClass = 'default';
         this.sendButtonDisabled = true;
 
-        var a = document.createElement('a');
-        a.href = this.url;
-
-        this.xhr.open(this.method, a.pathname, true);
-        this.xhr.setRequestHeader('api-host', a.host);
+        var pUrl = this.parsedUrl();
+        this.xhr.open(this.method, pUrl.path, true);
+        if (pUrl.host !== 'http://suri.io/' && pUrl.host !== 'http://www.suri.io/') {
+          this.xhr.setRequestHeader('api-host', pUrl.host);
+        }
         var headers = this.parsedRequestHeaders();
         for (var header in headers) {
           if (headers.hasOwnProperty(header)) {
@@ -131,6 +131,22 @@ Accept: application/json</code>
           headers[headerParts[0].trim()] = headerParts.splice(1).join(':').trim();
         }
         return headers;
+      },
+
+      parsedUrl: function parsedUrl() {
+        var result = {
+          path: '',
+          host: ''
+        };
+
+        var url = this.url;
+        if (url.substring(0, 4) !== 'http') {
+          url = 'http://' + url;
+        }
+        result.host = 'http://' + url.split('/')[2] + '/';
+        result.path = '/' + url.split('/').splice(3).join('/');
+
+        return result;
       },
 
       displayResponse: function displayResponse() {
