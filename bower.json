@@ -9,10 +9,9 @@
   "description": "The world's APIs at your disposal.",
   "main": "app/index.html",
   "dependencies": {
-    "sass-bootstrap": "~3.0.0",
     "platform": "Polymer/platform#master",
     "polymer": "Polymer/polymer#master",
-    "bootswatch": "~3.0.3",
+    "bootswatch": "~3.1.1",
     "google-code-prettify": "~1.0.1"
   }
 }

@@ -1,11 +1,3 @@
-/* The fixed header takes up 40px */
-body {
-  padding-top: 60px;
-}
-header.navbar {
-  box-shadow: 0 0 2px;
-}
-
 /* Sticky footer styles
  *
  * Make the html, body, and layoutView.el (div) all be 100% tall
@@ -33,59 +25,33 @@ html, body, body > div {
   padding-top: 20px;
 }
 
-/* {nex.js} home page colors */
+/* navbar */
+header.navbar {
+  background-color: #3a8aea;
+  color: #fff;
+  border: none;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-brand:hover {
+  background-color: #237ce8;
+  color: #fff;
+}
+
+/* suri brand */
 span.brand {
-  color: #93A1A1;
+  color: #1564c3;
+}
+.navbar-brand {
+  font-size: 2em;
+  line-height: 15px;
+}
+.navbar-default .navbar-brand:hover {
+  background-color: #3a8aea;
 }
 
-/* Code blocks */
-pre, pre.prettyprint {
-  background-color: #fdfdfd;
-  border: #e1e1e8 1px solid;
-  border-radius: 3px;
-}
-code {
-  color: #48484C;
-  background-color: #fdfdfd;
-  border: #f1f1f1 1px solid;
-  border-radius: 3px;
-  line-height: 1.75em;
-}
-pre code {
-  border: none;
-  line-height: 1.4em;
-}
-
-/* Adds spacing on top of anything */
-.spacer {
-  margin-top: 2em;
-}
-
-/* Alerts */
-.notification {
-  background-color: #43ac6a;
-  color: #ffffff;
-  padding: 15px;
-  border: 1px solid #3c9a5f;
-}
-
-/* Jasine Spec Runner */
-.spec-runner {
-  width: 100%;
-  height: 1050px;
-  border: none;
-}
-
-/* Make the header static for mobile to save screen space */
-@media (max-width: 767px) {
-  body {
-    padding-top: 0px;
-  }
-
-  .navbar-fixed-top {
-    position: relative;
-    top: auto;
-  }
+/* links */
+a, a:hover {
+  color: #007fff;
 }
 
 /* Make the footer taller to fit 3 lines of text when viewed on a phone */
