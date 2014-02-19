@@ -10,7 +10,7 @@ var express   = require('express'),
 var apiProxy = function apiProxy(req, res, next) {
   var apiHost = req.get('api-host');
   if(apiHost && apiHost !== 'suri.io') {
-    proxy.web(req, res, {target: apiHost});
+    proxy.web(req, res, {target: 'http://' + apiHost});
   } else {
     next();
   }
