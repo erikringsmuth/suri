@@ -54,6 +54,14 @@ a, a:hover {
   color: #007fff;
 }
 
+#sequence {
+  white-space: nowrap;
+  overflow: hidden
+}
+#sequence li:hover {
+  background-color: #ebebeb;
+}
+
 /* Make the footer taller to fit 3 lines of text when viewed on a phone */
 @media (max-width: 480px) {
   footer {

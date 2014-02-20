@@ -33,8 +33,11 @@
             <ul class="nav navbar-nav">
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/about.html">About</a></li>
-              <li><a href="https://github.com/erikringsmuth/suri">View on GitHub <i class="fa fa-github fa-lg"></i></a></li>
+              <li><a href="/categories.html">Categories</a></li>
+              <li><a href="/trending.html">Trending</a></li>
+              <li><a href="/sites.html">Sites</a></li>
+              <li><a href="/users.html">Users</a></li>
+              <li><a href="https://github.com/erikringsmuth/suri">{{name}} <i class="fa fa-gear"></i></a></li>
             </ul>
           </nav>
           <div id="search" class="input-group">
@@ -46,15 +49,17 @@
 
       <main class="container" id="content" role="main">
         <div class="row">
-          <div class="col-sm-2">
-            <ul class="nav nav-pills nav-stacked">
-              <li>XHR1</li>
-              <li>Reduce1</li>
-              <li>XHR2</li>
-              <li>Map1</li>
+          <div class="col-sm-3">
+            <h2>API Sequence <button type="button" class="btn btn-default">Save</button></h2>
+            <ul id="sequence" class="list-group">
+              <li class="list-group-item">XHR - GET users</li>
+              <li class="list-group-item">Code - Filter developers</li>
+              <li class="list-group-item">XHR - POST to DB</li>
             </ul>
+            <button type="button" class="btn btn-default"><i class="fa fa-plus"></i> XHR</button>
+            <button type="button" class="btn btn-default"><i class="fa fa-plus"></i> Code</button>
           </div>
-          <div class="col-sm-10">
+          <div class="col-sm-9">
             <rest-panel name="Welcome!" url="http://suri.io/about.txt" autosend></rest-panel>
           </div>
         </div>
