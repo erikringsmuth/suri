@@ -1,7 +1,4 @@
-/* Sticky footer styles
- *
- * Make the html, body, and layoutView.el (div) all be 100% tall
- */
+/* Sticky footer styles. Make the html, body, and layoutView.el (div) all be 100% tall */
 html, body, body > div {
   height: 100%;
 }
@@ -15,48 +12,51 @@ html, body, body > div {
   padding: 0 0 115px;
 }
 /* Set the fixed height of the footer here */
-#main-footer {
+footer {
   height: 80px;
   background-color: #fdfdfd;
   border-top: 1px solid #e1e1e8;
 }
-#main-footer > .container {
+footer > .container {
   /* Pad the text in the footer */
   padding-top: 20px;
 }
+footer ul a, footer .text-muted {
+  color: #777;
+}
 
-/* navbar */
-header.navbar {
+.navbar,
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li > a:hover {
   background-color: #3a8aea;
   color: #fff;
-  border: none;
+  text-shadow: 0px 1px 0px #237ce8;
 }
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-brand:hover {
-  background-color: #237ce8;
-  color: #fff;
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav > li > a:hover {
+  text-shadow: 0px 1px 1px #1564c3;
 }
-
-/* suri brand */
-span.brand {
-  color: #1564c3;
-}
-.navbar-brand {
-  font-size: 2em;
-  line-height: 15px;
-}
-.navbar-default .navbar-brand:hover {
-  background-color: #3a8aea;
+.navbar .fa {
+  text-shadow: none;
 }
 
-/* links */
+#search {
+  margin-bottom: 10px;
+}
+#search .form-control:focus {
+  box-shadow: inset 0 0 1px 1px #eee;
+  border: 1px solid #aaa;
+}
+
 a, a:hover {
   color: #007fff;
 }
 
 /* Make the footer taller to fit 3 lines of text when viewed on a phone */
 @media (max-width: 480px) {
-  #footer {
-    height: 95px;
+  footer {
+    height: 115px;
   }
 }

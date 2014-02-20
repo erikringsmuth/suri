@@ -6,7 +6,7 @@
     <title>suri.io</title>
     <meta name="description" content="suri, hands on access to the world's data">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="bower_components/bootswatch/flatly/bootstrap.css" media="screen">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="bower_components/google-code-prettify/src/prettify.css">
     <link rel="stylesheet" href="styles/prettify-bootstrap-light.css">
@@ -27,7 +27,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a href="#/" class="navbar-brand"><span class="brand">s</span>uri<span class="brand">.io</span></a>
+            <a href="#/" class="navbar-brand"><i class="fa fa-cloud"></i> <span class="brand">s</span>uri<span class="brand">.io</span></a>
           </div>
           <nav class="collapse navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
@@ -37,17 +37,45 @@
               <li><a href="https://github.com/erikringsmuth/suri">View on GitHub <i class="fa fa-github fa-lg"></i></a></li>
             </ul>
           </nav>
+          <div id="search" class="input-group">
+            <span class="input-group-addon"><i class="fa fa-search"></i></span>
+            <input type="text" class="form-control" placeholder="Search APIs">
+          </div>
         </div>
       </header>
 
       <main class="container" id="content" role="main">
-        <rest-panel name="Welcome!" url="http://suri.io/about.txt" autosend></rest-panel>
+        <div class="row">
+          <div class="col-sm-2">
+            <ul class="nav nav-pills nav-stacked">
+              <li>XHR1</li>
+              <li>Reduce1</li>
+              <li>XHR2</li>
+              <li>Map1</li>
+            </ul>
+          </div>
+          <div class="col-sm-10">
+            <rest-panel name="Welcome!" url="http://suri.io/about.txt" autosend></rest-panel>
+          </div>
+        </div>
       </main>
     </div>
 
-    <footer id="main-footer">
+    <footer>
       <div class="container">
-        <p class="text-muted text-center">&#169; Copyright 2014 <a href="https://github.com/erikringsmuth">Erik Ringsmuth</a>.</p>
+        <div class="row">
+          <div class="col-xs-6">
+            <p class="text-muted text-center">&#169; Copyright 2014 <a href="https://github.com/erikringsmuth">Erik Ringsmuth</a>.</p>
+          </div>
+          <div class="col-xs-6">
+            <ul class="list-inline">
+              <li><a href="https://github.com/erikringsmuth"><i class="fa fa-github"></i> GitHub</a></li>
+              <li><a href="https://twitter.com/ErikRingsmuth"><i class="fa fa-twitter"></i> Twitter</a></li>
+              <li><a href="http://stackoverflow.com/users/3148201/erik-ringsmuth"><i class="fa fa-stack-overflow"></i> Stack Overflow</a></li>
+              <li><a href="http://www.linkedin.com/in/erikringsmuth"><i class="fa fa-linkedin"></i> LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </footer>
   </body>
