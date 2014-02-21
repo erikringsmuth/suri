@@ -7,9 +7,12 @@ var express   = require('express'),
     proxy     = require('./server/proxy'),
     app       = express();
 
-app.configure(function(){
-  app.use(proxy); // Proxy requests with 'api-host' header
-  app.use(express.static(__dirname + '/app')); // Serve /app dir as static content, make it look like the root dir
+app.configure(function() {
+  // Proxy requests with 'api-host' header
+  app.use(proxy);
+
+  // Serve /app dir as static content, it will look like the root dir
+  app.use(express.static(__dirname + '/app'));
 });
 
 // Welcome text
