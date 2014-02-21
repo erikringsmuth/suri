@@ -48,8 +48,7 @@
         </div>
         <h4>request headers</h4>
 <pre>
-<code id="requestHeaders" contenteditable>Content-Type: application/json
-Accept: application/json</code>
+<code id="requestHeaders" contenteditable></code>
 </pre>
         <h4>request body</h4>
 <pre>
@@ -134,6 +133,10 @@ Accept: application/json</code>
       parsedRequestHeaders: function parsedRequestHeaders() {
         var headers = {};
         var headerLines = this.$.requestHeaders.innerText.split('\n');
+        if (headerLines.length === 1 && headerLines[0] === '') {
+          // because callling split on an empty string returns ['']
+          headerLines = [];
+        }
         for (var i = 0; i < headerLines.length; i++) {
           var headerParts = headerLines[i].split(':');
           headers[headerParts[0].trim()] = headerParts.splice(1).join(':').trim();
