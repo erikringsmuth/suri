@@ -50,7 +50,9 @@
       },
 
       scrollToPanel: function scrollToPanel(event) {
-        scrollTo(0, this.apiSequence[event.target.dataset.index].offsetTop + this.offsetParent.offsetTop - 10);
+        $('html,body').animate({
+          scrollTop: this.apiSequence[event.target.dataset.index].offsetTop + this.offsetParent.offsetTop - 10
+        }, 200, 'easeOutQuint');
       },
 
       removePanel: function removePanel(event) {
