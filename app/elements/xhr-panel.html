@@ -65,23 +65,24 @@
   </template>
   <script>
     Polymer('xhr-panel', {
+      // instance of the element is created
+      created: function() {
+        this.xhr = new XMLHttpRequest;
+        this.xhr.onload = this.displayResponse.bind(this);
+        this.xhr.onerror = this.displayResponse.bind(this);
+      },
+
       // element is fully prepared
       ready: function(){
         if (this.autosend !== false) {
           this.send();
         }
       },
-      // instance of the element is created
-      created: function() {
-        this.xhr.onload = this.displayResponse.bind(this);
-        this.xhr.onerror = this.displayResponse.bind(this);
-      },
 
       // properties
       panelName: 'XHR',
       method: 'GET',
       url: 'http://',
-      xhr: new XMLHttpRequest,
       autosend: false,
       responseBody: '',
       sendButtonClass: 'default',
