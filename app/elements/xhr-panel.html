@@ -65,7 +65,7 @@
         <h4>response body</h4>
 <pre><code id="responseBody"></code></pre>
         <template bind if="{{showMoreButton}}">
-          <button id="showMoreButton" on-click="{{displayEntireResponse}}" type="button" class="btn btn-default">Show more...</button>
+          <button id="showMoreButton" on-click="{{displayEntireResponse}}" type="button" class="btn btn-default">Show complete response ({{responseBodyLength}} characters)</button>
         </template>
       </div>
     </div>
@@ -92,6 +92,7 @@
       url: 'http://',
       autosend: false,
       responseBody: '',
+      get responseBodyLength() { return (this.responseBody.length).toLocaleString(); },
       sendButtonClass: 'default',
       sendButtonDisabled: false,
       showMoreButton: false,
@@ -169,21 +170,21 @@
       displayResponse: function displayResponse() {
         // update send button
         this.sendButtonDisabled = false;
-        if (this.xhr.status >= 200 && this.xhr.status < 400) {
+        if (this.xhr.status >= 200 && this.xhr.status < 300) {
           this.sendButtonClass = 'success';
         } else {
           this.sendButtonClass = 'danger';
         }
 
         // headers
-        this.responseHeaders = this.xhr.getAllResponseHeaders();
+        this.responseHeaders = 'HTTP/1.1 ' + this.xhr.status + ' ' + this.xhr.statusText + '\n' + this.xhr.getAllResponseHeaders();
 
         // body
         var contentType = this.xhr.getResponseHeader('content-type');
         this.responseBody = '';
         if (contentType) {
-          if (contentType.indexOf('json') !== -1) {
-            this.responseBody = JSON.stringify(this.xhr.response, null, 2);
+          if (contentType.indexOf('json') !== -1 || contentType.indexOf('javascript') !== -1) {
+            this.responseBody = JSON.stringify(JSON.parse(this.xhr.response), null, 2);
           } else if (contentType.indexOf('xml') !== -1) {
             this.responseBody = this.xhr.responseXML;
           } else if (contentType.indexOf('html') !== -1) {

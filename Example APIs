@@ -1,0 +1,6 @@
+Google autocomplete
+http://suggestqueries.google.com/complete/search?client=firefox&q={searchTerm}
+(from http://shreyaschand.com/blog/2013/01/03/google-autocomplete-api/)
+
+Google search
+https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q=erik%20ringsmuth
