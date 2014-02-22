@@ -10,16 +10,16 @@
     </style>
     <div class="row">
       <div class="col-sm-3">
-        <api-sequence-menu contentplaceholder="{{apiSequence}}"></api-sequence-menu>
+        <api-sequence-menu apisequence="{{apiSequence}}" contentplaceholder="{{$.contentPlaceholder}}"></api-sequence-menu>
       </div>
-      <div id="apiSequence" class="col-sm-9">
+      <div id="contentPlaceholder" class="col-sm-9">
       </div>
     </div>
   </template>
   <script>
     Polymer('api-sequence', {
       ready: function() {
-        this.apiSequence = this.$.apiSequence;
+        this.apiSequence = [];
       }
     });
   </script>

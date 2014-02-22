@@ -1,6 +1,6 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 
-<polymer-element name="code-panel" attributes="">
+<polymer-element name="code-panel" attributes="panelName apiSequence">
   <template>
     <style>
       :host {
@@ -13,7 +13,7 @@
       }
     </style>
     <div class="panel panel-default">
-      <div class="panel-heading">{{name}}<button type="button" class="close" on-click="{{remove}}" aria-hidden="true">&times;</button></div>
+      <div class="panel-heading">{{panelName}}<button type="button" class="close" on-click="{{close}}" aria-hidden="true">&times;</button></div>
       <div class="panel-body">
 <pre id="code" contenteditable></pre>
       </div>
@@ -21,7 +21,12 @@
   </template>
   <script>
     Polymer('code-panel', {
-      name: 'Code'
+      panelName: 'Code',
+
+      close: function close() {
+        this.apiSequence.splice(this.apiSequence.indexOf(this), 1);
+        this.remove();
+      }
     });
   </script>
 </polymer-element>

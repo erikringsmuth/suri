@@ -1,14 +1,17 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/elements/code-panel.html">
 
-<polymer-element name="new-code-panel-button" attributes="contentPlaceholder">
+<polymer-element name="new-code-panel-button" attributes="contentPlaceholder apiSequence">
   <template>
     <button type="button" class="btn btn-default" on-click="{{newCodePanel}}"><i class="fa fa-plus"></i> Code</button>
   </template>
   <script>
     Polymer('new-code-panel-button', {
       newCodePanel: function newCodePanel() {
-        this.contentPlaceholder.appendChild(document.createElement('code-panel'));
+        var panel = document.createElement('code-panel');
+        panel.apiSequence = this.apiSequence;
+        this.apiSequence.push(panel);
+        this.contentPlaceholder.appendChild(panel);
       }
     });
   </script>

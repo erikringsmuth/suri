@@ -2,7 +2,7 @@
 <link rel="import" href="/elements/new-xhr-panel-button.html">
 <link rel="import" href="/elements/new-code-panel-button.html">
 
-<polymer-element name="api-sequence-menu" attributes="contentPlaceholder">
+<polymer-element name="api-sequence-menu" attributes="contentPlaceholder apiSequence">
   <template>
     <style>
       :host {
@@ -16,12 +16,12 @@
     </style>
     <h2>API Sequence <button type="button" class="btn btn-default">Save</button></h2>
     <ul class="list-group">
-      <li class="list-group-item">XHR - GET users</li>
-      <li class="list-group-item">Code - Filter developers</li>
-      <li class="list-group-item">XHR - POST to DB</li>
+      <template repeat="{{ item in apiSequence }}">
+        <li class="list-group-item">{{item.panelName}}</li>
+      </template>
     </ul>
-    <new-xhr-panel-button contentplaceholder="{{contentPlaceholder}}"></new-xhr-panel-button>
-    <new-code-panel-button contentplaceholder="{{contentPlaceholder}}"></new-code-panel-button>
+    <new-xhr-panel-button apisequence="{{apiSequence}}" contentplaceholder="{{contentPlaceholder}}"></new-xhr-panel-button>
+    <new-code-panel-button  apisequence="{{apiSequence}}" contentplaceholder="{{contentPlaceholder}}"></new-code-panel-button>
   </template>
   <script>
     Polymer('api-sequence-menu', {
