@@ -42,27 +42,11 @@ footer ul a, footer .text-muted {
   text-shadow: none;
 }
 
-#search {
-  margin-bottom: 10px;
-}
-#search .form-control:focus {
-  box-shadow: inset 0 0 1px 1px #eee;
-  border: 1px solid #aaa;
-}
-
 a, a:hover {
   color: #007fff;
 }
 
-#sequence {
-  white-space: nowrap;
-  overflow: hidden
-}
-#sequence li:hover {
-  background-color: #ebebeb;
-}
-
-/* Make the footer taller to fit 3 lines of text when viewed on a phone */
+/* Make the footer taller when viewed on a phone */
 @media (max-width: 480px) {
   footer {
     height: 115px;

@@ -1,0 +1,15 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/elements/xhr-panel.html">
+
+<polymer-element name="new-xhr-panel-button" attributes="contentPlaceholder">
+  <template>
+    <button type="button" class="btn btn-default" on-click="{{newXhrPanel}}"><i class="fa fa-plus"></i> XHR</button>
+  </template>
+  <script>
+    Polymer('new-xhr-panel-button', {
+      newXhrPanel: function newXhrPanel() {
+        this.contentPlaceholder.appendChild(document.createElement('xhr-panel'));
+      }
+    });
+  </script>
+</polymer-element>

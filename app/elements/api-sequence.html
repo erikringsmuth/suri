@@ -1,0 +1,26 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/elements/api-sequence-menu.html">
+
+<polymer-element name="api-sequence" attributes="">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <div class="row">
+      <div class="col-sm-3">
+        <api-sequence-menu contentplaceholder="{{apiSequence}}"></api-sequence-menu>
+      </div>
+      <div id="apiSequence" class="col-sm-9">
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer('api-sequence', {
+      ready: function() {
+        this.apiSequence = this.$.apiSequence;
+      }
+    });
+  </script>
+</polymer-element>

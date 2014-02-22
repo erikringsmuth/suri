@@ -1,0 +1,24 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<polymer-element name="search-box" attributes="">
+  <template>
+    <style>
+      :host {
+        display: block;
+        margin-bottom: 10px;
+      }
+      :host .form-control:focus {
+        box-shadow: inset 0 0 1px 1px #eee;
+        border: 1px solid #aaa;
+      }
+    </style>
+    <div id="search" class="input-group">
+      <span class="input-group-addon"><i class="fa fa-search"></i></span>
+      <input type="text" class="form-control" placeholder="Search APIs">
+    </div>
+  </template>
+  <script>
+    Polymer('search-box', {
+    });
+  </script>
+</polymer-element>

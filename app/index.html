@@ -3,16 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>suri.io</title>
     <meta name="description" content="suri, hands on access to the world's data">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>suri.io</title>
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" media="screen">
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="bower_components/google-code-prettify/src/prettify.css">
     <link rel="stylesheet" href="styles/prettify-bootstrap-light.css">
     <link rel="stylesheet" href="styles/styles.css">
-    <script src="bower_components/platform/platform.js"></script>
-    <link rel="import" href="elements/rest-panel.html">
+
+    <script src="/bower_components/platform/platform.js"></script>
+    <link rel="import" href="/elements/search-box.html">
+    <link rel="import" href="/elements/api-sequence.html">
   </head>
   <body>
     <a class="sr-only" href="#content">Skip to main content</a>
@@ -33,36 +35,19 @@
             <ul class="nav navbar-nav">
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="/categories.html">Categories</a></li>
-              <li><a href="/trending.html">Trending</a></li>
-              <li><a href="/sites.html">Sites</a></li>
-              <li><a href="/users.html">Users</a></li>
-              <li><a href="https://github.com/erikringsmuth/suri">{{name}} <i class="fa fa-gear"></i></a></li>
+              <li><a href="#/"><i class="fa fa-warning"></i> Under Development</a></li>
             </ul>
           </nav>
-          <div id="search" class="input-group">
-            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-            <input type="text" class="form-control" placeholder="Search APIs">
-          </div>
+
+          <search-box></search-box>
+
         </div>
       </header>
 
       <main class="container" id="content" role="main">
-        <div class="row">
-          <div class="col-sm-3">
-            <h2>API Sequence <button type="button" class="btn btn-default">Save</button></h2>
-            <ul id="sequence" class="list-group">
-              <li class="list-group-item">XHR - GET users</li>
-              <li class="list-group-item">Code - Filter developers</li>
-              <li class="list-group-item">XHR - POST to DB</li>
-            </ul>
-            <button type="button" class="btn btn-default"><i class="fa fa-plus"></i> XHR</button>
-            <button type="button" class="btn btn-default"><i class="fa fa-plus"></i> Code</button>
-          </div>
-          <div class="col-sm-9">
-            <rest-panel name="Welcome!" url="http://suri.io/about.txt" autosend></rest-panel>
-          </div>
-        </div>
+
+        <api-sequence></api-sequence>
+
       </main>
     </div>
 

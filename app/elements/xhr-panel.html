@@ -1,6 +1,6 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/polymer/polymer.html">
 
-<polymer-element name="rest-panel" attributes="name method url xhr send autosend">
+<polymer-element name="xhr-panel" attributes="name method url xhr send autosend">
   <template>
     <style>
       :host {
@@ -63,10 +63,7 @@
     </div>
   </template>
   <script>
-    Polymer('rest-panel', {
-      //applyAuthorStyles: true,
-      //resetStyleInheritance: true,
-
+    Polymer('xhr-panel', {
       // element is fully prepared
       ready: function(){
         if (this.autosend !== false) {
@@ -78,12 +75,6 @@
         this.xhr.onload = this.displayResponse.bind(this);
         this.xhr.onerror = this.displayResponse.bind(this);
       },
-      // instance was inserted into the document
-      enteredView: function() { },
-      // instance was removed from the document
-      leftView: function() { },
-      // attribute added, removed or updated
-      attributeChanged: function(attrName, oldVal, newVal) { },
 
       // properties
       name: 'XHR',
