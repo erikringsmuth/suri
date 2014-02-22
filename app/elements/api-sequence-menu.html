@@ -10,14 +10,23 @@
         white-space: nowrap;
         overflow: hidden
       }
-      :host li:hover {
+      ul {
+        list-style-type: none;
+        margin-left: -40px;
+        border-bottom: 1px dotted #ddd;
+      }
+      li {
+        padding: 10px 5px;
+        border-top: 1px dotted #ddd;
+      }
+      li:hover {
         background-color: #ebebeb;
       }
     </style>
-    <h2>API Sequence <button type="button" class="btn btn-default">Save</button></h2>
-    <ul class="list-group">
+    <h2>API Sequence</h2>
+    <ul>
       <template repeat="{{ item, index in apiSequence }}">
-        <li class="list-group-item" data-index="{{index}}" on-click="{{scrollToPanel}}">{{item.panelName}}<button type="button" class="close" data-index="{{index}}" on-click="{{removePanel}}" aria-hidden="true">&times;</button></li>
+        <li data-index="{{index}}" on-click="{{scrollToPanel}}">{{item.panelName}}<button type="button" class="close" data-index="{{index}}" on-click="{{removePanel}}" aria-hidden="true">&times;</button></li>
       </template>
     </ul>
     <new-xhr-panel-button apisequence="{{apiSequence}}" contentplaceholder="{{contentPlaceholder}}"></new-xhr-panel-button>
@@ -31,6 +40,7 @@
 
       removePanel: function removePanel(event) {
         this.apiSequence[event.target.dataset.index].close();
+        event.stopPropagation();
       }
     });
   </script>
