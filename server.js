@@ -6,6 +6,7 @@ require('newrelic');
 
 var express   = require('express'),
     proxy     = require('./server/proxy'),
+    search     = require('./server/search'),
     app       = express();
 
 app.configure(function() {
@@ -17,14 +18,15 @@ app.configure(function() {
 });
 
 // Welcome text
-app.get('/about.txt', function(req, res){
-  var body = 'sURI, hands on access to the world\'s data!';
-  res.setHeader('Content-Type', 'text/plain');
+app.get('/search', function(req, res) {
+  var result = search.typeahead(req.query.q);
+  var body = JSON.stringify(result);
+  res.setHeader('Content-Type', 'application/json');
   res.setHeader('Content-Length', Buffer.byteLength(body));
   res.end(body);
 });
 
-app.get('/ip', function(req, res){
+app.get('/ip', function(req, res) {
   res.write(req.connection.remoteAddress);
   res.end();
 });

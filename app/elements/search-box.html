@@ -1,5 +1,6 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/elements/search-result-item.html">
 
 <polymer-element name="search-box" attributes="">
   <template>
@@ -9,17 +10,73 @@
         margin-bottom: 10px;
       }
       :host .form-control:focus {
-        box-shadow: inset 0 0 1px 1px #eee;
+        box-shadow: inset 0 0 2px 1px #eee;
         border: 1px solid #aaa;
+      }
+      #searchResults {
+        position: absolute;
+        width: 1060px;
+        padding: 10px;
+        margin-left: 39px;
+        color: #333;
+        text-shadow: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
       }
     </style>
     <div id="search" class="input-group">
       <span class="input-group-addon"><i class="fa fa-search"></i></span>
-      <input type="text" class="form-control" placeholder="Search APIs">
+      <input type="text" class="form-control" on-keydown="{{closeOnEscape}}" placeholder="Search APIs" value="{{searchTerm}}" tabindex="1">
     </div>
+    <template bind if="{{showResults}}">
+      <div id="searchResults" style="width: {{searchResultsWidth}}px">
+        <template repeat="{{result, index in searchResults}}">
+          <search-result-item searchResultItem="{{result}}" tabindex="{{index + 1}}"></search-result-item>
+        </template>
+      </div>
+    </template>
   </template>
   <script>
     Polymer('search-box', {
+      // instance of the element is created
+      created: function() {
+        this.searchResults = [];
+      },
+
+      ready: function() {
+        window.addEventListener('click', function() {
+          this.closeSearchResults();
+        }.bind(this), false);
+      },
+
+      get searchResultsWidth() {
+        return this.offsetParent.offsetWidth - 2 * this.offsetLeft - 39;
+      },
+
+      get showResults() {
+        return this.searchResults.length !== 0;
+      },
+
+      closeOnEscape: function closeOnEscape(event) {
+        if (event.keyCode === 27) {
+          this.closeSearchResults();
+        }
+      },
+
+      closeSearchResults: function closeSearchResults() {
+        this.searchTerm = null;
+        this.searchResults = [];
+      },
+
+      searchTermChanged: function() {
+        if (this.searchTerm) {
+          var term = this.searchTerm.trim();
+          $.ajax('/search?q=' + term)
+            .done(function(data) {
+              this.searchResults = data;
+            }.bind(this));
+        }
+      }
     });
   </script>
 </polymer-element>
