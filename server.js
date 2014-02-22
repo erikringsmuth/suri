@@ -1,3 +1,4 @@
+// Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
 // Heroku performance logging
