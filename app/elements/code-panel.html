@@ -13,13 +13,15 @@
       }
     </style>
     <div class="panel panel-default">
+      <div class="panel-heading">{{name}}<button type="button" class="close" on-click="{{remove}}" aria-hidden="true">&times;</button></div>
       <div class="panel-body">
-        Code Panel
+<pre id="code" contenteditable></pre>
       </div>
     </div>
   </template>
   <script>
     Polymer('code-panel', {
+      name: 'Code'
     });
   </script>
 </polymer-element>

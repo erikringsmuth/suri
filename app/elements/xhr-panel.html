@@ -31,9 +31,12 @@
         border: #e1e1e8 1px solid;
         border-radius: 3px;
       }
+      code:focus {
+        border: 1px solid black;
+      }
     </style>
     <div class="panel panel-default">
-      <div class="panel-heading">{{name}}</div>
+      <div class="panel-heading">{{name}}<button type="button" class="close" on-click="{{remove}}" aria-hidden="true">&times;</button></div>
       <div class="panel-body">
         <div class="uri">
           <select on-change="{{methodChanged}}">
@@ -47,12 +50,10 @@
           <span class="text-muted pull-right">HTTP/1.1</span>
         </div>
         <h4>request headers</h4>
-<pre>
-<code id="requestHeaders" contenteditable></code>
+<pre id="requestHeaders" contenteditable>
 </pre>
         <h4>request body</h4>
-<pre>
-<code id="requestBody" contenteditable></code>
+<pre id="requestBody" contenteditable>
 </pre>
         <button id="send" on-click="{{send}}" type="button" class="btn btn-{{sendButtonClass}}" disabled?="{{sendButtonDisabled}}">Send&nbsp;&nbsp;<i class="fa fa-caret-square-o-right"></i></button>
         <h4>response headers</h4>
