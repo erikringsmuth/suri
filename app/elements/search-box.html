@@ -27,9 +27,9 @@
     </style>
     <div id="search" class="input-group">
       <span class="input-group-addon"><i class="fa fa-search"></i></span>
-      <input type="text" class="form-control" on-keydown="{{closeOnEscape}}" placeholder="Search APIs" value="{{searchTerm}}" tabindex="1">
+      <input type="text" class="form-control" on-keydown="{{closeOnEscape}}" placeholder="Search APIs" value="{{searchTerm}}" tabindex="1" autofocus>
     </div>
-    <template bind if="{{showResults}}">
+    <template bind if="{{searchResults.length}}">
       <div id="searchResults" style="width: {{searchResultsWidth}}px">
         <template repeat="{{result, index in searchResults}}">
           <search-result-item searchResultItem="{{result}}" tabindex="{{index + 1}}"></search-result-item>
@@ -39,23 +39,18 @@
   </template>
   <script>
     Polymer('search-box', {
-      // instance of the element is created
       created: function() {
         this.searchResults = [];
       },
 
       ready: function() {
-        window.addEventListener('click', function() {
-          this.closeSearchResults();
-        }.bind(this), false);
+        window.addEventListener('click', this.closeSearchResults.bind(this), true);
+        window.addEventListener('new-xhr-panel', this.closeSearchResults.bind(this), true);
+        window.addEventListener('new-code-panel', this.closeSearchResults.bind(this), true);
       },
 
       get searchResultsWidth() {
         return this.offsetParent.offsetWidth - 2 * this.offsetLeft - 39;
-      },
-
-      get showResults() {
-        return this.searchResults.length !== 0;
       },
 
       closeOnEscape: function closeOnEscape(event) {
@@ -71,8 +66,7 @@
 
       searchTermChanged: function() {
         if (this.searchTerm) {
-          var term = this.searchTerm.trim();
-          $.ajax('/search?q=' + term)
+          $.ajax('/search?q=' + this.searchTerm.trim())
             .done(function(data) {
               this.searchResults = data;
             }.bind(this));

@@ -1,7 +1,7 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
 <link rel="import" href="/bower_components/polymer/polymer.html">
 
-<polymer-element name="search-result-item" attributes="searchResultItem">
+<polymer-element name="search-result-item" attributes="searchResultItem" on-click="{{open}}" on-keydown="{{openOnEnter}}">
   <template>
     <style>
       :host {
@@ -19,16 +19,20 @@
         color: #777;
       }
     </style>
-    <div on-click="{{openResultItem}}">
-      <span class="name">{{searchResultItem.name}}</span>
-      <span class="method">{{searchResultItem.method}}</span>
-      <span class="url">{{searchResultItem.url}}</span>
-    </div>
+    <span class="name">{{searchResultItem.name}}</span>
+    <span class="method">{{searchResultItem.method}}</span>
+    <span class="url">{{searchResultItem.url}}</span>
   </template>
   <script>
     Polymer('search-result-item', {
-      openResultItem: function openResultItem() {
+      open: function open() {
         window.dispatchEvent(new CustomEvent('new-xhr-panel', {detail: this.searchResultItem}));
+      },
+
+      openOnEnter: function openOnEnter(event) {
+        if(event.keyCode === 13) {
+          this.open();
+        }
       }
     });
   </script>
