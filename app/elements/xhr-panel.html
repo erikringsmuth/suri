@@ -38,6 +38,16 @@
       #showMoreButton {
         width: 100%;
       }
+      @media (max-width: 991px) {
+        input {
+          width: 73%;
+        }
+      }
+      @media (max-width: 767px) {
+        input {
+          width: 62%;
+        }
+      }
     </style>
     <div class="panel panel-default">
       <div class="panel-heading">{{name}}<button type="button" class="close" on-click="{{close}}" aria-hidden="true">&times;</button></div>
