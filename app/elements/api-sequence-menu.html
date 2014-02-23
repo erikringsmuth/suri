@@ -11,6 +11,7 @@
         white-space: nowrap;
         overflow: hidden;
         position: relative;
+        margin-bottom: 40px;
       }
       ul {
         list-style-type: none;
@@ -26,7 +27,12 @@
       }
       new-xhr-panel-button button,
       new-code-panel-button button {
-        width: 49%;
+        width: 48%;
+      }
+      @media (max-width: 767px) {
+        :host {
+          position: static;
+        }
       }
     </style>
     <h2>API Sequence</h2>

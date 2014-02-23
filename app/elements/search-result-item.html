@@ -20,8 +20,10 @@
       }
     </style>
     <span class="name">{{searchResultItem.name}}</span>
-    <span class="method">{{searchResultItem.method}}</span>
-    <span class="url">{{searchResultItem.url}}</span>
+    <span>
+      <span class="method">{{searchResultItem.method}}</span>
+      <span class="url">{{searchResultItem.url}}</span>
+    </span>
   </template>
   <script>
     Polymer('search-result-item', {
