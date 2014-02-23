@@ -9,7 +9,7 @@
         display: block;
       }
     </style>
-    <div class="row">
+    <div class="row" on-new-xhr-panel="{{newXhrPanel}}" on-new-code-panel="{{newCodePanel}}">
       <div class="col-sm-3">
         <api-sequence-menu apisequence="{{apiSequence}}" contentplaceholder="{{$.contentPlaceholder}}"></api-sequence-menu>
       </div>
@@ -21,6 +21,20 @@
     Polymer('api-sequence', {
       created: function() {
         this.apiSequence = [];
+      },
+
+      newXhrPanel: function newXhrPanel(details) {
+        var panel = document.createElement('xhr-panel');
+        panel.apiSequence = this.apiSequence;
+        this.apiSequence.push(panel);
+        this.$.contentPlaceholder.appendChild(panel);
+      },
+
+      newCodePanel: function newCodePanel(details) {
+        var panel = document.createElement('code-panel');
+        panel.apiSequence = this.apiSequence;
+        this.apiSequence.push(panel);
+        this.$.contentPlaceholder.appendChild(panel);
       }
     });
   </script>

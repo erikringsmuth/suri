@@ -3,7 +3,7 @@
 <link rel="import" href="/elements/new-xhr-panel-button.html">
 <link rel="import" href="/elements/new-code-panel-button.html">
 
-<polymer-element name="api-sequence-menu" attributes="contentPlaceholder apiSequence">
+<polymer-element name="api-sequence-menu" attributes="apiSequence">
   <template>
     <style>
       :host {
@@ -35,8 +35,8 @@
         <li data-index="{{index}}" on-click="{{scrollToPanel}}">{{item.panelName}}<button type="button" class="close" data-index="{{index}}" on-click="{{removePanel}}" aria-hidden="true">&times;</button></li>
       </template>
     </ul>
-    <new-xhr-panel-button apisequence="{{apiSequence}}" contentplaceholder="{{contentPlaceholder}}"></new-xhr-panel-button>
-    <new-code-panel-button  apisequence="{{apiSequence}}" contentplaceholder="{{contentPlaceholder}}"></new-code-panel-button>
+    <new-xhr-panel-button></new-xhr-panel-button>
+    <new-code-panel-button></new-code-panel-button>
   </template>
   <script>
     Polymer('api-sequence-menu', {
