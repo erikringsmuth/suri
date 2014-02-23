@@ -9,6 +9,9 @@ var express   = require('express'),
     search     = require('./server/search'),
     app       = express();
 
+// Don't add the X-Powered-By header
+app.disable('x-powered-by');
+
 app.configure(function() {
   // Proxy requests with 'api-host' header
   app.use(proxy);
