@@ -9,7 +9,7 @@
   <script>
     Polymer('new-code-panel-button', {
       newCodePanel: function newCodePanel() {
-        this.fire('new-code-panel');
+        window.dispatchEvent(new CustomEvent('new-code-panel'));
       }
     });
   </script>

@@ -9,7 +9,7 @@
         display: block;
       }
     </style>
-    <div class="row" on-new-xhr-panel="{{newXhrPanel}}" on-new-code-panel="{{newCodePanel}}">
+    <div class="row">
       <div class="col-sm-3">
         <api-sequence-menu apisequence="{{apiSequence}}"></api-sequence-menu>
       </div>
@@ -23,18 +23,22 @@
         this.apiSequence = [];
       },
 
-      newXhrPanel: function newXhrPanel(details) {
-        var panel = document.createElement('xhr-panel');
-        panel.apiSequence = this.apiSequence;
-        this.apiSequence.push(panel);
-        this.$.contentPlaceholder.appendChild(panel);
-      },
+      ready: function() {
+        // New XHR panel
+        window.addEventListener('new-xhr-panel', function newXhrPanel(details) {
+          var panel = document.createElement('xhr-panel');
+          panel.apiSequence = this.apiSequence;
+          this.apiSequence.push(panel);
+          this.$.contentPlaceholder.appendChild(panel);
+        }.bind(this), true);
 
-      newCodePanel: function newCodePanel(details) {
-        var panel = document.createElement('code-panel');
-        panel.apiSequence = this.apiSequence;
-        this.apiSequence.push(panel);
-        this.$.contentPlaceholder.appendChild(panel);
+        // New code panel
+        window.addEventListener('new-code-panel', function newXhrPanel(details) {
+          var panel = document.createElement('code-panel');
+          panel.apiSequence = this.apiSequence;
+          this.apiSequence.push(panel);
+          this.$.contentPlaceholder.appendChild(panel);
+        }.bind(this), true);
       }
     });
   </script>

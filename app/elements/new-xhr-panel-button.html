@@ -9,7 +9,7 @@
   <script>
     Polymer('new-xhr-panel-button', {
       newXhrPanel: function newXhrPanel() {
-        this.fire('new-xhr-panel');
+        window.dispatchEvent(new CustomEvent('new-xhr-panel'));
       }
     });
   </script>
