@@ -18,6 +18,7 @@
     <script src="/bower_components/google-code-prettify/src/prettify.js"></script>
     <link rel="import" href="/elements/search-box.html">
     <link rel="import" href="/elements/api-sequence.html">
+    <link rel="import" href="/elements/profile-menu.html">
   </head>
   <body>
     <a class="sr-only" href="#content">Skip to main content</a>
@@ -39,18 +40,15 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#/"><i class="fa fa-warning"></i> Beta</a></li>
+              <li><profile-menu></profile-menu></li>
             </ul>
           </nav>
-
           <search-box></search-box>
-
         </div>
       </header>
 
       <main class="container" id="content" role="main">
-
         <api-sequence></api-sequence>
-
       </main>
     </div>
 
