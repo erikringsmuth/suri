@@ -24,28 +24,28 @@
       },
 
       ready: function() {
-        var newPanel = function newPanel(panel, detail) {
+        var newPanel = function newPanel(tagName, event) {
+          // Create and append a new panel of type 'xhr-panel' or 'code-panel'
+          var panel = document.createElement(tagName)
+
+          // Give it a reference to the API sequence
           panel.apiSequence = this.apiSequence;
 
-          for (var property in detail) {
-            if (detail.hasOwnProperty(property)) {
-              panel[property] = detail[property];
+          // Copy the properties over from the event detail
+          for (var property in event.detail) {
+            if (event.detail.hasOwnProperty(property)) {
+              panel[property] = event.detail[property];
             }
           }
 
+          // Add the panel to the API sequence and attach it to the document
           this.apiSequence.push(panel);
           this.$.contentPlaceholder.appendChild(panel);
         }.bind(this);
 
-        // New XHR panel
-        window.addEventListener('new-xhr-panel', function newXhrPanel(event) {
-          newPanel(document.createElement('xhr-panel'), event.detail);
-        }, true);
-
-        // New code panel
-        window.addEventListener('new-code-panel', function newCodePanel(event) {
-          newPanel(document.createElement('code-panel'), event.detail);
-        }, true);
+        // Listen to new panel events
+        window.addEventListener('new-xhr-panel', newPanel.bind(null, 'xhr-panel'), true);
+        window.addEventListener('new-code-panel', newPanel.bind(null, 'code-panel'), true);
       }
     });
   </script>
