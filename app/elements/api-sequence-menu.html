@@ -32,7 +32,7 @@
     <h2>API Sequence</h2>
     <ul>
       <template repeat="{{ item, index in apiSequence }}">
-        <li data-index="{{index}}" on-click="{{scrollToPanel}}">{{item.panelName}}<button type="button" class="close" data-index="{{index}}" on-click="{{removePanel}}" aria-hidden="true">&times;</button></li>
+        <li data-index="{{index}}" on-click="{{scrollToPanel}}">{{item.name}}<button type="button" class="close" data-index="{{index}}" on-click="{{removePanel}}" aria-hidden="true">&times;</button></li>
       </template>
     </ul>
     <new-xhr-panel-button></new-xhr-panel-button>

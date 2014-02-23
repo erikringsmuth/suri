@@ -1,7 +1,7 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
 <link rel="import" href="/bower_components/polymer/polymer.html">
 
-<polymer-element name="xhr-panel" attributes="panelName method url xhr send autosend close apiSequence">
+<polymer-element name="xhr-panel" attributes="name method url xhr send autosend close apiSequence">
   <template>
     <style>
       :host {
@@ -40,7 +40,7 @@
       }
     </style>
     <div class="panel panel-default">
-      <div class="panel-heading">{{panelName}}<button type="button" class="close" on-click="{{close}}" aria-hidden="true">&times;</button></div>
+      <div class="panel-heading">{{name}}<button type="button" class="close" on-click="{{close}}" aria-hidden="true">&times;</button></div>
       <div class="panel-body">
         <div class="uri">
           <select on-change="{{methodChanged}}">
@@ -87,7 +87,7 @@
       },
 
       // properties
-      panelName: 'XHR',
+      name: 'XHR',
       method: 'GET',
       url: 'http://',
       autosend: false,

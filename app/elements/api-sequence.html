@@ -2,7 +2,7 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/elements/api-sequence-menu.html">
 
-<polymer-element name="api-sequence" attributes="">
+<polymer-element name="api-sequence" propertyibutes="">
   <template>
     <style>
       :host {
@@ -24,21 +24,28 @@
       },
 
       ready: function() {
-        // New XHR panel
-        window.addEventListener('new-xhr-panel', function newXhrPanel(details) {
-          var panel = document.createElement('xhr-panel');
+        var newPanel = function newPanel(panel, detail) {
           panel.apiSequence = this.apiSequence;
+
+          for (var property in detail) {
+            if (detail.hasOwnProperty(property)) {
+              panel[property] = detail[property];
+            }
+          }
+
           this.apiSequence.push(panel);
           this.$.contentPlaceholder.appendChild(panel);
-        }.bind(this), true);
+        }.bind(this);
+
+        // New XHR panel
+        window.addEventListener('new-xhr-panel', function newXhrPanel(event) {
+          newPanel(document.createElement('xhr-panel'), event.detail);
+        }, true);
 
         // New code panel
-        window.addEventListener('new-code-panel', function newXhrPanel(details) {
-          var panel = document.createElement('code-panel');
-          panel.apiSequence = this.apiSequence;
-          this.apiSequence.push(panel);
-          this.$.contentPlaceholder.appendChild(panel);
-        }.bind(this), true);
+        window.addEventListener('new-code-panel', function newCodePanel(event) {
+          newPanel(document.createElement('code-panel'), event.detail);
+        }, true);
       }
     });
   </script>
