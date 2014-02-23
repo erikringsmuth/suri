@@ -28,7 +28,7 @@
   <script>
     Polymer('search-result-item', {
       openResultItem: function openResultItem() {
-        this.fire('new-xhr-panel', this.searchResultItem);
+        this.fire('new-xhr-panel', this.searchResultItem, document.querySelector('api-sequence'));
       }
     });
   </script>
