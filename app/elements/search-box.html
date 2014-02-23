@@ -59,9 +59,11 @@
         }
       },
 
-      closeSearchResults: function closeSearchResults() {
-        this.searchTerm = null;
-        this.searchResults = [];
+      closeSearchResults: function closeSearchResults(event) {
+        if (event.target !== this) {
+          this.searchTerm = null;
+          this.searchResults = [];
+        }
       },
 
       searchTermChanged: function() {
