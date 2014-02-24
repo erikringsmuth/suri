@@ -1,6 +1,7 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
 <link rel="import" href="/bower_components/polymer/polymer.html">
 <link rel="import" href="/elements/api-sequence-menu.html">
+<link rel="import" href="/elements/suri-tutorial.html">
 
 <polymer-element name="api-sequence" propertyibutes="">
   <template>
@@ -14,6 +15,7 @@
         <api-sequence-menu apisequence="{{apiSequence}}"></api-sequence-menu>
       </div>
       <div id="contentPlaceholder" class="col-sm-9">
+        <suri-tutorial id="suriTutorial"></suri-tutorial>
       </div>
     </div>
   </template>
@@ -25,6 +27,9 @@
 
       ready: function() {
         var newPanel = function newPanel(tagName, event) {
+          // Hide the info panel
+          this.$.suriTutorial.style.display = 'none';
+
           // Create and append a new panel of type 'xhr-panel' or 'code-panel'
           var panel = document.createElement(tagName);
 
