@@ -35,12 +35,12 @@
     </style>
     <div id="search" class="input-group">
       <span class="input-group-addon"><i class="fa fa-search"></i></span>
-      <input type="text" class="form-control" on-keydown="{{closeOnEscape}}" placeholder="Search APIs" value="{{searchTerm}}" tabindex="1" autofocus>
+      <input id="searchInput" type="text" class="form-control" on-keydown="{{keydownEventHandler}}" placeholder="Search APIs" value="{{searchTerm}}" tabindex="1" autofocus>
     </div>
     <template bind if="{{searchResults.length}}">
       <div id="searchResults" style="width: {{searchResultsWidth}}px">
         <template repeat="{{result, index in searchResults}}">
-          <search-result-item searchResultItem="{{result}}" tabindex="{{index + 1}}"></search-result-item>
+          <search-result-item searchResultItem="{{result}}" tabindex="{{index + 2}}"></search-result-item>
         </template>
       </div>
     </template>
@@ -55,15 +55,26 @@
         window.addEventListener('click', this.closeSearchResults.bind(this), true);
         window.addEventListener('new-xhr-panel', this.closeSearchResults.bind(this), true);
         window.addEventListener('new-code-panel', this.closeSearchResults.bind(this), true);
+        window.addEventListener('navigate', function(event) {
+          if (event.detail.tabIndex === this.$.searchInput.tabIndex) {
+            this.$.searchInput.focus();
+          }
+        }.bind(this), true);
       },
 
       get searchResultsWidth() {
         return this.offsetParent.offsetWidth - 2 * this.offsetLeft - 37;
       },
 
-      closeOnEscape: function closeOnEscape(event) {
+      keydownEventHandler: function keydownEventHandler(event) {
+        // Close on escape
         if (event.keyCode === 27) {
           this.closeSearchResults(event);
+        }
+
+        // Fire a navigate event on a down arrow
+        if (event.keyCode === 40) {
+          window.dispatchEvent(new CustomEvent('navigate', {detail: {tabIndex: event.target.tabIndex + 1}}));
         }
       },
 
