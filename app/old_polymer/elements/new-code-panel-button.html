@@ -1,0 +1,16 @@
+<!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/elements/code-panel.html">
+
+<polymer-element name="new-code-panel-button" attributes="">
+  <template>
+    <button type="button" class="btn btn-default" on-click="{{newCodePanel}}"><i class="fa fa-plus"></i> Code</button>
+  </template>
+  <script>
+    Polymer('new-code-panel-button', {
+      newCodePanel: function newCodePanel() {
+        window.dispatchEvent(new CustomEvent('new-code-panel'));
+      }
+    });
+  </script>
+</polymer-element>

@@ -1,0 +1,33 @@
+<!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<polymer-element name="code-panel" attributes="name close apiSequence">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      pre {
+        background-color: #fdfdfd;
+        border: #e1e1e8 1px solid;
+        border-radius: 3px;
+      }
+    </style>
+    <div class="panel panel-default">
+      <div class="panel-heading">{{name}}<button type="button" class="close" on-click="{{close}}" aria-hidden="true">&times;</button></div>
+      <div class="panel-body">
+<pre id="code" contenteditable></pre>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer('code-panel', {
+      name: 'Code',
+
+      close: function close() {
+        this.apiSequence.splice(this.apiSequence.indexOf(this), 1);
+        this.remove();
+      }
+    });
+  </script>
+</polymer-element>

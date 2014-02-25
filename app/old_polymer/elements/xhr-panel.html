@@ -1,0 +1,228 @@
+<!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<polymer-element name="xhr-panel" attributes="name method url xhr send autosend close apiSequence">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      select {
+        border: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+      }
+      select::-ms-expand {
+        display: none;
+      }
+      input {
+        border: none;
+      }
+      input {
+        width: 80%;
+      }
+      .uri {
+        padding: 5px;
+        background-color: #fdfdfd;
+        border: #e1e1e8 1px solid;
+        border-radius: 3px;
+      }
+      pre {
+        background-color: #fdfdfd;
+        border: #e1e1e8 1px solid;
+        border-radius: 3px;
+      }
+      code:focus {
+        border: 1px solid black;
+      }
+      #showMoreButton {
+        width: 100%;
+      }
+      @media (max-width: 991px) {
+        input {
+          width: 73%;
+        }
+      }
+      @media (max-width: 767px) {
+        input {
+          width: 62%;
+        }
+      }
+    </style>
+    <div class="panel panel-default">
+      <div class="panel-heading">{{name}}<button type="button" class="close" on-click="{{close}}" aria-hidden="true">&times;</button></div>
+      <div class="panel-body">
+        <div class="uri">
+          <select on-change="{{methodChanged}}">
+            <option value="POST">POST</option>
+            <option value="GET" selected>GET</option>
+            <option value="PUT">PUT</option>
+            <option value="PATCH">PATCH</option>
+            <option value="DELETE">DELETE</option>
+          </select>
+          <input type="text" value="{{url}}" on-keypress="{{sendOnEnter}}" placeholder="http://">
+          <span class="text-muted pull-right">HTTP/1.1</span>
+        </div>
+        <h4>request headers</h4>
+<pre id="requestHeaders" contenteditable>
+</pre>
+        <h4>request body</h4>
+<pre id="requestBody" contenteditable>
+</pre>
+        <button id="send" on-click="{{send}}" type="button" class="btn btn-{{sendButtonClass}}" disabled?="{{sendButtonDisabled}}">Send&nbsp;&nbsp;<i class="fa fa-caret-square-o-right"></i></button>
+        <h4>response headers</h4>
+<pre><code id="responseHeaders">{{responseHeaders}}</code></pre>
+        <h4>response body</h4>
+<pre><code id="responseBody"></code></pre>
+        <template bind if="{{showMoreButton}}">
+          <button id="showMoreButton" on-click="{{displayEntireResponse}}" type="button" class="btn btn-default">Show full response ({{responseBodyLength}} characters)</button>
+        </template>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer('xhr-panel', {
+      // instance of the element is created
+      created: function() {
+        this.xhr = new XMLHttpRequest;
+        this.xhr.onload = this.displayResponse.bind(this);
+        this.xhr.onerror = this.displayResponse.bind(this);
+      },
+
+      // element is fully prepared
+      ready: function(){
+        if (this.autosend !== false) {
+          this.send();
+        }
+      },
+
+      // properties
+      name: 'XHR',
+      method: 'GET',
+      url: 'http://',
+      autosend: false,
+      responseBody: '',
+      get responseBodyLength() { return (this.responseBody.length).toLocaleString(); },
+      sendButtonClass: 'default',
+      sendButtonDisabled: false,
+      showMoreButton: false,
+
+      // event handlers
+      methodChanged: function methodChanged(event) {
+        this.method = event.target.value;
+      },
+
+      sendOnEnter: function sendOnEnter(event) {
+        if (event.keyCode === 13) {
+          this.send();
+        }
+      },
+
+      close: function close() {
+        this.apiSequence.splice(this.apiSequence.indexOf(this), 1);
+        this.remove();
+      },
+
+      send: function send() {
+        this.sendButtonClass = 'default';
+        this.sendButtonDisabled = true;
+
+        var pUrl = this.parsedUrl();
+        this.xhr.open(this.method, pUrl.path, true);
+        if (pUrl.host !== 'http://suri.io/' && pUrl.host !== 'http://www.suri.io/') {
+          this.xhr.setRequestHeader('api-host', pUrl.host);
+        }
+        var headers = this.parsedRequestHeaders();
+        for (var header in headers) {
+          if (headers.hasOwnProperty(header)) {
+            this.xhr.setRequestHeader(header, headers[header]);
+          }
+        }
+
+        try {
+          this.xhr.send(this.$.requestBody.innerText);
+        } catch (exception) {
+          this.$.responseBody.innerHTML = JSON.stringify(exception, null, 2);
+        }
+      },
+
+      // helper methods
+      parsedRequestHeaders: function parsedRequestHeaders() {
+        var headers = {};
+        var headerLines = this.$.requestHeaders.innerText.split('\n');
+        if (headerLines.length === 1 && headerLines[0] === '') {
+          // because callling split on an empty string returns ['']
+          headerLines = [];
+        }
+        for (var i = 0; i < headerLines.length; i++) {
+          var headerParts = headerLines[i].split(':');
+          headers[headerParts[0].trim()] = headerParts.splice(1).join(':').trim();
+        }
+        return headers;
+      },
+
+      parsedUrl: function parsedUrl() {
+        var result = {
+          path: '',
+          host: ''
+        };
+
+        var url = this.url;
+        if (url.substring(0, 4) !== 'http') {
+          url = 'http://' + url;
+        }
+        result.host = 'http://' + url.split('/')[2] + '/';
+        result.path = '/' + url.split('/').splice(3).join('/');
+
+        return result;
+      },
+
+      displayResponse: function displayResponse() {
+        // update send button
+        this.sendButtonDisabled = false;
+        if (this.xhr.status >= 200 && this.xhr.status < 300) {
+          this.sendButtonClass = 'success';
+        } else {
+          this.sendButtonClass = 'danger';
+        }
+
+        // headers
+        this.responseHeaders = 'HTTP/1.1 ' + this.xhr.status + ' ' + this.xhr.statusText + '\n' + this.xhr.getAllResponseHeaders();
+
+        // body
+        var contentType = this.xhr.getResponseHeader('content-type');
+        this.responseBody = '';
+        if (contentType) {
+          if (contentType.indexOf('json') !== -1 || contentType.indexOf('javascript') !== -1) {
+            this.responseBody = JSON.stringify(JSON.parse(this.xhr.response), null, 2);
+          } else if (contentType.indexOf('xml') !== -1) {
+            this.responseBody = this.xhr.responseXML;
+          } else if (contentType.indexOf('html') !== -1) {
+            this.responseBody = this.xhr.response
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;")
+              .replace(/'/g, "&#039;");
+          } else {
+            this.responseBody = this.xhr.response;
+          }
+        } else {
+          this.responseBody = this.xhr.response;
+        }
+
+        if (this.responseBody.length > 3000) {
+          this.$.responseBody.innerHTML = prettyPrintOne(this.responseBody.substring(0, 3000));
+          this.showMoreButton = true;
+        } else {
+          this.displayEntireResponse();
+        }
+      },
+
+      displayEntireResponse: function displayEntireResponse() {
+        this.$.responseBody.innerHTML = prettyPrintOne(this.responseBody);
+        this.showMoreButton = false;
+      }
+    });
+  </script>
+</polymer-element>

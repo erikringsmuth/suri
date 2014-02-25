@@ -1,0 +1,117 @@
+<!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<polymer-element name="profile-menu" attributes="">
+  <template>
+    <style>
+      :host {
+        display: block;
+        position: relative;
+        float: left;
+        text-shadow: none;
+      }
+      #menuButton,
+      #menuButton {
+        display: block;
+        position: relative;
+        padding: 15px;
+        line-height: 20px;
+        color: #fff;
+        text-shadow: 0px 1px 0px #215b90;
+      }
+      #menuButton:hover {
+        text-decoration: none;
+        text-shadow: 0px 1px 2px #215b90;
+      }
+      .menu {
+        width: 170px;
+        left: -100px;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        color: #333;
+        z-index: 999;
+        padding: 10px;
+      }
+      ul {
+        list-style-type: none;
+      }
+      .menu li {
+        margin-left: -40px;
+        padding: 7px;
+      }
+      .menu li:hover {
+        background-color: #ebebeb;
+      }
+    </style>
+    <a href="#/" id="menuButton" on-click="{{toggleMenu}}">Profile <b class="caret"></b></a>
+    <template bind if="{{open}}">
+      <div class="menu">
+        <ul>
+          <li>
+            <span id="signinButton">
+              Sign In
+              <span class="g-signin" data-callback="signinCallback" data-clientid="838945892575-97eh2eka9prpaurmlibqft86if2r98cs.apps.googleusercontent.com" data-cookiepolicy="single_host_origin" data-scope="profile" data-theme="light"></span>
+            </span>
+          </li>
+          <li>Settings</li>
+        </ul>
+      </div>
+    </template>
+  </template>
+  <script>
+    Polymer('profile-menu', {
+      open: false,
+
+      toggleMenu: function(event) {
+        this.open = !this.open;
+        event.preventDefault();
+      },
+
+      //applyAuthorStyles: true,
+      //resetStyleInheritance: true,
+
+      // element is fully prepared
+      ready: function(){ },
+      // instance of the element is created
+      created: function() { },
+      // instance was inserted into the document
+      enteredView: function() {
+        // window.addEventListener('click', function(event) {
+        //   if (this.$.profileMenu.style.display === 'block') {
+        //     this.$.profileMenu.style.display = 'none';
+        //   }
+        // }.bind(this), true);
+
+        // Sign-in callback
+        // window.signinCallback = function signinCallback(authResult) {
+        //   if (authResult['status']['signed_in']) {
+        //     // Update the app to reflect a signed in user
+        //     // Hide the sign-in button now that the user is authorized, for example:
+        //     //document.getElementById('signinButton').setAttribute('style', 'display: none');
+        //     console.log(gapi.auth.getToken());
+        //   } else {
+        //     // Update the app to reflect a signed out user
+        //     // Possible error values:
+        //     //   "user_signed_out" - User is signed-out
+        //     //   "access_denied" - User denied access to your app
+        //     //   "immediate_failed" - Could not automatically log in the user
+        //     console.log('Sign-in state: ' + authResult['error']);
+        //   }
+        // }
+
+        // // Async load the sign-in button
+        // var plusOneScriptElement = document.createElement('script');
+        // plusOneScriptElement.type = 'text/javascript';
+        // plusOneScriptElement.async = true;
+        // plusOneScriptElement.src = 'https://apis.google.com/js/client:plusone.js';
+        // var firstScriptElement = document.getElementsByTagName('script')[0];
+        // firstScriptElement.parentNode.insertBefore(plusOneScriptElement, firstScriptElement);
+      },
+      // instance was removed from the document
+      leftView: function() { },
+      // attribute added, removed or updated
+      attributeChanged: function(attrName, oldVal, newVal) { }
+    });
+  </script>
+</polymer-element>

@@ -1,0 +1,98 @@
+<!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/elements/search-result-item.html">
+
+<polymer-element name="search-box" attributes="">
+  <template>
+    <style>
+      :host {
+        display: block;
+        margin-bottom: 10px;
+        text-shadow: none;
+      }
+      #search {
+        border-radius: 4px;
+        box-shadow: 0px 1px 0px #2465a0;
+      }
+      #search span, #search input {
+        box-shadow: none;
+        border: none;
+      }
+      #search .form-control:focus {
+        box-shadow: inset 0 0 1px #777;
+      }
+      #searchResults {
+        position: absolute;
+        width: 1060px;
+        padding: 10px;
+        margin-left: 37px;
+        color: #333;
+        text-shadow: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      }
+    </style>
+    <div id="search" class="input-group">
+      <span class="input-group-addon"><i class="fa fa-search"></i></span>
+      <input id="searchInput" type="text" class="form-control" on-keydown="{{keydownEventHandler}}" placeholder="Search APIs" value="{{searchTerm}}" tabindex="1" autofocus>
+    </div>
+    <template bind if="{{searchResults.length}}">
+      <div id="searchResults" style="width: {{searchResultsWidth}}px">
+        <template repeat="{{result, index in searchResults}}">
+          <search-result-item searchResultItem="{{result}}" tabindex="{{index + 2}}"></search-result-item>
+        </template>
+      </div>
+    </template>
+  </template>
+  <script>
+    Polymer('search-box', {
+      created: function() {
+        this.searchResults = [];
+      },
+
+      ready: function() {
+        window.addEventListener('click', this.closeSearchResults.bind(this), true);
+        window.addEventListener('new-xhr-panel', this.closeSearchResults.bind(this), true);
+        window.addEventListener('new-code-panel', this.closeSearchResults.bind(this), true);
+        window.addEventListener('navigate', function(event) {
+          if (event.detail.tabIndex === this.$.searchInput.tabIndex) {
+            this.$.searchInput.focus();
+          }
+        }.bind(this), true);
+      },
+
+      get searchResultsWidth() {
+        return this.offsetParent.offsetWidth - 2 * this.offsetLeft - 37;
+      },
+
+      keydownEventHandler: function keydownEventHandler(event) {
+        // Close on escape
+        if (event.keyCode === 27) {
+          this.closeSearchResults(event);
+        }
+
+        // Fire a navigate event on a down arrow
+        if (event.keyCode === 40) {
+          window.dispatchEvent(new CustomEvent('navigate', {detail: {tabIndex: event.target.tabIndex + 1}}));
+        }
+      },
+
+      closeSearchResults: function closeSearchResults(event) {
+        if (event.target !== this) {
+          this.searchTerm = null;
+          this.searchResults = [];
+        }
+      },
+
+      searchTermChanged: function() {
+        if (this.searchTerm) {
+          $.ajax('/search?q=' + this.searchTerm.trim())
+            .done(function(data) {
+              this.searchResults = data;
+            }.bind(this));
+        }
+      }
+    });
+  </script>
+</polymer-element>
