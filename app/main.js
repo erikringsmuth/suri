@@ -7,6 +7,7 @@ define([], function() {
       'text': 'bower_components/requirejs-text/text',
       'router': 'bower_components/requirejs-router/router',
       'nex': 'bower_components/nex-js/nex',
+      'ractive': 'bower_components/ractive/Ractive',
       'handlebars': 'bower_components/handlebars/handlebars',
       'jquery': 'bower_components/jquery/jquery.min',
       'jquery.easing': '/bower_components/jquery-easing/jquery.easing.min',
