@@ -15,8 +15,12 @@ define([
     },
 
     init: function() {
-      window.addEventListener('click', this.closeSearchResults.bind(this), true);
       window.addEventListener('resize', this.setSearchResultsWidth.bind(this), true);
+      window.addEventListener('keydown', function(event) {
+        if (event.keyCode === 27) {
+          this.nodes.searchInput.focus();
+        }
+      }.bind(this), true);
 
       this.observe({
         searchTerm: function(searchTerm) {
@@ -36,7 +40,7 @@ define([
         closeOnEscape: function closeOnEscape(event) {
           // Close on escape
           if (event.original.keyCode === 27) {
-            this.closeSearchResults(event);
+            this.closeSearchResults();
           }
         },
 
@@ -53,14 +57,14 @@ define([
           }
         },
 
-        openResult: function openResult(event) {
+        openResult: function openResult(event, item) {
           this.closeSearchResults();
-          window.dispatchEvent(new CustomEvent('new-xhr-panel', {detail: this.get('searchResults.' + event.original.target.dataset.index)}));
+          window.dispatchEvent(new CustomEvent('new-xhr-panel', {detail: item}));
         },
 
-        openResultOnEnter: function openResultOnEnter(event) {
+        openResultOnEnter: function openResultOnEnter(event, item) {
           if (event.original.keyCode === 13) {
-            this.fire('openResult', event);
+            this.fire('openResult', event, item);
           }
         }
       });
@@ -70,11 +74,9 @@ define([
       this.set('searchResultsWidth', this.el.offsetParent.offsetWidth - 2 * this.el.offsetLeft - 37);
     },
 
-    closeSearchResults: function closeSearchResults(event) {
-      if (!event || event.target !== this.nodes.searchInput) {
-        this.set('searchTerm', null);
-        this.set('searchResults', []);
-      }
+    closeSearchResults: function closeSearchResults() {
+      this.set('searchTerm', null);
+      this.set('searchResults', []);
     }
   });
 });
