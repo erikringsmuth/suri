@@ -17,8 +17,6 @@ define([
     init: function() {
       window.addEventListener('click', this.closeSearchResults.bind(this), true);
       window.addEventListener('resize', this.setSearchResultsWidth.bind(this), true);
-      window.addEventListener('new-xhr-panel', this.closeSearchResults.bind(this), true);
-      window.addEventListener('new-code-panel', this.closeSearchResults.bind(this), true);
 
       this.observe({
         searchTerm: function(searchTerm) {
@@ -53,6 +51,17 @@ define([
             var targetItem = this.find('[tabindex="' + nextTabIndex + '"]');
             if (targetItem) targetItem.focus();
           }
+        },
+
+        openResult: function openResult(event) {
+          this.closeSearchResults();
+          window.dispatchEvent(new CustomEvent('new-xhr-panel', {detail: this.get('searchResults.' + event.original.target.dataset.index)}));
+        },
+
+        openResultOnEnter: function openResultOnEnter(event) {
+          if (event.original.keyCode === 13) {
+            this.fire('openResult', event);
+          }
         }
       });
     },
@@ -62,7 +71,7 @@ define([
     },
 
     closeSearchResults: function closeSearchResults(event) {
-      if (event.target !== this.nodes.searchInput) {
+      if (!event || event.target !== this.nodes.searchInput) {
         this.set('searchTerm', null);
         this.set('searchResults', []);
       }

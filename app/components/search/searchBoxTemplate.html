@@ -6,8 +6,8 @@
   </div>
   {{#searchResults.length}}
   <div id="searchResults" style="width: {{searchResultsWidth}}px">
-    {{#searchResults:i}}
-    <div class="searchResultItem" tabindex="{{i + 2}}">
+    {{#searchResults:index}}
+    <div class="searchResultItem" tabindex="{{index + 2}}" data-index="{{index}}" on-click="openResult" on-keydown="openResultOnEnter">
       <span class="name">{{name}}</span>
       <span>
         <span class="method">{{method}}</span>
