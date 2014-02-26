@@ -1,0 +1,23 @@
+<!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
+<div class="row">
+  <div class="col-sm-3">
+    <div id="api-sequence-menu">
+      <h2>API Sequence</h2>
+      <ul>
+        {{#apiSequence}}
+        <li on-click="scrollToPanel:{{this}}">
+          {{this.get('name')}}<button type="button" class="close" on-click="removePanel:{{this}}" aria-hidden="true">&times;</button>
+        </li>
+        {{/apiSequence}}
+      </ul>
+      <button type="button" class="btn btn-default" on-click="newXhrPanel"><i class="fa fa-plus"></i> XHR</button>
+      <button type="button" class="btn btn-default" on-click="newCodePanel"><i class="fa fa-plus"></i> Code</button>
+    </div>
+  </div>
+  <div id="contentPlaceholder" class="col-sm-9">
+    <div id="suriTutorial" class="jumbotron">
+      <h2>Explore REST APIs!</h2>
+      <p>Pipe XHRs and code blocks together to create API sequences. Search for existing APIs or create your own.</p>
+    </div>
+  </div>
+</div>

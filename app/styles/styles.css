@@ -51,7 +51,14 @@ a, a:hover {
   }
 }
 
+/* Code */
+pre {
+  background-color: #fdfdfd;
+  border: #e1e1e8 1px solid;
+  border-radius: 3px;
+}
 
+/* Search */
 #search {
   margin-bottom: 10px;
   text-shadow: none;
@@ -88,4 +95,71 @@ a, a:hover {
 #search .searchResultItem .name {
   width: 26%;
   color: #777;
+}
+
+/* API Sequence */
+#api-sequence-menu {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 40px;
+}
+#api-sequence-menu ul {
+  list-style-type: none;
+  margin-left: -40px;
+  border-bottom: 1px dotted #ddd;
+}
+#api-sequence-menu li {
+  padding: 10px 5px;
+  border-top: 1px dotted #ddd;
+}
+#api-sequence-menu li:hover {
+  background-color: #ebebeb;
+}
+#api-sequence-menu > button {
+  width: 48%;
+}
+@media (max-width: 767px) {
+  #api-sequence-menu {
+    position: static;
+  }
+}
+
+/* XHR Panel */
+.xhr-panel select {
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.xhr-panel select::-ms-expand {
+  display: none;
+}
+.xhr-panel input {
+  border: none;
+}
+.xhr-panel input {
+  width: 80%;
+}
+.xhr-panel .uri {
+  padding: 5px;
+  background-color: #fdfdfd;
+  border: #e1e1e8 1px solid;
+  border-radius: 3px;
+}
+.xhr-panel code:focus {
+  border: 1px solid black;
+}
+.xhr-panel #showMoreButton {
+  width: 100%;
+}
+@media (max-width: 991px) {
+  .xhr-panel input {
+    width: 73%;
+  }
+}
+@media (max-width: 767px) {
+  .xhr-panel input {
+    width: 62%;
+  }
 }

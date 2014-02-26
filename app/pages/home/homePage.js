@@ -3,12 +3,17 @@ define([
   'nex',
   'handlebars',
   'text!./homeTemplate.html',
+  'components/apiSequence/apiSequence',
   'pages/layout/layout'
-], function(Nex, Handlebars, homeTemplate, Layout) {
+], function(Nex, Handlebars, homeTemplate, ApiSequence, Layout) {
   'use strict';
 
   return Nex.defineComponent('home-page', {
     template: Handlebars.compile(homeTemplate),
-    layout: Layout
+    layout: Layout,
+    render: function render() {
+      this.html(this.template(this));
+      new ApiSequence({el: this.querySelector('#api-sequence')});
+    }
   });
 });

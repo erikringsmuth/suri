@@ -1,14 +1,29 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define([
-  'nex',
-  'handlebars',
-  'text!./homeTemplate.html',
-  'pages/layout/layout'
-], function(Nex, Handlebars, homeTemplate, Layout) {
+  'ractive',
+  'text!./codePanelTemplate.html',
+  'components/apiSequence/sequence'
+], function(Ractive, codePanelTemplate, sequence) {
   'use strict';
 
-  return Nex.defineComponent('home-page', {
-    template: Handlebars.compile(homeTemplate),
-    layout: Layout
+  return Ractive.extend({
+    template: codePanelTemplate,
+
+    append: true,
+
+    data: {
+      name: 'Code'
+    },
+
+    init: function() {
+      sequence.push(this);
+
+      this.on({
+        close: function close() {
+          this.detach();
+          sequence.splice(sequence.indexOf(this), 1);
+        }
+      });
+    }
   });
 });

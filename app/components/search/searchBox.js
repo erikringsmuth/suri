@@ -2,8 +2,9 @@
 define([
   'ractive',
   'text!./searchBoxTemplate.html',
+  'components/xhrPanel/xhrPanel',
   'jquery'
-], function(Ractive, searchBoxTemplate, $) {
+], function(Ractive, searchBoxTemplate, XhrPanel, $) {
   'use strict';
 
   return Ractive.extend({
@@ -19,6 +20,7 @@ define([
       window.addEventListener('keydown', function(event) {
         if (event.keyCode === 27) {
           this.nodes.searchInput.focus();
+          this.closeSearchResults();
         }
       }.bind(this), true);
 
@@ -37,13 +39,6 @@ define([
       });
 
       this.on({
-        closeOnEscape: function closeOnEscape(event) {
-          // Close on escape
-          if (event.original.keyCode === 27) {
-            this.closeSearchResults();
-          }
-        },
-
         navigateOnArrow: function navigateOnArrow(event) {
           if (event.original.target.tabIndex) {
             var nextTabIndex = event.original.target.tabIndex;
@@ -59,7 +54,7 @@ define([
 
         openResult: function openResult(event, item) {
           this.closeSearchResults();
-          window.dispatchEvent(new CustomEvent('new-xhr-panel', {detail: item}));
+          new XhrPanel({data: item});
         },
 
         openResultOnEnter: function openResultOnEnter(event, item) {
