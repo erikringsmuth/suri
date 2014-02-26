@@ -99,7 +99,6 @@ pre {
 
 /* API Sequence */
 #api-sequence-menu {
-  display: block;
   white-space: nowrap;
   overflow: hidden;
   position: relative;
@@ -137,8 +136,6 @@ pre {
 }
 .xhr-panel input {
   border: none;
-}
-.xhr-panel input {
   width: 80%;
 }
 .xhr-panel .uri {

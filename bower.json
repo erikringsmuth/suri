@@ -6,7 +6,7 @@
   "authors": [
     "Erik Ringsmuth <erik.ringsmuth@gmail.com>"
   ],
-  "description": "The world's APIs at your disposal.",
+  "description": "Explore REST APIs!",
   "main": "app/index.html",
   "dependencies": {
     "platform": "Polymer/platform#0.2.0",
