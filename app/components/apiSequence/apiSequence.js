@@ -26,9 +26,9 @@ define([
       this.observe({
         apiSequence: function(apiSequence) {
           if (apiSequence.length === 0) {
-            this.nodes.suriTutorial.style.display = 'block';
+            this.nodes['suri-tutorial'].style.display = 'block';
           } else {
-            this.nodes.suriTutorial.style.display = 'none';
+            this.nodes['suri-tutorial'].style.display = 'none';
           }
         }
       });
