@@ -26,6 +26,9 @@ define([
         close: function close() {
           this.detach();
           sequence.splice(sequence.indexOf(this), 1);
+          if (event && event.original && event.original.stopPropagation) {
+            event.original.stopPropagation();
+          }
         }
       });
     }

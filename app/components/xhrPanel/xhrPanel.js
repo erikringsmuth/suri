@@ -45,9 +45,12 @@ define([
 
       this.on({
         // All panels
-        close: function close() {
+        close: function close(event) {
           this.detach();
           sequence.splice(sequence.indexOf(this), 1);
+          if (event && event.original && event.original.stopPropagation) {
+            event.original.stopPropagation();
+          }
         },
 
         sendOnEnter: function sendOnEnter(event) {
