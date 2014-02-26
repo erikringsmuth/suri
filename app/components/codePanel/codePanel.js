@@ -2,12 +2,15 @@
 define([
   'ractive',
   'text!./codePanelTemplate.html',
-  'components/apiSequence/sequence'
-], function(Ractive, codePanelTemplate, sequence) {
+  'components/apiSequence/sequence',
+  'components/util/utilities'
+], function(Ractive, codePanelTemplate, sequence, utilities) {
   'use strict';
 
   return Ractive.extend({
     template: codePanelTemplate,
+
+    el: '#api-sequence-placeholder',
 
     append: true,
 
@@ -17,6 +20,7 @@ define([
 
     init: function() {
       sequence.push(this);
+      this.set('id', utilities.guid());
 
       this.on({
         close: function close() {

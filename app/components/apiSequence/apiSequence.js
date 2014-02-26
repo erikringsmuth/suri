@@ -28,9 +28,7 @@ define([
           if (apiSequence.length === 0) {
             this.nodes.suriTutorial.style.display = 'block';
           } else {
-            // Hide the info panel
             this.nodes.suriTutorial.style.display = 'none';
-            this.nodes.contentPlaceholder.appendChild(apiSequence[apiSequence.length - 1].el);
           }
         }
       });
@@ -38,7 +36,7 @@ define([
       this.on({
         scrollToPanel: function scrollToPanel(event, panel) {
           $('html,body').animate({
-            scrollTop: panel.el.offsetTop + this.el.offsetParent.offsetTop - 10
+            scrollTop: document.getElementById(panel.get('id')).offsetTop + this.el.offsetTop - 10
           }, 200, 'easeOutQuint');
         },
 
