@@ -18,6 +18,10 @@ define([
     },
 
     init: function() {
+      // Reset the API sequence on open
+      // TODO: this should be done in teardown when it is correctly called when removed from the DOM
+      this.get('apiSequence').clear();
+
       // Keep the menu aligned as you scroll
       var apiSequenceMenuEl = this.nodes['api-sequence-menu'];
       var scrollEventHandler = function() {
