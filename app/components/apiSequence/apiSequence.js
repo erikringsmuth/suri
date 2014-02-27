@@ -23,10 +23,9 @@ define([
       this.get('apiSequence').clear();
 
       // Keep the menu aligned as you scroll
-      var apiSequenceMenuEl = this.nodes['api-sequence-menu'];
       var scrollEventHandler = function() {
-        apiSequenceMenuEl.style.top = Math.max(0, window.pageYOffset - apiSequenceMenuEl.offsetParent.offsetTop) + 'px';
-      };
+        this.nodes['api-sequence-menu'].style.top = Math.max(0, window.pageYOffset - this.nodes['api-sequence-menu'].offsetParent.offsetTop) + 'px';
+      }.bind(this);
       window.addEventListener('scroll', scrollEventHandler, true);
 
       this.observe({
