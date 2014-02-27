@@ -100,22 +100,16 @@ define([
           this.set('responseBody', '');
           if (contentType) {
             if (contentType.indexOf('json') !== -1 || contentType.indexOf('javascript') !== -1) {
-              this.set('responseBody', JSON.stringify(JSON.parse(this.xhr.response), null, 2));
+              this.set('responseBody', this.escape(JSON.stringify(JSON.parse(this.xhr.response), null, 2)));
             } else if (contentType.indexOf('xml') !== -1) {
-              this.set('responseBody', this.xhr.responseXML);
+              this.set('responseBody', this.escape(this.xhr.responseXML));
             } else if (contentType.indexOf('html') !== -1) {
-              this.set('responseBody', this.xhr.response
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/'/g, '&quot;')
-                .replace(/'/g, '&#039;')
-              );
+              this.set('responseBody', this.escape(this.xhr.response));
             } else {
-              this.set('responseBody', this.xhr.response);
+              this.set('responseBody', this.escape(this.xhr.response));
             }
           } else {
-            this.set('responseBody', this.xhr.response);
+            this.set('responseBody', this.escape(this.xhr.response));
           }
 
           if (this.get('responseBody').length > 3000) {
@@ -161,6 +155,15 @@ define([
       result.path = '/' + url.split('/').splice(3).join('/');
 
       return result;
+    },
+
+    escape: function escape(string) {
+      return string
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/'/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
   });
 });
