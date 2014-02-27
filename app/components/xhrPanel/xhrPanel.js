@@ -29,7 +29,7 @@ define([
 
     init: function() {
       // All panels
-      sequence.push(this);
+      sequence.add(this);
       this.set('id', utilities.guid());
 
       // XHR Specific
@@ -45,12 +45,8 @@ define([
 
       this.on({
         // All panels
-        close: function close(event) {
-          this.detach();
-          sequence.splice(sequence.indexOf(this), 1);
-          if (event && event.original && event.original.stopPropagation) {
-            event.original.stopPropagation();
-          }
+        teardown: function teardown() {
+          sequence.remove(this);
         },
 
         sendOnEnter: function sendOnEnter(event) {
@@ -65,6 +61,7 @@ define([
 
           var pUrl = this.parsedUrl();
           this.xhr.open(this.get('method'), pUrl.path, true);
+          // Slight optimization to prevent suri from calling itself
           if (pUrl.host !== 'http://suri.io/' && pUrl.host !== 'http://www.suri.io/') {
             this.xhr.setRequestHeader('api-host', pUrl.host);
           }

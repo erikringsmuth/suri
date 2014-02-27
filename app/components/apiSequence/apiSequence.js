@@ -18,12 +18,15 @@ define([
     },
 
     init: function() {
-      // Listen to new panel events
-      window.addEventListener('scroll', function() {
-        this.nodes['api-sequence-menu'].style.top = Math.max(0, window.pageYOffset - this.nodes['api-sequence-menu'].offsetParent.offsetTop) + 'px';
-      }.bind(this));
+      // Keep the menu aligned as you scroll
+      var apiSequenceMenuEl = this.nodes['api-sequence-menu'];
+      var scrollEventHandler = function() {
+        apiSequenceMenuEl.style.top = Math.max(0, window.pageYOffset - apiSequenceMenuEl.offsetParent.offsetTop) + 'px';
+      };
+      window.addEventListener('scroll', scrollEventHandler, true);
 
       this.observe({
+        // Toggle the tutorial as panels are added and removed
         apiSequence: function(apiSequence) {
           if (apiSequence.length === 0) {
             this.nodes['suri-tutorial'].style.display = 'block';
@@ -34,6 +37,7 @@ define([
       });
 
       this.on({
+        // When you click an item in the menu, scroll to the panel
         scrollToPanel: function scrollToPanel(event, panel) {
           $('html,body').animate({
             scrollTop: document.getElementById(panel.get('id')).offsetTop + this.el.offsetTop - 10
@@ -41,7 +45,7 @@ define([
         },
 
         removePanel: function removePanel(event, panel) {
-          panel.fire('close');
+          panel.teardown();
         },
 
         newXhrPanel: function newXhrPanel() {
@@ -50,6 +54,10 @@ define([
 
         newCodePanel: function newCodePanel() {
           new CodePanel();
+        },
+
+        teardown: function() {
+          window.removeEventListener('scroll', scrollEventHandler, true);
         }
       });
     }

@@ -19,16 +19,12 @@ define([
     },
 
     init: function() {
-      sequence.push(this);
+      sequence.add(this);
       this.set('id', utilities.guid());
 
       this.on({
-        close: function close() {
-          this.detach();
-          sequence.splice(sequence.indexOf(this), 1);
-          if (event && event.original && event.original.stopPropagation) {
-            event.original.stopPropagation();
-          }
+        teardown: function teardown() {
+          sequence.remove(this);
         }
       });
     }

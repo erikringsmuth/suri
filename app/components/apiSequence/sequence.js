@@ -2,6 +2,20 @@
 define([], function() {
   'use strict';
 
-  // A reference to the API sequence
-  return [];
+  // The API sequence
+  var sequence = [];
+
+  sequence.clear = function clear() {
+    sequence.splice(0, sequence.length);
+  };
+
+  sequence.add = function add(item) {
+    sequence.push(item);
+  };
+
+  sequence.remove = function remove(item) {
+    sequence.splice(sequence.indexOf(item), 1);
+  };
+
+  return sequence;
 });

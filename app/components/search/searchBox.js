@@ -16,13 +16,16 @@ define([
     },
 
     init: function() {
-      window.addEventListener('resize', this.setSearchResultsWidth.bind(this), true);
-      window.addEventListener('keydown', function(event) {
+      // Focus on the search box when you hit escape
+      // Close the search box when you hit escape
+      var keydownOnEscapeHandler = function(event) {
         if (event.keyCode === 27) {
           this.nodes.searchInput.focus();
           this.closeSearchResults();
         }
-      }.bind(this), true);
+      };
+      window.addEventListener('keydown', keydownOnEscapeHandler.bind(this), true);
+      window.addEventListener('resize', this.setSearchResultsWidth.bind(this), true);
 
       this.observe({
         searchTerm: function(searchTerm) {
@@ -39,8 +42,9 @@ define([
       });
 
       this.on({
+        // Navigate between the search box and search results when you hit the up and down arrows
         navigateOnArrow: function navigateOnArrow(event) {
-          if (event.original.target.tabIndex) {
+          if (event.original.target.tabIndex && (event.original.keyCode === 38 || event.original.keyCode === 40)) {
             var nextTabIndex = event.original.target.tabIndex;
             if (event.original.keyCode === 38) {
               nextTabIndex = nextTabIndex - 1;
@@ -49,6 +53,7 @@ define([
             }
             var targetItem = this.find('[tabindex="' + nextTabIndex + '"]');
             if (targetItem) targetItem.focus();
+            event.original.preventDefault();
           }
         },
 
@@ -61,10 +66,16 @@ define([
           if (event.original.keyCode === 13) {
             this.fire('openResult', event, item);
           }
+        },
+
+        teardown: function() {
+          window.removeEventListener('resize', this.setSearchResultsWidth, true);
+          window.removeEventListener('keydown', keydownOnEscapeHandler, true);
         }
       });
     },
 
+    // Set the width of the search results drop-down
     setSearchResultsWidth: function() {
       this.set('searchResultsWidth', this.el.offsetParent.offsetWidth - 2 * this.el.offsetLeft - 37);
     },
