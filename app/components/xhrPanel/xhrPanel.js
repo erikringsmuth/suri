@@ -45,8 +45,12 @@ define([
 
       this.on({
         // All panels
-        teardown: function teardown() {
+        teardown: function teardown(event) {
+          this.detach();
           sequence.remove(this);
+          if (event && event.original && event.original.stopPropagation) {
+            event.original.stopPropagation();
+          }
         },
 
         sendOnEnter: function sendOnEnter(event) {

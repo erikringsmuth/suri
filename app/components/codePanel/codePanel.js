@@ -23,8 +23,12 @@ define([
       this.set('id', utilities.guid());
 
       this.on({
-        teardown: function teardown() {
+        teardown: function teardown(event) {
+          this.detach();
           sequence.remove(this);
+          if (event && event.original && event.original.stopPropagation) {
+            event.original.stopPropagation();
+          }
         }
       });
     }
