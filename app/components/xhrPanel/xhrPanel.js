@@ -99,8 +99,16 @@ define([
           var contentType = this.xhr.getResponseHeader('content-type');
           this.set('responseBody', '');
           if (contentType) {
-            if (contentType.indexOf('json') !== -1 || contentType.indexOf('javascript') !== -1) {
+            if (contentType.indexOf('json') !== -1) {
               this.set('responseBody', this.escape(JSON.stringify(JSON.parse(this.xhr.response), null, 2)));
+            } else if (contentType.indexOf('javascript') !== -1) {
+              var parsedResponse;
+              try {
+                parsedResponse = JSON.stringify(JSON.parse(this.xhr.response), null, 2);
+              } catch (e) {
+                parsedResponse = this.xhr.response;
+              }
+              this.set('responseBody', this.escape(parsedResponse));
             } else if (contentType.indexOf('xml') !== -1) {
               this.set('responseBody', this.escape(this.xhr.responseXML));
             } else if (contentType.indexOf('html') !== -1) {
