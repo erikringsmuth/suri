@@ -1,19 +1,42 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define([
-  'nex',
-  'handlebars',
+  'ractive',
   'text!./homeTemplate.html',
   'components/apiSequence/apiSequence',
   'pages/layout/layout'
-], function(Nex, Handlebars, homeTemplate, ApiSequence, Layout) {
+], function(Ractive, homeTemplate, ApiSequence, Layout) {
   'use strict';
 
-  return Nex.defineComponent('home-page', {
-    template: Handlebars.compile(homeTemplate),
-    layout: Layout,
-    render: function render() {
-      this.html(this.template(this));
-      new ApiSequence({el: this.querySelector('#api-sequence')});
+  return {
+    createView: function(selector, routeArguments) {
+      var layout = new Layout({
+        el: selector
+      });
+
+      var Home = Ractive.extend({
+        template: homeTemplate,
+
+        layout: Layout,
+
+        init: function() {
+          var apiSequence = new ApiSequence({el: this.nodes['api-sequence']});
+
+          this.observe({
+          });
+
+          this.on({
+            teardown: function() { apiSequence.teardown(); }
+          });
+        }
+
+        // components: {
+        //   '#api-sequence': ApiSequence
+        // }
+      });
+
+      new Home({
+        el: layout.contentPlaceholder
+      });
     }
-  });
+  };
 });

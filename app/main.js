@@ -33,8 +33,8 @@ define([], function() {
         home: { path: '/', moduleId: 'pages/home/homePage' },
         notFound: { path: '*', moduleId: 'pages/notFound/notFoundPage' }
       })
-      .on('routeload', function onRouteLoad(Page, routeArguments) {
-        new Page(routeArguments).attachTo('body');
+      .on('routeload', function onRouteLoad(module, routeArguments) {
+        module.createView('body', routeArguments);
         scroll(0, 0);
       })
       .init(); // Run the app!

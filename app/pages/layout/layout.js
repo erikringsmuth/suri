@@ -1,21 +1,34 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define([
-  'nex',
-  'handlebars',
+  'ractive',
   'text!./layoutTemplate.html',
-  'components/search/searchBox',
-  'router'
-], function(Nex, Handlebars, layoutTemplate, SearchBox, router) {
+  'router',
+  'components/search/searchBox'
+], function(Ractive, layoutTemplate, router, SearchBox) {
   'use strict';
 
-  return Nex.defineComponent('layout', {
-    template: Handlebars.compile(layoutTemplate),
-    model: {
+  return Ractive.extend({
+    template: layoutTemplate,
+
+    data: {
       routes: router.routes
     },
-    render: function render() {
-      this.html(this.template(this));
-      new SearchBox({el: this.querySelector('#search-box')});
-    }
+
+    init: function() {
+      var searchBox = new SearchBox({el: this.nodes['search-box']});
+
+      this.observe({
+      });
+
+      this.on({
+        teardown: function() { searchBox.teardown(); }
+      });
+    },
+
+    contentPlaceholder: '#content-placeholder'
+
+    // components: {
+    //   '#search-box': SearchBox
+    // }
   });
 });
