@@ -1,42 +1,29 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
-define([
-  'ractive',
-  'text!./homeTemplate.html',
-  'components/apiSequence/apiSequence',
-  'pages/layout/layout'
-], function(Ractive, homeTemplate, ApiSequence, Layout) {
+define(function(require) {
   'use strict';
+  var Ractive = require('ractive'),
+      homeTemplate = require('text!./homeTemplate.html'),
+      Layout = require('layouts/layout/layout'),
+      ApiSequence = require('components/apiSequence/apiSequence');
 
-  return {
-    createView: function(selector, routeArguments) {
-      var layout = new Layout({
-        el: selector
-      });
+  var HomePage = Ractive.extend({
+    template: homeTemplate,
 
-      var Home = Ractive.extend({
-        template: homeTemplate,
+    init: function() {
+      var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
 
-        layout: Layout,
-
-        init: function() {
-          var apiSequence = new ApiSequence({el: this.nodes['api-sequence']});
-
-          this.observe({
-          });
-
-          this.on({
-            teardown: function() { apiSequence.teardown(); }
-          });
-        }
-
-        // components: {
-        //   '#api-sequence': ApiSequence
-        // }
-      });
-
-      new Home({
-        el: layout.contentPlaceholder
+      this.on('teardown', function() {
+        apiSequence.teardown();
       });
     }
-  };
+
+    // Components remove info about el which breaks topOffset
+    // components: {
+    //   'api-sequence': ApiSequence
+    // }
+  });
+
+  return Layout.extend({
+    components: { 'content-placeholder': HomePage }
+  });
 });

@@ -1,14 +1,13 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
-define([
-  'ractive',
-  'text!./apiSequenceTemplate.html',
-  'components/apiSequence/sequence',
-  'components/xhrPanel/xhrPanel',
-  'components/codePanel/codePanel',
-  'jquery',
-  'jquery.easing'
-], function(Ractive, apiSequenceTemplate, sequence, XhrPanel, CodePanel, $) {
+define(function(require) {
   'use strict';
+  var Ractive = require('ractive'),
+      apiSequenceTemplate = require('text!./apiSequenceTemplate.html'),
+      sequence = require('components/apiSequence/sequence'),
+      XhrPanel = require('components/xhrPanel/xhrPanel'),
+      CodePanel = require('components/codePanel/codePanel'),
+      $ = require('jquery');
+  require('jquery.easing');
 
   return Ractive.extend({
     template: apiSequenceTemplate,

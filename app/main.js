@@ -28,13 +28,26 @@ define([], function() {
 
   // Load the router, Bootstrap CSS JS
   require(['router', 'bootstrap'], function(router) {
+
+    // Keep track of the currently loaded view so we can run teardown before loading the new view
+    var view;
+
     router
       .registerRoutes({
         home: { path: '/', moduleId: 'pages/home/homePage' },
         notFound: { path: '*', moduleId: 'pages/notFound/notFoundPage' }
       })
-      .on('routeload', function onRouteLoad(module, routeArguments) {
-        module.createView('body', routeArguments);
+      .on('routeload', function onRouteLoad(View) {
+        // When a route loads, render the view and attach it to the document
+        var render = function() {
+          view = new View({ el: 'body' });
+        };
+
+        if (view) {
+          view.teardown(render);
+        } else {
+          render();
+        }
         scroll(0, 0);
       })
       .init(); // Run the app!

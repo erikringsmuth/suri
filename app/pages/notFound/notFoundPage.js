@@ -1,14 +1,15 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
-define([
-  'nex',
-  'handlebars',
-  'text!./notFoundTemplate.html',
-  'pages/layout/layout'
-], function(Nex, Handlebars, notFoundTemplate, Layout) {
+define(function(require) {
   'use strict';
+  var Ractive = require('ractive'),
+      notFoundTemplate = require('text!./notFoundTemplate.html'),
+      Layout = require('layouts/layout/layout');
 
-  return Nex.defineComponent('not-found-page', {
-    template: Handlebars.compile(notFoundTemplate),
-    layout: Layout
+  var NotFoundPage = Ractive.extend({
+    template: notFoundTemplate
+  });
+
+  return Layout.extend({
+    components: { 'content-placeholder': NotFoundPage }
   });
 });

@@ -1,12 +1,11 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
-define([
-  'ractive',
-  'text!./xhrPanelTemplate.html',
-  'components/apiSequence/sequence',
-  'components/util/utilities',
-  'prettify'
-], function(Ractive, xhrPanelTemplate, sequence, utilities, prettify) {
+define(function(require) {
   'use strict';
+  var Ractive = require('ractive'),
+      xhrPanelTemplate = require('text!./xhrPanelTemplate.html'),
+      sequence = require('components/apiSequence/sequence'),
+      utilities = require('components/util/utilities'),
+      prettify = require('prettify');
 
   return Ractive.extend({
     template: xhrPanelTemplate,

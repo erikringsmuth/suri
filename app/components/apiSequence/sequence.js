@@ -1,5 +1,5 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
-define([], function() {
+define(function() {
   'use strict';
 
   // The API sequence

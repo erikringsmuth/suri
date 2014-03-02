@@ -1,11 +1,10 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
-define([
-  'ractive',
-  'text!./searchBoxTemplate.html',
-  'components/xhrPanel/xhrPanel',
-  'jquery'
-], function(Ractive, searchBoxTemplate, XhrPanel, $) {
+define(function(require) {
   'use strict';
+  var Ractive = require('ractive'),
+      searchBoxTemplate = require('text!./searchBoxTemplate.html'),
+      XhrPanel = require('components/xhrPanel/xhrPanel'),
+      $ = require('jquery');
 
   return Ractive.extend({
     template: searchBoxTemplate,

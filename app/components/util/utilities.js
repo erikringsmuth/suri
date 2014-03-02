@@ -1,9 +1,8 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
-define([
-  'jquery',
-  'prettify'
-], function($, prettify) {
+define(function(require) {
   'use strict';
+  var $ = require('jquery'),
+      prettify = require('prettify');
 
   var utilities = {
     // Format code for readability. This will look for every code block in the element and format it.

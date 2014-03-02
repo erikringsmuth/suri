@@ -1,11 +1,10 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
-define([
-  'ractive',
-  'text!./codePanelTemplate.html',
-  'components/apiSequence/sequence',
-  'components/util/utilities'
-], function(Ractive, codePanelTemplate, sequence, utilities) {
+define(function(require) {
   'use strict';
+  var Ractive = require('ractive'),
+      codePanelTemplate = require('text!./codePanelTemplate.html'),
+      sequence = require('components/apiSequence/sequence'),
+      utilities = require('components/util/utilities');
 
   return Ractive.extend({
     template: codePanelTemplate,
