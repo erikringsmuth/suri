@@ -6,7 +6,9 @@ define([], function() {
     paths: {
       'text': 'bower_components/requirejs-text/text',
       'router': 'bower_components/requirejs-router/router',
-      'ractive': 'bower_components/ractive/Ractive',
+      'amd-loader': 'bower_components/requirejs-ractive/amd-loader',
+      'rv': 'bower_components/requirejs-ractive/rv',
+      'Ractive': 'bower_components/ractive/Ractive',
       'jquery': 'bower_components/jquery/dist/jquery.min',
       'jquery.easing': '/bower_components/jquery-easing/jquery.easing.min',
       'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',

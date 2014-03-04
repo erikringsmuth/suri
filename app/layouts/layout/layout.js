@@ -1,8 +1,8 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var Ractive = require('ractive'),
-      layoutTemplate = require('text!./layoutTemplate.html'),
+  var Ractive = require('Ractive'),
+      layoutTemplate = require('rv!./layoutTemplate'),
       router = require('router'),
       SearchBox = require('components/search/searchBox');
 

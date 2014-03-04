@@ -1,8 +1,8 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var Ractive = require('ractive'),
-      xhrPanelTemplate = require('text!./xhrPanelTemplate.html'),
+  var Ractive = require('Ractive'),
+      xhrPanelTemplate = require('rv!./xhrPanelTemplate'),
       sequence = require('components/apiSequence/sequence'),
       utilities = require('components/util/utilities'),
       prettify = require('prettify');

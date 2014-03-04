@@ -1,8 +1,8 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var Ractive = require('ractive'),
-      codePanelTemplate = require('text!./codePanelTemplate.html'),
+  var Ractive = require('Ractive'),
+      codePanelTemplate = require('rv!./codePanelTemplate'),
       sequence = require('components/apiSequence/sequence'),
       utilities = require('components/util/utilities');
 

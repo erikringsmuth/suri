@@ -1,8 +1,8 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var Ractive = require('ractive'),
-      homeTemplate = require('text!./homeTemplate.html'),
+  var Ractive = require('Ractive'),
+      homeTemplate = require('rv!./homeTemplate'),
       Layout = require('layouts/layout/layout'),
       ApiSequence = require('components/apiSequence/apiSequence');
 
