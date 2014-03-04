@@ -32,6 +32,5 @@
   },
   "_source": "git://github.com/erikringsmuth/requirejs-router.git",
   "_target": "~0.7.3",
-  "_originalSource": "requirejs-router",
-  "_direct": true
+  "_originalSource": "requirejs-router"
 }

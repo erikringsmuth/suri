@@ -6,20 +6,13 @@ define([], function() {
     paths: {
       'text': 'bower_components/requirejs-text/text',
       'router': 'bower_components/requirejs-router/router',
-      'nex': 'bower_components/nex-js/nex',
       'ractive': 'bower_components/ractive/Ractive',
-      'handlebars': 'bower_components/handlebars/handlebars',
-      'jquery': 'bower_components/jquery/jquery.min',
+      'jquery': 'bower_components/jquery/dist/jquery.min',
       'jquery.easing': '/bower_components/jquery-easing/jquery.easing.min',
       'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
-      'polyfill': 'bower_components/polyfills',
-      'platform': '/bower_components/platform/platform',
       'prettify': 'bower_components/google-code-prettify/src/prettify'
     },
     shim: {
-      'handlebars': {
-        exports: 'Handlebars'
-      },
       'bootstrap': {
         deps: ['jquery']
       }

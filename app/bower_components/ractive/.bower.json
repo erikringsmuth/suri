@@ -21,6 +21,5 @@
   },
   "_source": "git://github.com/Rich-Harris/Ractive.git",
   "_target": "~0.3.9",
-  "_originalSource": "ractive",
-  "_direct": true
+  "_originalSource": "ractive"
 }
