@@ -1,0 +1,13 @@
+[2014-03-03 19:17:29,724][WARN ][bootstrap                ] jvm uses the client vm, make sure to run `java` with the server vm for best performance by adding `-server` to the command line
+[2014-03-03 19:17:29,818][INFO ][node                     ] [Quicksand] version[1.0.1], pid[6848], build[5c03844/2014-02-25T15:52:53Z]
+[2014-03-03 19:17:29,818][INFO ][node                     ] [Quicksand] initializing ...
+[2014-03-03 19:17:29,822][INFO ][plugins                  ] [Quicksand] loaded [], sites []
+[2014-03-03 19:17:32,351][INFO ][node                     ] [Quicksand] initialized
+[2014-03-03 19:17:32,351][INFO ][node                     ] [Quicksand] starting ...
+[2014-03-03 19:17:32,825][INFO ][transport                ] [Quicksand] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/169.254.80.80:9300]}
+[2014-03-03 19:17:36,550][INFO ][cluster.service          ] [Quicksand] new_master [Quicksand][kV-TT6wyQAaxB0qo3XiwXw][Eriks-Desktop][inet[/169.254.80.80:9300]], reason: zen-disco-join (elected_as_master)
+[2014-03-03 19:17:36,586][INFO ][discovery                ] [Quicksand] elasticsearch/kV-TT6wyQAaxB0qo3XiwXw
+[2014-03-03 19:17:36,636][INFO ][gateway                  ] [Quicksand] recovered [0] indices into cluster_state
+[2014-03-03 19:17:36,983][INFO ][http                     ] [Quicksand] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/169.254.80.80:9200]}
+[2014-03-03 19:17:36,984][INFO ][node                     ] [Quicksand] started
+[2014-03-03 19:20:30,508][INFO ][cluster.metadata         ] [Quicksand] [suri-ci] creating index, cause [api], shards [5]/[1], mappings []
