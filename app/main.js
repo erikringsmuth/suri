@@ -5,13 +5,13 @@ define([], function() {
   require.config({
     paths: {
       'text': 'bower_components/requirejs-text/text',
-      'router': 'bower_components/requirejs-router/router',
+      'router': 'bower_components/requirejs-router/router.min',
       'amd-loader': 'bower_components/requirejs-ractive/amd-loader',
       'rv': 'bower_components/requirejs-ractive/rv',
-      'Ractive': 'bower_components/ractive/Ractive',
+      'Ractive': 'bower_components/ractive/build/Ractive.min',
       'jquery': 'bower_components/jquery/dist/jquery.min',
       'jquery.easing': '/bower_components/jquery-easing/jquery.easing.min',
-      'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
+      'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap.min',
       'prettify': 'bower_components/google-code-prettify/src/prettify'
     },
     shim: {
