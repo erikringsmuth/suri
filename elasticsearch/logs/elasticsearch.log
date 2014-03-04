@@ -11,3 +11,15 @@
 [2014-03-03 19:17:36,983][INFO ][http                     ] [Quicksand] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/169.254.80.80:9200]}
 [2014-03-03 19:17:36,984][INFO ][node                     ] [Quicksand] started
 [2014-03-03 19:20:30,508][INFO ][cluster.metadata         ] [Quicksand] [suri-ci] creating index, cause [api], shards [5]/[1], mappings []
+[2014-03-03 20:08:28,068][DEBUG][action.index             ] [Quicksand] [suri-ci][1], node[kV-TT6wyQAaxB0qo3XiwXw], [P], s[STARTED]: Failed to execute [index {[suri-ci][xhr][Q_hOTKG9RguX5NJe_0RhBQ], source[_na_]}]
+org.elasticsearch.index.mapper.MapperParsingException: failed to parse, document is empty
+	at org.elasticsearch.index.mapper.DocumentMapper.parse(DocumentMapper.java:537)
+	at org.elasticsearch.index.mapper.DocumentMapper.parse(DocumentMapper.java:462)
+	at org.elasticsearch.index.shard.service.InternalIndexShard.prepareCreate(InternalIndexShard.java:371)
+	at org.elasticsearch.action.index.TransportIndexAction.shardOperationOnPrimary(TransportIndexAction.java:215)
+	at org.elasticsearch.action.support.replication.TransportShardReplicationOperationAction$AsyncShardOperationAction.performOnPrimary(TransportShardReplicationOperationAction.java:556)
+	at org.elasticsearch.action.support.replication.TransportShardReplicationOperationAction$AsyncShardOperationAction$1.run(TransportShardReplicationOperationAction.java:426)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+[2014-03-03 20:12:46,258][INFO ][cluster.metadata         ] [Quicksand] [suri-ci] update_mapping [xhr] (dynamic)
