@@ -442,3 +442,28 @@ Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1]
 	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
 	... 11 more
 [2014-03-04 20:18:46,029][DEBUG][action.search.type       ] [Father Time] All shards failed for phase: [query]
+[2014-03-04 20:20:36,962][WARN ][bootstrap                ] jvm uses the client vm, make sure to run `java` with the server vm for best performance by adding `-server` to the command line
+[2014-03-04 20:20:37,039][INFO ][node                     ] [La Lunatica] version[1.0.1], pid[5496], build[5c03844/2014-02-25T15:52:53Z]
+[2014-03-04 20:20:37,039][INFO ][node                     ] [La Lunatica] initializing ...
+[2014-03-04 20:20:37,043][INFO ][plugins                  ] [La Lunatica] loaded [], sites []
+[2014-03-04 20:20:39,285][INFO ][node                     ] [La Lunatica] initialized
+[2014-03-04 20:20:39,286][INFO ][node                     ] [La Lunatica] starting ...
+[2014-03-04 20:20:39,746][INFO ][transport                ] [La Lunatica] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/169.254.80.80:9300]}
+[2014-03-04 20:20:43,468][INFO ][cluster.service          ] [La Lunatica] new_master [La Lunatica][zHq-LoKbRVmGd6p5j5Ch2Q][Eriks-Desktop][inet[/169.254.80.80:9300]], reason: zen-disco-join (elected_as_master)
+[2014-03-04 20:20:43,490][INFO ][discovery                ] [La Lunatica] elasticsearch/zHq-LoKbRVmGd6p5j5Ch2Q
+[2014-03-04 20:20:43,628][DEBUG][action.search.type       ] [La Lunatica] All shards failed for phase: [query]
+[2014-03-04 20:20:43,920][INFO ][http                     ] [La Lunatica] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/169.254.80.80:9200]}
+[2014-03-04 20:20:43,992][INFO ][gateway                  ] [La Lunatica] recovered [1] indices into cluster_state
+[2014-03-04 20:20:43,993][INFO ][node                     ] [La Lunatica] started
+[2014-03-04 20:27:26,826][WARN ][bootstrap                ] jvm uses the client vm, make sure to run `java` with the server vm for best performance by adding `-server` to the command line
+[2014-03-04 20:27:26,906][INFO ][node                     ] [Thing] version[1.0.1], pid[5788], build[5c03844/2014-02-25T15:52:53Z]
+[2014-03-04 20:27:26,906][INFO ][node                     ] [Thing] initializing ...
+[2014-03-04 20:27:26,909][INFO ][plugins                  ] [Thing] loaded [], sites []
+[2014-03-04 20:27:29,094][INFO ][node                     ] [Thing] initialized
+[2014-03-04 20:27:29,094][INFO ][node                     ] [Thing] starting ...
+[2014-03-04 20:27:29,556][INFO ][transport                ] [Thing] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/169.254.80.80:9300]}
+[2014-03-04 20:27:33,228][INFO ][cluster.service          ] [Thing] new_master [Thing][UIxnx7hWSWiVOxBduQQxjg][Eriks-Desktop][inet[/169.254.80.80:9300]], reason: zen-disco-join (elected_as_master)
+[2014-03-04 20:27:33,250][INFO ][discovery                ] [Thing] elasticsearch/UIxnx7hWSWiVOxBduQQxjg
+[2014-03-04 20:27:33,635][INFO ][http                     ] [Thing] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/169.254.80.80:9200]}
+[2014-03-04 20:27:33,712][INFO ][gateway                  ] [Thing] recovered [1] indices into cluster_state
+[2014-03-04 20:27:33,713][INFO ][node                     ] [Thing] started

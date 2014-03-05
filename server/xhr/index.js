@@ -49,12 +49,7 @@ module.exports.search = function(req, res) {
   client.search({
     index: index,
     type: type,
-    body: {
-      query_string : {
-        fields : ['label', 'url^2'],
-        query: req.query.q
-      }
-    }
+    query: req.query.q
   }).then(function (body) {
     res.send(body);
   }, function (error) {
