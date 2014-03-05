@@ -467,3 +467,604 @@ Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1]
 [2014-03-04 20:27:33,635][INFO ][http                     ] [Thing] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/169.254.80.80:9200]}
 [2014-03-04 20:27:33,712][INFO ][gateway                  ] [Thing] recovered [1] indices into cluster_state
 [2014-03-04 20:27:33,713][INFO ][node                     ] [Thing] started
+[2014-03-04 22:14:56,435][WARN ][bootstrap                ] jvm uses the client vm, make sure to run `java` with the server vm for best performance by adding `-server` to the command line
+[2014-03-04 22:14:56,513][INFO ][node                     ] [Lemuel Dorcas] version[1.0.1], pid[6588], build[5c03844/2014-02-25T15:52:53Z]
+[2014-03-04 22:14:56,514][INFO ][node                     ] [Lemuel Dorcas] initializing ...
+[2014-03-04 22:14:56,517][INFO ][plugins                  ] [Lemuel Dorcas] loaded [], sites []
+[2014-03-04 22:14:58,822][INFO ][node                     ] [Lemuel Dorcas] initialized
+[2014-03-04 22:14:58,822][INFO ][node                     ] [Lemuel Dorcas] starting ...
+[2014-03-04 22:14:59,278][INFO ][transport                ] [Lemuel Dorcas] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/169.254.80.80:9300]}
+[2014-03-04 22:15:02,960][INFO ][cluster.service          ] [Lemuel Dorcas] new_master [Lemuel Dorcas][6iD-rPXITsK6YDNv94T6cg][Eriks-Desktop][inet[/169.254.80.80:9300]], reason: zen-disco-join (elected_as_master)
+[2014-03-04 22:15:02,994][INFO ][discovery                ] [Lemuel Dorcas] elasticsearch/6iD-rPXITsK6YDNv94T6cg
+[2014-03-04 22:15:03,416][INFO ][http                     ] [Lemuel Dorcas] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/169.254.80.80:9200]}
+[2014-03-04 22:15:03,487][INFO ][gateway                  ] [Lemuel Dorcas] recovered [1] indices into cluster_state
+[2014-03-04 22:15:03,488][INFO ][node                     ] [Lemuel Dorcas] started
+[2014-03-04 22:19:46,471][WARN ][bootstrap                ] jvm uses the client vm, make sure to run `java` with the server vm for best performance by adding `-server` to the command line
+[2014-03-04 22:19:46,550][INFO ][node                     ] [Analyzer] version[1.0.1], pid[4656], build[5c03844/2014-02-25T15:52:53Z]
+[2014-03-04 22:19:46,550][INFO ][node                     ] [Analyzer] initializing ...
+[2014-03-04 22:19:46,554][INFO ][plugins                  ] [Analyzer] loaded [], sites []
+[2014-03-04 22:19:48,737][INFO ][node                     ] [Analyzer] initialized
+[2014-03-04 22:19:48,737][INFO ][node                     ] [Analyzer] starting ...
+[2014-03-04 22:19:49,195][INFO ][transport                ] [Analyzer] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/169.254.80.80:9300]}
+[2014-03-04 22:19:52,876][INFO ][cluster.service          ] [Analyzer] new_master [Analyzer][PzeJRcBpToamrGEqFHc-Yw][Eriks-Desktop][inet[/169.254.80.80:9300]], reason: zen-disco-join (elected_as_master)
+[2014-03-04 22:19:52,909][INFO ][discovery                ] [Analyzer] elasticsearch/PzeJRcBpToamrGEqFHc-Yw
+[2014-03-04 22:19:53,308][INFO ][http                     ] [Analyzer] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/169.254.80.80:9200]}
+[2014-03-04 22:19:53,367][INFO ][gateway                  ] [Analyzer] recovered [1] indices into cluster_state
+[2014-03-04 22:19:53,369][INFO ][node                     ] [Analyzer] started
+[2014-03-04 22:21:59,464][WARN ][bootstrap                ] jvm uses the client vm, make sure to run `java` with the server vm for best performance by adding `-server` to the command line
+[2014-03-04 22:21:59,541][INFO ][node                     ] [Doctor Anthony Droom] version[1.0.1], pid[7628], build[5c03844/2014-02-25T15:52:53Z]
+[2014-03-04 22:21:59,541][INFO ][node                     ] [Doctor Anthony Droom] initializing ...
+[2014-03-04 22:21:59,545][INFO ][plugins                  ] [Doctor Anthony Droom] loaded [], sites []
+[2014-03-04 22:22:01,672][INFO ][node                     ] [Doctor Anthony Droom] initialized
+[2014-03-04 22:22:01,672][INFO ][node                     ] [Doctor Anthony Droom] starting ...
+[2014-03-04 22:22:02,134][INFO ][transport                ] [Doctor Anthony Droom] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/169.254.80.80:9300]}
+[2014-03-04 22:22:05,815][INFO ][cluster.service          ] [Doctor Anthony Droom] new_master [Doctor Anthony Droom][U-gTEsfIRHG7uxjtvRl3xA][Eriks-Desktop][inet[/169.254.80.80:9300]], reason: zen-disco-join (elected_as_master)
+[2014-03-04 22:22:05,848][INFO ][discovery                ] [Doctor Anthony Droom] elasticsearch/U-gTEsfIRHG7uxjtvRl3xA
+[2014-03-04 22:22:06,238][INFO ][http                     ] [Doctor Anthony Droom] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/169.254.80.80:9200]}
+[2014-03-04 22:22:06,306][INFO ][gateway                  ] [Doctor Anthony Droom] recovered [1] indices into cluster_state
+[2014-03-04 22:22:06,307][INFO ][node                     ] [Doctor Anthony Droom] started
+[2014-03-04 22:22:32,482][WARN ][bootstrap                ] jvm uses the client vm, make sure to run `java` with the server vm for best performance by adding `-server` to the command line
+[2014-03-04 22:22:32,557][INFO ][node                     ] [Darkoth] version[1.0.1], pid[1328], build[5c03844/2014-02-25T15:52:53Z]
+[2014-03-04 22:22:32,557][INFO ][node                     ] [Darkoth] initializing ...
+[2014-03-04 22:22:32,560][INFO ][plugins                  ] [Darkoth] loaded [], sites []
+[2014-03-04 22:22:34,714][INFO ][node                     ] [Darkoth] initialized
+[2014-03-04 22:22:34,714][INFO ][node                     ] [Darkoth] starting ...
+[2014-03-04 22:22:35,169][INFO ][transport                ] [Darkoth] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/169.254.80.80:9300]}
+[2014-03-04 22:22:38,844][INFO ][cluster.service          ] [Darkoth] new_master [Darkoth][yX1z3yPxRbOQlWf1NHjNRw][Eriks-Desktop][inet[/169.254.80.80:9300]], reason: zen-disco-join (elected_as_master)
+[2014-03-04 22:22:38,877][INFO ][discovery                ] [Darkoth] elasticsearch/yX1z3yPxRbOQlWf1NHjNRw
+[2014-03-04 22:22:39,290][INFO ][http                     ] [Darkoth] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/169.254.80.80:9200]}
+[2014-03-04 22:22:39,351][INFO ][gateway                  ] [Darkoth] recovered [1] indices into cluster_state
+[2014-03-04 22:22:39,352][INFO ][node                     ] [Darkoth] started
+[2014-03-04 22:28:47,383][WARN ][bootstrap                ] jvm uses the client vm, make sure to run `java` with the server vm for best performance by adding `-server` to the command line
+[2014-03-04 22:28:47,459][INFO ][node                     ] [Frank Simpson] version[1.0.1], pid[4476], build[5c03844/2014-02-25T15:52:53Z]
+[2014-03-04 22:28:47,459][INFO ][node                     ] [Frank Simpson] initializing ...
+[2014-03-04 22:28:47,462][INFO ][plugins                  ] [Frank Simpson] loaded [], sites []
+[2014-03-04 22:28:49,617][INFO ][node                     ] [Frank Simpson] initialized
+[2014-03-04 22:28:49,618][INFO ][node                     ] [Frank Simpson] starting ...
+[2014-03-04 22:28:50,078][INFO ][transport                ] [Frank Simpson] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/169.254.80.80:9300]}
+[2014-03-04 22:28:53,759][INFO ][cluster.service          ] [Frank Simpson] new_master [Frank Simpson][GPsxc0RNQPOWqit13htnGQ][Eriks-Desktop][inet[/169.254.80.80:9300]], reason: zen-disco-join (elected_as_master)
+[2014-03-04 22:28:53,793][INFO ][discovery                ] [Frank Simpson] elasticsearch/GPsxc0RNQPOWqit13htnGQ
+[2014-03-04 22:28:54,225][INFO ][http                     ] [Frank Simpson] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/169.254.80.80:9200]}
+[2014-03-04 22:28:54,286][INFO ][gateway                  ] [Frank Simpson] recovered [1] indices into cluster_state
+[2014-03-04 22:28:54,287][INFO ][node                     ] [Frank Simpson] started
+[2014-03-04 22:31:52,691][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][3], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@88f1a] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"simple_query_string":{}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [No parser for element [simple_query_string]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:31:52,691][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][0], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@88f1a] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"simple_query_string":{}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [No parser for element [simple_query_string]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:31:52,691][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][2], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@88f1a]
+org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"simple_query_string":{}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [No parser for element [simple_query_string]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:31:52,691][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][4], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@88f1a] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"simple_query_string":{}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [No parser for element [simple_query_string]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:31:52,691][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][1], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@88f1a] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"simple_query_string":{}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [No parser for element [simple_query_string]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:31:52,702][DEBUG][action.search.type       ] [Frank Simpson] All shards failed for phase: [query]
+[2014-03-04 22:32:25,012][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][4], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@14f370a] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"query":{"simple_query_string":{}}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.index.query.QueryParsingException: [suri-ci] [simple_query_string] query text missing
+	at org.elasticsearch.index.query.SimpleQueryStringParser.parse(SimpleQueryStringParser.java:176)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:321)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:260)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:583)
+	... 11 more
+[2014-03-04 22:32:25,012][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][1], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@14f370a] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"query":{"simple_query_string":{}}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.index.query.QueryParsingException: [suri-ci] [simple_query_string] query text missing
+	at org.elasticsearch.index.query.SimpleQueryStringParser.parse(SimpleQueryStringParser.java:176)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:321)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:260)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:583)
+	... 11 more
+[2014-03-04 22:32:25,012][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][2], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@14f370a]
+org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"query":{"simple_query_string":{}}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.index.query.QueryParsingException: [suri-ci] [simple_query_string] query text missing
+	at org.elasticsearch.index.query.SimpleQueryStringParser.parse(SimpleQueryStringParser.java:176)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:321)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:260)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:583)
+	... 11 more
+[2014-03-04 22:32:25,012][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][0], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@14f370a] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"query":{"simple_query_string":{}}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.index.query.QueryParsingException: [suri-ci] [simple_query_string] query text missing
+	at org.elasticsearch.index.query.SimpleQueryStringParser.parse(SimpleQueryStringParser.java:176)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:321)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:260)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:583)
+	... 11 more
+[2014-03-04 22:32:25,012][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][3], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@14f370a] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"query":{"simple_query_string":{}}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.index.query.QueryParsingException: [suri-ci] [simple_query_string] query text missing
+	at org.elasticsearch.index.query.SimpleQueryStringParser.parse(SimpleQueryStringParser.java:176)
+	at org.elasticsearch.index.query.QueryParseContext.parseInnerQuery(QueryParseContext.java:223)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:321)
+	at org.elasticsearch.index.query.IndexQueryParserService.parse(IndexQueryParserService.java:260)
+	at org.elasticsearch.search.query.QueryParseElement.parse(QueryParseElement.java:33)
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:583)
+	... 11 more
+[2014-03-04 22:32:25,021][DEBUG][action.search.type       ] [Frank Simpson] All shards failed for phase: [query]
+[2014-03-04 22:34:16,870][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][2], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@17d3a97] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"multi_match":{"fields":["url","name"]}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [No parser for element [multi_match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:34:16,870][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][0], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@17d3a97]
+org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"multi_match":{"fields":["url","name"]}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [No parser for element [multi_match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:34:16,870][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][1], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@17d3a97] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"multi_match":{"fields":["url","name"]}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [No parser for element [multi_match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:34:16,870][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][3], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@17d3a97] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"multi_match":{"fields":["url","name"]}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [No parser for element [multi_match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:34:16,870][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][4], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@17d3a97] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"multi_match":{"fields":["url","name"]}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [No parser for element [multi_match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:34:16,875][DEBUG][action.search.type       ] [Frank Simpson] All shards failed for phase: [query]
+[2014-03-04 22:44:54,114][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][2], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@152d0fe] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"index":"suri-ci","type":"xhr"}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [No parser for element [index]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:44:54,114][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][0], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@152d0fe]
+org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"index":"suri-ci","type":"xhr"}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [No parser for element [index]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:44:54,114][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][1], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@152d0fe] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"index":"suri-ci","type":"xhr"}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [No parser for element [index]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:44:54,114][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][4], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@152d0fe] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"index":"suri-ci","type":"xhr"}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [No parser for element [index]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:44:54,114][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][3], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@152d0fe] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"index":"suri-ci","type":"xhr"}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [No parser for element [index]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:44:54,119][DEBUG][action.search.type       ] [Frank Simpson] All shards failed for phase: [query]
+[2014-03-04 22:48:28,183][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][3], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@4d39bd]
+org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"match":{"name":"yet"}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [No parser for element [match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:48:28,183][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][4], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@4d39bd] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"match":{"name":"yet"}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [No parser for element [match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:48:28,183][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][1], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@4d39bd] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"match":{"name":"yet"}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [No parser for element [match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:48:28,183][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][0], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@4d39bd] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"match":{"name":"yet"}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [No parser for element [match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:48:28,183][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][2], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@4d39bd] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"match":{"name":"yet"}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [No parser for element [match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:48:28,186][DEBUG][action.search.type       ] [Frank Simpson] All shards failed for phase: [query]
+[2014-03-04 22:48:31,697][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][2], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@ba87f2] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"match":{"name":"What is this"}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][2]: from[-1],size[-1]: Parse Failure [No parser for element [match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:48:31,697][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][4], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@ba87f2]
+org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"match":{"name":"What is this"}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][4]: from[-1],size[-1]: Parse Failure [No parser for element [match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:48:31,697][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][1], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@ba87f2] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"match":{"name":"What is this"}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][1]: from[-1],size[-1]: Parse Failure [No parser for element [match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:48:31,697][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][0], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@ba87f2] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"match":{"name":"What is this"}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][0]: from[-1],size[-1]: Parse Failure [No parser for element [match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:48:31,697][DEBUG][action.search.type       ] [Frank Simpson] [suri-ci][3], node[GPsxc0RNQPOWqit13htnGQ], [P], s[STARTED]: Failed to execute [org.elasticsearch.action.search.SearchRequest@ba87f2] lastShard [true]
+org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [Failed to parse source [{"match":{"name":"What is this"}}]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:595)
+	at org.elasticsearch.search.SearchService.createContext(SearchService.java:498)
+	at org.elasticsearch.search.SearchService.createAndPutContext(SearchService.java:472)
+	at org.elasticsearch.search.SearchService.executeQueryPhase(SearchService.java:244)
+	at org.elasticsearch.search.action.SearchServiceTransportAction.sendExecuteQuery(SearchServiceTransportAction.java:202)
+	at org.elasticsearch.action.search.type.TransportSearchQueryThenFetchAction$AsyncAction.sendExecuteFirstPhase(TransportSearchQueryThenFetchAction.java:80)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:216)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction.performFirstPhase(TransportSearchTypeAction.java:203)
+	at org.elasticsearch.action.search.type.TransportSearchTypeAction$BaseAsyncAction$2.run(TransportSearchTypeAction.java:186)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: org.elasticsearch.search.SearchParseException: [suri-ci][3]: from[-1],size[-1]: Parse Failure [No parser for element [match]]
+	at org.elasticsearch.search.SearchService.parseSource(SearchService.java:581)
+	... 11 more
+[2014-03-04 22:48:31,728][DEBUG][action.search.type       ] [Frank Simpson] All shards failed for phase: [query]

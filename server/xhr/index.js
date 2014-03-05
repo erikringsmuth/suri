@@ -49,14 +49,53 @@ module.exports.search = function(req, res) {
   client.search({
     index: index,
     type: type,
-    query: req.query.q
+    body: {
+      query: {
+        bool: {
+          should: [
+            {
+              prefix: {
+                name: req.query.q
+              }
+            },
+            {
+              simple_query_string: {
+                query: req.query.q
+              }
+            }
+          ]
+        },
+        minimum_should_match: 1
+      }
+    }
   }).then(function (body) {
-    res.send(body);
+    var response = body.hits.hits.map(function(result) { return result._source; });
+    res.send(response);
   }, function (error) {
     res.status(error.status);
     res.send(error);
   });
 };
+
+// module.exports.search = function(req, res) {
+//   client.search({
+//     index: index,
+//     type: type,
+//     //q: req.query.q // simple
+//     body: {
+//       query: {
+//         simple_query_string: {
+//           query: req.query.q
+//         }
+//       }
+//     }
+//   }).then(function (body) {
+//     res.send(body);
+//   }, function (error) {
+//     res.status(error.status);
+//     res.send(error);
+//   });
+// };
 
 module.exports.update = function(req, res) {
   client.update({

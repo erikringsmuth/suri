@@ -32,10 +32,12 @@ define(function(require) {
             if (!this.get('searchResultsWidth')) {
               this.setSearchResultsWidth();
             }
-            $.ajax('/search?q=' + searchTerm.trim())
+            $.ajax('/xhr/_search?q=' + searchTerm.trim())
               .done(function(data) {
                 this.set('searchResults', data);
               }.bind(this));
+          } else {
+            this.closeSearchResults();
           }
         }
       });

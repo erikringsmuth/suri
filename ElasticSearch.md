@@ -34,3 +34,13 @@ http DELETE http://localhost:9200/suri-ci/xhr/s2RTMUPgQQCINGv5Jcc9GQ
 s2RTMUPgQQCINGv5Jcc9GQ
 1
 2
+
+
+
+## XHR JSON
+{
+  "name": "Yet another Google Search",
+  "method": "GET",
+  "url": "https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}",
+  "info": "yet another"
+}

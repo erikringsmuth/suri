@@ -1,1 +1,1 @@
-node --debug ../server.js
+supervisor -w ../server.js,../server --debug ../server.js
