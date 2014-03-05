@@ -14,9 +14,10 @@ module.exports.create = function(req, res) {
     type: type,
     body: req.body
   }).then(function (body) {
-    res.end(body);
+    res.send(body);
   }, function (error) {
-    res.end(error);
+    res.status(error.status);
+    res.send(error);
   });
 };
 
@@ -25,9 +26,9 @@ module.exports.readList = function(req, res) {
     index: index,
     type: type
   }).then(function (body) {
-    res.end(body);
+    res.send(body);
   }, function (error) {
-    res.end(error);
+    res.send(error);
   });
 };
 
@@ -37,9 +38,10 @@ module.exports.read = function(req, res) {
     type: type,
     id: req.params.id
   }).then(function (body) {
-    res.end(body);
+    res.send(body);
   }, function (error) {
-    res.end(error);
+    res.status(error.status);
+    res.send(error);
   });
 };
 
@@ -47,12 +49,17 @@ module.exports.search = function(req, res) {
   client.search({
     index: index,
     type: type,
-    q: req.params.q
-    //ignore: [404]
+    body: {
+      query_string : {
+        fields : ['label', 'url^2'],
+        query: req.query.q
+      }
+    }
   }).then(function (body) {
-    res.end(body);
+    res.send(body);
   }, function (error) {
-    res.end(error);
+    res.status(error.status);
+    res.send(error);
   });
 };
 
@@ -65,9 +72,10 @@ module.exports.update = function(req, res) {
       doc: req.body
     }
   }).then(function (body) {
-    res.end(body);
+    res.send(body);
   }, function (error) {
-    res.end(error);
+    res.status(error.status);
+    res.send(error);
   });
 };
 
@@ -77,8 +85,9 @@ module.exports.delete = function(req, res) {
     type: type,
     id: req.params.id
   }).then(function (body) {
-    res.end(body);
+    res.send(body);
   }, function (error) {
-    res.end(error);
+    res.status(error.status);
+    res.send(error);
   });
 };

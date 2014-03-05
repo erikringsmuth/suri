@@ -1,1 +1,1 @@
-node ../server.js
+node --debug ../server.js

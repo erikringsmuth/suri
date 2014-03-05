@@ -17,7 +17,7 @@ define(function(require) {
     data: {
       name: 'XHR',
       method: 'GET',
-      url: 'http://',
+      url: 'http://www.suri.io/',
       autosend: false,
       responseBody: '',
       get responseBodyLength() { return (this.responseBody.length).toLocaleString(); },
