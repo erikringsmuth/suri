@@ -76,7 +76,7 @@ define(function(require) {
           }
 
           try {
-            this.xhr.send(this.nodes.requestBody.innerText);
+            this.xhr.send(this.nodes.requestBody.innerText.trim());
           } catch (exception) {
             this.nodes.responseBody.innerHTML = JSON.stringify(exception, null, 2);
           }
