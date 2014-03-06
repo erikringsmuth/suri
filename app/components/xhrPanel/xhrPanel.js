@@ -20,6 +20,9 @@ define(function(require) {
       method: 'GET',
       url: 'http://www.suri.io/',
       autosend: false,
+      showOptions: false,
+      stars: [],
+      callCount: 0,
       responseBody: '',
       get responseBodyLength() { return (this.responseBody.length).toLocaleString(); },
       sendButtonClass: 'default',
@@ -51,6 +54,10 @@ define(function(require) {
           if (event && event.original && event.original.stopPropagation) {
             event.original.stopPropagation();
           }
+        },
+
+        toggleOptions: function() {
+          this.set('showOptions', !this.get('showOptions'));
         },
 
         sendOnEnter: function sendOnEnter(event) {

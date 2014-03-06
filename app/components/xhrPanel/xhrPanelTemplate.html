@@ -2,9 +2,29 @@
 <div class="panel panel-default xhr-panel" id="{{id}}">
   <div class="panel-heading">
     <input type="text" id="panel-name" value="{{name}}" placeholder="Name">
-    <button type="button" on-click="teardown" class="close" aria-hidden="true"><i class="fa fa-times"></i></button>
-    <button type="button" id="save" on-click="save" class="btn btn-default pull-right"><i class="fa fa-save"></i> Save</button>
+    <span class="panel-heading-options">
+      <button type="button" on-click="teardown" class="close" aria-hidden="true"><i class="fa fa-times"></i></button>
+      <button type="button" id="toggle-options" on-click="toggleOptions" class="btn btn-default pull-right"><i class="fa fa-cog options-cog {{showOptions ? 'active' : ''}}"></i> Options</button>
+      <span type="span" id="stars" class="pull-right"><i class="fa fa-star"></i> - {{stars.length}}</span>
+      <span type="span" id="call-count" class="pull-right"><i class="fa fa-caret-square-o-right"></i> - {{callCount}}</span>
+    </span>
   </div>
+  {{#showOptions}}
+  <div class="panel-options">
+    <button type="button" id="save" on-click="save" class="btn btn-default pull-right"><i class="fa fa-save"></i> Save</button>
+    <div>id: {{id}}</div>
+    <div>info: {{info}}</div>
+    <div>created: {{created}}</div>
+    <div>changed: {{changed}}</div>
+    <div>cors enabled: {{corsEnabled}}</div>
+    <div>depricated: {{depricated}}</div>
+    <div>public: {{public}}</div>
+    <div>tags: {{tags}}</div>
+    <div>owner: {{owner}}</div>
+    <div>forked from: {{forkedFrom}}</div>
+    <div>forks: {{forks}}</div>
+  </div>
+  {{/showOptions}}
   <div class="panel-body">
     <div class="uri">
       <select value="{{method}}">
@@ -17,7 +37,7 @@
         <option value="OPTIONS">OPTIONS</option>
         <option value="TRACE">TRACE</option>
       </select>
-      <input type="text" value="{{url}}" on-keypress="sendOnEnter" placeholder="http://">
+      <input id="url" type="text" value="{{url}}" on-keypress="sendOnEnter" placeholder="http://">
       <span class="text-muted pull-right">HTTP/1.1</span>
     </div>
     <h4>request headers</h4>
