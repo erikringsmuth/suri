@@ -129,7 +129,7 @@ pre {
   background-color: #ebebeb;
 }
 #api-sequence-menu > button {
-  width: 48%;
+  width: 100%;
 }
 @media (max-width: 767px) {
   #api-sequence-menu {

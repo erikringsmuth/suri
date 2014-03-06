@@ -5,7 +5,6 @@ define(function(require) {
       apiSequenceTemplate = require('rv!./apiSequenceTemplate'),
       sequence = require('components/apiSequence/sequence'),
       XhrPanel = require('components/xhrPanel/xhrPanel'),
-      CodePanel = require('components/codePanel/codePanel'),
       $ = require('jquery');
   require('jquery.easing');
 
@@ -52,10 +51,6 @@ define(function(require) {
 
         newXhrPanel: function newXhrPanel() {
           new XhrPanel();
-        },
-
-        newCodePanel: function newCodePanel() {
-          new CodePanel();
         },
 
         teardown: function() {
