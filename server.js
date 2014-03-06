@@ -6,32 +6,49 @@ require('newrelic');
 
 var express   = require('express'),
     proxy     = require('./server/proxy'),
-    search     = require('./server/search'),
-    xhr     = require('./server/xhr'),
+    xhr       = require('./server/xhr'),
     app       = express();
 
-// Don't add the X-Powered-By header
-app.disable('x-powered-by');
+
+//// CONFIG
 
 app.configure(function() {
+  // Don't add the X-Powered-By header
+  app.disable('x-powered-by');
+
+  // GZip traffic
+  app.use(express.compress());
+
   // Proxy requests with 'api-host' header
   app.use(proxy);
 
-  // Parse body to JSON which is available using req.body
-  app.use(express.bodyParser());
-
   // Serve /app dir as static content, it will look like the root dir
   app.use(express.static(__dirname + '/app'));
+
+  // Parse body to JSON which is available using req.body
+  app.use(express.json());
+
+  process.env.ELASTICSEARCH_URL = process.env.BONSAI_URL || 'localhost:9200';
 });
 
-// Welcome text
-app.get('/search', function(req, res) {
-  var result = search.typeahead(req.query.q);
-  var body = JSON.stringify(result);
-  res.setHeader('Content-Type', 'application/json');
-  res.setHeader('Content-Length', Buffer.byteLength(body));
-  res.end(body);
+app.configure('development', function() {
+  // Error handling
+  app.use(function(err, req, res, next) {
+    console.error(err);
+    res.send(500, { status:500, message: 'internal error', error: err });
+  });
 });
+
+app.configure('production', function() {
+  // Error handling
+  app.use(function(err, req, res, next) {
+    //do logging and user-friendly error message display
+    res.send(500, { status:500, message: 'internal error' });
+  });
+});
+
+
+//// ROUTES
 
 // XHR
 app.post('/xhr', xhr.create);
@@ -47,7 +64,9 @@ app.get('/ip', function(req, res) {
   res.end();
 });
 
-// Start server
+
+//// START SERVER
+
 var port = Number(process.env.PORT || 5000);
 app.listen(port, function() {
   console.log('Listening on ' + port);

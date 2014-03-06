@@ -1,0 +1,1 @@
+web: supervisor -w server.js,server --debug server.js

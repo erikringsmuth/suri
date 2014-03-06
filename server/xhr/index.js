@@ -3,7 +3,7 @@
 var elasticsearch = require('elasticsearch');
 
 var client = elasticsearch.Client({
-  host: 'localhost:9200'
+  host: process.env.ELASTICSEARCH_URL
 });
 var index = 'suri-ci',
     type = 'xhr';
