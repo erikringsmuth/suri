@@ -77,7 +77,7 @@ define(function(require) {
           }
 
           try {
-            this.xhr.send(this.nodes.requestBody.innerText.trim());
+            this.xhr.send(this.nodes.requestBody.value.trim());
           } catch (exception) {
             this.nodes.responseBody.innerHTML = JSON.stringify(exception, null, 2);
           }
@@ -156,14 +156,17 @@ define(function(require) {
 
     parsedRequestHeaders: function parsedRequestHeaders() {
       var headers = {};
-      var headerLines = this.nodes.requestHeaders.innerText.split('\n');
+      var headerLines = this.nodes.requestHeaders.value.split('\n');
       if (headerLines.length === 1 && headerLines[0].trim() === '') {
         // because callling split on an empty string returns ['']
         headerLines = [];
       }
       for (var i = 0; i < headerLines.length; i++) {
         var headerParts = headerLines[i].split(':');
-        headers[headerParts[0].trim()] = headerParts.splice(1).join(':').trim();
+        var header = headerParts[0].trim();
+        if (header) {
+          headers[header] = headerParts.splice(1).join(':').trim();
+        }
       }
       return headers;
     },

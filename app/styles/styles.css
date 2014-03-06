@@ -169,8 +169,20 @@ pre {
   border: #e1e1e8 1px solid;
   border-radius: 3px;
 }
-.xhr-panel code:focus {
-  border: 1px solid black;
+.xhr-panel textarea {
+  background-color: #fdfdfd;
+  border: #e1e1e8 1px solid;
+  border-radius: 3px;
+  color: #333;
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  font-size: 13px;
+  padding: 9.5px;
+  margin: 0 0 10px;
+  resize: vertical;
+  width: 100%;
+  word-break: break-all;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 .xhr-panel #showMoreButton {
   width: 100%;
