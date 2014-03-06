@@ -16,7 +16,7 @@ app.configure(function() {
   // Don't add the X-Powered-By header
   app.disable('x-powered-by');
 
-  // GZip traffic
+  // gzip traffic
   app.use(express.compress());
 
   // Proxy requests with 'api-host' header
