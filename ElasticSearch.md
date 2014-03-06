@@ -44,3 +44,6 @@ s2RTMUPgQQCINGv5Jcc9GQ
   "url": "https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}",
   "info": "yet another"
 }
+
+
+http POST https://fxgkq15w:hk76uwqbxpfp25re@rowan-3702531.us-east-1.bonsai.io/suri-ci/xhr name="Google Search" method="GET" url="https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}" info=""

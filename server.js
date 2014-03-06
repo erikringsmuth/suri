@@ -4,6 +4,9 @@
 // Heroku performance logging
 require('newrelic');
 
+// Set environment vars before loading modules that use them
+process.env.ELASTICSEARCH_URL = process.env.BONSAI_URL || 'localhost:9200';
+
 var express   = require('express'),
     proxy     = require('./server/proxy'),
     xhr       = require('./server/xhr'),
@@ -27,11 +30,11 @@ app.configure(function() {
 
   // Parse body to JSON which is available using req.body
   app.use(express.json());
-
-  process.env.ELASTICSEARCH_URL = process.env.BONSAI_URL || 'localhost:9200';
 });
 
 app.configure('development', function() {
+  console.log('ELASTICSEARCH_URL: ' + process.env.ELASTICSEARCH_URL);
+
   // Error handling
   app.use(function(err, req, res, next) {
     console.error(err);
