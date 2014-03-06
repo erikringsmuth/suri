@@ -150,6 +150,22 @@ pre {
   border: none;
   width: 80%;
 }
+.xhr-panel input#panel-name {
+  background-color: #f5f5f5;
+}
+.xhr-panel button#save {
+  line-height: 14px;
+  margin-top: -3px;
+  background-color: #f5f5f5;
+  border: none;
+  opacity: .4;
+}
+.xhr-panel button#save:hover {
+  opacity: .6;
+}
+.xhr-panel button.close {
+  margin-top: 1px;
+}
 .xhr-panel .uri {
   padding: 5px;
   background-color: #fdfdfd;
