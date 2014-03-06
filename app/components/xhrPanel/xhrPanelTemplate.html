@@ -1,6 +1,10 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
 <div class="panel panel-default xhr-panel" id="{{id}}">
-  <div class="panel-heading">{{name}}<button type="button" class="close" on-click="teardown" aria-hidden="true">&times;</button></div>
+  <div class="panel-heading">
+    {{name}}
+    <button type="button" on-click="teardown" class="close" aria-hidden="true">&times;</button>
+    <button type="button" on-click="save" class="btn btn-default btn-xs pull-right">Save</button>
+  </div>
   <div class="panel-body">
     <div class="uri">
       <select value="{{method}}">

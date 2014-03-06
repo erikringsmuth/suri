@@ -5,7 +5,8 @@ define(function(require) {
       xhrPanelTemplate = require('rv!./xhrPanelTemplate'),
       sequence = require('components/apiSequence/sequence'),
       utilities = require('components/util/utilities'),
-      prettify = require('prettify');
+      prettify = require('prettify'),
+      $ = require('jquery');
 
   return Ractive.extend({
     template: xhrPanelTemplate,
@@ -130,6 +131,25 @@ define(function(require) {
         displayEntireResponse: function displayEntireResponse() {
           this.nodes.responseBody.innerHTML = prettify.prettyPrintOne(this.get('responseBody'));
           this.set('showMoreButton', false);
+        },
+
+        save: function(event) {
+          $.ajax('/xhr', {
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+              name: this.get('name'),
+              method: this.get('method'),
+              url: this.get('url'),
+              info: ''
+            })
+          })
+            .done(function(data) {
+              event.original.target.classList.add('btn-success');
+            })
+            .fail(function(data) {
+              event.original.target.classList.add('btn-danger');
+            });
         }
       });
     },
