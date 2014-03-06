@@ -163,9 +163,6 @@ pre {
 .xhr-panel button#save:hover {
   opacity: .6;
 }
-.xhr-panel button.close {
-  margin-top: 1px;
-}
 .xhr-panel .uri {
   padding: 5px;
   background-color: #fdfdfd;
