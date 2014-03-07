@@ -7,6 +7,7 @@ define(function(require) {
       utilities = require('components/util/utilities'),
       prettify = require('prettify'),
       $ = require('jquery');
+  require('Ractive-transitions-slide');
 
   return Ractive.extend({
     template: xhrPanelTemplate,

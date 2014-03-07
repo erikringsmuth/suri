@@ -142,18 +142,8 @@ pre {
 }
 
 /* XHR Panel */
-.xhr-panel select {
-  border: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-.xhr-panel select::-ms-expand {
-  display: none;
-}
-.xhr-panel input {
-  border: none;
-}
-.xhr-panel input#panel-name {
+/* header */
+.xhr-panel #panel-name {
   background-color: #f5f5f5;
   width: 50%;
 }
@@ -178,13 +168,52 @@ pre {
 .xhr-panel .panel-heading button:focus {
   outline-style: none;
 }
+.xhr-panel .options-cog {
+  transition: all .2s ease-out;
+}
 .xhr-panel .options-cog.active {
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -o-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
-  transition: all .4s ease-out;
+}
+.xhr-panel .options-cog.inactive {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+/* body */
+.xhr-panel select {
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.xhr-panel select::-ms-expand {
+  display: none;
+}
+.xhr-panel input {
+  border: none;
+}
+.xhr-panel input#url {
+  width: 79%;
+}
+@media (max-width: 991px) {
+  .xhr-panel input#url {
+    width: 71%;
+  }
+}
+@media (max-width: 767px) {
+  .xhr-panel input#url {
+    width: 62%;
+  }
+}
+@media (max-width: 320px) {
+  .xhr-panel input#url {
+    width: 40%;
+  }
 }
 .xhr-panel .uri {
   padding: 5px;
@@ -216,22 +245,4 @@ pre {
 }
 .xhr-panel #showMoreButton {
   width: 100%;
-}
-.xhr-panel input#url {
-  width: 79%;
-}
-@media (max-width: 991px) {
-  .xhr-panel input#url {
-    width: 71%;
-  }
-}
-@media (max-width: 767px) {
-  .xhr-panel input#url {
-    width: 62%;
-  }
-}
-@media (max-width: 320px) {
-  .xhr-panel input#url {
-    width: 40%;
-  }
 }

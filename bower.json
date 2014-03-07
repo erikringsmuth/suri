@@ -18,6 +18,7 @@
     "jquery": "~1.11.0",
     "jquery-easing": "*",
     "font-awesome": "~4.0.3",
-    "google-code-prettify": "~1.0.1"
+    "google-code-prettify": "~1.0.1",
+    "ractive-transitions-slide": "RactiveJS/Ractive-transitions-slide#~0.1.1"
   }
 }
