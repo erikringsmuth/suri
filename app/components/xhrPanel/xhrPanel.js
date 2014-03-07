@@ -9,7 +9,7 @@ define(function(require) {
       $ = require('jquery');
   require('Ractive-transitions-slide');
 
-  return Ractive.extend({
+  var XhrPanel = Ractive.extend({
     template: xhrPanelTemplate,
 
     el: '#api-sequence-placeholder',
@@ -143,6 +143,12 @@ define(function(require) {
           this.set('showMoreButton', false);
         },
 
+        fork: function() {
+          var fork = new XhrPanel({data: this.data});
+          fork.set('id', null);
+          fork.fire('save');
+        },
+
         save: function() {
           this.set('saveButtonClass', 'default');
           $.ajax('/xhr', {
@@ -209,4 +215,6 @@ define(function(require) {
       return result;
     }
   });
+
+  return XhrPanel;
 });

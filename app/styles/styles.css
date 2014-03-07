@@ -243,9 +243,9 @@ pre {
   padding: 15px;
   border-bottom: 1px dashed #ddd;
 }
-.xhr-panel #save,
-.xhr-panel #delete {
+.xhr-panel .panel-options .save-options button {
   padding: 2px 5px;
+  border: none;
 }
 .xhr-panel #showMoreButton {
   width: 100%;
