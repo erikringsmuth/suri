@@ -146,7 +146,6 @@ define(function(require) {
         fork: function() {
           var fork = new XhrPanel({data: this.data});
           fork.set('id', null);
-          fork.fire('save');
         },
 
         save: function() {
