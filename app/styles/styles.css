@@ -151,9 +151,6 @@ pre {
   background-color: #f5f5f5;
   width: 50%;
 }
-.xhr-panel .panel-heading-options {
-  width: 50%;
-}
 .xhr-panel .panel-heading-options>button,
 .xhr-panel .panel-heading-options>span {
   color: #000;

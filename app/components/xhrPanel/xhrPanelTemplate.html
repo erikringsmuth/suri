@@ -2,12 +2,12 @@
 <div class="panel panel-default xhr-panel" id="{{panelId}}">
   <div class="panel-heading">
     <input type="text" id="panel-name" value="{{name}}" placeholder="Name">
-    <span class="panel-heading-options">
-      <button type="button" on-click="teardown" class="close" aria-hidden="true"><i class="fa fa-times"></i></button>
-      <button type="button" id="toggle-options" on-click="toggleOptions" class="btn btn-default pull-right"><i class="fa fa-cog options-cog {{showOptions ? 'active' : 'inactive'}}"></i> Options</button>
-      <span type="span" id="stars" class="pull-right"><i class="fa fa-star"></i> - {{stars.length}}</span>
-      <span type="span" id="call-count" class="pull-right"><i class="fa fa-caret-square-o-right"></i> - {{callCount}}</span>
-    </span>
+    <div class="panel-heading-options pull-right">
+      <span><i class="fa fa-caret-square-o-right"></i> - {{callCount}}</span>
+      <span><i class="fa fa-star"></i> - {{stars.length}}</span>
+      <button type="button" on-click="toggleOptions" class="btn btn-default"><i class="fa fa-cog options-cog {{showOptions ? 'active' : 'inactive'}}"></i> Options</button>
+      <button type="button" on-click="teardown" aria-hidden="true"><i class="fa fa-times"></i></button>
+    </div>
   </div>
   {{#showOptions}}
   <div class="panel-options" intro-outro="slide:{duration:120}">
