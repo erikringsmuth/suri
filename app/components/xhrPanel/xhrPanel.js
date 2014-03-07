@@ -211,7 +211,8 @@ define(function(require) {
       if (url.substring(0, 4) !== 'http') {
         url = 'http://' + url;
       }
-      result.host = 'http://' + url.split('/')[2] + '/';
+      var urlParts = url.split('/');
+      result.host = urlParts[0] + '//' + urlParts[2] + '/';
       result.path = '/' + url.split('/').splice(3).join('/');
 
       return result;

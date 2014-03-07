@@ -1,7 +1,8 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
-var http = require('http');
+var http = require('http'),
+    https = require('https');
 
 // The API proxy forwards requests to the 'api-host' header
 module.exports = function apiProxy(req, res, next) {
@@ -14,11 +15,15 @@ module.exports = function apiProxy(req, res, next) {
     // Why is the official proxy buggy on root routes? Doing it manually...
 
     // strip the protocol
+    var protocol = http;
+    var apiPort = 80;
     if (apiHost.substring(0, 'http://'.length) === 'http://') {
       apiHost = apiHost.substring('http://'.length);
     }
     if (apiHost.substring(0, 'https://'.length) === 'https://') {
       apiHost = apiHost.substring('https://'.length);
+      protocol = https;
+      apiPort = 443;
     }
 
     // strip the trailing slash
@@ -27,7 +32,6 @@ module.exports = function apiProxy(req, res, next) {
     }
 
     // strip the port
-    var apiPort = 80;
     if (apiHost.indexOf(':') !== -1) {
       var targetHostParts = apiHost.split(':');
       apiHost = targetHostParts[0];
@@ -55,7 +59,7 @@ module.exports = function apiProxy(req, res, next) {
       headers: proxyHeaders
     };
 
-    var proxyRequest = http.request(proxyOptions, function(proxyResponse) {
+    var proxyRequest = protocol.request(proxyOptions, function(proxyResponse) {
       // pipe the proxy response to the XHR response
       res.writeHead(proxyResponse.statusCode, proxyResponse.headers);
       proxyResponse.on('data', function (chunk) {
@@ -66,8 +70,8 @@ module.exports = function apiProxy(req, res, next) {
       });
     })
       .on('error', function(e) {
-        res.end();
-        console.log('Request errored: ' + e);
+        res.end(e.message);
+        console.log('Request errored: ' + e.message);
       });
 
     // Pipe the XHR request into the proxy request
