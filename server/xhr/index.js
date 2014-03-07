@@ -2,7 +2,6 @@
 'use strict';
 var elasticsearch = require('elasticsearch'),
     shortId = require('shortid');
-    //shortId.generate()
 
 var client = elasticsearch.Client({
   host: process.env.ELASTICSEARCH_URL
@@ -71,7 +70,10 @@ module.exports.search = function(req, res) {
       }
     }
   }).then(function (body) {
-    var response = body.hits.hits.map(function(result) { return result._source; });
+    var response = body.hits.hits.map(function(result) {
+      result._source.id = result._id;
+      return result._source;
+    });
     res.send(response);
   }, function (error) {
     res.status(error.status);
@@ -107,6 +109,28 @@ module.exports.update = function(req, res) {
     body: {
       doc: req.body
     }
+  }).then(function (body) {
+    res.send(body);
+  }, function (error) {
+    res.status(error.status);
+    res.send(error);
+  });
+};
+
+// Index will create or update if it already exists
+module.exports.index = function(req, res) {
+  // Server validation
+  var xhr = {
+    name: req.body.name,
+    url: req.body.url,
+    method: req.body.method,
+    info: req.body.info
+  };
+  client.index({
+    index: index,
+    type: type,
+    id: req.body.id || shortId.generate(),
+    body: xhr
   }).then(function (body) {
     res.send(body);
   }, function (error) {

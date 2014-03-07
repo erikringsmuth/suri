@@ -19,21 +19,26 @@ define(function(require) {
       name: 'XHR',
       method: 'GET',
       url: 'http://www.suri.io/',
+      new: false,
       autosend: false,
       showOptions: false,
       stars: [],
       callCount: 0,
       responseBody: '',
       get responseBodyLength() { return (this.responseBody.length).toLocaleString(); },
+      saveButtonClass: 'default',
       sendButtonClass: 'default',
       sendButtonDisabled: false,
-      showMoreButton: false,
+      showMoreButton: false
     },
 
     init: function() {
       // All panels
       sequence.add(this);
-      this.set('id', utilities.guid());
+      if (!this.get('id')) {
+        this.set('id', utilities.guid());
+        this.set('new', true);
+      }
 
       // XHR Specific
       this.xhr = new XMLHttpRequest();
@@ -141,22 +146,29 @@ define(function(require) {
         },
 
         save: function(event) {
-          $.ajax('/xhr', {
+          var data = {
+            name: this.get('name'),
+            method: this.get('method'),
+            url: this.get('url'),
+            info: ''
+          };
+          if (!this.get('new')) {
+            data.id = this.data.id;
+          }
+
+          $.ajax('/xhr/_index', {
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({
-              name: this.get('name'),
-              method: this.get('method'),
-              url: this.get('url'),
-              info: ''
-            })
+            data: JSON.stringify(data)
           })
             .done(function(data) {
-              event.original.target.classList.add('btn-success');
-            })
+              this.set('saveButtonClass', 'success');
+              this.set('id', data._id)
+              this.set('new', false);
+            }.bind(this))
             .fail(function(data) {
-              event.original.target.classList.add('btn-danger');
-            });
+              this.set('saveButtonClass', 'danger');
+            }.bind(this));
         }
       });
     },

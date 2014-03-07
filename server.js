@@ -57,6 +57,7 @@ app.configure('production', function() {
 app.post('/xhr', xhr.create);
 app.get('/xhr', xhr.readList);
 app.get('/xhr/_search', xhr.search);
+app.post('/xhr/_index', xhr.index);
 app.get('/xhr/:id', xhr.read);
 app.put('/xhr/:id', xhr.update);
 app.delete('/xhr/:id', xhr.delete);
