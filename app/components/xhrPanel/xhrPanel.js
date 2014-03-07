@@ -30,7 +30,10 @@ define(function(require) {
       saveButtonClass: 'default',
       sendButtonClass: 'default',
       sendButtonDisabled: false,
-      showMoreButton: false
+      showMoreButton: false,
+      formatDate: function(date) {
+        return new Date(date).toISOString();
+      }
     },
 
     init: function() {

@@ -161,6 +161,7 @@ pre {
 }
 .xhr-panel .panel-heading button {
   padding: 0;
+  margin-top: -2px;
 }
 .xhr-panel .panel-heading button:hover {
   opacity: .6;

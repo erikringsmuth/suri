@@ -1,5 +1,6 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
 <div class="panel panel-default xhr-panel" id="{{panelId}}">
+
   <div class="panel-heading">
     <input type="text" id="panel-name" value="{{name}}" placeholder="Name">
     <div class="panel-heading-options pull-right">
@@ -9,28 +10,57 @@
       <button type="button" on-click="teardown" aria-hidden="true"><i class="fa fa-times"></i></button>
     </div>
   </div>
+
   {{#showOptions}}
   <div class="panel-options" intro-outro="slide:{duration:120}">
-    <div class="save-options pull-right">
-      <button type="button" id="delete" on-click="delete" class="btn btn-default" disabled="{{!id}}"><i class="fa fa-trash-o"></i> Delete</button>
-      <button type="button" id="fork" on-click="fork" class="btn btn-default"><i class="fa fa-code-fork"></i> Fork</button>
-      <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}}"><i class="fa fa-save"></i> Save</button>
+    <div class="row">
+      <div class="col-xs-6"><label>id</label> {{id}}</div>
+      <div class="col-xs-6">
+        <div class="save-options pull-right">
+          <button type="button" id="delete" on-click="delete" class="btn btn-default" disabled="{{!id}}"><i class="fa fa-trash-o"></i> Delete</button>
+          <button type="button" id="fork" on-click="fork" class="btn btn-default"><i class="fa fa-code-fork"></i> Fork</button>
+          <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}}"><i class="fa fa-save"></i> Save</button>
+        </div>
+      </div>
     </div>
-    <div>id: {{id}}</div>
-    <div>permalink: <a href="/?xhr={{id}}">/?xhr={{id}}</a></div>
-    <div>info: {{info}}</div>
-    <div>created date: {{createdDate}}</div>
-    <div>changed date: {{changedDate}}</div>
-    <div>cors enabled: {{corsEnabled}}</div>
-    <div>depricated: {{depricated}}</div>
-    <div>isPublic: {{isPublic}}</div>
-    <div>tags: {{tags}}</div>
-    <div>owner: {{owner}}</div>
-    <div>forked from: {{forkedFrom}}</div>
-    <div>forks: {{forks}}</div>
+    <div class="row">
+      <div class="col-xs-3">
+        <div><label>public <input type="checkbox" checked="{{isPublic}}"></label></div>
+        <div><label>cors enabled <input type="checkbox" checked="{{corsEnabled}}"></label></div>
+        <div><label>depricated <input type="checkbox" checked="{{depricated}}"></label></div>
+      </div>
+      <div class="col-xs-9">
+        <div><label>owner</label> {{owner}}</div>
+        <div><label>created date</label> {{formatDate(createdDate)}}</div>
+        <div><label>changed date</label> {{formatDate(changedDate)}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">
+        <label>forks</label> {{forks.length}}
+      </div>
+      <div class="col-xs-9">
+        <label>forked from</label> {{forkedFrom}}
+      </div>
+    </div>
+    <div>
+      <h4>info</h4>
+      <textarea rows="2">
+        {{info}}
+      </textarea>
+    </div>
+    <div>
+      <h4>tags</h4>
+      <textarea rows="1">
+        {{tags}}
+      </textarea>
+    </div>
+    <div><label>permalink</label> <a href="/?xhr={{id}}">/?xhr={{id}}</a></div>
   </div>
   {{/showOptions}}
+
   <div class="panel-body">
+
     <div class="uri">
       <select value="{{method}}">
         <option value="GET">GET</option>
@@ -52,10 +82,12 @@
     <button id="send" on-click="send" type="button" class="btn btn-{{sendButtonClass}}" disabled="{{sendButtonDisabled}}">Send&nbsp;&nbsp;<i class="fa fa-caret-square-o-right"></i></button>
     <h4>response headers</h4>
 <pre><code id="responseHeaders">{{responseHeaders}}</code></pre>
+
     <h4>response body</h4>
 <pre><code id="responseBody"></code></pre>
     {{#showMoreButton}}
     <button id="showMoreButton" on-click="displayEntireResponse" type="button" class="btn btn-default">Show full response ({{responseBodyLength}} characters)</button>
     {{/showMoreButton}}
+
   </div>
 </div>
