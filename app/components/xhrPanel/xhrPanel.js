@@ -16,10 +16,10 @@ define(function(require) {
     append: true,
 
     data: {
+      id: null,
       name: 'XHR',
       method: 'GET',
       url: 'http://www.suri.io/',
-      new: false,
       autosend: false,
       showOptions: false,
       stars: [],
@@ -35,10 +35,7 @@ define(function(require) {
     init: function() {
       // All panels
       sequence.add(this);
-      if (!this.get('id')) {
-        this.set('id', utilities.guid());
-        this.set('new', true);
-      }
+      this.set('uiId', utilities.guid());
 
       // XHR Specific
       this.xhr = new XMLHttpRequest();
@@ -145,28 +142,18 @@ define(function(require) {
           this.set('showMoreButton', false);
         },
 
-        save: function(event) {
-          var data = {
-            name: this.get('name'),
-            method: this.get('method'),
-            url: this.get('url'),
-            info: ''
-          };
-          if (!this.get('new')) {
-            data.id = this.data.id;
-          }
-
-          $.ajax('/xhr/_index', {
+        save: function() {
+          this.set('saveButtonClass', 'default');
+          $.ajax('/xhr', {
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(data)
+            data: JSON.stringify(this.data)
           })
             .done(function(data) {
               this.set('saveButtonClass', 'success');
-              this.set('id', data._id)
-              this.set('new', false);
+              this.set('id', data._id);
             }.bind(this))
-            .fail(function(data) {
+            .fail(function() {
               this.set('saveButtonClass', 'danger');
             }.bind(this));
         }

@@ -46,6 +46,26 @@ module.exports.read = function(req, res) {
   });
 };
 
+module.exports.simpleSearch = function(req, res) {
+  client.search({
+    index: index,
+    type: type,
+    //q: req.query.q // simple
+    body: {
+      query: {
+        simple_query_string: {
+          query: req.query.q
+        }
+      }
+    }
+  }).then(function (body) {
+    res.send(body);
+  }, function (error) {
+    res.status(error.status);
+    res.send(error);
+  });
+};
+
 module.exports.search = function(req, res) {
   client.search({
     index: index,
@@ -80,26 +100,6 @@ module.exports.search = function(req, res) {
     res.send(error);
   });
 };
-
-// module.exports.search = function(req, res) {
-//   client.search({
-//     index: index,
-//     type: type,
-//     //q: req.query.q // simple
-//     body: {
-//       query: {
-//         simple_query_string: {
-//           query: req.query.q
-//         }
-//       }
-//     }
-//   }).then(function (body) {
-//     res.send(body);
-//   }, function (error) {
-//     res.status(error.status);
-//     res.send(error);
-//   });
-// };
 
 module.exports.update = function(req, res) {
   client.update({
