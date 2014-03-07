@@ -210,6 +210,10 @@ pre {
   padding: 15px;
   border-bottom: 1px dashed #ddd;
 }
+.xhr-panel #save,
+.xhr-panel #delete {
+  padding: 2px 5px;
+}
 .xhr-panel #showMoreButton {
   width: 100%;
 }

@@ -1,5 +1,5 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
-<div class="panel panel-default xhr-panel" id="{{uiId}}">
+<div class="panel panel-default xhr-panel" id="{{panelId}}">
   <div class="panel-heading">
     <input type="text" id="panel-name" value="{{name}}" placeholder="Name">
     <span class="panel-heading-options">
@@ -11,6 +11,7 @@
   </div>
   {{#showOptions}}
   <div class="panel-options">
+    <button type="button" id="delete" on-click="delete" class="btn btn-default pull-right"><i class="fa fa-trash-o"></i> Delete</button>
     <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}} pull-right"><i class="fa fa-save"></i> Save</button>
     <div>id: {{id}}</div>
     <div>info: {{info}}</div>

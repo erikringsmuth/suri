@@ -7,10 +7,10 @@ require('newrelic');
 // Set environment vars before loading modules that use them
 process.env.ELASTICSEARCH_URL = process.env.BONSAI_URL || 'localhost:9200';
 
-var express   = require('express'),
-    proxy     = require('./server/proxy'),
-    xhr       = require('./server/xhr'),
-    app       = express();
+var express     = require('express'),
+    proxy       = require('./server/proxy'),
+    xhrService  = require('./server/xhrService'),
+    app         = express();
 
 
 //// CONFIG
@@ -54,9 +54,9 @@ app.configure('production', function() {
 //// ROUTES
 
 // XHR
-app.post('/xhr', xhr.index);
-app.get('/xhr', xhr.search);
-app.delete('/xhr/:id', xhr.delete);
+app.post('/xhr', xhrService.index);
+app.get('/xhr', xhrService.search);
+app.delete('/xhr/:id', xhrService.delete);
 
 // Browser's IP address
 app.get('/ip', function(req, res) {

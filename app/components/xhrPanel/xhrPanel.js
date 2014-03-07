@@ -35,7 +35,7 @@ define(function(require) {
     init: function() {
       // All panels
       sequence.add(this);
-      this.set('uiId', utilities.guid());
+      this.set('panelId', utilities.guid());
 
       // XHR Specific
       this.xhr = new XMLHttpRequest();
@@ -156,6 +156,21 @@ define(function(require) {
             .fail(function() {
               this.set('saveButtonClass', 'danger');
             }.bind(this));
+        },
+
+        delete: function() {
+          var id = this.get('id');
+          if (!id) {
+            // This was never saved, remove the panel
+            this.teardown();
+          } else {
+            $.ajax('/xhr/' + this.get('id'), {
+              type: 'DELETE'
+            })
+              .done(function() {
+                this.teardown();
+              }.bind(this));
+          }
         }
       });
     },

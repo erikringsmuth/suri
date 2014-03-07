@@ -41,7 +41,7 @@ define(function(require) {
         // When you click an item in the menu, scroll to the panel
         scrollToPanel: function scrollToPanel(event, panel) {
           $('html,body').animate({
-            scrollTop: document.getElementById(panel.get('uiId')).offsetTop + this.el.offsetTop - 10
+            scrollTop: document.getElementById(panel.get('panelId')).offsetTop + this.el.offsetTop - 10
           }, 200, 'easeOutQuint');
         },
 

@@ -90,6 +90,7 @@ module.exports.search = function(req, res) {
       }
     }
   }).then(function (body) {
+    // Map the response to an array with the _source field plus the ID
     var response = body.hits.hits.map(function(result) {
       result._source.id = result._id;
       return result._source;
