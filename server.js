@@ -8,6 +8,7 @@ require('newrelic');
 process.env.ELASTICSEARCH_URL = process.env.BONSAI_URL || 'localhost:9200';
 
 var express     = require('express'),
+    auth        = require('./server/authentication'),
     proxy       = require('./server/proxy'),
     xhrService  = require('./server/xhrService'),
     app         = express();
@@ -24,6 +25,9 @@ app.configure(function() {
 
   // Proxy requests with 'api-host' header
   app.use(proxy);
+
+  // OAuth
+  app.use(auth);
 
   // Serve /app dir as static content, it will look like the root dir
   app.use(express.static(__dirname + '/app'));
