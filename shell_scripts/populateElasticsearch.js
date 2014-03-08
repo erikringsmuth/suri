@@ -52,6 +52,8 @@ var Xhr = function(xhr) {
   // ],
   this.forks = xhr.forks || [];
   this.forkedFrom = xhr.forkedFrom || null;
+  this.apiKeyRequired = false;
+  this.apiKeyInformation = null;
 };
 
 
@@ -80,7 +82,8 @@ var xhrs = [
         default: '{{searchTerm}}',
         required: true
       }
-    ]
+    ],
+    tags: ['search', 'google']
   }),
   new Xhr({
     name: 'Google Typeahead',
@@ -99,14 +102,16 @@ var xhrs = [
         default: '{{searchTerm}}',
         required: true
       }
-    ]
+    ],
+    tags: ['search', 'typeahead', 'google']
   }),
   new Xhr({
     name: 'CORS Test Endpoint',
     method: 'GET',
     url: 'https://cors-test.appspot.com/test',
     corsEnabled: true,
-    info: 'Use this endpoint to test CORS functionality.'
+    info: 'Use this endpoint to test CORS functionality.',
+    tags: ['cors', 'xss']
   }),
   new Xhr({
     name: 'Google Maps GeoCode',
@@ -131,13 +136,29 @@ var xhrs = [
         default: 'API_KEY',
         required: false
       }
-    ]
+    ],
+    tags: ['maps', 'location', 'geolocation']
   }),
   new Xhr({
     name: 'ICNDB Internet Chuck Norris Database',
     method: 'GET',
     url: 'http://api.icndb.com/jokes/random',
-    info: 'A roundhouse kick to the face!'
+    info: 'A roundhouse kick to the face!',
+    tags: ['jokes']
+  }),
+  new Xhr({
+    name: 'Weather Forecast',
+    method: 'GET',
+    url: 'http://api.openweathermap.org/data/2.5/weather?q=Minneapolis,MN',
+    queryParameters: [
+      {
+        parameter: 'q',
+        values: [],
+        default: 'Minneapolis,MN',
+        required: true
+      }
+    ],
+    tags: ['weather', 'forecast', 'temperature']
   })
 ];
 
@@ -174,7 +195,7 @@ client.deleteByQuery({
         body: xhr
       })
         .then(function (body) {
-          console.log('\nCreated: ' + JSON.stringify(body));
+          console.log('\nIndexed: ' + JSON.stringify(body));
         }, function (error) {
           console.log(error);
         });
