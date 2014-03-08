@@ -52,8 +52,6 @@ var Xhr = function(xhr) {
   // ],
   this.forks = xhr.forks || [];
   this.forkedFrom = xhr.forkedFrom || null;
-  this.apiKeyRequired = false;
-  this.apiKeyInformation = null;
 };
 
 
@@ -159,6 +157,26 @@ var xhrs = [
       }
     ],
     tags: ['weather', 'forecast', 'temperature']
+  }),
+  new Xhr({
+    name: 'Google RSS Feed Loader',
+    method: 'GET',
+    url: 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.digg.com/rss/index.xml',
+    queryParameters: [
+      {
+        parameter: 'v',
+        values: ['1.0'],
+        default: '1.0',
+        required: true
+      },
+      {
+        parameter: 'q',
+        values: [],
+        default: 'http://www.digg.com/rss/index.xml',
+        required: true
+      }
+    ],
+    tags: ['rss', 'atom', 'feed', 'reader']
   })
 ];
 

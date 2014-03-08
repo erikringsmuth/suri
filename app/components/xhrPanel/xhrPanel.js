@@ -37,8 +37,6 @@ define(function(require) {
       owner: null,
       forks: null, // []
       forkedFrom: null,
-      apiKeyRequired: false,
-      apiKeyInformation: null,
 
       // State
       responseBody: '',
