@@ -49,7 +49,9 @@ define(function(require) {
         return number.toLocaleString();
       },
       formatDate: function(date) {
-        return new Date(date).toISOString();
+        //return new Date(date).toISOString();
+        var d = new Date(date);
+        return d.getFullYear() + '-' + d.getMonth() + '-' + d.getDay() + ' ' + d.getHours() + ':' + d.getMinutes();
       }
     },
 

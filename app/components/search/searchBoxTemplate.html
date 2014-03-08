@@ -7,12 +7,12 @@
   {{#searchResults.length}}
   <div id="searchResults" style="width: {{searchResultsWidth}}px">
     {{#searchResults:index}}
-    <div class="searchResultItem" tabindex="{{index + 2}}" on-click="openResult:{{this}}" on-keydown="openResultOnEnter:{{this}}">
-      <span class="name">{{name}}</span>
-      <span>
+    <div class="row searchResultItem" tabindex="{{index + 2}}" on-click="openResult:{{this}}" on-keydown="openResultOnEnter:{{this}}">
+      <div class="col-sm-4 name">{{name}}</div>
+      <div class="col-sm-8">
         <span class="method">{{method}}</span>
         <span class="url">{{url}}</span>
-      </span>
+      </div>
     </div>
     {{/searchResults}}
   </div>

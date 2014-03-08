@@ -103,17 +103,21 @@ pre {
 }
 #search .searchResultItem {
   padding: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-left: 0;
+  margin-right: 0;
 }
 #search .searchResultItem:hover,
 #search .searchResultItem:focus {
   background-color: #ebebeb;
   outline-style: none;
 }
-#search .searchResultItem span {
-  display: inline-block;
+#search .col-sm-4,
+#search .col-sm-8 {
+  padding: 0;
 }
 #search .searchResultItem .name {
-  width: 26%;
   color: #777;
 }
 

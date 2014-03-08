@@ -6,6 +6,7 @@
     <div class="panel-heading-options pull-right">
       <span><i class="fa fa-caret-square-o-right"></i> - {{callCount}}</span>
       <span><i class="fa fa-star"></i> - {{stars.length}}</span>
+      <span><i class="fa fa-code-fork"></i> - {{forks.length}}</span>
       <button type="button" on-click="toggleOptions" class="btn btn-default"><i class="fa fa-cog options-cog {{showOptions ? 'active' : 'inactive'}}"></i> Options</button>
       <button type="button" on-click="teardown" aria-hidden="true"><i class="fa fa-times"></i></button>
     </div>
@@ -14,33 +15,25 @@
   {{#showOptions}}
   <div class="panel-options" intro-outro="slide:{duration:120}">
     <div class="row">
-      <div class="col-xs-6"><label>id</label> {{id}}</div>
-      <div class="col-xs-6">
+      <div class="col-sm-4 pull-right">
         <div class="save-options pull-right">
           <button type="button" id="delete" on-click="delete" class="btn btn-default" disabled="{{!id}}"><i class="fa fa-trash-o"></i> Delete</button>
           <button type="button" id="fork" on-click="fork" class="btn btn-default"><i class="fa fa-code-fork"></i> Fork</button>
           <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}}"><i class="fa fa-save"></i> Save</button>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3">
-        <div><label>public <input type="checkbox" checked="{{isPublic}}"></label></div>
-        <div><label>cors enabled <input type="checkbox" checked="{{corsEnabled}}"></label></div>
-        <div><label>depricated <input type="checkbox" checked="{{depricated}}"></label></div>
+      <div class="col-sm-4">
+        <div><label>id</label> {{id}}</div>
+        <div><label><input type="checkbox" checked="{{isPublic}}"> public</label></div>
+        <div><label><input type="checkbox" checked="{{corsEnabled}}"> cors enabled</label></div>
+        <div><label><input type="checkbox" checked="{{depricated}}"> depricated</label></div>
+        <div><label>permalink</label> <a href="/?xhr={{id}}">/?xhr={{id}}</a></div>
       </div>
-      <div class="col-xs-9">
+      <div class="col-sm-4">
         <div><label>owner</label> {{owner}}</div>
-        <div><label>created date</label> {{formatDate(createdDate)}}</div>
-        <div><label>changed date</label> {{formatDate(changedDate)}}</div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3">
-        <label>forks</label> {{forks.length}}
-      </div>
-      <div class="col-xs-9">
-        <label>forked from</label> {{forkedFrom}}
+        {{#forkedFrom}}<div><label>forked from</label> {{forkedFrom}}</div>{{/forkedFrom}}
+        <div><label>created</label> {{formatDate(createdDate)}}</div>
+        <div><label>changed</label> {{formatDate(changedDate)}}</div>
       </div>
     </div>
     <div>
@@ -55,7 +48,6 @@
         {{tags}}
       </textarea>
     </div>
-    <div><label>permalink</label> <a href="/?xhr={{id}}">/?xhr={{id}}</a></div>
   </div>
   {{/showOptions}}
 
