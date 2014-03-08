@@ -1,6 +1,11 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
+var elasticsearch = require('elasticsearch'),
+    shortId = require('shortid'),
+    index = 'suri-ci',
+    type = 'xhr';
+
 var Xhr = function(xhr) {
   this.name = xhr.name || 'XHR';
   this.method = xhr.method || 'GET';
@@ -57,12 +62,14 @@ var Xhr = function(xhr) {
 
 //// Data
 var xhrs = [
+  { index:  { _index: index, _type: type, _id: shortId.generate() } },
   new Xhr({
     name: 'What\'s my IP?',
     method: 'GET',
     url: 'http://www.suri.io/ip',
     info: 'Get your local machine\'s IP address'
   }),
+  { index:  { _index: index, _type: type, _id: shortId.generate() } },
   new Xhr({
     name: 'Google Search',
     method: 'GET',
@@ -83,6 +90,7 @@ var xhrs = [
     ],
     tags: ['search', 'google']
   }),
+  { index:  { _index: index, _type: type, _id: shortId.generate() } },
   new Xhr({
     name: 'Google Typeahead',
     method: 'GET',
@@ -103,6 +111,7 @@ var xhrs = [
     ],
     tags: ['search', 'typeahead', 'google']
   }),
+  { index:  { _index: index, _type: type, _id: shortId.generate() } },
   new Xhr({
     name: 'CORS Test Endpoint',
     method: 'GET',
@@ -111,6 +120,7 @@ var xhrs = [
     info: 'Use this endpoint to test CORS functionality.',
     tags: ['cors', 'xss']
   }),
+  { index:  { _index: index, _type: type, _id: shortId.generate() } },
   new Xhr({
     name: 'Google Maps GeoCode',
     method: 'GET',
@@ -137,6 +147,7 @@ var xhrs = [
     ],
     tags: ['maps', 'location', 'geolocation']
   }),
+  { index:  { _index: index, _type: type, _id: shortId.generate() } },
   new Xhr({
     name: 'ICNDB Internet Chuck Norris Database',
     method: 'GET',
@@ -144,6 +155,7 @@ var xhrs = [
     info: 'A roundhouse kick to the face!',
     tags: ['jokes']
   }),
+  { index:  { _index: index, _type: type, _id: shortId.generate() } },
   new Xhr({
     name: 'Weather Forecast',
     method: 'GET',
@@ -158,6 +170,7 @@ var xhrs = [
     ],
     tags: ['weather', 'forecast', 'temperature']
   }),
+  { index:  { _index: index, _type: type, _id: shortId.generate() } },
   new Xhr({
     name: 'Google RSS Feed Loader',
     method: 'GET',
@@ -182,11 +195,6 @@ var xhrs = [
 
 
 //// Script
-var elasticsearch = require('elasticsearch'),
-    shortId = require('shortid'),
-    index = 'suri-ci',
-    type = 'xhr';
-
 var client = elasticsearch.Client({
   host: 'localhost:9200'
 });
@@ -205,22 +213,17 @@ client.deleteByQuery({
     console.log('Deleted existing items');
 
     // Then add each of the new items
-    xhrs.forEach(function (xhr) {
-      client.index({
-        index: index,
-        type: type,
-        id: shortId.generate(),
-        body: xhr
-      })
-        .then(function (body) {
-          console.log('\nIndexed: ' + JSON.stringify(body));
-        }, function (error) {
-          console.log(error);
-        });
-    });
+    client.bulk({
+      body: xhrs
+    })
+      .then(function (body) {
+        console.log('\nIndexed: ' + JSON.stringify(body));
+        process.exit(0);
+      }, function (error) {
+        console.log(error);
+        process.exit(0);
+      });
 
   }, function () {
     console.log('Failed to delete existing items.');
   });
-
-//process.exit(0);
