@@ -7,12 +7,11 @@ var http = require('http'),
 // The API proxy forwards requests to the 'api-host' header
 module.exports = function apiProxy(req, res, next) {
   var apiHost = req.get('api-host');
-  if(apiHost) {
+  if(!apiHost) {
+    // Not a proxy request, carry on.
+    next();
+  } else {
     // Proxy to the API host!
-
-    //BORKED! proxy.web(req, res, {target: apiHost});
-
-    // Why is the official proxy buggy on root routes? Doing it manually...
 
     // strip the protocol
     var protocol = http;
@@ -82,8 +81,5 @@ module.exports = function apiProxy(req, res, next) {
       proxyRequest.end();
     });
 
-  } else {
-    // Not a proxy request, carry on.
-    next();
   }
 };
