@@ -18,14 +18,17 @@ var Xhr = function(xhr) {
   //     required: false
   //   }
   // ],
-  this.headers = xhr.headers || [
-    {
-      header: 'Content-Type',
-      values: ['application/json', 'application/xml'],
-      default: 'application/json',
-      required: false
-    }
-  ];
+  this.headers = xhr.headers || [];
+
+  // queryParameters: [
+  //   {
+  //     parameter: 'key',
+  //     values: [],
+  //     default: 'API_KEY',
+  //     required: false
+  //   }
+  // ]
+  this.queryParameters = xhr.queryParameters || [];
   this.body = xhr.body || '';
   this.corsEnabled = xhr.corsEnabled || false;
   this.depricated = xhr.depricated || false;
@@ -64,13 +67,77 @@ var xhrs = [
     name: 'Google Search',
     method: 'GET',
     url: 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}',
-    info: null
+    queryParameters: [
+      {
+        parameter: 'v',
+        values: ['1.0'],
+        default: '1.0',
+        required: true
+      },
+      {
+        parameter: 'q',
+        values: [],
+        default: '{{searchTerm}}',
+        required: true
+      }
+    ]
   }),
   new Xhr({
     name: 'Google Typeahead',
     method: 'GET',
     url: 'http://suggestqueries.google.com/complete/search?client=firefox&q={{searchTerm}}',
-    info: null
+    queryParameters: [
+      {
+        parameter: 'client',
+        values: ['firefox'],
+        default: 'firefox',
+        required: true
+      },
+      {
+        parameter: 'q',
+        values: [],
+        default: '{{searchTerm}}',
+        required: true
+      }
+    ]
+  }),
+  new Xhr({
+    name: 'CORS Test Endpoint',
+    method: 'GET',
+    url: 'https://cors-test.appspot.com/test',
+    corsEnabled: true,
+    info: 'Use this endpoint to test CORS functionality.'
+  }),
+  new Xhr({
+    name: 'Google Maps GeoCode',
+    method: 'GET',
+    url: 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=false',
+    queryParameters: [
+      {
+        parameter: 'address',
+        values: [],
+        default: '1600+Amphitheatre+Parkway,+Mountain+View,+CA',
+        required: true
+      },
+      {
+        parameter: 'sensor',
+        values: ['true', 'false'],
+        default: 'false',
+        required: true
+      },
+      {
+        parameter: 'key',
+        values: [],
+        default: 'API_KEY',
+        required: false
+      }
+    ]
+  }),
+  new Xhr({
+    name: 'ICNDB Internet Chuck Norris Database',
+    method: 'GET',
+    url: 'http://api.icndb.com/jokes/random',
+    info: 'A roundhouse kick to the face!'
   })
 ];
 
