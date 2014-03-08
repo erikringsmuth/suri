@@ -121,18 +121,22 @@ module.exports.update = function(req, res) {
 // Index will create or update if it already exists
 module.exports.index = function(req, res) {
   // Server validation
+  // TODO: guard on arrays and read only properties
+  // TODO: select object with ID and fall back to existing properties
   var xhr = {
     name: req.body.name,
-    url: req.body.url,
     method: req.body.method,
+    url: req.body.url,
+    headers: req.body.headers,
+    queryParameters: req.body.queryParameters,
+    body: req.body.body,
+    corsEnabled: req.body.corsEnabled,
     info: req.body.info,
     createdDate: req.body.createdDate,
     changedDate: req.body.changedDate,
     callCount: req.body.callCount,
-    body: req.body.body,
-    corsEnabled: req.body.corsEnabled,
-    depricated: req.body.depricated,
     isPublic: req.body.isPublic,
+    depricated: req.body.depricated,
     tags: req.body.tags,
     stars: req.body.stars,
     owner: req.body.owner,

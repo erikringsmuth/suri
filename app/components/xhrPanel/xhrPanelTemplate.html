@@ -86,7 +86,7 @@
     <h4>response body</h4>
 <pre><code id="responseBody"></code></pre>
     {{#showMoreButton}}
-    <button id="showMoreButton" on-click="displayEntireResponse" type="button" class="btn btn-default">Show full response ({{responseBodyLength}} characters)</button>
+    <button id="showMoreButton" on-click="displayEntireResponse" type="button" class="btn btn-default">Show full response ({{formatNumber(responseBody.length)}} characters)</button>
     {{/showMoreButton}}
 
   </div>

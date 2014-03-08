@@ -17,45 +17,60 @@ define(function(require) {
     append: true,
 
     data: {
+      // Model
       id: null,
       name: 'XHR',
       method: 'GET',
       url: 'http://www.suri.io/',
-      autosend: false,
-      showOptions: false,
+      headers: null, // []
+      queryParameters: null, // []
+      body: null,
       corsEnabled: false,
-      isPublic: true,
-      depricated: false,
+      info: null,
       createdDate: Date.now(),
       changedDate: null,
-      stars: [],
       callCount: 0,
+      isPublic: true,
+      depricated: false,
+      tags: null, // []
+      stars: null, // []
+      owner: null,
+      forks: null, // []
+      forkedFrom: null,
+
+      // State
       responseBody: '',
-      get responseBodyLength() { return (this.responseBody.length).toLocaleString(); },
+      showOptions: false,
       saveButtonClass: 'default',
       sendButtonClass: 'default',
       sendButtonDisabled: false,
       showMoreButton: false,
+      formatNumber: function(number) {
+        return number.toLocaleString();
+      },
       formatDate: function(date) {
         return new Date(date).toISOString();
       }
     },
 
     init: function() {
-      // All panels
       sequence.add(this);
-      this.set('panelId', utilities.guid());
 
-      // XHR Specific
+      // Initialize model arrays and ID
+      this.set('panelId', utilities.guid());
+      this.set('headers', []);
+      this.set('queryParameters', []);
+      this.set('tags', []);
+      this.set('stars', []);
+      this.set('forks', []);
+
+      // XHR
       this.xhr = new XMLHttpRequest();
       var done = function done() {
         this.fire('displayResponse');
       }.bind(this);
       this.xhr.onload = done;
       this.xhr.onerror = done;
-      if (this.get('autosend') === true) {
-        this.send();
-      }
 
       this.on({
         // All panels
@@ -86,14 +101,28 @@ define(function(require) {
             this.xhr.open(this.get('method'), this.get('url'), true);
           } else {
             // Proxy request using the 'api-host' header
-            var pUrl = this.parsedUrl();
-            this.xhr.open(this.get('method'), pUrl.path, true);
-            this.xhr.setRequestHeader('api-host', pUrl.host);
+            var url = this.get('url');
+            if (url.substring(0, 4) !== 'http') {
+              url = 'http://' + url;
+            }
+            var urlParts = url.split('/');
+            var host = urlParts[0] + '//' + urlParts[2] + '/';
+            var path = '/' + url.split('/').splice(3).join('/');
+
+            this.xhr.open(this.get('method'), path, true);
+            this.xhr.setRequestHeader('api-host', host);
           }
-          var headers = this.parsedRequestHeaders();
-          for (var header in headers) {
-            if (headers.hasOwnProperty(header)) {
-              this.xhr.setRequestHeader(header, headers[header]);
+
+          var headerLines = this.nodes.requestHeaders.value.split('\n');
+          if (headerLines.length === 1 && headerLines[0].trim() === '') {
+            // because callling split on an empty string returns ['']
+            headerLines = [];
+          }
+          for (var i = 0; i < headerLines.length; i++) {
+            var headerParts = headerLines[i].split(':');
+            var header = headerParts[0].trim();
+            if (header) {
+              this.xhr.setRequestHeader(header, headerParts.splice(1).join(':').trim());
             }
           }
 
@@ -190,40 +219,6 @@ define(function(require) {
           }
         }
       });
-    },
-
-    parsedRequestHeaders: function parsedRequestHeaders() {
-      var headers = {};
-      var headerLines = this.nodes.requestHeaders.value.split('\n');
-      if (headerLines.length === 1 && headerLines[0].trim() === '') {
-        // because callling split on an empty string returns ['']
-        headerLines = [];
-      }
-      for (var i = 0; i < headerLines.length; i++) {
-        var headerParts = headerLines[i].split(':');
-        var header = headerParts[0].trim();
-        if (header) {
-          headers[header] = headerParts.splice(1).join(':').trim();
-        }
-      }
-      return headers;
-    },
-
-    parsedUrl: function parsedUrl() {
-      var result = {
-        path: '',
-        host: ''
-      };
-
-      var url = this.get('url');
-      if (url.substring(0, 4) !== 'http') {
-        url = 'http://' + url;
-      }
-      var urlParts = url.split('/');
-      result.host = urlParts[0] + '//' + urlParts[2] + '/';
-      result.path = '/' + url.split('/').splice(3).join('/');
-
-      return result;
     }
   });
 
