@@ -125,7 +125,19 @@ module.exports.index = function(req, res) {
     name: req.body.name,
     url: req.body.url,
     method: req.body.method,
-    info: req.body.info
+    info: req.body.info,
+    createdDate: req.body.createdDate,
+    changedDate: req.body.changedDate,
+    callCount: req.body.callCount,
+    body: req.body.body,
+    corsEnabled: req.body.corsEnabled,
+    depricated: req.body.depricated,
+    isPublic: req.body.isPublic,
+    tags: req.body.tags,
+    stars: req.body.stars,
+    owner: req.body.owner,
+    forks: req.body.forks,
+    forkedFrom: req.body.forkedFrom
   };
   client.index({
     index: index,
