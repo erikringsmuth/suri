@@ -8,6 +8,8 @@ module.exports = function authenticate(req, res, next) {
   if (req.query.code && req.query.state) {
     // Redirected from 'GET https://github.com/login/oauth/authorize'
 
+    var accessTokenResponse = '';
+
     // POST https://github.com/login/oauth/access_token
     var authRequest = https.request({
       hostname: 'github.com',
@@ -18,10 +20,34 @@ module.exports = function authenticate(req, res, next) {
       }
     }, function(authResponse) {
       authResponse.on('data', function (chunk) {
-        res.write(chunk, 'binary');
+        //res.write(chunk, 'binary');
+
+        accessTokenResponse = accessTokenResponse + chunk;
       });
       authResponse.on('end', function () {
-        res.end();
+        var accessTokenResponseJSON = JSON.parse(accessTokenResponse);
+        // "Authorization: token OAUTH-TOKEN" https://api.github.com/user
+        var userRequest = https.request({
+          hostname: 'github.com',
+          path: '/user',
+          method: 'GET',
+          headers: {
+            'Authorization': 'token ' + accessTokenResponseJSON.access_token,
+            'Content-Type': 'application/json'
+          }
+        }, function(userResponse) {
+          userResponse.on('data', function (chunk) {
+            res.write(chunk, 'binary');
+          });
+          userResponse.on('end', function () {
+            res.end();
+          });
+        });
+        userRequest.end();
+        userRequest.on('error', function(e) {
+          res.end(e);
+        });
+
       });
     });
 
