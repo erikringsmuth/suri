@@ -76,10 +76,13 @@ define(function(require) {
           this.set('sendButtonClass', 'default');
           this.set('sendButtonDisabled', true);
 
-          var pUrl = this.parsedUrl();
-          this.xhr.open(this.get('method'), pUrl.path, true);
-          // Slight optimization to prevent suri from calling itself
-          if (pUrl.host !== 'http://suri.io/' && pUrl.host !== 'http://www.suri.io/') {
+          if (this.get('corsEnabled')) {
+            // Directly talk to server
+            this.xhr.open(this.get('method'), this.get('url'), true);
+          } else {
+            // Proxy request using the 'api-host' header
+            var pUrl = this.parsedUrl();
+            this.xhr.open(this.get('method'), pUrl.path, true);
             this.xhr.setRequestHeader('api-host', pUrl.host);
           }
           var headers = this.parsedRequestHeaders();
