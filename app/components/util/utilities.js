@@ -5,6 +5,9 @@ define(function(require) {
       prettify = require('prettify');
 
   var utilities = {
+    // True in a development environment
+    development: window.location.hostname === 'localhost',
+
     // Format code for readability. This will look for every code block in the element and format it.
     formatCode: function formatCode(element) {
       $(element).find('code').each(function() {
