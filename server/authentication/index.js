@@ -2,18 +2,17 @@
 'use strict';
 
 var https = require('https');
-var clientId = '5ebc434bdfbe5f335ba1';
-var clientSecret = '68d93781f6b0e4e9cd2bbcb77b9b9e983cdbeea8';
-var redirectUri = 'http://www.suri.io/';
+var clientId = '838945892575-97eh2eka9prpaurmlibqft86if2r98cs.apps.googleusercontent.com';
+var clientSecret = 'lrEzMLAc-JAnNr_Q-C3tbwxY';
 
 module.exports.authenticate = function authenticate(req, res) {
-  // POST https://github.com/login/oauth/access_token
+  // POST https://accounts.google.com/o/oauth2/token
   var authRequest = https.request({
-    hostname: 'github.com',
-    path: '/login/oauth/access_token?client_id=' + clientId + '&client_secret=' + clientSecret + '&code=' + req.body.code + '&redirect_uri=' + redirectUri,
+    hostname: 'accounts.google.com',
+    path: '/o/oauth2/token',
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
   }, function(authResponse) {
     authResponse.on('data', function (chunk) {
@@ -23,6 +22,22 @@ module.exports.authenticate = function authenticate(req, res) {
       res.end();
     });
   });
+
+  var body = 'client_id=' + clientId +
+              '&client_secret=' + clientSecret +
+              '&code=' + req.body.code +
+              '&grant_type=authorization_code' +
+              '&redirect_uri=' + req.body.redirectUri;
+
+  authRequest.write(body);
+
+  // authRequest.write(JSON.stringify({
+  //   client_id: clientId,
+  //   client_secret: clientSecret,
+  //   code: req.body.code,
+  //   grant_type: 'authorization_code',
+  //   redirect_uri: req.body.redirectUri
+  // }));
 
   authRequest.end();
 

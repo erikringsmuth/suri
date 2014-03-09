@@ -6,16 +6,18 @@ define(function(require) {
       $ = require('jquery');
 
   var sessionStorageKey = 'suri-session',
-      clientId = '5ebc434bdfbe5f335ba1',
-      redirectUri = 'http://www.suri.io/',
-      scope = 'user';
+      clientId = '838945892575-97eh2eka9prpaurmlibqft86if2r98cs.apps.googleusercontent.com',
+      redirectUri = 'http://' + window.location.host + '/',
+      scope = 'openid email',
+      responseType = 'code';
 
   // Get the session from localStorage
   var session = JSON.parse(window.localStorage.getItem(sessionStorageKey)) || {};
   session.clientId = clientId;
   session.scope = scope;
+  session.redirectUri = redirectUri;
 
-  // Check if this is a OAuth 'GET https://github.com/login/oauth/authorize' callback before setting a new session state
+  // Check if this is a OAuth 'GET https://accounts.google.com/o/oauth2/auth' callback before setting a new session state
   var routeArgs = router.routeArguments();
 
   // POST /authenticate
@@ -32,7 +34,8 @@ define(function(require) {
         var response = JSON.parse(data);
         session.accessToken = response.access_token;
         session.tokenType = response.token_type;
-        session.scope = response.scope;
+        session.expiresIn = response.expires_in;
+        session.idToken = response.id_token;
 
         // Persist the session to localStorage
         window.localStorage.setItem(sessionStorageKey, JSON.stringify(session));
@@ -50,7 +53,12 @@ define(function(require) {
   window.localStorage.setItem(sessionStorageKey, JSON.stringify(session));
 
   // Build the OAuth authorize URL for the Sign-On button
-  session.authUrl = 'https://github.com/login/oauth/authorize?scope=' + session.scope + '&state=' + session.state + '&client_id=' + session.clientId + '&redirect_uri=' + redirectUri;
+  session.authUrl = 'https://accounts.google.com/o/oauth2/auth' +
+                    '?scope=' + session.scope +
+                    '&state=' + session.state +
+                    '&client_id=' + session.clientId +
+                    '&response_type=' + responseType +
+                    '&redirect_uri=' + session.redirectUri;
 
   return session;
 });
