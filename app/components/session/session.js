@@ -29,6 +29,14 @@ define(function(require) {
       data: JSON.stringify(session)
     })
       .done(function(data) {
+        var response = JSON.parse(data);
+        session.accessToken = response.access_token;
+        session.tokenType = response.token_type;
+        session.scope = response.scope;
+
+        // Persist the session to localStorage
+        window.localStorage.setItem(sessionStorageKey, JSON.stringify(session));
+
         console.log(data);
       })
       .fail(function() {
