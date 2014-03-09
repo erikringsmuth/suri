@@ -23,17 +23,15 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div><label>id</label> {{id}}</div>
-        <div><label><input type="checkbox" checked="{{isPublic}}"> public</label></div>
-        <div><label><input type="checkbox" checked="{{corsEnabled}}"> cors enabled</label></div>
-        <div><label><input type="checkbox" checked="{{depricated}}"> depricated</label></div>
+        <div><label>id</label> <span class="text-muted">{{id}}</span></div>
+        <div><label>owner</label> {{owner}}</div>
+        {{#forkedFrom}}<div><label>forked from</label> {{forkedFrom}}</div>{{/forkedFrom}}
         <div><label>permalink</label> <a href="/?xhr={{id}}">/?xhr={{id}}</a></div>
       </div>
       <div class="col-sm-4">
-        <div><label>owner</label> {{owner}}</div>
-        {{#forkedFrom}}<div><label>forked from</label> {{forkedFrom}}</div>{{/forkedFrom}}
-        <div><label>created</label> {{formatDate(createdDate)}}</div>
-        <div><label>changed</label> {{formatDate(changedDate)}}</div>
+        <div><label><input type="checkbox" checked="{{isPublic}}"> public</label></div>
+        <div><label><input type="checkbox" checked="{{corsEnabled}}"> cors enabled</label></div>
+        <div><label><input type="checkbox" checked="{{depricated}}"> depricated</label></div>
       </div>
     </div>
     <div>
