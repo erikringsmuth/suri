@@ -190,6 +190,27 @@ var xhrs = [
       }
     ],
     tags: ['rss', 'atom', 'feed', 'reader']
+  }),
+  { index:  { _index: index, _type: type, _id: shortId.generate() } },
+  new Xhr({
+    name: 'GitHub User',
+    method: 'GET',
+    url: 'https://api.github.com/user',
+    headers: [
+      {
+        parameter: 'Content-Type',
+        values: ['application/json'],
+        default: 'application/json',
+        required: false
+      },
+      {
+        parameter: 'Authorization',
+        values: ['token '],
+        default: 'token ',
+        required: true
+      }
+    ],
+    tags: ['github', 'user', 'authentication']
   })
 ];
 
