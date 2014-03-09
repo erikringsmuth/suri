@@ -16,10 +16,6 @@ define(function(require) {
     },
 
     init: function() {
-      // Reset the API sequence on open
-      // TODO: this should be done in teardown when it is correctly called when removed from the DOM
-      this.get('apiSequence').clear();
-
       // Keep the menu aligned as you scroll
       var scrollEventHandler = function() {
         this.nodes['api-sequence-menu'].style.top = Math.max(0, window.pageYOffset - this.nodes['api-sequence-menu'].offsetParent.offsetTop) + 'px';
@@ -55,6 +51,7 @@ define(function(require) {
 
         teardown: function() {
           window.removeEventListener('scroll', scrollEventHandler, true);
+          this.get('apiSequence').clear();
         }
       });
     }

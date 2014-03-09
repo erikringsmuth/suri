@@ -5,14 +5,16 @@ define(function(require) {
       layoutTemplate = require('rv!./layoutTemplate'),
       router = require('router'),
       SearchBox = require('components/search/searchBox'),
-      session = require('components/session/session');
+      session = require('components/session/session'),
+      utilities = require('components/util/utilities');
 
   return Ractive.extend({
     template: layoutTemplate,
 
     data: {
       routes: router.routes,
-      authUrl: session.authUrl
+      authUrl: session.authUrl,
+      development: utilities.development
     },
 
     init: function() {
