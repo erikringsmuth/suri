@@ -1,9 +1,10 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
-var https = require('https');
-var clientId = '838945892575-97eh2eka9prpaurmlibqft86if2r98cs.apps.googleusercontent.com';
-var clientSecret = 'lrEzMLAc-JAnNr_Q-C3tbwxY';
+var https = require('https'),
+    jwt = require('jwt-simple'),
+    clientId = '838945892575-97eh2eka9prpaurmlibqft86if2r98cs.apps.googleusercontent.com',
+    clientSecret = 'lrEzMLAc-JAnNr_Q-C3tbwxY';
 
 module.exports.authenticate = function authenticate(req, res) {
   // POST https://accounts.google.com/o/oauth2/token

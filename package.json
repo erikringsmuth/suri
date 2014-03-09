@@ -21,7 +21,8 @@
     "supervisor": "~0.5.7",
     "elastic.js": "~1.1.1",
     "node-inspector": "~0.7.0",
-    "shortid": "~2.0.0"
+    "shortid": "~2.0.0",
+    "jwt-simple": "~0.1.0"
   },
   "engines": {
     "node": "0.10.x"
