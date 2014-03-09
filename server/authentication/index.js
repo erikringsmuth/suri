@@ -16,10 +16,19 @@ module.exports.authenticate = function authenticate(req, res) {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   }, function(authResponse) {
+    var responseText = '';
     authResponse.on('data', function (chunk) {
-      res.write(chunk, 'binary');
+      responseText = responseText + chunk;
     });
     authResponse.on('end', function () {
+      // Parse the response and decode the id_token field
+      var responseJson = JSON.parse(responseText);
+      var idTokenParts = responseJson.id_token.split('.');
+      responseJson.header = JSON.parse(new Buffer(idTokenParts[0], 'base64').toString('ascii'));
+      responseJson.payload = JSON.parse(new Buffer(idTokenParts[1], 'base64').toString('ascii'));
+      responseJson.signature = new Buffer(idTokenParts[2], 'base64').toString('ascii');
+      //responseJson.id_token = jwt.decode(responseJson.id_token, clientSecret);
+      res.write(JSON.stringify(responseJson));
       res.end();
     });
   });
