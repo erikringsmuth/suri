@@ -13,9 +13,10 @@ for (var i = 0; i < xhrs.length; i++) {
   bulkData.push(xhrs[i]);
 }
 
-//// Script
+var elasticSearchHost = process.argv[2] || 'localhost:9200';
+console.log('\nConnecting to ' + elasticSearchHost);
 var client = elasticsearch.Client({
-  host: 'localhost:9200'
+  host: elasticSearchHost
 });
 
 // Delete all existing items in the index
@@ -29,7 +30,7 @@ client.deleteByQuery({
   }
 })
   .then(function () {
-    console.log('Deleted existing items');
+    console.log('\nDeleted existing items');
 
     // Then add each of the new items
     client.bulk({
