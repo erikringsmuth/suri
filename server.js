@@ -26,9 +26,6 @@ app.configure(function() {
   // Proxy requests with 'api-host' header
   app.use(proxy);
 
-  // OAuth
-  app.use(auth);
-
   // Serve /app dir as static content, it will look like the root dir
   app.use(express.static(__dirname + '/app'));
 
@@ -56,6 +53,9 @@ app.configure('production', function() {
 
 
 //// ROUTES
+
+// OAuth
+app.post('/authenticate', auth.authenticate);
 
 // XHR
 app.post('/xhr', xhrService.index);
