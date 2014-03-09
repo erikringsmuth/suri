@@ -8,7 +8,7 @@ define(function(require) {
   var sessionStorageKey = 'suri-session',
       clientId = '5ebc434bdfbe5f335ba1',
       redirectUri = 'http://www.suri.io/',
-      scope = 'user:email';
+      scope = 'user';
 
   // Get the session from localStorage
   var session = JSON.parse(window.localStorage.getItem(sessionStorageKey)) || {};
