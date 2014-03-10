@@ -9,18 +9,28 @@ var https = require('https'),
 module.exports.createOAuthToken = function createOAuthToken(req, res) {
 
   // POST https://accounts.google.com/o/oauth2/token
-  var oauthTokenRequest = https.request({
+  var requestOptions = {
     hostname: 'accounts.google.com',
     path: '/o/oauth2/token',
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
-  }, function(authResponse) {
+  };
+  var requestBody = 'client_id=' + clientId +
+                    '&client_secret=' + clientSecret +
+                    '&code=' + req.body.code +
+                    '&grant_type=authorization_code' +
+                    '&redirect_uri=' + req.body.redirectUri;
+
+  var oauthTokenRequest = https.request(requestOptions, function(authResponse) {
+
     var responseText = '';
+
     authResponse.on('data', function (chunk) {
       responseText = responseText + chunk;
     });
+
     authResponse.on('end', function () {
       // Parse the response and decode the id_token field
       var responseJson = JSON.parse(responseText);
@@ -41,17 +51,11 @@ module.exports.createOAuthToken = function createOAuthToken(req, res) {
     });
   });
 
-  // Send the request
-  oauthTokenRequest.write(
-    'client_id=' + clientId +
-    '&client_secret=' + clientSecret +
-    '&code=' + req.body.code +
-    '&grant_type=authorization_code' +
-    '&redirect_uri=' + req.body.redirectUri);
+  oauthTokenRequest.write(requestBody);
   oauthTokenRequest.end();
 
   oauthTokenRequest.on('error', function(e) {
-    res.end(e);
+    res.send(401, e);
   });
 
 };
