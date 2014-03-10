@@ -3,6 +3,7 @@
 
 var https = require('https'),
     jwt = require('jwt-simple'),
+    jws = require('jws'),
     clientId = '838945892575-97eh2eka9prpaurmlibqft86if2r98cs.apps.googleusercontent.com',
     clientSecret = 'lrEzMLAc-JAnNr_Q-C3tbwxY';
 
@@ -14,7 +15,7 @@ module.exports.createOAuthToken = function createOAuthToken(req, res) {
   // 4. https://developers.google.com/accounts/docs/OAuth2Login#exchangecode
   //
   // POST https://accounts.google.com/o/oauth2/token
-  var requestOptions = {
+  var accessTokenRequestOptions = {
     hostname: 'accounts.google.com',
     path: '/o/oauth2/token',
     method: 'POST',
@@ -22,56 +23,95 @@ module.exports.createOAuthToken = function createOAuthToken(req, res) {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
   };
-  var requestBody = 'client_id=' + clientId +
+  var accessTokenRequestBody = 'client_id=' + clientId +
                     '&client_secret=' + clientSecret +
                     '&code=' + req.body.code +
                     '&grant_type=authorization_code' +
                     '&redirect_uri=' + req.body.redirectUri;
 
-  var accessTokenRequest = https.request(requestOptions, function(authResponse) {
+  var accessTokenRequest = https.request(accessTokenRequestOptions, function(accessTokenRequest) {
 
-    var responseText = '';
+    var accessTokenResponseText = '';
 
-    authResponse.on('data', function (chunk) {
-      responseText = responseText + chunk;
+    accessTokenRequest.on('data', function (chunk) {
+      accessTokenResponseText = accessTokenResponseText + chunk;
     });
 
-    authResponse.on('end', function () {
+    accessTokenRequest.on('end', function () {
       // Obtain user information from the ID token
       //
       // 5. https://developers.google.com/accounts/docs/OAuth2Login#obtainuserinfo
-      var responseJson = JSON.parse(responseText);
+      var accessTokenResponseJson = JSON.parse(accessTokenResponseText);
 
-      // TODO: delete
-      //var idTokenParts = responseJson.id_token.split('.');
-      // responseJson.header = JSON.parse(new Buffer(idTokenParts[0], 'base64').toString('ascii'));
-      // responseJson.payload = JSON.parse(new Buffer(idTokenParts[1], 'base64').toString('ascii'));
-      // responseJson.signature = new Buffer(idTokenParts[2], 'base64').toString('ascii');
-
-      responseJson.decoded_id_token = jwt.decode(responseJson.id_token, {}, true);
-
-      // Validate the id_token aud and iss
-      //
-      // https://developers.google.com/accounts/docs/OAuth2Login#validatinganidtoken
-      if (responseJson.decoded_id_token.aud !== clientId || responseJson.decoded_id_token.iss !== 'accounts.google.com') {
-        res.send(401, { message: 'Authentication failed. The id_token.aud does not match the client ID.' });
-      }
-
-      // TODO: Validate the id_token against Google's certificates
+      // Validate the id_token against Google's certificates
       //
       // https://www.googleapis.com/oauth2/v1/certs
+      var certRequest = https.request({
+        hostname: 'www.googleapis.com',
+        path: '/oauth2/v1/certs',
+        method: 'GET'
+      }, function(certResponse) {
 
-      // Create a suri session for the user
-      //
-      // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
-      //
-      // TODO: ???
+        var certResponseText = '';
 
-      res.send(201, JSON.stringify(responseJson));
+        certResponse.on('data', function (chunk) {
+          certResponseText = certResponseText + chunk;
+        });
+
+        certResponse.on('end', function () {
+          // The response contains a certificate like this
+          // {
+          //  "2784873a666fc894d6c724df0c26c6296493e758": "-----BEGIN CERTIFICATE-----\nMIICITCCAYqgAwIBAgIIN5YrSIb+nWIwDQYJKoZIhvcNAQEFBQAwNjE0MDIGA1UE\nAxMrZmVkZXJhdGVkLXNpZ25vbi5zeXN0ZW0uZ3NlcnZpY2VhY2NvdW50LmNvbTAe\nFw0xNDAzMDkwNjI4MzRaFw0xNDAzMTAxOTI4MzRaMDYxNDAyBgNVBAMTK2ZlZGVy\nYXRlZC1zaWdub24uc3lzdGVtLmdzZXJ2aWNlYWNjb3VudC5jb20wgZ8wDQYJKoZI\nhvcNAQEBBQADgY0AMIGJAoGBALB5HLJsOF9hdSUU0B2uiyWsUmKCuqQJaExp7DML\npjgDJV92+iVdHcu1mHtuB2LnzgwlOkOJp9g7YeUoU+HhX2bFVXVz5R5z1vyeApKq\n6/MnRym2XcZsi0IqEDPU8IA3ZdL2P4a/qRpAgTkVLGOXLVAe/FTpDKQ68acvj5Yq\nXKCNAgMBAAGjODA2MAwGA1UdEwEB/wQCMAAwDgYDVR0PAQH/BAQDAgeAMBYGA1Ud\nJQEB/wQMMAoGCCsGAQUFBwMCMA0GCSqGSIb3DQEBBQUAA4GBADGj8G6orcSjCznR\nUwlJ9DCoDKTJkv4W6vaRp70hbSIloBpZIfohicx19ARyxwq3R4r8kEjHS5XDIdi/\nNi1IBXCZRdpHk9z8OlyIV86uWDYoJz0vzthL/apDyIgGRxi6Pf9gGJYAHavt5TEk\n6pXqbd4LAJXuFCzBAkoorjzWn0Vx\n-----END CERTIFICATE-----\n",
+          //  "c98f8f084aea475bea45c614e947dfbd10310199": "-----BEGIN CERTIFICATE-----\nMIICITCCAYqgAwIBAgIIXWYbNFqgWPAwDQYJKoZIhvcNAQEFBQAwNjE0MDIGA1UE\nAxMrZmVkZXJhdGVkLXNpZ25vbi5zeXN0ZW0uZ3NlcnZpY2VhY2NvdW50LmNvbTAe\nFw0xNDAzMTAwNjEzMzRaFw0xNDAzMTExOTEzMzRaMDYxNDAyBgNVBAMTK2ZlZGVy\nYXRlZC1zaWdub24uc3lzdGVtLmdzZXJ2aWNlYWNjb3VudC5jb20wgZ8wDQYJKoZI\nhvcNAQEBBQADgY0AMIGJAoGBAMKR9OmUxfa6wlcLy1X0NhL4FahUiGoXQFWysHwK\nrQu6Vd1THU6CtjZx52TWXI0kIyMUHdHMu5766VACq371dKGCmvKsbenC0MsIZXvr\nK89NP5nbaNs27oADKblf2fw/zFuJdQpIH6fvSLwOv96DyyaUHOk6T+8zSrb7uoTt\nXIwnAgMBAAGjODA2MAwGA1UdEwEB/wQCMAAwDgYDVR0PAQH/BAQDAgeAMBYGA1Ud\nJQEB/wQMMAoGCCsGAQUFBwMCMA0GCSqGSIb3DQEBBQUAA4GBADs5vypzOwHKddWY\nQXJEYgLkgeuMzrCP4t3MJfquDFqC0aFroRY9fkqIe6s1V8hF2ddziIWTcE0x6Z99\nvBzDlUegrIvl6L+2ibGVByAN1n5B1oH8EfgnuK1kfEhvmAeeX/mh3PISTX85gpUi\nxBgf7bbbROvWuauTPPuvkJhNerXo\n-----END CERTIFICATE-----\n"
+          // }
+          var certificates = JSON.parse(certResponseText);
+
+          // Validate the id_token against Google's certificates
+          //
+          // https://www.googleapis.com/oauth2/v1/certs
+          //
+          // We have to use jws to verify because jwt doesn't support RS256. We have to use jwt to decode
+          // because jws doesn't deserialize the payload. It only decodes it from base64. Arg!
+          var verified = false;
+          for (var key in certificates) {
+            if (!verified && certificates.hasOwnProperty(key)) {
+              try {
+                verified = jws.verify(accessTokenResponseJson.id_token, certificates[key]);
+              } catch (e) {}
+            }
+          }
+          if (!verified) {
+            res.send(401, { message: 'Authentication failed. The id_token signature did not verify against the certificate.' });
+          }
+
+          accessTokenResponseJson.decoded_id_token = jwt.decode(accessTokenResponseJson.id_token, {}, true);
+
+          // Validate the id_token aud and iss
+          //
+          // https://developers.google.com/accounts/docs/OAuth2Login#validatinganidtoken
+          if (accessTokenResponseJson.decoded_id_token.aud !== clientId || accessTokenResponseJson.decoded_id_token.iss !== 'accounts.google.com') {
+            res.send(401, { message: 'Authentication failed. The id_token.aud does not match the client ID.' });
+          }
+
+          // Create a suri session for the user
+          //
+          // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
+          //
+          // TODO: ???
+
+          res.send(201, JSON.stringify(accessTokenResponseJson));
+        });
+      }); // end certRequest
+      certRequest.end();
+
+      certRequest.on('error', function(e) {
+        res.send(401, e);
+      });
+
     });
-  });
+  }); // end accessTokenRequest
 
-  accessTokenRequest.write(requestBody);
+  accessTokenRequest.write(accessTokenRequestBody);
   accessTokenRequest.end();
 
   accessTokenRequest.on('error', function(e) {
