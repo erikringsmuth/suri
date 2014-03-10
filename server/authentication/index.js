@@ -6,9 +6,10 @@ var https = require('https'),
     clientId = '838945892575-97eh2eka9prpaurmlibqft86if2r98cs.apps.googleusercontent.com',
     clientSecret = 'lrEzMLAc-JAnNr_Q-C3tbwxY';
 
-module.exports.authenticate = function authenticate(req, res) {
+module.exports.createOAuthToken = function createOAuthToken(req, res) {
+
   // POST https://accounts.google.com/o/oauth2/token
-  var authRequest = https.request({
+  var oauthTokenRequest = https.request({
     hostname: 'accounts.google.com',
     path: '/o/oauth2/token',
     method: 'POST',
@@ -30,20 +31,27 @@ module.exports.authenticate = function authenticate(req, res) {
       // responseJson.signature = new Buffer(idTokenParts[2], 'base64').toString('ascii');
 
       responseJson.decoded_id_token = jwt.decode(responseJson.id_token, {}, true);
-      res.write(JSON.stringify(responseJson));
-      res.end();
+
+      // Validate that the aud (audience) is the client ID for suri
+      if (responseJson.decoded_id_token.aud !== clientId) {
+        res.send(401, { message: 'Authentication failed. The id_token.aud does not match the client ID.' });
+      }
+
+      res.send(201, JSON.stringify(responseJson));
     });
   });
 
-  authRequest.write('client_id=' + clientId +
-                    '&client_secret=' + clientSecret +
-                    '&code=' + req.body.code +
-                    '&grant_type=authorization_code' +
-                    '&redirect_uri=' + req.body.redirectUri);
+  // Send the request
+  oauthTokenRequest.write(
+    'client_id=' + clientId +
+    '&client_secret=' + clientSecret +
+    '&code=' + req.body.code +
+    '&grant_type=authorization_code' +
+    '&redirect_uri=' + req.body.redirectUri);
+  oauthTokenRequest.end();
 
-  authRequest.end();
-
-  authRequest.on('error', function(e) {
+  oauthTokenRequest.on('error', function(e) {
     res.end(e);
   });
+
 };

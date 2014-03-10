@@ -20,12 +20,12 @@ define(function(require) {
   // Check if this is a OAuth 'GET https://accounts.google.com/o/oauth2/auth' callback before setting a new session state
   var routeArgs = router.routeArguments();
 
-  // POST /authenticate
+  // POST /oauth/token
   // which calls
   // POST https://github.com/login/oauth/access_token
   if (routeArgs.code && routeArgs.state === session.state) {
     session.code = routeArgs.code;
-    $.ajax('/authenticate', {
+    $.ajax('/oauth/token', {
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(session)
@@ -42,6 +42,7 @@ define(function(require) {
         window.localStorage.setItem(sessionStorageKey, JSON.stringify(session));
 
         console.log(data);
+        window.session = session;
       })
       .fail(function() {
         console.log('authentication failed');
