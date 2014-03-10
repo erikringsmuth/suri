@@ -36,6 +36,7 @@ define(function(require) {
         session.tokenType = response.token_type;
         session.expiresIn = response.expires_in;
         session.idToken = response.id_token;
+        session.decodedIdToken = response.decoded_id_token;
 
         // Persist the session to localStorage
         window.localStorage.setItem(sessionStorageKey, JSON.stringify(session));
