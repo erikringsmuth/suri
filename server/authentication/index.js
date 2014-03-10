@@ -8,6 +8,11 @@ var https = require('https'),
 
 module.exports.createOAuthToken = function createOAuthToken(req, res) {
 
+  // The user has granted access to suri from Google and the callback returned a one-time authorization
+  // code. We need to exchange the code for an OAuth access_token and OpenID Connect id_token.
+  //
+  // 4. https://developers.google.com/accounts/docs/OAuth2Login#exchangecode
+  //
   // POST https://accounts.google.com/o/oauth2/token
   var requestOptions = {
     hostname: 'accounts.google.com',
@@ -23,7 +28,7 @@ module.exports.createOAuthToken = function createOAuthToken(req, res) {
                     '&grant_type=authorization_code' +
                     '&redirect_uri=' + req.body.redirectUri;
 
-  var oauthTokenRequest = https.request(requestOptions, function(authResponse) {
+  var accessTokenRequest = https.request(requestOptions, function(authResponse) {
 
     var responseText = '';
 
@@ -32,9 +37,12 @@ module.exports.createOAuthToken = function createOAuthToken(req, res) {
     });
 
     authResponse.on('end', function () {
-      // Parse the response and decode the id_token field
+      // Obtain user information from the ID token
+      //
+      // 5. https://developers.google.com/accounts/docs/OAuth2Login#obtainuserinfo
       var responseJson = JSON.parse(responseText);
 
+      // TODO: delete
       //var idTokenParts = responseJson.id_token.split('.');
       // responseJson.header = JSON.parse(new Buffer(idTokenParts[0], 'base64').toString('ascii'));
       // responseJson.payload = JSON.parse(new Buffer(idTokenParts[1], 'base64').toString('ascii'));
@@ -47,14 +55,20 @@ module.exports.createOAuthToken = function createOAuthToken(req, res) {
         res.send(401, { message: 'Authentication failed. The id_token.aud does not match the client ID.' });
       }
 
+      // Create a suri session for the user
+      //
+      // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
+      //
+      // TODO: ???
+
       res.send(201, JSON.stringify(responseJson));
     });
   });
 
-  oauthTokenRequest.write(requestBody);
-  oauthTokenRequest.end();
+  accessTokenRequest.write(requestBody);
+  accessTokenRequest.end();
 
-  oauthTokenRequest.on('error', function(e) {
+  accessTokenRequest.on('error', function(e) {
     res.send(401, e);
   });
 
