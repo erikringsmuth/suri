@@ -50,10 +50,16 @@ module.exports.createOAuthToken = function createOAuthToken(req, res) {
 
       responseJson.decoded_id_token = jwt.decode(responseJson.id_token, {}, true);
 
-      // Validate that the aud (audience) is the client ID for suri
-      if (responseJson.decoded_id_token.aud !== clientId) {
+      // Validate the id_token aud and iss
+      //
+      // https://developers.google.com/accounts/docs/OAuth2Login#validatinganidtoken
+      if (responseJson.decoded_id_token.aud !== clientId || responseJson.decoded_id_token.iss !== 'accounts.google.com') {
         res.send(401, { message: 'Authentication failed. The id_token.aud does not match the client ID.' });
       }
+
+      // TODO: Validate the id_token against Google's certificates
+      //
+      // https://www.googleapis.com/oauth2/v1/certs
 
       // Create a suri session for the user
       //
