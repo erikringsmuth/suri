@@ -11,8 +11,9 @@ var express     = require('express'),
     auth        = require('./server/authentication'),
     proxy       = require('./server/proxy'),
     xhrService  = require('./server/xhrService'),
-    app         = express(),
-    sessions    = require('client-sessions');
+    handlebars  = require('express3-handlebars'),
+    sessions    = require('client-sessions'),
+    app         = express();
 
 
 //// CONFIG
@@ -34,6 +35,11 @@ app.configure(function() {
     duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
     activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
   }));
+
+  // View engine
+  app.set('views', __dirname + '/views');
+  app.engine('handlebars', handlebars());
+  app.set('view engine', 'handlebars');
 
   // Serve /app dir as static content, it will look like the root dir
   app.use(express.static(__dirname + '/app'));
@@ -62,6 +68,14 @@ app.configure('production', function() {
 
 
 //// ROUTES
+
+// All pages are routed through '/' and use hash paths
+app.get('/', function (req, res) {
+  res.render('index', {
+    signedIn: req.session_state.iss && req.session_state.sub,
+    email: req.session_state.email
+  });
+});
 
 // Session
 app.get('/login', auth.login);

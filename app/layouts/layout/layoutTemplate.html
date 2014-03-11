@@ -17,7 +17,7 @@
         <ul class="nav navbar-nav">
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          {{#development}}<li><a href="/login">Sign-In <i class="fa fa-google-plus-square fa-lg"></i></a></li>{{/development}}
+          {{#development}}<li><a href="{{session.signedIn ? '/logout' : '/login'}}">{{#session.signedIn}}Sign-Out{{/session.signedIn}}{{^session.signedIn}}Sign-In{{/session.signedIn}} <i class="fa fa-google-plus-square fa-lg"></i></a></li>{{/development}}
         </ul>
       </nav>
       <search-box id="search-box"/>

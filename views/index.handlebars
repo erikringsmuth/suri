@@ -15,5 +15,15 @@
   </head>
   <body>
     <!-- main.js bootstraps the javascript app and inserts it here -->
+    <script>
+    (function(global) {
+      global.suri = {
+        session: {
+          signedIn: {{#if signedIn}}true{{else}}false{{/if}},
+          email: '{{email}}'
+        }
+      };
+    })(window);
+    </script>
   </body>
 </html>

@@ -12,7 +12,8 @@ define(function(require) {
 
     data: {
       routes: router.routes,
-      development: utilities.development
+      development: utilities.development,
+      session: window.suri.session
     },
 
     init: function() {
