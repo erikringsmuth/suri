@@ -23,15 +23,15 @@ module.exports.login = function login(req, res) {
   // 2. https://developers.google.com/accounts/docs/OAuth2Login#sendauthrequest
   //
   // Generate an anti-forgery state token for the OAuth2 Login URL. This needs to be persisted and
-  // checked in in the callback in step 2.
+  // checked in in the callback in step 3.
 
-  req.session_state.antiForgeryStateToken = guid();
+  req.session_state.xsrfToken = guid();
 
   var redirectUri = 'http://' + req.header('host') + '/oauth2callback';
 
   res.redirect('https://accounts.google.com/o/oauth2/auth' +
                 '?scope=openid email' +
-                '&state=' + req.session_state.antiForgeryStateToken +
+                '&state=' + req.session_state.xsrfToken +
                 '&client_id=' + clientId +
                 '&response_type=code' +
                 '&redirect_uri=' + redirectUri);
@@ -52,7 +52,7 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
   //
   // 3. https://developers.google.com/accounts/docs/OAuth2Login#confirmxsrftoken
 
-  if (req.query.state !== req.session_state.antiForgeryStateToken) {
+  if (req.query.state !== req.session_state.xsrfToken) {
     // This is a forged request, don't authenticate
     res.redirect('/');
   }
