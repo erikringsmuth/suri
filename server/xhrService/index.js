@@ -1,7 +1,7 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 var elasticsearch = require('elasticsearch'),
-    shortId = require('shortid');
+    shortId       = require('shortid');
 
 var client = elasticsearch.Client({
   host: process.env.ELASTICSEARCH_URL

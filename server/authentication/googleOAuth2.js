@@ -2,8 +2,8 @@
 'use strict';
 
 var https = require('https'),
-    jwt = require('jwt-simple'),
-    jws = require('jws'),
+    jwt   = require('jwt-simple'),
+    jws   = require('jws'),
     googleCertificates = {};
 
 

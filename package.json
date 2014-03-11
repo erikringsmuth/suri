@@ -23,7 +23,8 @@
     "node-inspector": "~0.7.0",
     "shortid": "~2.0.0",
     "jwt-simple": "~0.1.0",
-    "jws": "~0.2.5"
+    "jws": "~0.2.5",
+    "client-sessions": "~0.6.0"
   },
   "engines": {
     "node": "0.10.x"
