@@ -113,7 +113,7 @@ module.exports.createOpenIdConnectTokens = function createOpenIdConnectTokens(op
       var idTokenHeader = JSON.parse(new Buffer(encodedIdTokenHeader, 'base64').toString());
       verifyIdToken(idTokenHeader.kid, responseJson.id_token, function(verified) {
         if (!verified) {
-          callback({ success: false, message: 'Authentication failed. The id_token signature did not verify against the certificate.' });
+          callback({ success: false, message: 'Authentication failed. The id_token signature did not verify against Google\'s certificate.' });
         }
 
         // Decode the id_token once it's been verified
@@ -123,10 +123,10 @@ module.exports.createOpenIdConnectTokens = function createOpenIdConnectTokens(op
         //
         // https://developers.google.com/accounts/docs/OAuth2Login#validatinganidtoken
         if (decodedIdToken.aud !== options.clientId) {
-          callback({ success: false, message: 'Authentication failed. The id_token.aud does not match the client ID.' });
+          callback({ success: false, message: 'Authentication failed. The id_token.aud does not match the application\'s client ID.' });
         }
         if (decodedIdToken.iss !== 'accounts.google.com') {
-          callback({ success: false, message: 'Authentication failed. The id_token.iis is not Google.' });
+          callback({ success: false, message: 'Authentication failed. The id_token.iis is not accounts.google.com.' });
         }
 
         callback({ success: true, tokens: responseJson, decoded_id_token: decodedIdToken });
@@ -138,6 +138,6 @@ module.exports.createOpenIdConnectTokens = function createOpenIdConnectTokens(op
   request.end();
 
   request.on('error', function(e) {
-    callback({ success: false, error: e, message: 'Authentication failed. The request to exchange tokens failed.' });
+    callback({ success: false, error: e, message: 'Authentication failed. The one-time authorization code exchange failed.' });
   });
 };

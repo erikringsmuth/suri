@@ -39,6 +39,8 @@ module.exports.login = function login(req, res) {
 
 module.exports.logout = function logout(req, res) {
   req.session_state.reset();
+  req.session_state.signedIn = false;
+  req.session_state.authenticationMessage = 'Signed out.';
   res.redirect('/');
 };
 
@@ -54,6 +56,8 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
 
   if (req.query.state !== req.session_state.xsrfToken) {
     // This is a forged request, don't authenticate
+    req.session_state.signedIn = false;
+    req.session_state.authenticationMessage = 'Authentication failed. The anti-forgery state token was forged.';
     res.redirect('/');
   }
 
@@ -75,8 +79,12 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
       req.session_state.sub = result.decoded_id_token.sub;
       req.session_state.email = result.decoded_id_token.email;
       req.session_state.exp = result.decoded_id_token.exp;
+      req.session_state.signedIn = true;
+      req.session_state.authenticationMessage = 'Signed in.';
     } else {
       req.session_state.reset();
+      req.session_state.signedIn = false;
+      req.session_state.authenticationMessage = result.message;
     }
     res.redirect('/');
   });

@@ -73,7 +73,8 @@ app.configure('production', function() {
 app.get('/', function (req, res) {
   res.render('index', {
     signedIn: req.session_state.iss && req.session_state.sub,
-    email: req.session_state.email
+    email: req.session_state.email,
+    authenticationMessage: req.session_state.authenticationMessage
   });
 });
 
