@@ -2,6 +2,7 @@
 'use strict';
 
 var googleOAuth2 = require('./googleOAuth2'),
+    crypto       = require('crypto'),
     clientId     = '838945892575-97eh2eka9prpaurmlibqft86if2r98cs.apps.googleusercontent.com',
     clientSecret = 'lrEzMLAc-JAnNr_Q-C3tbwxY';
 
@@ -81,6 +82,7 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
       req.session_state.exp = result.decoded_id_token.exp;
       req.session_state.signedIn = true;
       req.session_state.authenticationMessage = 'Signed in.';
+      req.session_state.emailMd5 = crypto.createHash('md5').update(req.session_state.email || '').digest('hex');
     } else {
       req.session_state.reset();
       req.session_state.signedIn = false;

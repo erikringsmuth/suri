@@ -65,6 +65,18 @@ footer ul a, footer .text-muted {
   font-weight: lighter;
 }
 
+/* Nav profile */
+.navbar .profile,
+.navbar .profile img,
+.navbar .profile a {
+  display: inline-block;
+}
+.navbar .profile img {
+  height: 40px;
+  border: 2px solid #fff;
+  border-radius: 3px;
+}
+
 /* Links */
 a, a:hover {
   color: #007fff;
