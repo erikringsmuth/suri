@@ -55,7 +55,7 @@ app.configure('production', function() {
 //// ROUTES
 
 // OAuth
-app.post('/oauth/token', auth.createOAuthToken);
+app.post('/oauth/token', auth.createOAuthTokens);
 
 // XHR
 app.post('/xhr', xhrService.index);

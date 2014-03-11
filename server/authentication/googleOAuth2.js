@@ -1,8 +1,6 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
-// We have to use jws to verify because jwt doesn't support RS256. We have to use jwt to decode
-// because jws doesn't deserialize the payload. It only decodes it from base64. Arg!
 var https = require('https'),
     jwt = require('jwt-simple'),
     jws = require('jws'),
@@ -49,6 +47,7 @@ var getGoogleCertificates = function getGoogleCertificates(callback) {
   certRequest.end();
   certRequest.on('error', function() {
     // Just don't blow up!
+    callback();
   });
 };
 
@@ -59,7 +58,7 @@ var getGoogleCertificates = function getGoogleCertificates(callback) {
 // https://www.googleapis.com/oauth2/v1/certs
 //
 // We have to use jws to verify because jwt doesn't support RS256. We have to use jwt to decode
-// because jws doesn't deserialize the payload. It only decodes it from base64. Arg!
+// because jws doesn't deserialize the payload. It only decodes it from base64.
 var verifyIdToken = function verifyIdToken(idToken, callback, secondTry) {
   var verified = false;
   for (var i = 0; i < googleCertificates.length; i++) {
@@ -91,7 +90,7 @@ var verifyIdToken = function verifyIdToken(idToken, callback, secondTry) {
 
 
 // Exchange an OAuth2 one-time authorization code for an OpenID Connect id_token.
-module.exports.createOAuthToken = function createOAuthToken(options, callback) {
+module.exports.createOpenIdConnectTokens = function createOpenIdConnectTokens(options, callback) {
 
   // The user has granted access to suri from Google and the callback returned a one-time authorization
   // code. We need to exchange the code for an OAuth access_token and OpenID Connect id_token.
@@ -132,7 +131,7 @@ module.exports.createOAuthToken = function createOAuthToken(options, callback) {
       // https://www.googleapis.com/oauth2/v1/certs
       verifyIdToken(accessTokenResponseJson.id_token, function(verified) {
         if (!verified) {
-          callback({ success: false, status: 401, message: 'Authentication failed. The id_token signature did not verify against the certificate.' });
+          callback({ success: false, message: 'Authentication failed. The id_token signature did not verify against the certificate.' });
         }
 
         // Decode the id_token once it's been verified
@@ -142,13 +141,13 @@ module.exports.createOAuthToken = function createOAuthToken(options, callback) {
         //
         // https://developers.google.com/accounts/docs/OAuth2Login#validatinganidtoken
         if (decodedIdToken.aud !== options.clientId) {
-          callback({ success: false, status: 401, message: 'Authentication failed. The id_token.aud does not match the client ID.' });
+          callback({ success: false, message: 'Authentication failed. The id_token.aud does not match the client ID.' });
         }
         if (decodedIdToken.iss !== 'accounts.google.com') {
-          callback({ success: false, status: 401, message: 'Authentication failed. The id_token.iis is not Google.' });
+          callback({ success: false, message: 'Authentication failed. The id_token.iis is not Google.' });
         }
 
-        callback({ success: true, status: 201, token: accessTokenResponseJson, decodedIdToken: decodedIdToken });
+        callback({ success: true, tokens: accessTokenResponseJson, decoded_id_token: decodedIdToken });
       });
     });
   }); // end accessTokenRequest
@@ -157,6 +156,6 @@ module.exports.createOAuthToken = function createOAuthToken(options, callback) {
   accessTokenRequest.end();
 
   accessTokenRequest.on('error', function(e) {
-    callback({ success: false, status: 401, error: e, message: 'Authentication failed. The request to exchange tokens failed.' });
+    callback({ success: false, error: e, message: 'Authentication failed. The request to exchange tokens failed.' });
   });
 };

@@ -6,26 +6,23 @@ var googleOAuth2 = require('./googleOAuth2'),
     clientSecret = 'lrEzMLAc-JAnNr_Q-C3tbwxY';
 
 
-module.exports.createOAuthToken = function createOAuthToken(req, res) {
+module.exports.createOAuthTokens = function createOAuthTokens(req, res) {
 
   // Exchange an OAuth2 one-time authorization code for an OpenID Connect id_token
-  googleOAuth2.createOAuthToken({
+  googleOAuth2.createOpenIdConnectTokens({
     clientId: clientId,
     clientSecret: clientSecret,
     code: req.body.code,
     redirectUri: req.body.redirectUri
   }, function(result) {
-    // Create a suri session for the user
-    //
-    // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
-    //
-    // TODO: ???
 
     if (result.success) {
-      res.send(result.status, JSON.stringify({ token: result.token, decodedIdToken: result.decodedIdToken }));
+      // Create a session
+      // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
+      res.send(201, JSON.stringify({ tokens: result.tokens, decoded_id_token: result.decoded_id_token }));
     } else {
-      res.send(result.status, result.message);
+      res.send(401, result.message);
     }
-  });
 
+  });
 };
