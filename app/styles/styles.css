@@ -79,13 +79,14 @@ footer ul a, footer .text-muted {
 }
 .navbar .profile img {
   display: inline-block;
-  height: 42px;
+  height: 40px;
+  margin-top: -2px;
 }
 .navbar .profile a {
   display: inline-block;
   text-shadow: 0px 1px 2px #1d5180;
   padding-top: 0px;
-  line-height: 40px;
+  line-height: 38px;
 }
 
 /* Links */
