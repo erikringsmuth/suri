@@ -10,7 +10,9 @@ process.env.ELASTICSEARCH_URL = process.env.BONSAI_URL || 'localhost:9200';
 var express     = require('express'),
     auth        = require('./server/authentication'),
     proxy       = require('./server/proxy'),
+    index       = require('./server/index'),
     xhrService  = require('./server/xhrService'),
+    ipAddress   = require('./server/ipAddress'),
     handlebars  = require('express3-handlebars'),
     sessions    = require('client-sessions'),
     app         = express();
@@ -69,16 +71,6 @@ app.configure('production', function() {
 
 //// ROUTES
 
-// All pages are routed through '/' and use hash paths
-app.get('/', function (req, res) {
-  res.render('index', {
-    signedIn: req.session_state.iss && req.session_state.sub,
-    email: req.session_state.email,
-    emailMd5: req.session_state.emailMd5,
-    authenticationMessage: req.session_state.authenticationMessage
-  });
-});
-
 // Session
 app.get('/login', auth.login);
 app.get('/logout', auth.logout);
@@ -90,10 +82,11 @@ app.get('/xhr', xhrService.search);
 app.delete('/xhr/:id', xhrService.delete);
 
 // Browser's IP address
-app.get('/ip', function(req, res) {
-  res.write(req.connection.remoteAddress);
-  res.end();
-});
+app.get('/ip', ipAddress);
+
+// All routes should load the index which bootstraps the JS app. This has to be loaded
+// last or it will override the other routes.
+app.get('/*', index);
 
 
 //// START SERVER
