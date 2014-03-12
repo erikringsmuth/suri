@@ -1,5 +1,4 @@
 ## Host
-https://fxgkq15w:hk76uwqbxpfp25re@rowan-3702531.us-east-1.bonsai.io/
 http://localhost:9200/
 
 ## Index
@@ -45,8 +44,6 @@ s2RTMUPgQQCINGv5Jcc9GQ
   "info": "yet another"
 }
 
-
-http POST https://fxgkq15w:hk76uwqbxpfp25re@rowan-3702531.us-east-1.bonsai.io/suri-ci/xhr name="Google Search" method="GET" url="https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}" info=""
 
 
 ## Short GUID
