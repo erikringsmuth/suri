@@ -27,8 +27,6 @@ define(function(require) {
       body: null,
       corsEnabled: false,
       info: null,
-      createdDate: Date.now(),
-      changedDate: null,
       callCount: 0,
       isPublic: true,
       depricated: false,
@@ -49,7 +47,6 @@ define(function(require) {
         return number.toLocaleString();
       },
       formatDate: function(date) {
-        //return new Date(date).toISOString();
         var d = new Date(date);
         return d.getFullYear() + '-' + d.getMonth() + '-' + d.getDay() + ' ' + d.getHours() + ':' + d.getMinutes();
       }

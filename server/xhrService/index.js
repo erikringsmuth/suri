@@ -133,8 +133,6 @@ module.exports.index = function(req, res) {
     body: req.body.body,
     corsEnabled: req.body.corsEnabled,
     info: req.body.info,
-    createdDate: req.body.createdDate,
-    changedDate: req.body.changedDate,
     callCount: req.body.callCount,
     isPublic: req.body.isPublic,
     depricated: req.body.depricated,

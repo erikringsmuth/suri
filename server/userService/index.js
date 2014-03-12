@@ -32,6 +32,28 @@ module.exports.createUser = function(user, callback) {
 
 // Get user with iss and sub
 module.exports.getUserByIssAndSub = function(iss, sub, callback) {
+  client.search({
+    index: index,
+    type: type,
+    body: {
+      query: {
+        bool: {
+          must: [
+            {
+              term: { iss: iss }
+            },
+            {
+              term: { sub: sub }
+            }
+          ]
+        }
+      }
+    }
+  }).then(function (body) {
+    callback({ success: true, data: body });
+  }, function (error) {
+    callback({ success: false, data: error });
+  });
 };
 
 // Get user by ID
@@ -49,14 +71,15 @@ module.exports.getUser = function(id, callback) {
 
 // Set user display name
 module.exports.updateDisplayName = function(id, displayName, callback) {
-};
-
-// Delete user
-module.exports.delete = function(id, callback) {
-  client.delete({
+  client.update({
     index: index,
     type: type,
-    id: id
+    id: id,
+    body: {
+      doc: {
+        displayName: displayName
+      }
+    }
   }).then(function (body) {
     callback({ success: true, data: body });
   }, function (error) {
