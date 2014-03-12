@@ -18,7 +18,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="profile">
-            {{#session.signedIn}}<img src="http://www.gravatar.com/avatar/{{session.emailMd5}}.jpg?s=80" class="profile-img"/>{{/session.signedIn}}
+            {{#session.signedIn}}<img src="http://www.gravatar.com/avatar/{{session.emailMd5}}.jpg?s=80"/>{{/session.signedIn}}
             <a href="{{session.signedIn ? '/logout' : '/login'}}">{{#session.signedIn}}Sign-Out{{/session.signedIn}}{{^session.signedIn}}Sign-In{{/session.signedIn}} <i class="fa fa-google-plus-square fa-lg"></i></a>
           </li>
         </ul>

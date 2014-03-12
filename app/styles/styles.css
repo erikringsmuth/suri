@@ -66,15 +66,27 @@ footer ul a, footer .text-muted {
 }
 
 /* Nav profile */
-.navbar .profile,
-.navbar .profile img,
-.navbar .profile a {
-  display: inline-block;
+.navbar .profile {
+  background-color: #2465a0;
+  border-radius: 3px;
+  height: 40px;
+  margin-top: 5px;
+  margin-right: 15px;
+  overflow: hidden;
+}
+.navbar .profile:hover {
+  background-color: #276fb0;
 }
 .navbar .profile img {
+  display: inline-block;
   height: 40px;
-  border: 2px solid #fff;
-  border-radius: 3px;
+  margin-top: -2px;
+}
+.navbar .profile a {
+  display: inline-block;
+  text-shadow: 0px 1px 2px #1d5180;
+  padding-top: 0px;
+  line-height: 40px;
 }
 
 /* Links */
