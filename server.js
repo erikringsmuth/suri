@@ -1,11 +1,15 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
+// Set environment vars before loading modules that use them
+var nconf = require('nconf');
+nconf
+  .argv()
+  .env()
+  .file({ file: __dirname + '/config.json' });
+
 // Heroku performance logging
 require('newrelic');
-
-// Set environment vars before loading modules that use them
-process.env.ELASTICSEARCH_URL = process.env.BONSAI_URL || 'localhost:9200';
 
 var express     = require('express'),
     auth        = require('./server/authentication'),
@@ -33,7 +37,7 @@ app.configure(function() {
   // Client session
   app.use(sessions({
     cookieName: 'session_state', // cookie name dictates the key name added to the request object
-    secret: 'ogwq#$y(o*er+)n#h9dq7=tl=fcxy9p&qv@17g(air^8c&8r)+', // should be a large unguessable string
+    secret: nconf.get('SESSION_SECRET'), // should be a large unguessable string
     duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
     activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
   }));
@@ -51,7 +55,7 @@ app.configure(function() {
 });
 
 app.configure('development', function() {
-  console.log('ELASTICSEARCH_URL: ' + process.env.ELASTICSEARCH_URL);
+  console.log('BONSAI_URL: ' + nconf.get('BONSAI_URL'));
 
   // Error handling
   app.use(function(err, req, res, next) {

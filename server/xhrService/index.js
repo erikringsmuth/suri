@@ -1,13 +1,14 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
-var elasticsearch = require('elasticsearch'),
-    shortId       = require('shortid');
+var nconf         = require('nconf'),
+    elasticsearch = require('elasticsearch'),
+    shortId       = require('shortid'),
+    index         = 'suri-ci',
+    type          = 'xhr';
 
 var client = elasticsearch.Client({
-  host: process.env.ELASTICSEARCH_URL
+  host: nconf.get('BONSAI_URL')
 });
-var index = 'suri-ci',
-    type = 'xhr';
 
 module.exports.create = function(req, res) {
   client.create({

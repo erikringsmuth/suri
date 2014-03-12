@@ -1,10 +1,11 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
-var googleOAuth2 = require('./googleOAuth2'),
+var nconf        = require('nconf'),
+    googleOAuth2 = require('./googleOAuth2'),
     crypto       = require('crypto'),
-    clientId     = '838945892575-97eh2eka9prpaurmlibqft86if2r98cs.apps.googleusercontent.com',
-    clientSecret = 'lrEzMLAc-JAnNr_Q-C3tbwxY';
+    clientId     = nconf.get('CLIENT_ID'),
+    clientSecret = nconf.get('CLIENT_SECRET');
 
 
 function guid() {

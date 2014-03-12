@@ -1,3 +1,5 @@
+var nconf = require('nconf');
+
 /**
  * New Relic agent configuration.
  *
@@ -12,7 +14,7 @@ exports.config = {
   /**
    * Your New Relic license key.
    */
-  license_key : '8e8b497f2b776ba3d2f903a9dd0eabde84211eb7',
+  license_key : nconf.get('NEW_RELIC_LICENSE_KEY'),
   logging : {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing
