@@ -119,26 +119,34 @@ module.exports.simpleSearch = function(req, res) {
 };
 
 module.exports.search = function(req, res) {
+  var userId = req.session_state.userId || '';
+
   client.search({
     index: index,
     type: type,
     body: {
       query: {
-        bool: {
-          should: [
-            {
-              prefix: {
-                name: req.query.q
-              }
-            },
-            {
-              simple_query_string: {
-                query: req.query.q
-              }
+        filtered: {
+          query: {
+            bool: {
+              should: [
+                {
+                  prefix: {
+                    name: req.query.q
+                  }
+                },
+                {
+                  simple_query_string: {
+                    query: req.query.q
+                  }
+                }
+              ]
             }
-          ]
-        },
-        minimum_should_match: 1
+          },
+          filter: {
+            term: { isPublic: true }
+          }
+        }
       }
     }
   }).then(function (body) {

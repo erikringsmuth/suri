@@ -2,18 +2,24 @@
 'use strict';
 
 var elasticsearch = require('elasticsearch'),
-    xhrs = require('./xhrs'),
-    shortId = require('shortid'),
-    index = 'suri-ci',
-    type = 'xhr',
-    bulkData = [];
+    xhrs          = require('./xhrs'),
+    shortId       = require('shortid'),
+    nconf         = require('nconf'),
+    index         = 'suri-ci',
+    type          = 'xhr',
+    bulkData      = [];
+
+nconf
+  .argv()
+  .env()
+  .file({ file: __dirname + './../config.json' });
 
 for (var i = 0; i < xhrs.length; i++) {
   bulkData.push({ index:  { _index: index, _type: type, _id: shortId.generate() } });
   bulkData.push(xhrs[i]);
 }
 
-var elasticSearchHost = process.argv[2] || 'localhost:9200';
+var elasticSearchHost = nconf.get('BONSAI_URL');
 console.log('\nConnecting to ' + elasticSearchHost);
 var client = elasticsearch.Client({
   host: elasticSearchHost
