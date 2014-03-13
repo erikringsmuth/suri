@@ -144,7 +144,14 @@ module.exports.search = function(req, res) {
             }
           },
           filter: {
-            term: { isPublic: true }
+            or: [
+              {
+                term: { isPublic: true }
+              },
+              {
+                term: { owner: userId }
+              }
+            ]
           }
         }
       }
