@@ -10,6 +10,43 @@ var client = elasticsearch.Client({
   host: nconf.get('BONSAI_URL')
 });
 
+
+// Index will create or update if it already exists
+module.exports.index = function(req, res) {
+  // Server validation
+  // TODO: guard on arrays and read only properties
+  // TODO: select object with ID and fall back to existing properties
+  var xhr = {
+    name: req.body.name,
+    method: req.body.method,
+    url: req.body.url,
+    headers: req.body.headers,
+    queryParameters: req.body.queryParameters,
+    body: req.body.body,
+    corsEnabled: req.body.corsEnabled,
+    info: req.body.info,
+    callCount: req.body.callCount,
+    isPublic: req.body.isPublic,
+    depricated: req.body.depricated,
+    tags: req.body.tags,
+    stars: req.body.stars,
+    owner: req.body.owner,
+    forks: req.body.forks,
+    forkedFrom: req.body.forkedFrom
+  };
+  client.index({
+    index: index,
+    type: type,
+    id: req.body.id || shortId.generate(),
+    body: xhr
+  }).then(function (body) {
+    res.send(body);
+  }, function (error) {
+    res.status(error.status);
+    res.send(error);
+  });
+};
+
 module.exports.create = function(req, res) {
   client.create({
     index: index,
@@ -103,6 +140,23 @@ module.exports.search = function(req, res) {
   });
 };
 
+module.exports.incrementCallCount = function(req, res, next) {
+  var xhrId = req.get('api-id');
+  if (xhrId) {
+    client.update({
+      index: index,
+      type: type,
+      id: xhrId,
+      body: {
+        script: 'ctx._source.callCount += count',
+        params: { count: 1 },
+        upsert: { callCount: 0 } // Set call count if it doesn't already exist
+      }
+    });
+  }
+  next();
+};
+
 module.exports.update = function(req, res) {
   client.update({
     index: index,
@@ -111,42 +165,6 @@ module.exports.update = function(req, res) {
     body: {
       doc: req.body
     }
-  }).then(function (body) {
-    res.send(body);
-  }, function (error) {
-    res.status(error.status);
-    res.send(error);
-  });
-};
-
-// Index will create or update if it already exists
-module.exports.index = function(req, res) {
-  // Server validation
-  // TODO: guard on arrays and read only properties
-  // TODO: select object with ID and fall back to existing properties
-  var xhr = {
-    name: req.body.name,
-    method: req.body.method,
-    url: req.body.url,
-    headers: req.body.headers,
-    queryParameters: req.body.queryParameters,
-    body: req.body.body,
-    corsEnabled: req.body.corsEnabled,
-    info: req.body.info,
-    callCount: req.body.callCount,
-    isPublic: req.body.isPublic,
-    depricated: req.body.depricated,
-    tags: req.body.tags,
-    stars: req.body.stars,
-    owner: req.body.owner,
-    forks: req.body.forks,
-    forkedFrom: req.body.forkedFrom
-  };
-  client.index({
-    index: index,
-    type: type,
-    id: req.body.id || shortId.generate(),
-    body: xhr
   }).then(function (body) {
     res.send(body);
   }, function (error) {

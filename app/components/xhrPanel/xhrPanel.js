@@ -110,7 +110,14 @@ define(function(require) {
 
             this.xhr.open(this.get('method'), path, true);
             this.xhr.setRequestHeader('api-host', host);
+
+            // Include the XHR ID so we can increment the call counter
+            if (this.get('id')) {
+              this.xhr.setRequestHeader('api-id', this.get('id'));
+            }
           }
+
+          this.set('callCount', this.get('callCount') + 1);
 
           var headerLines = this.nodes.requestHeaders.value.split('\n');
           if (headerLines.length === 1 && headerLines[0].trim() === '') {

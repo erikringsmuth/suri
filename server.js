@@ -32,6 +32,7 @@ app.configure(function() {
   app.use(express.compress());
 
   // Proxy requests with 'api-host' header
+  app.use(xhrService.incrementCallCount);
   app.use(proxy);
 
   // Client session

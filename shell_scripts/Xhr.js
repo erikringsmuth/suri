@@ -6,8 +6,6 @@ module.exports = function Xhr(xhr) {
   this.method = xhr.method || 'GET';
   this.url = xhr.url || 'http://';
   this.info = xhr.info || null;
-  this.createdDate = xhr.createdDate || Date.now();
-  this.changedDate = xhr.changedDate || Date.now();
   this.callCount = xhr.callCount || 0;
 
   // headers: [

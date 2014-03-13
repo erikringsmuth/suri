@@ -1,8 +1,8 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
-var http  = require('http'),
-    https = require('https');
+var http        = require('http'),
+    https       = require('https');
 
 // The API proxy forwards requests to the 'api-host' header
 module.exports = function apiProxy(req, res, next) {
