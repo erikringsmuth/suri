@@ -3,8 +3,8 @@
 var nconf         = require('nconf'),
     elasticsearch = require('elasticsearch'),
     shortId       = require('shortid'),
-    index         = 'suri-ci',
-    type          = 'user';
+    index         = 'suri',
+    type          = 'users';
 
 var client = elasticsearch.Client({
   host: nconf.get('BONSAI_URL')
