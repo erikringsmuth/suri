@@ -32,11 +32,12 @@ define(function(require) {
       depricated: false,
       tags: null, // []
       stars: null, // []
-      owner: null,
+      owner: window.suri.session.userId,
       forks: null, // []
       forkedFrom: null,
 
       // State
+      isOwner: false,
       responseBody: '',
       showOptions: false,
       saveButtonClass: 'default',
@@ -62,6 +63,7 @@ define(function(require) {
       this.set('tags', []);
       this.set('stars', []);
       this.set('forks', []);
+      this.set('isOwner', window.suri.session.userId === this.get('owner'));
 
       // XHR
       this.xhr = new XMLHttpRequest();
@@ -192,27 +194,47 @@ define(function(require) {
         fork: function() {
           var fork = new XhrPanel({data: this.data});
           fork.set('id', null);
+          fork.set('isOwner', true);
+          fork.set('owner', window.suri.session.userId);
+          fork.set('forkedFrom', this.get('id'));
         },
 
         save: function() {
           this.set('saveButtonClass', 'default');
-          $.ajax('/xhr', {
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(this.data)
-          })
-            .done(function(data) {
-              this.set('saveButtonClass', 'success');
-              this.set('id', data._id);
-            }.bind(this))
-            .fail(function() {
-              this.set('saveButtonClass', 'danger');
-            }.bind(this));
+
+          if (this.get('id')) {
+            // update
+            $.ajax('/xhr/' + this.get('id'), {
+              type: 'PUT',
+              contentType: 'application/json',
+              data: JSON.stringify(this.data)
+            })
+              .done(function() {
+                this.set('saveButtonClass', 'success');
+              }.bind(this))
+              .fail(function() {
+                this.set('saveButtonClass', 'danger');
+              }.bind(this));
+          }
+          else {
+            // save
+            $.ajax('/xhr', {
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify(this.data)
+            })
+              .done(function(data) {
+                this.set('saveButtonClass', 'success');
+                this.set('id', data._id);
+              }.bind(this))
+              .fail(function() {
+                this.set('saveButtonClass', 'danger');
+              }.bind(this));
+          }
         },
 
         delete: function() {
-          var id = this.get('id');
-          if (!id) {
+          if (!this.get('id')) {
             // This was never saved, remove the panel
             this.teardown();
           } else {

@@ -82,8 +82,9 @@ app.get('/logout', auth.logout);
 app.get('/oauth2callback', auth.oAuth2Callback);
 
 // XHR
-app.post('/xhr', xhrService.index);
 app.get('/xhr', xhrService.search);
+app.post('/xhr', xhrService.create);
+app.put('/xhr/:id', xhrService.update);
 app.delete('/xhr/:id', xhrService.delete);
 
 // Browser's IP address

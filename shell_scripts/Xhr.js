@@ -43,6 +43,7 @@ module.exports = function Xhr(xhr) {
 
   // user GUID
   this.owner = xhr.owner || null;
+  this.ownerMd5 = xhr.ownerMd5 || null;
 
 
   // forks: [

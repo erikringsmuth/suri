@@ -12,10 +12,9 @@ var client = elasticsearch.Client({
 
 
 // Index will create or update if it already exists
-module.exports.index = function(req, res) {
+module.exports.create = function(req, res) {
   // Server validation
   // TODO: guard on arrays and read only properties
-  // TODO: select object with ID and fall back to existing properties
   var xhr = {
     name: req.body.name,
     method: req.body.method,
@@ -25,19 +24,20 @@ module.exports.index = function(req, res) {
     body: req.body.body,
     corsEnabled: req.body.corsEnabled,
     info: req.body.info,
-    callCount: req.body.callCount,
+    callCount: 0,
     isPublic: req.body.isPublic,
     depricated: req.body.depricated,
     tags: req.body.tags,
-    stars: req.body.stars,
-    owner: req.body.owner,
-    forks: req.body.forks,
+    stars: [],
+    owner: req.session_state.userId,
+    ownerMd5: req.session_state.emailMd5,
+    forks: [],
     forkedFrom: req.body.forkedFrom
   };
-  client.index({
+  client.create({
     index: index,
     type: type,
-    id: req.body.id || shortId.generate(),
+    id: shortId.generate(),
     body: xhr
   }).then(function (body) {
     res.send(body);
@@ -47,37 +47,51 @@ module.exports.index = function(req, res) {
   });
 };
 
-module.exports.create = function(req, res) {
-  client.create({
-    index: index,
-    type: type,
-    body: req.body
-  }).then(function (body) {
-    res.send(body);
-  }, function (error) {
-    res.status(error.status);
-    res.send(error);
-  });
-};
-
-module.exports.readList = function(req, res) {
-  client.get({
-    index: index,
-    type: type
-  }).then(function (body) {
-    res.send(body);
-  }, function (error) {
-    res.send(error);
-  });
-};
-
-module.exports.read = function(req, res) {
+module.exports.update = function(req, res) {
+  var xhrId = req.params.id;
   client.get({
     index: index,
     type: type,
-    id: req.params.id
+    id: xhrId
   }).then(function (body) {
-    res.send(body);
+    if (body._source && body._source.owner === req.session_state.userId) {
+      // Update request by the owner, OK
+
+      // Server validation
+      // TODO: guard on arrays and read only properties
+      var xhr = {
+        name: req.body.name,
+        method: req.body.method,
+        url: req.body.url,
+        headers: req.body.headers,
+        queryParameters: req.body.queryParameters,
+        body: req.body.body,
+        corsEnabled: req.body.corsEnabled,
+        info: req.body.info,
+        isPublic: req.body.isPublic,
+        depricated: req.body.depricated,
+        tags: req.body.tags
+      };
+      client.update({
+        index: index,
+        type: type,
+        id: req.params.id,
+        body: {
+          doc: xhr
+        }
+      }).then(function () {
+        res.status(204);
+        res.send('Updated');
+      }, function (error) {
+        res.status(error.status);
+        res.send(error);
+      });
+
+    } else {
+      // Not the owner
+      res.status(401);
+      res.send('You have to be the owner to update an XHR');
+    }
   }, function (error) {
     res.status(error.status);
     res.send(error);
@@ -155,22 +169,6 @@ module.exports.incrementCallCount = function(req, res, next) {
     });
   }
   next();
-};
-
-module.exports.update = function(req, res) {
-  client.update({
-    index: index,
-    type: type,
-    id: req.params.id,
-    body: {
-      doc: req.body
-    }
-  }).then(function (body) {
-    res.send(body);
-  }, function (error) {
-    res.status(error.status);
-    res.send(error);
-  });
 };
 
 module.exports.delete = function(req, res) {
