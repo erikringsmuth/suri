@@ -2,7 +2,6 @@
 'use strict';
 var nconf         = require('nconf'),
     elasticsearch = require('elasticsearch'),
-    shortId       = require('shortid'),
     index         = 'suri-ci',
     type          = 'user';
 
@@ -15,7 +14,7 @@ module.exports.createUser = function(user, callback) {
   var data = {
     googleIss: user.googleIss,
     googleSub: user.googleSub,
-    id: user.id || shortId.generate(),
+    googleEmailMd5: user.googleEmailMd5,
     displayName: user.displayName || ''
   };
 
@@ -31,7 +30,7 @@ module.exports.createUser = function(user, callback) {
 };
 
 // Get user with iss and sub
-module.exports.getUserByIssAndSub = function(iss, sub, callback) {
+module.exports.getGoogleUserByIssAndSub = function(iss, sub, callback) {
   client.search({
     index: index,
     type: type,
@@ -40,17 +39,22 @@ module.exports.getUserByIssAndSub = function(iss, sub, callback) {
         bool: {
           must: [
             {
-              term: { iss: iss }
+              term: { googleIss: iss }
             },
             {
-              term: { sub: sub }
+              term: { googleSub: sub }
             }
           ]
         }
       }
     }
   }).then(function (body) {
-    callback({ success: true, data: body });
+    var user = body.hits.hits[0];
+    if (user) {
+      callback({ success: true, data: user });
+    } else {
+      callback({ success: false, data: 'User not found.' });
+    }
   }, function (error) {
     callback({ success: false, data: error });
   });

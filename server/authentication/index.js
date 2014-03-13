@@ -4,6 +4,7 @@
 var nconf        = require('nconf'),
     googleOAuth2 = require('./googleOAuth2'),
     crypto       = require('crypto'),
+    userService  = require('../userService'),
     clientId     = nconf.get('CLIENT_ID'),
     clientSecret = nconf.get('CLIENT_SECRET');
 
@@ -14,6 +15,7 @@ function guid() {
     return v.toString(16);
   });
 }
+
 
 module.exports.login = function login(req, res) {
   // Redirect to Google for authentication
@@ -39,12 +41,52 @@ module.exports.login = function login(req, res) {
                 '&redirect_uri=' + redirectUri);
 };
 
+
+// The iss and sub must be set when this is called
+var getUsersGoogleProfile = function getUsersGoogleProfile(session_state, callback) {
+  userService.getGoogleUserByIssAndSub(session_state.googleIss, session_state.googleSub, function(userResult) {
+    if (userResult.success) {
+
+      // Found user
+      callback({ success: true, data: { userId: userResult.data._id, displayName: userResult.data._source.displayName } });
+
+    } else {
+
+      // Need to create a new user
+      var displayName = session_state.email.split('@')[0];
+      userService.createUser({
+        googleIss: session_state.googleIss,
+        googleSub: session_state.googleSub,
+        googleEmailMd5: session_state.emailMd5,
+        displayName: displayName
+      }, function(createUserResult) {
+        if (createUserResult.success) {
+
+          // User created
+          callback({ success: true, data: { userId: createUserResult.data._id, displayName: displayName } });
+        } else {
+
+          // Failed to create user
+          callback(createUserResult);
+        }
+      });
+    }
+  });
+};
+
+
+var resetSession = function resetSession(session_state, message) {
+  session_state.reset();
+  session_state.signedIn = false;
+  session_state.authenticationMessage = message;
+};
+
+
 module.exports.logout = function logout(req, res) {
-  req.session_state.reset();
-  req.session_state.signedIn = false;
-  req.session_state.authenticationMessage = 'Signed out.';
+  resetSession(req.session_state, 'Signed out.');
   res.redirect('/');
 };
+
 
 module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
 
@@ -58,8 +100,7 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
 
   if (req.query.state !== req.session_state.xsrfToken) {
     // This is a forged request, don't authenticate
-    req.session_state.signedIn = false;
-    req.session_state.authenticationMessage = 'Authentication failed. The anti-forgery state token was forged.';
+    resetSession(req.session_state, 'Authentication failed. The anti-forgery state token was forged.');
     res.redirect('/');
   }
 
@@ -71,24 +112,32 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
     clientSecret: clientSecret,
     code: req.query.code,
     redirectUri: redirectUri
-  }, function(result) {
+  }, function(oauthResult) {
 
-    if (result.success) {
-      // Create a session
-      //
-      // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
-      req.session_state.iss = result.decoded_id_token.iss;
-      req.session_state.sub = result.decoded_id_token.sub;
-      req.session_state.email = result.decoded_id_token.email;
-      req.session_state.exp = result.decoded_id_token.exp;
-      req.session_state.signedIn = true;
-      req.session_state.authenticationMessage = 'Signed in.';
-      req.session_state.emailMd5 = crypto.createHash('md5').update(req.session_state.email || '').digest('hex');
-    } else {
-      req.session_state.reset();
-      req.session_state.signedIn = false;
-      req.session_state.authenticationMessage = result.message;
+    if (!oauthResult.success) {
+      resetSession(req.session_state, oauthResult.message);
+      res.redirect('/');
     }
-    res.redirect('/');
+
+    // Create a session
+    //
+    // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
+    req.session_state.googleIss = oauthResult.decoded_id_token.iss;
+    req.session_state.googleSub = oauthResult.decoded_id_token.sub;
+    req.session_state.email = oauthResult.decoded_id_token.email;
+    req.session_state.emailMd5 = crypto.createHash('md5').update(req.session_state.email || '').digest('hex');
+    req.session_state.exp = oauthResult.decoded_id_token.exp;
+    req.session_state.signedIn = true;
+    req.session_state.authenticationMessage = 'Signed in.';
+
+    getUsersGoogleProfile(req.session_state, function(userProfileResult) {
+      if (userProfileResult.success) {
+        req.session_state.userId = userProfileResult.data.userId;
+        req.session_state.displayName = userProfileResult.data.displayName;
+      } else {
+        resetSession(req.session_state, 'Failed to create user profile.');
+      }
+      res.redirect('/');
+    });
   });
 };
