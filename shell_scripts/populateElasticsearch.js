@@ -22,7 +22,6 @@ var client = elasticsearch.Client({
 // Delete all existing items in the index
 client.deleteByQuery({
   index: index,
-  type: type,
   body: {
     query: {
       match_all: {}

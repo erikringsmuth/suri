@@ -2,6 +2,7 @@
 'use strict';
 var nconf         = require('nconf'),
     elasticsearch = require('elasticsearch'),
+    shortId       = require('shortid'),
     index         = 'suri-ci',
     type          = 'user';
 
@@ -12,6 +13,7 @@ var client = elasticsearch.Client({
 // Create user
 module.exports.createUser = function(user, callback) {
   var data = {
+    userId: shortId.generate(),
     googleIss: user.googleIss,
     googleSub: user.googleSub,
     emailMd5: user.emailMd5,
@@ -23,7 +25,7 @@ module.exports.createUser = function(user, callback) {
     type: type,
     body: data
   }).then(function (body) {
-    callback({ success: true, data: body });
+    callback({ success: true, data: data });
   }, function (error) {
     callback({ success: false, data: error });
   });

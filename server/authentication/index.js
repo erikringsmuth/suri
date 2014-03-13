@@ -48,7 +48,7 @@ var getUsersGoogleProfile = function getUsersGoogleProfile(session_state, callba
     if (userResult.success) {
 
       // Found user
-      callback({ success: true, data: { userId: userResult.data._id, displayName: userResult.data._source.displayName } });
+      callback({ success: true, data: userResult.data._source });
 
     } else {
 
@@ -63,7 +63,7 @@ var getUsersGoogleProfile = function getUsersGoogleProfile(session_state, callba
         if (createUserResult.success) {
 
           // User created
-          callback({ success: true, data: { userId: createUserResult.data._id, displayName: displayName } });
+          callback({ success: true, data: createUserResult.data });
         } else {
 
           // Failed to create user
