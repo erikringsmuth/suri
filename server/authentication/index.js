@@ -57,7 +57,7 @@ var getUsersGoogleProfile = function getUsersGoogleProfile(session_state, callba
       userService.createUser({
         googleIss: session_state.googleIss,
         googleSub: session_state.googleSub,
-        googleEmailMd5: session_state.emailMd5,
+        emailMd5: session_state.emailMd5,
         displayName: displayName
       }, function(createUserResult) {
         if (createUserResult.success) {

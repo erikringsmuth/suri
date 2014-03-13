@@ -14,7 +14,7 @@ module.exports.createUser = function(user, callback) {
   var data = {
     googleIss: user.googleIss,
     googleSub: user.googleSub,
-    googleEmailMd5: user.googleEmailMd5,
+    emailMd5: user.emailMd5,
     displayName: user.displayName || ''
   };
 
