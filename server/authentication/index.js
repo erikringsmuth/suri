@@ -43,31 +43,31 @@ module.exports.login = function login(req, res) {
 
 
 // The iss and sub must be set when this is called
-var getUsersGoogleProfile = function getUsersGoogleProfile(session_state, callback) {
-  userService.getGoogleUserByIssAndSub(session_state.googleIss, session_state.googleSub, function(userResult) {
+var getOrCreateUserProfile = function getOrCreateUserProfile(options, callback) {
+  userService.getGoogleUserByIssAndSub(options.googleIss, options.googleSub, function(userResult) {
     if (userResult.success) {
 
-      // Found user
+      // Found user, return the user source
       callback({ success: true, data: userResult.data._source });
 
     } else {
 
       // Need to create a new user
-      var displayName = session_state.email.split('@')[0];
+      var displayName = options.email.split('@')[0];
       userService.createUser({
-        googleIss: session_state.googleIss,
-        googleSub: session_state.googleSub,
-        emailMd5: session_state.emailMd5,
+        googleIss: options.googleIss,
+        googleSub: options.googleSub,
+        emailMd5: options.emailMd5,
         displayName: displayName
       }, function(createUserResult) {
         if (createUserResult.success) {
 
-          // User created
+          // User created, return the user, it doesn't have _source
           callback({ success: true, data: createUserResult.data });
         } else {
 
           // Failed to create user
-          callback(createUserResult);
+          callback({ success: false, data: createUserResult.data });
         }
       });
     }
@@ -122,15 +122,17 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
     // Create a session
     //
     // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
-    req.session_state.googleIss = oauthResult.decoded_id_token.iss;
-    req.session_state.googleSub = oauthResult.decoded_id_token.sub;
     req.session_state.email = oauthResult.decoded_id_token.email;
     req.session_state.emailMd5 = crypto.createHash('md5').update(req.session_state.email || '').digest('hex');
-    req.session_state.exp = oauthResult.decoded_id_token.exp;
     req.session_state.signedIn = true;
     req.session_state.authenticationMessage = 'Signed in.';
 
-    getUsersGoogleProfile(req.session_state, function(userProfileResult) {
+    getOrCreateUserProfile({
+      googleIss: oauthResult.decoded_id_token.iss,
+      googleSub: oauthResult.decoded_id_token.sub,
+      email: req.session_state.email,
+      emailMd5: req.session_state.emailMd5
+    }, function(userProfileResult) {
       if (userProfileResult.success) {
         req.session_state.userId = userProfileResult.data.userId;
         req.session_state.displayName = userProfileResult.data.displayName;

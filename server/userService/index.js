@@ -62,14 +62,23 @@ module.exports.getGoogleUserByIssAndSub = function(iss, sub, callback) {
   });
 };
 
-// Get user by ID
-module.exports.getUser = function(id, callback) {
-  client.get({
+// Get user by userId
+module.exports.getUserById = function(userId, callback) {
+  client.search({
     index: index,
     type: type,
-    id: id
+    body: {
+      query: {
+        term: { userId: userId }
+      }
+    }
   }).then(function (body) {
-    callback({ success: true, data: body });
+    var user = body.hits.hits[0];
+    if (user) {
+      callback({ success: true, data: user });
+    } else {
+      callback({ success: false, data: 'User not found.' });
+    }
   }, function (error) {
     callback({ success: false, data: error });
   });
