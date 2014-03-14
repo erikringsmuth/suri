@@ -88,6 +88,12 @@ define(function(require) {
           this.set('showOptions', !this.get('showOptions'));
         },
 
+        scrollToPanel: function scrollToPanel() {
+          $('html,body').animate({
+            scrollTop: document.getElementById(this.get('panelId')).offsetTop + 100
+          }, 200, 'easeOutQuint');
+        },
+
         sendOnEnter: function sendOnEnter(event) {
           if (event.original.keyCode === 13) {
             this.fire('send');
@@ -198,7 +204,10 @@ define(function(require) {
           fork.set('isOwner', true);
           fork.set('owner', window.suri.session.userId);
           fork.set('callCount', 0);
+          fork.set('forks', []);
           fork.set('forkedFrom', this.get('id'));
+          fork.fire('save');
+          this.data.forks.push(''); // increment the forks count, this is faking out what's happening server side
         },
 
         save: function() {
@@ -249,6 +258,9 @@ define(function(require) {
           }
         }
       });
+
+      // Scroll to the panel when it's created
+      this.fire('scrollToPanel');
     }
   });
 
