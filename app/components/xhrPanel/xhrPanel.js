@@ -59,11 +59,11 @@ define(function(require) {
 
       // Initialize model arrays and ID
       this.set('panelId', utilities.guid());
-      this.set('headers', this.get('headers') || []);
-      this.set('queryParameters', this.get('queryParameters') || []);
-      this.set('tags', this.get('tags') || []);
-      this.set('stars', this.get('stars') || []);
-      this.set('forks', this.get('forks') || []);
+      if (!this.get('headers')) this.set('headers', []);
+      if (!this.get('queryParameters')) this.set('queryParameters', []);
+      if (!this.get('tags')) this.set('tags', []);
+      if (!this.get('stars')) this.set('stars', []);
+      if (!this.get('forks')) this.set('forks', []);
       this.set('isOwner', window.suri.session.userId === this.get('owner'));
 
       // XHR
@@ -197,6 +197,7 @@ define(function(require) {
           fork.set('id', null);
           fork.set('isOwner', true);
           fork.set('owner', window.suri.session.userId);
+          fork.set('callCount', 0);
           fork.set('forkedFrom', this.get('id'));
         },
 

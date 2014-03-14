@@ -4,9 +4,9 @@
   <div class="panel-heading">
     <input type="text" id="panel-name" value="{{name}}" placeholder="Name">
     <div class="panel-heading-options pull-right">
-      <span><i class="fa fa-caret-square-o-right"></i> - {{callCount}}</span>
-      <span><i class="fa fa-star"></i> - {{stars.length}}</span>
-      <span><i class="fa fa-code-fork"></i> - {{forks.length}}</span>
+      <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>
+      <span><i class="fa fa-star"></i> {{stars.length}}</span>
+      <span><i class="fa fa-code-fork"></i> {{forks.length}}</span>
       <button type="button" on-click="toggleOptions" class="btn btn-default"><i class="fa fa-cog options-cog {{showOptions ? 'active' : 'inactive'}}"></i> Options</button>
       <button type="button" on-click="teardown" aria-hidden="true"><i class="fa fa-times"></i></button>
     </div>
@@ -26,12 +26,12 @@
         <div><label>id</label> <span class="text-muted">{{id}}</span></div>
         <div><label>owner</label> <span class="text-muted">{{owner}}</span></div>
         {{#forkedFrom}}<div><label>forked from</label> <span class="text-muted">{{forkedFrom}}</span></div>{{/forkedFrom}}
-        <div><label>permalink</label> <a href="/?xhr={{id}}">/?xhr={{id}}</a></div>
+        <div><label>link</label> <a href="/?xhr={{id}}">/?xhr={{id}}</a></div>
       </div>
       <div class="col-sm-4">
         {{#isOwner}}<div><label><input type="checkbox" checked="{{isPublic}}"> public</label></div>{{/isOwner}}
         <div><label><input type="checkbox" checked="{{corsEnabled}}"> cors enabled</label></div>
-        {{#isOwner}}<div><label><input type="checkbox" checked="{{depricated}}"> depricated</label></div>{{/isOwner}}
+        <div><label><input type="checkbox" checked="{{depricated}}" disabled="{{!isOwner}}"> depricated</label></div>
       </div>
     </div>
     <div>
