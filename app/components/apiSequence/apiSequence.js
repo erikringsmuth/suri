@@ -22,7 +22,7 @@ define(function(require) {
       if (xhr) {
         $.ajax('/xhr/' + xhr)
           .done(function(data) {
-            new XhrPanel(data);
+            new XhrPanel({data: data});
           });
       }
 
