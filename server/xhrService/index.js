@@ -150,7 +150,7 @@ module.exports.search = function(req, res) {
                 term: { isPublic: true }
               },
               {
-                term: { owner: req.session_state.userId }
+                term: { owner: req.session_state.userId || '' }
               }
             ]
           }
