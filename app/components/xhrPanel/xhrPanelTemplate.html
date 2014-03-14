@@ -5,7 +5,7 @@
     <input type="text" id="panel-name" value="{{name}}" placeholder="Name">
     <div class="panel-heading-options pull-right">
       <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>
-      <button type="button" on-click="star" class="btn btn-default"><i class="fa fa-star {{starred ? 'starred' : ''}}"></i> {{stars.length}}</button>
+      <button type="button" on-click="star" class="btn btn-default" disabled="{{!id}}"><i class="fa fa-star {{starred ? 'starred' : ''}}"></i> {{stars.length}}</button>
       <span><i class="fa fa-code-fork"></i> {{forks.length}}</span>
       <button type="button" on-click="toggleOptions" class="btn btn-default"><i class="fa fa-cog options-cog {{showOptions ? 'active' : 'inactive'}}"></i> Options</button>
       <button type="button" on-click="teardown" aria-hidden="true"><i class="fa fa-times"></i></button>
