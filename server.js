@@ -82,6 +82,7 @@ app.get('/logout', auth.logout);
 app.get('/oauth2callback', auth.oAuth2Callback);
 
 // XHR
+app.get('/xhr/:id', xhrService.get);
 app.get('/xhr', xhrService.search);
 app.post('/xhr', xhrService.create);
 app.put('/xhr/:id', xhrService.update);
@@ -92,7 +93,7 @@ app.get('/ip', ipAddress);
 
 // All routes should load the index which bootstraps the JS app. This has to be loaded
 // last or it will override the other routes.
-app.get('/*', index);
+app.get('/', index);
 
 
 //// START SERVER

@@ -11,7 +11,6 @@ var client = elasticsearch.Client({
 });
 
 
-// Index will create or update if it already exists
 module.exports.create = function(req, res) {
   var id = shortId.generate();
   var xhr = {
@@ -59,6 +58,20 @@ module.exports.create = function(req, res) {
   }
 };
 
+module.exports.get = function(req, res) {
+  client.get({
+    index: index,
+    type: type,
+    id: req.params.id
+  }).then(function (body) {
+    body._source.id = body._id;
+    res.send(body._source);
+  }, function (error) {
+    res.status(error.status);
+    res.send(error);
+  });
+};
+
 module.exports.update = function(req, res) {
   var xhrId = req.params.id;
   client.get({
@@ -102,26 +115,6 @@ module.exports.update = function(req, res) {
       res.status(401);
       res.send('You have to be the owner to update an XHR');
     }
-  }, function (error) {
-    res.status(error.status);
-    res.send(error);
-  });
-};
-
-module.exports.simpleSearch = function(req, res) {
-  client.search({
-    index: index,
-    type: type,
-    //q: req.query.q // simple
-    body: {
-      query: {
-        simple_query_string: {
-          query: req.query.q
-        }
-      }
-    }
-  }).then(function (body) {
-    res.send(body);
   }, function (error) {
     res.status(error.status);
     res.send(error);

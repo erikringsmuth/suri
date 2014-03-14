@@ -5,6 +5,7 @@ define(function(require) {
       apiSequenceTemplate = require('rv!./apiSequenceTemplate'),
       sequence = require('components/apiSequence/sequence'),
       XhrPanel = require('components/xhrPanel/xhrPanel'),
+      router = require('router'),
       $ = require('jquery');
   require('jquery.easing');
 
@@ -16,6 +17,15 @@ define(function(require) {
     },
 
     init: function() {
+      // Load XHR from the query parameters
+      var xhr = router.routeArguments().xhr;
+      if (xhr) {
+        $.ajax('/xhr/' + xhr)
+          .done(function(data) {
+            new XhrPanel(data);
+          });
+      }
+
       // Keep the menu aligned as you scroll
       var scrollEventHandler = function() {
         this.nodes['api-sequence-menu'].style.top = Math.max(0, window.pageYOffset - this.nodes['api-sequence-menu'].offsetParent.offsetTop) + 'px';
