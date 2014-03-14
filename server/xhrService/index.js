@@ -119,8 +119,6 @@ module.exports.simpleSearch = function(req, res) {
 };
 
 module.exports.search = function(req, res) {
-  var userId = req.session_state.userId || '';
-
   client.search({
     index: index,
     type: type,
@@ -149,7 +147,7 @@ module.exports.search = function(req, res) {
                 term: { isPublic: true }
               },
               {
-                term: { owner: userId }
+                term: { owner: req.session_state.userId }
               }
             ]
           }
