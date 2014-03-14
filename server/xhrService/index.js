@@ -12,49 +12,55 @@ var client = elasticsearch.Client({
 
 
 module.exports.create = function(req, res) {
-  var id = shortId.generate();
-  var xhr = {
-    name: req.body.name,
-    method: req.body.method,
-    url: req.body.url,
-    headers: req.body.headers,
-    queryParameters: req.body.queryParameters,
-    body: req.body.body,
-    corsEnabled: req.body.corsEnabled,
-    info: req.body.info,
-    callCount: 0,
-    isPublic: req.body.isPublic,
-    depricated: req.body.depricated,
-    tags: req.body.tags,
-    stars: [],
-    owner: req.session_state.userId,
-    ownerMd5: req.session_state.emailMd5,
-    forks: [],
-    forkedFrom: req.body.forkedFrom
-  };
-  client.create({
-    index: index,
-    type: type,
-    id: id,
-    body: xhr
-  }).then(function (body) {
-    res.send(body);
-  }, function (error) {
-    res.status(error.status);
-    res.send(error);
-  });
-
-  // If it's a fork update the forks array on the forked XHR
-  if (xhr.forkedFrom) {
-    client.update({
+  if(!req.session_state.signedIn) {
+    res.status(401);
+    res.send('You must be signed in to save an XHR');
+  }
+  else {
+    var id = shortId.generate();
+    var xhr = {
+      name: req.body.name,
+      method: req.body.method,
+      url: req.body.url,
+      headers: req.body.headers,
+      queryParameters: req.body.queryParameters,
+      body: req.body.body,
+      corsEnabled: req.body.corsEnabled,
+      info: req.body.info,
+      callCount: 0,
+      isPublic: req.body.isPublic,
+      depricated: req.body.depricated,
+      tags: req.body.tags,
+      stars: [],
+      owner: req.session_state.userId,
+      ownerMd5: req.session_state.emailMd5,
+      forks: [],
+      forkedFrom: req.body.forkedFrom
+    };
+    client.create({
       index: index,
       type: type,
-      id: xhr.forkedFrom,
-      body: {
-        script: 'ctx._source.forks += forkId',
-        params: { forkId: id }
-      }
+      id: id,
+      body: xhr
+    }).then(function (body) {
+      res.send(body);
+    }, function (error) {
+      res.status(error.status);
+      res.send(error);
     });
+
+    // If it's a fork update the forks array on the forked XHR
+    if (xhr.forkedFrom) {
+      client.update({
+        index: index,
+        type: type,
+        id: xhr.forkedFrom,
+        body: {
+          script: 'ctx._source.forks += forkId',
+          params: { forkId: id }
+        }
+      });
+    }
   }
 };
 
@@ -64,8 +70,13 @@ module.exports.get = function(req, res) {
     type: type,
     id: req.params.id
   }).then(function (body) {
-    body._source.id = body._id;
-    res.send(body._source);
+    if (body._source.isPublic || req.session_state.userId === body._source.owner) {
+      body._source.id = body._id;
+      res.send(body._source);
+    } else {
+      res.status(404);
+      res.send('Not found');
+    }
   }, function (error) {
     res.status(error.status);
     res.send(error);
@@ -188,12 +199,28 @@ module.exports.incrementCallCount = function(req, res, next) {
 };
 
 module.exports.delete = function(req, res) {
-  client.delete({
+  client.get({
     index: index,
     type: type,
     id: req.params.id
   }).then(function (body) {
-    res.send(body);
+    if (req.session_state.userId === body._source.owner) {
+      // Found, delete it
+      client.delete({
+        index: index,
+        type: type,
+        id: req.params.id
+      }).then(function (body) {
+        res.send(body);
+      }, function (error) {
+        res.status(error.status);
+        res.send(error);
+      });
+    } else {
+      // Found but the user is not the owner
+      res.status(404);
+      res.send('Not found');
+    }
   }, function (error) {
     res.status(error.status);
     res.send(error);

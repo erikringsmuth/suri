@@ -38,6 +38,7 @@ define(function(require) {
 
       // State
       isOwner: false,
+      signedIn: window.suri.session.signedIn,
       responseBody: '',
       showOptions: false,
       saveButtonClass: 'default',
