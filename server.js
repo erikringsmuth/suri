@@ -16,6 +16,7 @@ var express     = require('express'),
     proxy       = require('./server/proxy'),
     index       = require('./server/index'),
     xhrService  = require('./server/xhrService'),
+    userService = require('./server/userService'),
     ipAddress   = require('./server/ipAddress'),
     handlebars  = require('express3-handlebars'),
     sessions    = require('client-sessions'),
@@ -88,12 +89,15 @@ app.post('/xhr', xhrService.create);
 app.put('/xhr/:id', xhrService.update);
 app.delete('/xhr/:id', xhrService.delete);
 
+// Users
+app.get('/users/:id', userService.getProfile);
+
 // Browser's IP address
 app.get('/ip', ipAddress);
 
 // All routes should load the index which bootstraps the JS app. This has to be loaded
 // last or it will override the other routes.
-app.get('/', index);
+app.get('/*', index);
 
 
 //// START SERVER

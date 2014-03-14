@@ -84,6 +84,34 @@ module.exports.getUserById = function(userId, callback) {
   });
 };
 
+// Get user profile
+module.exports.getProfile = function(req, res) {
+  client.search({
+    index: index,
+    type: type,
+    body: {
+      query: {
+        term: { userId: req.params.id }
+      }
+    }
+  }).then(function (body) {
+    var user = body.hits.hits[0];
+    if (user) {
+      res.send({
+        userId: req.params.id,
+        emailMd5: user._source.emailMd5,
+        displayName: user._source.displayName
+      });
+    } else {
+      res.status(404);
+      res.send('Not found');
+    }
+  }, function (error) {
+    res.status(400);
+    res.send();
+  });
+};
+
 // Set user display name
 module.exports.updateDisplayName = function(id, displayName, callback) {
   client.update({
