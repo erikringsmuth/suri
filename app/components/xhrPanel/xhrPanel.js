@@ -38,6 +38,7 @@ define(function(require) {
 
       // State
       isOwner: false,
+      starred: false,
       signedIn: window.suri.session.signedIn,
       responseBody: '',
       showOptions: false,
@@ -65,6 +66,9 @@ define(function(require) {
       if (!this.get('stars')) this.set('stars', []);
       if (!this.get('forks')) this.set('forks', []);
       this.set('isOwner', window.suri.session.userId === this.get('owner'));
+      if (this.get('stars').indexOf(window.suri.session.userId) !== -1) {
+        this.set('starred', true);
+      }
 
       // XHR
       this.xhr = new XMLHttpRequest();
@@ -254,6 +258,29 @@ define(function(require) {
             })
               .done(function() {
                 this.teardown();
+              }.bind(this));
+          }
+        },
+
+        star: function() {
+          if (this.get('starred')) {
+            // Unstar
+            $.ajax('/xhr/' + this.get('id') + '/stars/' + window.suri.session.userId, {
+              method: 'DELETE'
+            })
+              .done(function() {
+                this.data.stars.splice(sequence.indexOf(window.suri.session.userId), 1);
+                this.set('starred', false);
+              }.bind(this));
+          } else {
+            // Star
+            $.ajax('/xhr/' + this.get('id') + '/stars', {
+              method: 'POST',
+              data: window.suri.session.userId
+            })
+              .done(function() {
+                this.data.stars.push(window.suri.session.userId);
+                this.set('starred', true);
               }.bind(this));
           }
         }

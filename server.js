@@ -88,6 +88,8 @@ app.get('/xhr', xhrService.search);
 app.post('/xhr', xhrService.create);
 app.put('/xhr/:id', xhrService.update);
 app.delete('/xhr/:id', xhrService.delete);
+app.post('/xhr/:id/stars', xhrService.star);
+app.delete('/xhr/:id/stars/:userId', xhrService.unstar);
 
 // Users
 app.get('/users/:id', userService.getProfile);

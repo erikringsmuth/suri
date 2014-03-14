@@ -226,3 +226,71 @@ module.exports.delete = function(req, res) {
     res.send(error);
   });
 };
+
+module.exports.star = function(req, res) {
+  client.get({
+    index: index,
+    type: type,
+    id: req.params.id
+  }).then(function (body) {
+    if (body._source.stars.indexOf(req.session_state.userId) === -1) {
+      // Star it
+      client.update({
+        index: index,
+        type: type,
+        id: req.params.id,
+        body: {
+          script: 'ctx._source.stars += userId',
+          params: { userId: req.session_state.userId }
+        }
+      })
+      .then(function (body) {
+        res.send(body);
+      }, function (error) {
+        res.status(error.status);
+        res.send(error);
+      });
+    } else {
+      // Found but the user has already starred it
+      res.status(400);
+      res.send('Already starred');
+    }
+  }, function (error) {
+    res.status(error.status);
+    res.send(error);
+  });
+};
+
+module.exports.unstar = function(req, res) {
+  client.get({
+    index: index,
+    type: type,
+    id: req.params.id
+  }).then(function (body) {
+    if (body._source.stars.indexOf(req.session_state.userId) !== -1) {
+      // Unstar it
+      client.update({
+        index: index,
+        type: type,
+        id: req.params.id,
+        body: {
+          script: 'ctx._source.stars.remove(userId)',
+          params: { userId: req.session_state.userId }
+        }
+      })
+      .then(function (body) {
+        res.send(body);
+      }, function (error) {
+        res.status(error.status);
+        res.send(error);
+      });
+    } else {
+      // Found but the user hasn't starred it
+      res.status(400);
+      res.send('You haven\'t starred this');
+    }
+  }, function (error) {
+    res.status(error.status);
+    res.send(error);
+  });
+};
