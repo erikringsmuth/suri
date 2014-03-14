@@ -58,11 +58,11 @@ define(function(require) {
 
       // Initialize model arrays and ID
       this.set('panelId', utilities.guid());
-      this.set('headers', []);
-      this.set('queryParameters', []);
-      this.set('tags', []);
-      this.set('stars', []);
-      this.set('forks', []);
+      this.set('headers', this.get('headers') || []);
+      this.set('queryParameters', this.get('queryParameters') || []);
+      this.set('tags', this.get('tags') || []);
+      this.set('stars', this.get('stars') || []);
+      this.set('forks', this.get('forks') || []);
       this.set('isOwner', window.suri.session.userId === this.get('owner'));
 
       // XHR

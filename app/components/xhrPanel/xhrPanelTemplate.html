@@ -29,9 +29,9 @@
         <div><label>permalink</label> <a href="/?xhr={{id}}">/?xhr={{id}}</a></div>
       </div>
       <div class="col-sm-4">
-        <div><label><input type="checkbox" checked="{{isPublic}}" disabled="{{!isOwner}}"> public</label></div>
+        {{#isOwner}}<div><label><input type="checkbox" checked="{{isPublic}}"> public</label></div>{{/isOwner}}
         <div><label><input type="checkbox" checked="{{corsEnabled}}"> cors enabled</label></div>
-        <div><label><input type="checkbox" checked="{{depricated}}" disabled="{{!isOwner}}"> depricated</label></div>
+        {{#isOwner}}<div><label><input type="checkbox" checked="{{depricated}}"> depricated</label></div>{{/isOwner}}
       </div>
     </div>
     <div>

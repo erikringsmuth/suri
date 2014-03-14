@@ -13,8 +13,7 @@ var client = elasticsearch.Client({
 
 // Index will create or update if it already exists
 module.exports.create = function(req, res) {
-  // Server validation
-  // TODO: guard on arrays and read only properties
+  var id = shortId.generate();
   var xhr = {
     name: req.body.name,
     method: req.body.method,
@@ -37,7 +36,7 @@ module.exports.create = function(req, res) {
   client.create({
     index: index,
     type: type,
-    id: shortId.generate(),
+    id: id,
     body: xhr
   }).then(function (body) {
     res.send(body);
@@ -45,6 +44,19 @@ module.exports.create = function(req, res) {
     res.status(error.status);
     res.send(error);
   });
+
+  // If it's a fork update the forks array on the forked XHR
+  if (xhr.forkedFrom) {
+    client.update({
+      index: index,
+      type: type,
+      id: xhr.forkedFrom,
+      body: {
+        script: 'ctx._source.forks += forkId',
+        params: { forkId: id }
+      }
+    });
+  }
 };
 
 module.exports.update = function(req, res) {
@@ -55,10 +67,8 @@ module.exports.update = function(req, res) {
     id: xhrId
   }).then(function (body) {
     if (body._source && body._source.owner === req.session_state.userId) {
-      // Update request by the owner, OK
 
-      // Server validation
-      // TODO: guard on arrays and read only properties
+      // Update request by the owner, OK
       var xhr = {
         name: req.body.name,
         method: req.body.method,
@@ -86,8 +96,8 @@ module.exports.update = function(req, res) {
         res.status(error.status);
         res.send(error);
       });
-
     } else {
+
       // Not the owner
       res.status(401);
       res.send('You have to be the owner to update an XHR');
