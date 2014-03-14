@@ -13,7 +13,6 @@ var client = elasticsearch.Client({
 // Create user
 module.exports.createUser = function(user, callback) {
   var data = {
-    userId: shortId.generate(),
     googleIss: user.googleIss,
     googleSub: user.googleSub,
     emailMd5: user.emailMd5,
@@ -23,9 +22,10 @@ module.exports.createUser = function(user, callback) {
   client.create({
     index: index,
     type: type,
+    id: shortId.generate(),
     body: data
   }).then(function (body) {
-    callback({ success: true, data: data });
+    callback({ success: true, data: body });
   }, function (error) {
     callback({ success: false, data: error });
   });
@@ -53,7 +53,8 @@ module.exports.getGoogleUserByIssAndSub = function(iss, sub, callback) {
   }).then(function (body) {
     var user = body.hits.hits[0];
     if (user) {
-      callback({ success: true, data: user });
+      user._source.userId = user._id;
+      callback({ success: true, data: user._source });
     } else {
       callback({ success: false, data: 'User not found.' });
     }
@@ -64,51 +65,33 @@ module.exports.getGoogleUserByIssAndSub = function(iss, sub, callback) {
 
 // Get user by userId
 module.exports.getUserById = function(userId, callback) {
-  client.search({
+  client.get({
     index: index,
     type: type,
-    body: {
-      query: {
-        term: { userId: userId }
-      }
-    }
+    id: userId
   }).then(function (body) {
-    var user = body.hits.hits[0];
-    if (user) {
-      callback({ success: true, data: user });
-    } else {
-      callback({ success: false, data: 'User not found.' });
-    }
-  }, function (error) {
-    callback({ success: false, data: error });
+    callback({ success: true, data: body._source });
+  }, function () {
+    callback({ success: false, data: 'User not found.' });
   });
 };
 
 // Get user profile
 module.exports.getProfile = function(req, res) {
-  client.search({
+  client.get({
     index: index,
     type: type,
-    body: {
-      query: {
-        term: { userId: req.params.id }
-      }
-    }
+    id: req.params.id
   }).then(function (body) {
-    var user = body.hits.hits[0];
-    if (user) {
-      res.send({
-        userId: req.params.id,
-        emailMd5: user._source.emailMd5,
-        displayName: user._source.displayName
-      });
-    } else {
-      res.status(404);
-      res.send('Not found');
-    }
-  }, function (error) {
-    res.status(400);
-    res.send();
+    var user = body._source;
+    res.send({
+      userId: req.params.id,
+      emailMd5: user._source.emailMd5,
+      displayName: user._source.displayName
+    });
+  }, function () {
+    res.status(404);
+    res.send('Not found');
   });
 };
 

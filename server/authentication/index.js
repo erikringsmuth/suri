@@ -47,23 +47,24 @@ var getOrCreateUserProfile = function getOrCreateUserProfile(options, callback) 
   userService.getGoogleUserByIssAndSub(options.googleIss, options.googleSub, function(userResult) {
     if (userResult.success) {
 
-      // Found user, return the user source
-      callback({ success: true, data: userResult.data._source });
+      // Found user
+      callback(userResult);
 
     } else {
 
       // Need to create a new user
-      var displayName = options.email.split('@')[0];
-      userService.createUser({
+      var user = {
         googleIss: options.googleIss,
         googleSub: options.googleSub,
         emailMd5: options.emailMd5,
-        displayName: displayName
-      }, function(createUserResult) {
+        displayName: options.email.split('@')[0]
+      };
+      userService.createUser(user, function(createUserResult) {
         if (createUserResult.success) {
 
-          // User created, return the user, it doesn't have _source
-          callback({ success: true, data: createUserResult.data });
+          // User created, return the user
+          user.userId = createUserResult.data._id;
+          callback({ success: true, data: user });
         } else {
 
           // Failed to create user
