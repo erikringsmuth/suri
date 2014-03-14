@@ -103,6 +103,10 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
     resetSession(req.session_state, 'Authentication failed. The anti-forgery state token was forged.');
     res.redirect('/');
   }
+  if (req.query.error) {
+    resetSession(req.session_state, 'Authentication denied.');
+    res.redirect('/');
+  }
 
   var redirectUri = 'http://' + req.header('host') + '/oauth2callback';
 
