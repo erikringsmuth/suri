@@ -4,3 +4,4 @@ elasticsearch/logs
 elasticsearch/logs/elasticsearch.log
 .env
 config.json
+node_modules

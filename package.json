@@ -33,6 +33,7 @@
     "node": "0.10.x"
   },
   "scripts": {
+    "start": "node server.js",
     "test": "node node_modules/gulp/bin/gulp.js ci"
   }
 }
