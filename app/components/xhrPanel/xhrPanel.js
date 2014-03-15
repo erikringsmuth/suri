@@ -22,11 +22,11 @@ define(function(require) {
       name: 'XHR',
       method: 'GET',
       url: 'http://www.suri.io/',
-      headers: null, // []
-      queryParameters: null, // []
+      headers: null,
+      headerOptions: null, // []
+      queryParameterOptions: null, // []
       body: null,
       corsEnabled: false,
-      info: null,
       callCount: 0,
       isPublic: true,
       depricated: false,
@@ -60,8 +60,8 @@ define(function(require) {
 
       // Initialize model arrays and ID
       this.set('panelId', utilities.guid());
-      if (!this.get('headers')) this.set('headers', []);
-      if (!this.get('queryParameters')) this.set('queryParameters', []);
+      if (!this.get('headerOptions')) this.set('headerOptions', []);
+      if (!this.get('queryParameterOptions')) this.set('queryParameterOptions', []);
       if (!this.get('tags')) this.set('tags', []);
       if (!this.get('stars')) this.set('stars', []);
       if (!this.get('forks')) this.set('forks', []);
@@ -132,7 +132,7 @@ define(function(require) {
 
           this.set('callCount', this.get('callCount') + 1);
 
-          var headerLines = this.nodes.requestHeaders.value.split('\n');
+          var headerLines = this.get('headers').split('\n');
           if (headerLines.length === 1 && headerLines[0].trim() === '') {
             // because callling split on an empty string returns ['']
             headerLines = [];
@@ -146,7 +146,7 @@ define(function(require) {
           }
 
           try {
-            this.xhr.send(this.nodes.requestBody.value.trim());
+            this.xhr.send(this.get('body').trim());
           } catch (exception) {
             this.nodes.responseBody.innerHTML = JSON.stringify(exception, null, 2);
           }

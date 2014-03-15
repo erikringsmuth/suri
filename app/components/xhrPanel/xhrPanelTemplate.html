@@ -36,15 +36,11 @@
     </div>
     <div>
       <h4>info</h4>
-      <textarea rows="2">
-        {{info}}
-      </textarea>
+      <textarea rows="2" value="{{info}}"></textarea>
     </div>
     <div>
       <h4>tags</h4>
-      <textarea rows="1">
-        {{tags}}
-      </textarea>
+      <textarea rows="1" value="{{tags}}"></textarea>
     </div>
   </div>
   {{/showOptions}}
@@ -66,9 +62,9 @@
       <span class="text-muted pull-right">HTTP/1.1</span>
     </div>
     <h4>request headers</h4>
-<textarea id="requestHeaders" rows="1">Content-Type: application/json</textarea>
+<textarea rows="1" value="{{headers}}"></textarea>
     <h4>request body</h4>
-<textarea id="requestBody"></textarea>
+<textarea value="{{body}}"></textarea>
     <button id="send" on-click="send" type="button" class="btn btn-{{sendButtonClass}}" disabled="{{sendButtonDisabled}}">Send&nbsp;&nbsp;<i class="fa fa-caret-square-o-right"></i></button>
     <h4>response headers</h4>
 <pre><code id="responseHeaders">{{responseHeaders}}</code></pre>

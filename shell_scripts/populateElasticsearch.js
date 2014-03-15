@@ -42,7 +42,8 @@ client.indices.delete({
             url: { type: 'string', index: 'not_analyzed' },
             info: { type: 'string', index: 'not_analyzed' },
             callCount: { type: 'integer', null_value: 0 },
-            headers: { // Array
+            headers: { type: 'string', index: 'not_analyzed' },
+            headerOptions: { // Array
               properties: {
                 header: { type: 'string' },
                 values: { type: 'string' }, // Array

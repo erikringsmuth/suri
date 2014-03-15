@@ -15,7 +15,7 @@ var xhrs = [
     name: 'Google Search',
     method: 'GET',
     url: 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}',
-    queryParameters: [
+    queryParameterOptions: [
       {
         parameter: 'v',
         values: ['1.0'],
@@ -35,7 +35,7 @@ var xhrs = [
     name: 'Google Typeahead',
     method: 'GET',
     url: 'http://suggestqueries.google.com/complete/search?client=firefox&q={{searchTerm}}',
-    queryParameters: [
+    queryParameterOptions: [
       {
         parameter: 'client',
         values: ['firefox'],
@@ -63,7 +63,7 @@ var xhrs = [
     name: 'Google Maps GeoCode',
     method: 'GET',
     url: 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=false',
-    queryParameters: [
+    queryParameterOptions: [
       {
         parameter: 'address',
         values: [],
@@ -96,7 +96,7 @@ var xhrs = [
     name: 'Weather Forecast',
     method: 'GET',
     url: 'http://api.openweathermap.org/data/2.5/weather?q=Minneapolis,MN',
-    queryParameters: [
+    queryParameterOptions: [
       {
         parameter: 'q',
         values: [],
@@ -110,7 +110,7 @@ var xhrs = [
     name: 'Google RSS Feed Loader',
     method: 'GET',
     url: 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.digg.com/rss/index.xml',
-    queryParameters: [
+    queryParameterOptions: [
       {
         parameter: 'v',
         values: ['1.0'],
@@ -130,7 +130,8 @@ var xhrs = [
     name: 'GitHub User',
     method: 'GET',
     url: 'https://api.github.com/user',
-    headers: [
+    headers: 'Authorization: token ',
+    headerOptions: [
       {
         parameter: 'Content-Type',
         values: ['application/json'],
@@ -150,7 +151,8 @@ var xhrs = [
     name: 'Hue Lights Discover',
     method: 'GET',
     url: 'http://www.meethue.com/api/nupnp',
-    headers: [
+    headers: 'Content-Type: application/json',
+    headerOptions: [
       {
         parameter: 'Content-Type',
         values: ['application/json'],

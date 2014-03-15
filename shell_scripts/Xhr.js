@@ -8,7 +8,7 @@ module.exports = function Xhr(xhr) {
   this.info = xhr.info || null;
   this.callCount = xhr.callCount || 0;
 
-  // headers: [
+  // headerOptions: [
   //   {
   //     header: 'Content-Type',
   //     values: ['application/json', 'application/xml'],
@@ -16,9 +16,10 @@ module.exports = function Xhr(xhr) {
   //     required: false
   //   }
   // ],
-  this.headers = xhr.headers || [];
+  this.headerOptions = xhr.headerOptions || [];
+  this.headers = xhr.headers || '';
 
-  // queryParameters: [
+  // queryParameterOptions: [
   //   {
   //     parameter: 'key',
   //     values: [],
@@ -26,7 +27,7 @@ module.exports = function Xhr(xhr) {
   //     required: false
   //   }
   // ]
-  this.queryParameters = xhr.queryParameters || [];
+  this.queryParameterOptions = xhr.queryParameterOptions || [];
   this.body = xhr.body || '';
   this.corsEnabled = xhr.corsEnabled || false;
   this.depricated = xhr.depricated || false;
