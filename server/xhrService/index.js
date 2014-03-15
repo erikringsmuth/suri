@@ -135,6 +135,7 @@ module.exports.update = function(req, res) {
 module.exports.search = function(req, res) {
   var search;
   if (typeof(req.query.owner) !== 'undefined') {
+    // generic search with ?q=
     search = {
       query: {
         filtered: {
@@ -171,12 +172,19 @@ module.exports.search = function(req, res) {
 
   if (typeof(req.query.owner) !== 'undefined') {
     if (req.query.owner === req.session_state.userId) {
-      // owner requesting their XHRs
+      // owner requesting their XHRs and starred XHRs
       search = {
         query: {
           filtered: {
             filter: {
-              term: { owner: req.query.owner }
+              or: [
+                {
+                  term: { owner: req.query.owner }
+                },
+                {
+                  term: { stars: req.query.owner }
+                }
+              ]
             }
           }
         }
