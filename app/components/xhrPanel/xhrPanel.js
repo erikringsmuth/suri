@@ -46,8 +46,6 @@ define(function(require) {
     },
 
     init: function() {
-      sequence.add(this);
-
       // non-prototype defaults
       this.set('panelId', utilities.guid());
       if (typeof(this.get('name')) === 'undefined') this.set('name', 'XHR');
@@ -59,10 +57,12 @@ define(function(require) {
       if (typeof(this.get('stars')) === 'undefined') this.set('stars', []);
       if (typeof(this.get('forks')) === 'undefined') this.set('forks', []);
       if (typeof(this.get('owner')) === 'undefined') this.set('owner', window.suri.session.userId);
-      this.set('isOwner', window.suri.session.userId === this.get('owner'));
+      this.set('isOwner', !this.get('id') || window.suri.session.userId === this.get('owner'));
       if (this.get('stars').indexOf(window.suri.session.userId) !== -1) {
         this.set('starred', true);
       }
+
+      sequence.add(this);
 
       // XHR
       this.xhr = new XMLHttpRequest();

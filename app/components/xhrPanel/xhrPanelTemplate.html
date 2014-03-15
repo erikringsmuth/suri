@@ -24,7 +24,7 @@
       </div>
       <div class="col-sm-4">
         <div><label>id</label> <span class="text-muted">{{id}}</span></div>
-        <div><label>owner</label> <span class="text-muted">{{owner}}</span></div>
+        <div><label>owner</label> <span class="text-muted"><a href="#/users/{{owner}}">{{owner}}</a></span></div>
         {{#forkedFrom}}<div><label>forked from</label> <a href="#/?xhr={{forkedFrom}}">{{forkedFrom}}</a></div>{{/forkedFrom}}
         <div><label>link</label> <a href="#/?xhr={{id}}">#/?xhr={{id}}</a></div>
       </div>

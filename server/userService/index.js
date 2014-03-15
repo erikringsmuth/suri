@@ -83,11 +83,10 @@ module.exports.getProfile = function(req, res) {
     type: type,
     id: req.params.id
   }).then(function (body) {
-    var user = body._source;
     res.send({
-      userId: req.params.id,
-      emailMd5: user._source.emailMd5,
-      displayName: user._source.displayName
+      userId: body._id,
+      emailMd5: body._source.emailMd5,
+      displayName: body._source.displayName
     });
   }, function () {
     res.status(404);
