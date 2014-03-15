@@ -17,9 +17,15 @@
         <ul class="nav navbar-nav">
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li class="profile">
-            {{#session.signedIn}}<img src="http://www.gravatar.com/avatar/{{session.emailMd5}}.jpg?s=80"/>{{/session.signedIn}}
-            <a href="{{session.signedIn ? '/logout' : '/login'}}">{{#session.signedIn}}Sign-Out{{/session.signedIn}}{{^session.signedIn}}Sign-In{{/session.signedIn}} <i class="fa fa-google-plus-square fa-lg"></i></a>
+          <li class="profile {{session.signedIn ? 'signed-in' : 'signed-out'}}">
+            {{#session.signedIn}}
+            <img src="http://www.gravatar.com/avatar/{{session.emailMd5}}.jpg?s=80"/>
+            <a href="/logout">Sign out</a>
+            {{/session.signedIn}}
+
+            {{^session.signedIn}}
+            <a href="/login">Sign in <i class="fa fa-google-plus-square fa-lg"></i></a>
+            {{/session.signedIn}}
           </li>
         </ul>
       </nav>
