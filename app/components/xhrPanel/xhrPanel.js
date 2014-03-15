@@ -88,7 +88,7 @@ define(function(require) {
 
         scrollToPanel: function scrollToPanel() {
           $('html,body').animate({
-            scrollTop: document.getElementById(this.get('panelId')).offsetTop + $('#api-sequence').position().top - 15
+            scrollTop: document.getElementById(this.get('panelId')).offsetTop + $('#api-sequence').offset().top - 15
           }, 200, 'easeOutQuint');
         },
 
