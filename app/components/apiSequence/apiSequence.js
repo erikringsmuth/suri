@@ -30,7 +30,7 @@ define(function(require) {
 
       // Keep the menu aligned as you scroll
       var scrollEventHandler = function() {
-        this.nodes['api-sequence-menu'].style.top = Math.max(0, window.pageYOffset - this.nodes['api-sequence-menu'].offsetParent.offsetTop) + 'px';
+        this.nodes['api-sequence-menu'].style.top = Math.max(0, window.pageYOffset - $('#api-sequence').offset().top) + 'px';
       }.bind(this);
       window.addEventListener('scroll', scrollEventHandler, true);
 
