@@ -5,6 +5,7 @@ define(function(require) {
       userTemplate = require('rv!./userTemplate'),
       Layout = require('layouts/layout/layout'),
       router = require('router'),
+      XhrPanel = require('components/xhrPanel/xhrPanel'),
       ApiSequence = require('components/apiSequence/apiSequence'),
       $ = require('jquery');
 
@@ -30,8 +31,14 @@ define(function(require) {
       var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
       apiSequence.set('disableTutorial', true);
 
-      this.on('teardown', function() {
-        apiSequence.teardown();
+      this.on({
+        teardown: function() {
+          apiSequence.teardown();
+        },
+
+        openResult: function openResult(event, item) {
+          new XhrPanel({data: item});
+        }
       });
     },
 

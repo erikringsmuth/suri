@@ -2,7 +2,7 @@
 <div class="user-page">
   <div class="row profile-row">
 
-    <div class="col-sm-3">
+    <div class="col-sm-4 col-md-3">
       {{#myProfile}}
       <a href="http://gravatar.com/emails/" class="gravatar-link">
         <img class="profile-image img-rounded" src="http://www.gravatar.com/avatar/{{emailMd5}}.jpg?s=400" data-toggle="tooltip" data-placement="bottom" title="Change your picture at gravatar.com"/>
@@ -14,13 +14,13 @@
       <h2>{{displayName}}</h2>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-8 col-md-9">
       <div class="apis">
-        <h2>APIs</h2>
-        {{#xhrs:index}}
-        <div class="row api">
-          <div class="col-sm-4 name">{{name}}</div>
-          <div class="col-sm-8">
+        <h2 class="apis-header">{{displayName}} APIs</h2>
+        {{#xhrs}}
+        <div class="api-row" on-click="openResult:{{this}}">
+          <div class="name">{{name}}</div>
+          <div class="url">
             <span class="method">{{method}}</span>
             <span class="url">{{url}}</span>
           </div>
@@ -32,6 +32,8 @@
   </div>
 
   <div class="row">
-    <api-sequence id="api-sequence"/>
+    <div class="col-xs-12">
+      <api-sequence id="api-sequence"/>
+    <div>
   </div>
 </div>

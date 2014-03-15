@@ -309,7 +309,17 @@ pre {
   font-size: 11px;
 }
 .user-page .profile-row {
-  border-bottom: 1px dotted #ddd;
+  border-bottom: 1px solid #ddd;
   padding-bottom: 40px;
   margin-bottom: 20px;
+}
+.user-page .api-row {
+  padding: 5px;
+}
+.user-page .api-row:hover {
+  background-color: #ebebeb;
+  outline-style: none;
+}
+.user-page .api-row .name {
+  color: #777;
 }
