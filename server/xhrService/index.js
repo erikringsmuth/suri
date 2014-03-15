@@ -134,7 +134,7 @@ module.exports.update = function(req, res) {
 
 module.exports.search = function(req, res) {
   var search;
-  if (typeof(req.query.owner) !== 'undefined') {
+  if (typeof(req.query.q) !== 'undefined') {
     // generic search with ?q=
     search = {
       query: {
