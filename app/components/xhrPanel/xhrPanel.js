@@ -16,28 +16,18 @@ define(function(require) {
 
     append: true,
 
+    // prototype
     data: {
-      // Model
       id: null,
-      name: 'XHR',
-      method: 'GET',
-      url: 'http://www.suri.io/',
+      isPublic: true,
       headers: null,
-      headerOptions: null, // []
-      queryParameterOptions: null, // []
       body: null,
       corsEnabled: false,
-      callCount: 0,
-      isPublic: true,
       depricated: false,
-      tags: null, // []
-      stars: null, // []
-      owner: window.suri.session.userId,
-      forks: null, // []
+      callCount: 0,
       forkedFrom: null,
 
       // State
-      isOwner: false,
       starred: false,
       signedIn: window.suri.session.signedIn,
       responseBody: '',
@@ -58,13 +48,17 @@ define(function(require) {
     init: function() {
       sequence.add(this);
 
-      // Initialize model arrays and ID
+      // non-prototype defaults
       this.set('panelId', utilities.guid());
+      if (!this.get('name')) this.set('name', 'XHR');
+      if (!this.get('method')) this.set('method', 'GET');
+      if (!this.get('url')) this.set('url', 'http://www.suri.io/');
       if (!this.get('headerOptions')) this.set('headerOptions', []);
       if (!this.get('queryParameterOptions')) this.set('queryParameterOptions', []);
       if (!this.get('tags')) this.set('tags', []);
       if (!this.get('stars')) this.set('stars', []);
       if (!this.get('forks')) this.set('forks', []);
+      if (!this.get('owner')) this.set('owner', window.suri.session.userId);
       this.set('isOwner', window.suri.session.userId === this.get('owner'));
       if (this.get('stars').indexOf(window.suri.session.userId) !== -1) {
         this.set('starred', true);
