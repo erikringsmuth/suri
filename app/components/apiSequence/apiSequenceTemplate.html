@@ -1,5 +1,5 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
-<div class="row">
+<div class="row" id="api-sequence">
   <div class="col-sm-3">
     <div id="api-sequence-menu">
       <h2>APIs</h2>
@@ -14,9 +14,13 @@
     </div>
   </div>
   <div id="api-sequence-placeholder" class="col-sm-9">
-    <div id="suri-tutorial" class="jumbotron">
+    {{^disableTutorial}}
+    {{#displayTutorial}}
+    <div class="jumbotron">
       <h2>Explore REST APIs!</h2>
       <p>The ultimate AJAX playground. Search for APIs or create your own.</p>
     </div>
+    {{/displayTutorial}}
+    {{/disableTutorial}}
   </div>
 </div>

@@ -300,3 +300,16 @@ pre {
 .xhr-panel #showMoreButton {
   width: 100%;
 }
+
+/* User page */
+.user-page .profile-image {
+  height: 200px;
+}
+.user-page .gravatar-link .tooltip {
+  font-size: 11px;
+}
+.user-page .profile-row {
+  border-bottom: 1px dotted #ddd;
+  padding-bottom: 40px;
+  margin-bottom: 20px;
+}

@@ -1,4 +1,37 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
-<h1>{{userId}}</h1>
-<img src="http://www.gravatar.com/avatar/{{emailMd5}}.jpg?s=200"/>
-<h1>{{displayName}}</h1>
+<div class="user-page">
+  <div class="row profile-row">
+
+    <div class="col-sm-3">
+      {{#myProfile}}
+      <a href="http://gravatar.com/emails/" class="gravatar-link">
+        <img class="profile-image img-rounded" src="http://www.gravatar.com/avatar/{{emailMd5}}.jpg?s=400" data-toggle="tooltip" data-placement="bottom" title="Change your picture at gravatar.com"/>
+      </a>
+      {{/myProfile}}
+      {{^myProfile}}
+      <img class="profile-image img-rounded" src="http://www.gravatar.com/avatar/{{emailMd5}}.jpg?s=400"/>
+      {{/myProfile}}
+      <h2>{{displayName}}</h2>
+    </div>
+
+    <div class="col-sm-9">
+      <div class="apis">
+        <h2>APIs</h2>
+        {{#xhrs:index}}
+        <div class="row api">
+          <div class="col-sm-4 name">{{name}}</div>
+          <div class="col-sm-8">
+            <span class="method">{{method}}</span>
+            <span class="url">{{url}}</span>
+          </div>
+        </div>
+        {{/xhrs}}
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <api-sequence id="api-sequence"/>
+  </div>
+</div>

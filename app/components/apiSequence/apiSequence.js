@@ -13,7 +13,9 @@ define(function(require) {
     template: apiSequenceTemplate,
 
     data: {
-      apiSequence: sequence
+      apiSequence: sequence,
+      displayTutorial: true,
+      disableTutorial: false
     },
 
     init: function() {
@@ -36,9 +38,9 @@ define(function(require) {
         // Toggle the tutorial as panels are added and removed
         apiSequence: function(apiSequence) {
           if (apiSequence.length === 0) {
-            this.nodes['suri-tutorial'].style.display = 'block';
+            this.set('displayTutorial', true);
           } else {
-            this.nodes['suri-tutorial'].style.display = 'none';
+            this.set('displayTutorial', false);
           }
         }
       });

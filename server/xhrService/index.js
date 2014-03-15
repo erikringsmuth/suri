@@ -133,10 +133,9 @@ module.exports.update = function(req, res) {
 };
 
 module.exports.search = function(req, res) {
-  client.search({
-    index: index,
-    type: type,
-    body: {
+  var search;
+  if (typeof(req.query.owner) !== 'undefined') {
+    search = {
       query: {
         filtered: {
           query: {
@@ -167,7 +166,47 @@ module.exports.search = function(req, res) {
           }
         }
       }
+    };
+  }
+
+  if (typeof(req.query.owner) !== 'undefined') {
+    if (req.query.owner === req.session_state.userId) {
+      // owner requesting their XHRs
+      search = {
+        query: {
+          filtered: {
+            filter: {
+              term: { owner: req.query.owner }
+            }
+          }
+        }
+      };
     }
+    else {
+      // user viewing profile
+      search = {
+        query: {
+          filtered: {
+            filter: {
+              and: [
+                {
+                  term: { isPublic: true }
+                },
+                {
+                  term: { owner: req.query.owner }
+                }
+              ]
+            }
+          }
+        }
+      };
+    }
+  }
+
+  client.search({
+    index: index,
+    type: type,
+    body: search
   }).then(function (body) {
     // Map the response to an array with the _source field plus the ID
     var response = body.hits.hits.map(function(result) {
