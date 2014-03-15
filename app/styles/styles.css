@@ -72,7 +72,6 @@ footer ul a, footer .text-muted {
   height: 40px;
   margin-top: 5px;
   margin-right: 15px;
-  overflow: hidden;
 }
 .navbar .profile:hover {
   background-color: #276fb0;
@@ -81,13 +80,27 @@ footer ul a, footer .text-muted {
   position: absolute;
   height: 40px;
   left: 0;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
 .navbar .profile.signed-in {
   padding-left: 40px;
 }
-.navbar .profile a {
+.navbar .profile > a,
+.navbar .profile > .dropdown > a {
   padding-top: 0px;
   line-height: 40px;
+  color: #fff;
+}
+.navbar .profile > .dropdown > a {
+  padding: 12px;
+}
+.navbar .profile > .dropdown.open > a,
+.navbar .profile > .dropdown > a:hover,
+.navbar .profile > .dropdown > a:focus {
+  text-decoration: none;
+  background-color: #276fb0;
+  border-radius: 3px;
 }
 
 /* Links */
