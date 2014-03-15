@@ -20,8 +20,8 @@ define(function(require) {
     data: {
       id: null,
       isPublic: true,
-      headers: null,
-      body: null,
+      headers: '',
+      body: '',
       corsEnabled: false,
       depricated: false,
       callCount: 0,
