@@ -20,13 +20,13 @@ html, body, body > div {
   min-height: 100%;
   height: auto;
   /* Negative indent footer by its height */
-  margin: 0 auto -80px;
+  margin: 0 auto -90px;
   /* Pad bottom by footer height + 25px for some white space before the footer */
-  padding: 0 0 115px;
+  padding: 0 0 140px;
 }
 /* Set the fixed height of the footer here */
 footer {
-  height: 80px;
+  height: 90px;
   background-color: #fdfdfd;
   border-top: 1px solid #e1e1e8;
 }
@@ -40,7 +40,7 @@ footer ul a, footer .text-muted {
 /* Make the footer taller when viewed on a phone */
 @media (max-width: 480px) {
   footer {
-    height: 115px;
+    height: 140px;
   }
 }
 

@@ -17,20 +17,24 @@ define(function(require) {
     init: function() {
       // Focus on the search box when you hit escape
       // Close the search box when you hit escape
+      var that = this;
       var keydownOnEscapeHandler = function(event) {
         if (event.keyCode === 27) {
-          this.nodes.searchInput.focus();
-          this.closeSearchResults();
+          that.nodes.searchInput.focus();
+          that.closeSearchResults();
         }
       };
-      window.addEventListener('keydown', keydownOnEscapeHandler.bind(this), true);
-      window.addEventListener('resize', this.setSearchResultsWidth.bind(this), true);
+      var setSearchResultsWidth = function() {
+        that.set('searchResultsWidth', that.el.offsetParent.offsetWidth - 2 * that.el.offsetLeft - 37);
+      };
+      window.addEventListener('keydown', keydownOnEscapeHandler, true);
+      window.addEventListener('resize', setSearchResultsWidth, true);
 
       this.observe({
         searchTerm: function(searchTerm) {
           if (searchTerm) {
             if (!this.get('searchResultsWidth')) {
-              this.setSearchResultsWidth();
+              setSearchResultsWidth();
             }
             $.ajax('/xhr?q=' + searchTerm.trim())
               .done(function(data) {
@@ -70,15 +74,10 @@ define(function(require) {
         },
 
         teardown: function() {
-          window.removeEventListener('resize', this.setSearchResultsWidth, true);
+          window.removeEventListener('resize', setSearchResultsWidth, true);
           window.removeEventListener('keydown', keydownOnEscapeHandler, true);
         }
       });
-    },
-
-    // Set the width of the search results drop-down
-    setSearchResultsWidth: function() {
-      this.set('searchResultsWidth', this.el.offsetParent.offsetWidth - 2 * this.el.offsetLeft - 37);
     },
 
     closeSearchResults: function closeSearchResults() {
