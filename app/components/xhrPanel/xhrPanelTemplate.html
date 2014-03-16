@@ -23,10 +23,9 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div><label>id</label> <span class="text-muted">{{id}}</span></div>
-        <div><label>owner</label> <span class="text-muted"><a href="#/users/{{owner}}">{{owner}}</a></span></div>
+        <div><label>id</label> <a href="#/?xhr={{id}}" class="text-muted">{{id}}</a></div>
+        <div><label>owner</label> <a href="#/users/{{owner}}" class="text-muted">{{owner}}</a></div>
         {{#forkedFrom}}<div><label>forked from</label> <a href="#/?xhr={{forkedFrom}}">{{forkedFrom}}</a></div>{{/forkedFrom}}
-        <div><label>link</label> <a href="#/?xhr={{id}}">#/?xhr={{id}}</a></div>
       </div>
       <div class="col-sm-4">
         {{#isOwner}}<div><label><input type="checkbox" checked="{{isPublic}}"> public</label></div>{{/isOwner}}

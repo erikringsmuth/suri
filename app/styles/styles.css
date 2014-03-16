@@ -246,7 +246,7 @@ pre {
   border: none;
 }
 .xhr-panel input#url {
-  width: 79%;
+  width: 78%;
 }
 @media (max-width: 991px) {
   .xhr-panel input#url {
@@ -282,6 +282,7 @@ pre {
   word-break: break-all;
   word-wrap: break-word;
   white-space: pre-wrap;
+  -webkit-appearance: none; /* iPad inner shadow */
 }
 .xhr-panel .panel-options {
   padding: 15px;
