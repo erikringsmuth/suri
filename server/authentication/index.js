@@ -43,35 +43,20 @@ module.exports.login = function login(req, res) {
 
 
 // The iss and sub must be set when this is called
-var getOrCreateUserProfile = function getOrCreateUserProfile(options, callback) {
-  userService.getGoogleUserByIssAndSub(options.googleIss, options.googleSub, function(userResult) {
-    if (userResult.success) {
-
-      // Found user
-      callback(userResult);
-
-    } else {
-
-      // Need to create a new user
-      var user = {
-        googleIss: options.googleIss,
-        googleSub: options.googleSub,
-        emailMd5: options.emailMd5,
-        displayName: options.email.split('@')[0]
-      };
-      userService.createUser(user, function(createUserResult) {
-        if (createUserResult.success) {
-
-          // User created, return the user
-          user.userId = createUserResult.data._id;
-          callback({ success: true, data: user });
-        } else {
-
-          // Failed to create user
-          callback({ success: false, data: createUserResult.data });
-        }
-      });
-    }
+var getOrCreateUserProfile = function getOrCreateUserProfile(options, successCallback, errorCallback) {
+  userService.getGoogleUserByIssAndSub(options.googleIss, options.googleSub, successCallback, function() {
+    // In error callback, need to create a new user
+    var user = {
+      googleIss: options.googleIss,
+      googleSub: options.googleSub,
+      emailMd5: options.emailMd5,
+      displayName: options.email.split('@')[0]
+    };
+    userService.createUser(user, function(body) {
+      // User created, return the user
+      user.userId = body._id;
+      successCallback(user);
+    }, errorCallback);
   });
 };
 
@@ -118,12 +103,6 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
     code: req.query.code,
     redirectUri: redirectUri
   }, function(oauthResult) {
-
-    if (!oauthResult.success) {
-      resetSession(req.session_state, oauthResult.message);
-      res.redirect('/');
-    }
-
     // Create a session
     //
     // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
@@ -138,13 +117,15 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
       email: req.session_state.email,
       emailMd5: req.session_state.emailMd5
     }, function(userProfileResult) {
-      if (userProfileResult.success) {
-        req.session_state.userId = userProfileResult.data.userId;
-        req.session_state.displayName = userProfileResult.data.displayName;
-      } else {
-        resetSession(req.session_state, 'Failed to create user profile.');
-      }
+      req.session_state.userId = userProfileResult.userId;
+      req.session_state.displayName = userProfileResult.displayName;
+      res.redirect('/');
+    }, function() {
+      resetSession(req.session_state, 'Failed to create user profile.');
       res.redirect('/');
     });
+  }, function(error) {
+    resetSession(req.session_state, error);
+    res.redirect('/');
   });
 };

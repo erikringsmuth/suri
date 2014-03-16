@@ -11,7 +11,7 @@ var client = elasticsearch.Client({
 });
 
 // Create user
-module.exports.createUser = function(user, callback) {
+module.exports.createUser = function(user, successCallback, errorCallback) {
   var data = {
     googleIss: user.googleIss,
     googleSub: user.googleSub,
@@ -24,15 +24,11 @@ module.exports.createUser = function(user, callback) {
     type: type,
     id: shortId.generate(),
     body: data
-  }).then(function (body) {
-    callback({ success: true, data: body });
-  }, function (error) {
-    callback({ success: false, data: error });
-  });
+  }).then(successCallback, errorCallback);
 };
 
 // Get user with iss and sub
-module.exports.getGoogleUserByIssAndSub = function(iss, sub, callback) {
+module.exports.getGoogleUserByIssAndSub = function(iss, sub, successCallback, errorCallback) {
   client.search({
     index: index,
     type: type,
@@ -54,25 +50,23 @@ module.exports.getGoogleUserByIssAndSub = function(iss, sub, callback) {
     var user = body.hits.hits[0];
     if (user) {
       user._source.userId = user._id;
-      callback({ success: true, data: user._source });
+      successCallback(user._source);
     } else {
-      callback({ success: false, data: 'User not found.' });
+      errorCallback('User not found.');
     }
-  }, function (error) {
-    callback({ success: false, data: error });
-  });
+  }, errorCallback);
 };
 
 // Get user by userId
-module.exports.getUserById = function(userId, callback) {
+module.exports.getUserById = function(userId, successCallback, errorCallback) {
   client.get({
     index: index,
     type: type,
     id: userId
   }).then(function (body) {
-    callback({ success: true, data: body._source });
+    successCallback(body._source);
   }, function () {
-    callback({ success: false, data: 'User not found.' });
+    errorCallback('User not found.');
   });
 };
 
@@ -95,7 +89,7 @@ module.exports.getProfile = function(req, res) {
 };
 
 // Set user display name
-module.exports.updateDisplayName = function(id, displayName, callback) {
+module.exports.updateDisplayName = function(id, displayName, successCallback, errorCallback) {
   client.update({
     index: index,
     type: type,
@@ -105,9 +99,5 @@ module.exports.updateDisplayName = function(id, displayName, callback) {
         displayName: displayName
       }
     }
-  }).then(function (body) {
-    callback({ success: true, data: body });
-  }, function (error) {
-    callback({ success: false, data: error });
-  });
+  }).then(successCallback, errorCallback);
 };

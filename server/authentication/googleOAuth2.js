@@ -7,7 +7,6 @@ var https = require('https'),
     googleCertificates = {};
 
 
-
 // Get the Google Certificates to verify OpenID Connect id_tokens
 //
 // https://www.googleapis.com/oauth2/v1/certs
@@ -44,7 +43,6 @@ var getGoogleCertificates = function getGoogleCertificates(callback) {
 };
 
 
-
 // Verify the id_token against Google's certificates
 //
 // https://www.googleapis.com/oauth2/v1/certs
@@ -54,7 +52,7 @@ var getGoogleCertificates = function getGoogleCertificates(callback) {
 var verifyIdToken = function verifyIdToken(kid, idToken, callback, secondTry) {
 
   // Verification will only fail if Google changes their certificate (once per day) or it really wasn't a valid
-  // certificate (hacked!). If verification fails the first time try refreshing the certificates and verify again.
+  // certificate (forged!). If verification fails the first time try refreshing the certificates and verify again.
   var cert = googleCertificates[kid];
 
   if (cert || secondTry) {
@@ -68,9 +66,8 @@ var verifyIdToken = function verifyIdToken(kid, idToken, callback, secondTry) {
 };
 
 
-
 // Exchange an OAuth2 one-time authorization code for an OpenID Connect id_token.
-module.exports.createOpenIdConnectTokens = function createOpenIdConnectTokens(options, callback) {
+module.exports.createOpenIdConnectTokens = function createOpenIdConnectTokens(options, successCallback, errorCallback) {
 
   // The user has granted access to suri from Google and the callback returned a one-time authorization
   // code. We need to exchange the code for an OAuth access_token and OpenID Connect id_token.
@@ -113,23 +110,23 @@ module.exports.createOpenIdConnectTokens = function createOpenIdConnectTokens(op
       var idTokenHeader = JSON.parse(new Buffer(encodedIdTokenHeader, 'base64').toString());
       verifyIdToken(idTokenHeader.kid, responseJson.id_token, function(verified) {
         if (!verified) {
-          callback({ success: false, message: 'Authentication failed. The id_token signature did not verify against Google\'s certificate.' });
+          errorCallback('Authentication failed. The id_token signature did not verify against Google\'s certificate.');
         }
 
         // Decode the id_token once it's been verified
-        var decodedIdToken = jwt.decode(responseJson.id_token, {}, true);
+        responseJson.decoded_id_token = jwt.decode(responseJson.id_token, {}, true);
 
         // Verify the id_token aud and iss
         //
         // https://developers.google.com/accounts/docs/OAuth2Login#validatinganidtoken
-        if (decodedIdToken.aud !== options.clientId) {
-          callback({ success: false, message: 'Authentication failed. The id_token.aud does not match the application\'s client ID.' });
+        if (responseJson.decoded_id_token.aud !== options.clientId) {
+          errorCallback('Authentication failed. The id_token.aud does not match the application\'s client ID.');
         }
-        if (decodedIdToken.iss !== 'accounts.google.com') {
-          callback({ success: false, message: 'Authentication failed. The id_token.iis is not accounts.google.com.' });
+        if (responseJson.decoded_id_token.iss !== 'accounts.google.com') {
+          errorCallback('Authentication failed. The id_token.iis is not accounts.google.com.');
         }
 
-        callback({ success: true, tokens: responseJson, decoded_id_token: decodedIdToken });
+        successCallback(responseJson);
       });
     });
   }); // end request
@@ -137,7 +134,7 @@ module.exports.createOpenIdConnectTokens = function createOpenIdConnectTokens(op
   request.write(requestBody);
   request.end();
 
-  request.on('error', function(e) {
-    callback({ success: false, error: e, message: 'Authentication failed. The one-time authorization code exchange failed.' });
+  request.on('error', function() {
+    errorCallback('Authentication failed. The one-time authorization code exchange failed.');
   });
 };
