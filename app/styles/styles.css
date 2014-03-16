@@ -183,7 +183,7 @@ pre {
 }
 @media(max-width:767px) {
   #api-sequence-menu.fixed {
-    width: 100%;
+    position: relative;
   }
 }
 @media(min-width:768px){
@@ -215,11 +215,6 @@ pre {
 }
 #api-sequence-menu > button {
   width: 100%;
-}
-@media (max-width: 767px) {
-  #api-sequence-menu {
-    position: static;
-  }
 }
 
 /* XHR Panel */
