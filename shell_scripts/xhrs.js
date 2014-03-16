@@ -12,6 +12,12 @@ var xhrs = [
     info: 'Get your local machine\'s IP address'
   }),
   new Xhr({
+    name: 'suri.io elasticsearch query with owner',
+    method: 'GET',
+    url: 'http://www.suri.io/xhr?owner=eyekZd6Qo&q=google',
+    info: 'Search a user\'s APIs'
+  }),
+  new Xhr({
     name: 'Google Search',
     method: 'GET',
     url: 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}',
