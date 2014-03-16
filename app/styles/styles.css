@@ -314,7 +314,7 @@ pre {
   margin-bottom: 20px;
 }
 .user-page .api-row {
-  padding: 5px;
+  padding: 10px 2px;
 }
 .user-page .api-row:hover {
   background-color: #ebebeb;
@@ -327,4 +327,7 @@ pre {
 }
 .user-page .api-row .stats {
   float: right;
+}
+.user-page .api-row .stats>span {
+  margin-left: 10px;
 }
