@@ -320,6 +320,11 @@ pre {
   background-color: #ebebeb;
   outline-style: none;
 }
-.user-page .api-row .name {
+.user-page .api-row .name,
+.user-page .api-row .stats {
+  display: inline-block;
   color: #777;
+}
+.user-page .api-row .stats {
+  float: right;
 }

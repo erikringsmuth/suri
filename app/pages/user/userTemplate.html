@@ -20,6 +20,11 @@
         {{#xhrs}}
         <div class="api-row" on-click="openResult:{{this}}">
           <div class="name">{{name}}</div>
+          <div class="stats">
+            <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>
+            <span><i class="fa fa-star"></i> {{stars.length}}</span>
+            <span><i class="fa fa-code-fork"></i> {{forks.length}}</span>
+          </div>
           <div class="url">
             <span class="method">{{method}}</span>
             <span class="url">{{url}}</span>
