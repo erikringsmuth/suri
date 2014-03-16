@@ -14,10 +14,22 @@ nconf
   .env()
   .file({ file: __dirname + './../config.json' });
 
+// Build up the bulk request
+var eriksUserId = 'eyekZd6Qo';
 for (var i = 0; i < xhrs.length; i++) {
+  xhrs[i].owner = eriksUserId;
   bulkData.push({ index:  { _index: index, _type: type, _id: shortId.generate() } });
   bulkData.push(xhrs[i]);
 }
+
+// Add my user profile
+bulkData.push({ index:  { _index: index, _type: 'users', _id: eriksUserId } });
+bulkData.push({
+  displayName: 'erik.ringsmuth',
+  emailMd5: '5491ac2e7c74eb1253df058e3d8d3e83',
+  googleIss: 'accounts.google.com',
+  googleSub: '111414135525027275706'
+});
 
 var elasticSearchHost = nconf.get('ELASTICSEARCH_URL');
 console.log('\nConnecting to ' + elasticSearchHost);
