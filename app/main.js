@@ -31,6 +31,7 @@ define([], function() {
     router
       .registerRoutes({
         home: { path: '/', moduleId: 'pages/home/homePage' },
+        about: { path: '/about', moduleId: 'pages/about/aboutPage' },
         user: { path: '/users/:id', moduleId: 'pages/user/userPage' },
         notFound: { path: '*', moduleId: 'pages/notFound/notFoundPage' }
       })

@@ -3,7 +3,7 @@ define(function(require) {
   'use strict';
   var Ractive = require('Ractive'),
       userTemplate = require('rv!./userTemplate'),
-      Layout = require('layouts/layout/layout'),
+      Layout = require('layouts/search/layout'),
       router = require('router'),
       XhrPanel = require('components/xhrPanel/xhrPanel'),
       ApiSequence = require('components/apiSequence/apiSequence'),

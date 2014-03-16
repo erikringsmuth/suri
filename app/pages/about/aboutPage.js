@@ -2,14 +2,14 @@
 define(function(require) {
   'use strict';
   var Ractive = require('Ractive'),
-      notFoundTemplate = require('rv!./notFoundTemplate'),
+      aboutTemplate = require('rv!./aboutTemplate'),
       Layout = require('layouts/simple/layout');
 
-  var NotFoundPage = Ractive.extend({
-    template: notFoundTemplate
+  var About = Ractive.extend({
+    template: aboutTemplate
   });
 
   return Layout.extend({
-    components: { 'content-placeholder': NotFoundPage }
+    components: { 'content-placeholder': About }
   });
 });

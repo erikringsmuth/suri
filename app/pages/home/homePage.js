@@ -3,7 +3,7 @@ define(function(require) {
   'use strict';
   var Ractive = require('Ractive'),
       homeTemplate = require('rv!./homeTemplate'),
-      Layout = require('layouts/layout/layout'),
+      Layout = require('layouts/search/layout'),
       ApiSequence = require('components/apiSequence/apiSequence');
 
   var HomePage = Ractive.extend({
