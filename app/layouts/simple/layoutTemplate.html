@@ -17,6 +17,8 @@
         <ul class="nav navbar-nav">
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li><a href="#/about" class="{{routes.about.active ? 'active' : ''}}">About</a></li>
+          <li><a href="#/users/{{session.userId}}" class="{{routes.user.active ? 'active' : ''}}">Profile</a></li>
           <li class="profile {{session.signedIn ? 'signed-in' : 'signed-out'}}">
             {{#session.signedIn}}
             <li class="dropdown">

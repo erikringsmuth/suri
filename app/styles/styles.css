@@ -83,6 +83,7 @@ footer ul a, footer .text-muted {
   height: 40px;
   margin-top: 5px;
   margin-right: 15px;
+  margin-left: 40px;
 }
 .navbar .profile:hover {
   background-color: #276fb0;
