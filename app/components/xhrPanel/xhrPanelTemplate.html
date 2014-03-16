@@ -25,7 +25,7 @@
       <div class="col-sm-4">
         <div><label>id</label> <a href="#/?xhr={{id}}" class="text-muted">{{id}}</a></div>
         <div><label>owner</label> <a href="#/users/{{owner}}" class="text-muted">{{owner}}</a></div>
-        {{#forkedFrom}}<div><label>forked from</label> <a href="#/?xhr={{forkedFrom}}">{{forkedFrom}}</a></div>{{/forkedFrom}}
+        {{#forkedFrom}}<div><label>forked from</label> <a href="#/?xhr={{forkedFrom}}" class="text-muted">{{forkedFrom}}</a></div>{{/forkedFrom}}
       </div>
       <div class="col-sm-4">
         {{#isOwner}}<div><label><input type="checkbox" checked="{{isPublic}}"> public</label></div>{{/isOwner}}
@@ -39,7 +39,12 @@
     </div>
     <div>
       <h4>tags</h4>
-      <textarea rows="1" value="{{tags}}"></textarea>
+      <div class="tags-area">
+        {{#tags}}
+        <span class="tag">{{.}} {{#isOwner}}<button type="button" class="delete-tag" on-click="deleteTag:{{.}}" aria-hidden="true"><i class="fa fa-times"></i></button>{{/isOwner}}</span>
+        {{/tags}}
+      </div>
+      {{#isOwner}}<input type="text" class="tags-input" placeholder="Add tag" on-keydown="addTagOnEnter"/>{{/isOwner}}
     </div>
   </div>
   {{/showOptions}}

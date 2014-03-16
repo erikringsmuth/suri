@@ -277,6 +277,20 @@ define(function(require) {
                 this.set('starred', true);
               }.bind(this));
           }
+        },
+
+        addTagOnEnter: function(event) {
+          if (event.original.keyCode === 13) {
+            var tag = event.node.value.replace(/\s/g, '').toLowerCase();
+            if (this.get('tags').indexOf(tag) === -1) {
+              this.get('tags').push(tag);
+              event.node.value = '';
+            }
+          }
+        },
+
+        deleteTag: function(event, tag) {
+          this.get('tags').splice(this.get('tags').indexOf(tag), 1);
         }
       });
 

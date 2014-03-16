@@ -351,6 +351,25 @@ pre {
   padding: 2px 5px;
   border: none;
 }
+.xhr-panel .tags-area,
+.xhr-panel .tags-input {
+  display: inline-block;
+}
+.xhr-panel .tags-area .tag {
+  color: #555;
+  background-color: #fdfdfd;
+  display: inline-block;
+  border: #e1e1e8 1px solid;
+  border-radius: 3px;
+  padding: 3px;
+  line-height: .9em;
+  margin: 3px;
+}
+.xhr-panel .tags-area .delete-tag {
+  border: none;
+  background: none;
+  padding: 0px;
+}
 .xhr-panel #showMoreButton {
   width: 100%;
 }
