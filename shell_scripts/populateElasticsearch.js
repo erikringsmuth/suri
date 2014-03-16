@@ -19,7 +19,7 @@ for (var i = 0; i < xhrs.length; i++) {
   bulkData.push(xhrs[i]);
 }
 
-var elasticSearchHost = nconf.get('BONSAI_URL');
+var elasticSearchHost = nconf.get('ELASTICSEARCH_URL');
 console.log('\nConnecting to ' + elasticSearchHost);
 var client = elasticsearch.Client({
   host: elasticSearchHost

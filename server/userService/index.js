@@ -7,7 +7,7 @@ var nconf         = require('nconf'),
     type          = 'users';
 
 var client = elasticsearch.Client({
-  host: nconf.get('BONSAI_URL')
+  host: nconf.get('ELASTICSEARCH_URL')
 });
 
 // Create user

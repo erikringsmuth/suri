@@ -57,7 +57,7 @@ app.configure(function() {
 });
 
 app.configure('development', function() {
-  console.log('BONSAI_URL: ' + nconf.get('BONSAI_URL'));
+  console.log('ELASTICSEARCH_URL: ' + nconf.get('ELASTICSEARCH_URL'));
 
   // Error handling
   app.use(function(err, req, res, next) {
