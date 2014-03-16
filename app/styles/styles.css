@@ -79,7 +79,7 @@ footer ul a, footer .text-muted {
 .navbar .profile img {
   position: absolute;
   height: 40px;
-  left: 0;
+  left: -40px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
