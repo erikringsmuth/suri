@@ -6,7 +6,12 @@ define(function(require) {
       Layout = require('layouts/simple/layout');
 
   var About = Ractive.extend({
-    template: aboutTemplate
+    template: aboutTemplate,
+
+    data: {
+      url: window.location.href,
+      hostname: window.location.hostname
+    }
   });
 
   return Layout.extend({

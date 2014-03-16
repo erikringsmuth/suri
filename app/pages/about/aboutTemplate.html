@@ -1,6 +1,43 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
-<h2>How websites get data</h2>
+<div>
+  <h2>How websites get data</h2>
+  <p>When you opened this page the browser made a <code>GET {{url}} HTTP/1.1</code> request to get the page from the server. Every time you go to a new page the browser does a <code>GET</code> request to load the page. <code>GET</code> tells the browser to read data. There are also create <code>POST</code>, update <code>PUT</code>, and delete <code>DELETE</code> methods to change data. A static web page like this will only let you <code>GET</code> data.</p>
 
-<h2>Security</h2>
+  <h2>Types of data</h2>
+  <p>A website is made up of HTML, CSS, and JavaScript. You will only be able to <code>GET</code> this type of data. On a sites like Twitter, Facebook, and suri.io you send JSON to and from the server to update your status, change your profile, etc. This is done using JavaScript and is called an AJAX request or XHR. When you create a new status you <code>POST</code> data to the server. When you update your profile you <code>PUT</code> data to the server. Suri was made to let you play around with these APIs and let you see how the raw data is sent and received.</p>
 
-<h2>suri.io Tech</h2>
+  <h2>Security</h2>
+  <p>Signing into suri.io uses Google's OAuth2 and OpenID Connect over HTTPS. Using OAuth means suri never needs to know your username or password. When you authorize access with Google it will send an <code>id_token</code> back to suri. Suri uses your ID to determine who you are and what you can do.</p>
+  <p>When you use Suri, non-CORS enabled APIs have to send the request through the suri.io server to avoid XSS. Browsers don't allow calling hosts other than the current host (<code>{{hostname}}</code>) for security reasons. CORS enabled APIs will directly call the endpoint from your browser. These APIs don't need to be proxied through suri.io.</p>
+
+  <h2>suri.io Tech</h2>
+  <p>Suri is built on some cool new technology that was created in the last couple years. It's a full stack JavaScript application.</p>
+  <ul>
+    <li><a href="http://www.ractivejs.org/">Ractive</a></li>
+    <li><a href="http://www.elasticsearch.org/">elasticsearch</a></li>
+    <li><a href="https://developers.google.com/accounts/docs/OAuth2Login">OAuth2 & OpenID Connect</a></li>
+    <li><a href="http://requirejs.org/">RequireJS</a></li>
+    <li><a href="http://erikringsmuth.github.io/requirejs-router/">RequireJS Router</a></li>
+    <li><a href="http://nodejs.org/">Node.js</a></li>
+    <li><a href="http://expressjs.com/">Express.js</a></li>
+    <li><a href="https://github.com/mozilla/node-client-sessions">Node Client Sessions</a></li>
+  </ul>
+
+  <h2>Terms</h2>
+  <ul>
+    <li>API - Application programming interface. This defines what the data looks like and how you interact with it.</li>
+    <li>AJAX - Asynchronous JavaScript and XML. When JavaScript makes a call to the server it's called an AJAX request.</li>
+    <li>XHR - XML HTTP Request. Another name for AJAX.</li>
+    <li>HTTP - Hypertext Transfer Protocol. Most web data is sent using HTTP and HTTPS (secure). See how the current URL <code>{{url}}</code> starts with HTTP? That means it got the web page using the HTTP protocol.</li>
+    <li>REST - Representational state transfer. An architectural API style that defines a consistent way of interacting with data.</li>
+    <li>CORS - Cross-Origin Resource Sharing. The ability to make an AJAX call to a different host (other than <code>{{hostname}}</code> for example).</li>
+    <li>XSS - Cross-site scripting. This is blocked by the browser. XSS would allow the JavaScript to send and receive data from a host other than {{hostname}}.</li>
+    <li>JSON - JavaScript Object Notation. The JavaScript data format.</li>
+    <li>XML - Extensible Markup Language. Another data format popular in older systems.</li>
+    <li>Host - The server providing the data.</li>
+    <li>Proxy - An intermediate server that data is sent through before going to the destination server.</li>
+    <li>HTML - HyperText Markup Language. The language for creating web pages.</li>
+    <li>CSS - Cascading Style Sheets. Defines the look and formatting of the document.</li>
+    <li>JavaScript - The programming language used in web browsers.</li>
+  </ul>
+</div>
