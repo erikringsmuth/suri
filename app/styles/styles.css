@@ -166,6 +166,30 @@ pre {
   position: relative;
   margin-bottom: 40px;
 }
+#api-sequence-menu.fixed {
+  position: fixed;
+  top: 0px;
+}
+@media(max-width:767px) {
+  #api-sequence-menu.fixed {
+    width: 100%;
+  }
+}
+@media(min-width:768px){
+  #api-sequence-menu.fixed {
+    width: 157.5px;
+  }
+}
+@media(min-width:992px) {
+  #api-sequence-menu.fixed {
+    width: 212.5px;
+  }
+}
+@media(min-width:1200px) {
+  #api-sequence-menu.fixed {
+    width: 262.5px;
+  }
+}
 #api-sequence-menu ul {
   list-style-type: none;
   margin-left: -40px;

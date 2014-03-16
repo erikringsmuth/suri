@@ -30,7 +30,13 @@ define(function(require) {
 
       // Keep the menu aligned as you scroll
       var scrollEventHandler = function() {
-        this.nodes['api-sequence-menu'].style.top = Math.max(0, window.pageYOffset - $('#api-sequence').offset().top) + 'px';
+        if (window.pageYOffset > $('#api-sequence').offset().top) {
+          // Scrolled past the top of the api-sequence-menu
+          this.nodes['api-sequence-menu'].classList.add('fixed');
+        } else {
+          // Header showing, keep the api-sequence-menu position relative
+          this.nodes['api-sequence-menu'].classList.remove('fixed');
+        }
       }.bind(this);
       window.addEventListener('scroll', scrollEventHandler, true);
 
