@@ -1,5 +1,5 @@
-## sURI
+## suri.io
 
-> The world's APIs at your disposal
+> Explore REST APIs!
 
 [suri.io](http://www.suri.io)
