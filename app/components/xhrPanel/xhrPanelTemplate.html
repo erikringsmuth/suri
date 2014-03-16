@@ -2,7 +2,7 @@
 <div class="panel panel-default xhr-panel" id="{{panelId}}">
 
   <div class="panel-heading">
-    <input type="text" id="panel-name" value="{{name}}" placeholder="Name">
+    <input type="text" class="panel-name" value="{{name}}" placeholder="Name">
     <div class="panel-heading-options pull-right">
       <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>
       <button type="button" on-click="star" class="btn btn-default" disabled="{{!id}}"><i class="fa fa-star {{starred ? 'starred' : ''}}"></i> {{stars.length}}</button>

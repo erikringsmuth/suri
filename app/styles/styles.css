@@ -189,9 +189,9 @@ pre {
 
 /* XHR Panel */
 /* header */
-.xhr-panel #panel-name {
+.xhr-panel .panel-name {
   background-color: #f5f5f5;
-  width: 50%;
+  width: 65%;
 }
 .xhr-panel .panel-heading-options>button,
 .xhr-panel .panel-heading-options>span {
@@ -252,15 +252,33 @@ pre {
   .xhr-panel input#url {
     width: 71%;
   }
+  .xhr-panel .panel-name {
+    width: 50%;
+  }
 }
 @media (max-width: 767px) {
   .xhr-panel input#url {
     width: 62%;
   }
+  .xhr-panel .panel-name {
+    width: 45%;
+  }
+}
+@media (max-width: 480px) {
+  .xhr-panel .panel-name {
+    width: 45%;
+  }
+  .xhr-panel .panel-heading-options>button,
+  .xhr-panel .panel-heading-options>span {
+    margin-right: 3px;
+  }
 }
 @media (max-width: 320px) {
   .xhr-panel input#url {
     width: 40%;
+  }
+  .xhr-panel .panel-name {
+    width: 25%;
   }
 }
 .xhr-panel .uri {
