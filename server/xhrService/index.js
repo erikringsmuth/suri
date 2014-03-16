@@ -133,82 +133,55 @@ module.exports.update = function(req, res) {
 };
 
 module.exports.search = function(req, res) {
-  var search;
-  if (typeof(req.query.q) !== 'undefined') {
-    // generic search with ?q=
-    search = {
-      query: {
-        filtered: {
-          query: {
-            bool: {
-              should: [
-                {
-                  prefix: {
-                    name: req.query.q
-                  }
-                },
-                {
-                  simple_query_string: {
-                    query: req.query.q
-                  }
-                }
-              ]
-            }
-          },
-          filter: {
-            or: [
-              {
-                term: { isPublic: true }
-              },
-              {
-                term: { owner: req.session_state.userId || '' }
-              }
-            ]
-          }
-        }
-      }
+  var search = {
+    query: {
+      filtered: {}
+    }
+  };
+
+  // Start by defining the filter. The filter is positive. Results that match
+  // the
+  if (typeof(req.query.owner) === 'undefined') {
+    // No owner specified, search for all items or items you own
+    search.query.filtered.filter = {
+      or: [
+        { term: { isPublic: true } },
+        { term: { owner: req.session_state.userId || '' } }
+      ]
     };
   }
-
-  if (typeof(req.query.owner) !== 'undefined') {
+  else {
+    // Owner specified
     if (req.query.owner === req.session_state.userId) {
-      // owner requesting their XHRs and starred XHRs
-      search = {
-        query: {
-          filtered: {
-            filter: {
-              or: [
-                {
-                  term: { owner: req.query.owner }
-                },
-                {
-                  term: { stars: req.query.owner }
-                }
-              ]
-            }
-          }
-        }
+      // Owner requesting their XHRs and starred XHRs
+      search.query.filtered.filter = {
+        or: [
+          { term: { owner: req.query.owner } },
+          { term: { stars: req.query.owner } }
+        ]
       };
     }
     else {
-      // user viewing profile
-      search = {
-        query: {
-          filtered: {
-            filter: {
-              and: [
-                {
-                  term: { isPublic: true }
-                },
-                {
-                  term: { owner: req.query.owner }
-                }
-              ]
-            }
-          }
-        }
+      // User viewing someone else's profile
+      search.query.filtered.filter = {
+        and: [
+          { term: { isPublic: true } },
+          { term: { owner: req.query.owner } }
+        ]
       };
     }
+  }
+
+  // Include the query if it's specified
+  if (req.query.q) {
+    search.query.filtered.query = {
+      bool: {
+        should: [
+          { prefix: { name: req.query.q } },
+          { simple_query_string: { query: req.query.q } }
+        ]
+      }
+    };
   }
 
   client.search({

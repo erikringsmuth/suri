@@ -308,6 +308,9 @@ pre {
 .user-page .gravatar-link .tooltip {
   font-size: 11px;
 }
+.user-page .apis-filter {
+  margin-top: 15px;
+}
 .user-page .profile-row {
   border-bottom: 1px solid #ddd;
   padding-bottom: 40px;

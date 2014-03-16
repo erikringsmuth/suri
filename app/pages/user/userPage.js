@@ -31,6 +31,15 @@ define(function(require) {
       var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
       apiSequence.set('disableTutorial', true);
 
+      this.observe({
+        filter: function(filter) {
+          $.ajax('/xhr?owner=' + this.get('userId') + '&q=' + filter.trim())
+            .done(function(data) {
+              this.set('xhrs', data);
+            }.bind(this));
+        }
+      });
+
       this.on({
         teardown: function() {
           apiSequence.teardown();

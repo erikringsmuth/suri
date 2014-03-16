@@ -16,7 +16,17 @@
 
     <div class="col-sm-8 col-md-9">
       <div class="apis">
-        <h2 class="apis-header">{{displayName}}'s APIs</h2>
+        <div class="row">
+          <div class="col-sm-7">
+            <h2 class="apis-header">{{displayName}}'s APIs</h2>
+          </div>
+          <div class="col-sm-5">
+            <div class="apis-filter input-group">
+              <span class="input-group-addon"><i class="fa fa-search"></i></span>
+              <input type="text" id="searchInput" class="form-control" value="{{filter}}" placeholder="Filter {{displayName}}'s APIs">
+            </div>
+          </div>
+        </div>
         {{#xhrs}}
         <div class="api-row" on-click="openResult:{{this}}">
           <div class="name">{{name}}</div>
