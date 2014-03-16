@@ -1,3 +1,14 @@
+/* Bootstrap media queries (lg, md, sm, xs)
+@media(min-width:1200px) {
+}
+@media(min-width:992px) {
+}
+@media(min-width:768px){
+}
+@media(max-width:767px) {
+}
+*/
+
 /* Sticky footer styles. Make the html, body, and layoutView.el (div) all be 100% tall */
 html, body, body > div {
   height: 100%;
