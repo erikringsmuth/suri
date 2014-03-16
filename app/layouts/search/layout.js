@@ -13,10 +13,15 @@ define(function(require) {
     data: {
       routes: router.routes,
       development: utilities.development,
-      session: window.suri.session
+      session: window.suri.session,
+      myProfile: false
     },
 
     init: function() {
+      if (router.routes.user.active && router.routeArguments().id === window.suri.session.userId) {
+        this.set('myProfile', true);
+      }
+
       var searchBox = new SearchBox({ el: this.nodes['search-box'] });
 
       this.on('teardown', function() {
