@@ -42,8 +42,7 @@ module.exports.create = function(req, res) {
       type: type,
       id: id,
       body: xhr
-    })
-    .then(function (body) {
+    }).then(function (body) {
       res.send(body);
     }, function (error) {
       res.status(error.status);
@@ -57,7 +56,7 @@ module.exports.create = function(req, res) {
         type: type,
         id: xhr.forkedFrom,
         body: {
-          script: 'ctx._source.forks += forkId',
+          script: 'forkxhr',
           params: { forkId: id }
         }
       });
@@ -70,8 +69,7 @@ module.exports.get = function(req, res) {
     index: index,
     type: type,
     id: req.params.id
-  })
-  .then(function (body) {
+  }).then(function (body) {
     if (body._source.isPublic || req.session_state.userId === body._source.owner) {
       body._source.id = body._id;
       res.send(body._source);
@@ -91,8 +89,7 @@ module.exports.update = function(req, res) {
     index: index,
     type: type,
     id: xhrId
-  })
-  .then(function (body) {
+  }).then(function (body) {
     if (body._source && body._source.owner === req.session_state.userId) {
 
       // Update request by the owner, OK
@@ -191,8 +188,7 @@ module.exports.search = function(req, res) {
     index: index,
     type: type,
     body: search
-  })
-  .then(function (body) {
+  }).then(function (body) {
     // Map the response to an array with the _source field plus the ID
     var response = body.hits.hits.map(function(result) {
       result._source.id = result._id;
@@ -208,22 +204,15 @@ module.exports.search = function(req, res) {
 module.exports.incrementCallCount = function(req, res, next) {
   var xhrId = req.get('api-id');
   if (xhrId) {
-    client.get({
+    client.update({
       index: index,
       type: type,
-      id: xhrId
-    })
-    .then(function (body) {
-      client.update({
-        index: index,
-        type: type,
-        id: xhrId,
-        body: {
-          doc: {
-            callCount: body._source.callCount + 1
-          }
-        }
-      });
+      id: xhrId,
+      body: {
+        script: 'incrementxhrcallcount',
+        params: { count: 1 },
+        upsert: { callCount: 0 } // Set call count if it doesn't already exist
+      }
     });
   }
   next();
@@ -234,8 +223,7 @@ module.exports.delete = function(req, res) {
     index: index,
     type: type,
     id: req.params.id
-  })
-  .then(function (body) {
+  }).then(function (body) {
     if (req.session_state.userId === body._source.owner) {
       // Found, delete it
       client.delete({
@@ -264,22 +252,16 @@ module.exports.star = function(req, res) {
     index: index,
     type: type,
     id: req.params.id
-  })
-  .then(function (body) {
-    // guard against a non-logged in user
-    if (!req.session_state.userId) {
-      res.status(401);
-      res.send('You must be signed in to star an API');
-    } else if (body._source.stars.indexOf(req.session_state.userId) === -1) {
+  }).then(function (body) {
+    if (body._source.stars.indexOf(req.session_state.userId) === -1) {
       // Star it
       client.update({
         index: index,
         type: type,
         id: req.params.id,
         body: {
-          doc: {
-            stars: body._source.stars.concat(req.session_state.userId)
-          }
+          script: 'starxhr',
+          params: { userId: req.session_state.userId }
         }
       })
       .then(function (body) {
@@ -304,20 +286,16 @@ module.exports.unstar = function(req, res) {
     index: index,
     type: type,
     id: req.params.id
-  })
-  .then(function (body) {
-    var starIndex = body._source.stars.indexOf(req.session_state.userId);
-    if (starIndex !== -1) {
+  }).then(function (body) {
+    if (body._source.stars.indexOf(req.session_state.userId) !== -1) {
       // Unstar it
-      body._source.stars.splice(starIndex, 1);
       client.update({
         index: index,
         type: type,
         id: req.params.id,
         body: {
-          doc: {
-            stars: body._source.stars
-          }
+          script: 'unstarxhr',
+          params: { userId: req.session_state.userId }
         }
       })
       .then(function (body) {
