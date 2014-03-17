@@ -92,19 +92,17 @@ define(function(require) {
         },
 
         send: function send() {
+          // Clear and disable send button
           this.set('sendButtonClass', 'default');
           this.set('sendButtonDisabled', true);
 
-          this.set('callCount', this.get('callCount') + 1);
-
+          // Parse the raw header text
           var headerLines = this.get('headers').split('\n');
           if (headerLines.length === 1 && headerLines[0].trim() === '') {
             // because callling split on an empty string returns ['']
             headerLines = [];
           }
-          var headers = {
-            'api-id': this.get('id')
-          };
+          var headers = {};
           for (var i = 0; i < headerLines.length; i++) {
             var headerParts = headerLines[i].split(':');
             var header = headerParts[0].trim();
@@ -113,8 +111,13 @@ define(function(require) {
             }
           }
 
+          // Increment the call count locally, this gets set server-side by the api-id header
+          this.set('callCount', this.get('callCount') + 1);
+          headers['api-id'] = this.get('id');
+
+          // Make sure a protocol is included or default to http
           var url = this.get('url');
-          if (url.indexOf('http') !== 0) {
+          if (url.indexOf('://') === -1) {
             url = 'http://' + url;
           }
           var apiUri = new URI(url);
@@ -123,6 +126,7 @@ define(function(require) {
             // Proxy through the suri.io server
             headers['api-host'] = apiUri.protocol() + '://' + apiUri.host();
             apiUri.host(suriHost);
+            apiUri.protocol(window.location.protocol); // Suri doesn't support HTTPS yet
           }
 
           $.ajax({
