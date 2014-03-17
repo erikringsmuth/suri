@@ -6,7 +6,7 @@ define(function(require) {
       sequence = require('components/apiSequence/sequence'),
       utilities = require('components/util/utilities'),
       prettify = require('prettify'),
-      URI = require('URI'),
+      URI = require('bower_components/URIjs/src/URI'),
       $ = require('jquery');
   require('Ractive-transitions-slide');
 
@@ -99,8 +99,7 @@ define(function(require) {
           // Parse the raw header text
           var headerLines = this.get('headers').split('\n');
           if (headerLines.length === 1 && headerLines[0].trim() === '') {
-            // because callling split on an empty string returns ['']
-            headerLines = [];
+            headerLines = []; // because callling split on an empty string returns ['']
           }
           var headers = {};
           for (var i = 0; i < headerLines.length; i++) {
@@ -115,7 +114,7 @@ define(function(require) {
           this.set('callCount', this.get('callCount') + 1);
           headers['api-id'] = this.get('id');
 
-          // Make sure a protocol is included or default to http
+          // Make sure URL the protocol is included otherwise default to HTTP
           var url = this.get('url');
           if (url.indexOf('://') === -1) {
             url = 'http://' + url;
@@ -129,15 +128,17 @@ define(function(require) {
             apiUri.protocol(window.location.protocol); // Suri doesn't support HTTPS yet
           }
 
+          // Send the request
           $.ajax({
             type: this.get('method'),
             url: apiUri,
-            headers: headers
+            headers: headers,
+            data: this.get('body')
           })
           .done(function(data, textStatus, jqXHR) {
             this.fire('displayResponse', jqXHR);
           }.bind(this))
-          .fail(function(jqXHR, textStatus, errorThrown) {
+          .fail(function(jqXHR) {
             this.fire('displayResponse', jqXHR);
           }.bind(this));
         },
