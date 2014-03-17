@@ -60,7 +60,11 @@ module.exports = function apiProxy(req, res, next) {
 
     var proxyRequest = protocol.request(proxyOptions, function(proxyResponse) {
       // pipe the proxy response to the XHR response
-      res.writeHead(proxyResponse.statusCode, proxyResponse.headers);
+
+      // Browsers have trouble with non 200 status codes so this is a workaround
+      proxyResponse.headers['api-status'] = proxyResponse.statusCode;
+      res.writeHead(200, proxyResponse.headers);
+
       proxyResponse.on('data', function (chunk) {
         res.write(chunk, 'binary');
       });

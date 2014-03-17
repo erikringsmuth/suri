@@ -71,6 +71,8 @@ define(function(require) {
       }.bind(this);
       this.xhr.onload = done;
       this.xhr.onerror = done;
+      this.xhr.onabort = done;
+      this.xhr.ontimeout = done;
 
       this.on({
         // All panels
@@ -139,6 +141,7 @@ define(function(require) {
             }
           }
 
+          this.xhr.timeout = 1200;
           try {
             this.xhr.send(this.get('body').trim());
           } catch (exception) {
@@ -148,15 +151,17 @@ define(function(require) {
 
         displayResponse: function displayResponse() {
           // update send button
+          var apiStatusHeader = this.xhr.getResponseHeader('api-status') || this.xhr.status;
           this.set('sendButtonDisabled', false);
-          if (this.xhr.status >= 200 && this.xhr.status < 300) {
+          if (apiStatusHeader >= 200 && apiStatusHeader < 300) {
             this.set('sendButtonClass', 'success');
           } else {
             this.set('sendButtonClass', 'danger');
           }
 
-          // headers
-          this.set('responseHeaders', 'HTTP/1.1 ' + this.xhr.status + ' ' + this.xhr.statusText + '\n' + this.xhr.getAllResponseHeaders());
+          // headers, strip the api-status workaround header
+          var responseHeaders = this.xhr.getAllResponseHeaders().replace(/api-status: .*\r\n/, '');
+          this.set('responseHeaders', 'HTTP/1.1 ' + apiStatusHeader + ' ' + this.xhr.statusText + '\n' + responseHeaders);
 
           // body
           var contentType = this.xhr.getResponseHeader('content-type');
