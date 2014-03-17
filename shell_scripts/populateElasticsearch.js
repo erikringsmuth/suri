@@ -15,9 +15,11 @@ nconf
   .file({ file: __dirname + './../config.json' });
 
 // Build up the bulk request
-var eriksUserId = 'eyekZd6Qo';
+var eriksUserId = 'eyekZd6Qo',
+    eriksMd5    = '5491ac2e7c74eb1253df058e3d8d3e83';
 for (var i = 0; i < xhrs.length; i++) {
   xhrs[i].owner = eriksUserId;
+  xhrs[i].ownerMd5 = eriksMd5;
   bulkData.push({ index:  { _index: index, _type: type, _id: shortId.generate() } });
   bulkData.push(xhrs[i]);
 }
@@ -26,7 +28,7 @@ for (var i = 0; i < xhrs.length; i++) {
 bulkData.push({ index:  { _index: index, _type: 'users', _id: eriksUserId } });
 bulkData.push({
   displayName: 'erik.ringsmuth',
-  emailMd5: '5491ac2e7c74eb1253df058e3d8d3e83',
+  emailMd5: eriksMd5,
   googleIss: 'accounts.google.com',
   googleSub: '111414135525027275706'
 });
