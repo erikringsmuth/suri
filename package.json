@@ -24,7 +24,8 @@
     "jws": "~0.2.5",
     "client-sessions": "~0.6.0",
     "express3-handlebars": "~0.5.0",
-    "nconf": "~0.6.9"
+    "nconf": "~0.6.9",
+    "request": "~2.34.0"
   },
   "engines": {
     "node": "0.10.x"
