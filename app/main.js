@@ -9,6 +9,7 @@ define([], function() {
       'amd-loader': 'bower_components/requirejs-ractive/amd-loader',
       'rv': 'bower_components/requirejs-ractive/rv',
       'Ractive': 'bower_components/ractive/build/Ractive.min',
+      'URI': 'bower_components/URIjs/src/URI',
       'jquery': 'bower_components/jquery/dist/jquery.min',
       'jquery.easing': '/bower_components/jquery-easing/jquery.easing.min',
       'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap.min',

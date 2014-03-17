@@ -6,6 +6,7 @@ define(function(require) {
       sequence = require('components/apiSequence/sequence'),
       utilities = require('components/util/utilities'),
       prettify = require('prettify'),
+      URI = require('URI'),
       $ = require('jquery');
   require('Ractive-transitions-slide');
 
@@ -64,16 +65,6 @@ define(function(require) {
 
       sequence.add(this);
 
-      // XHR
-      this.xhr = new XMLHttpRequest();
-      var done = function done() {
-        this.fire('displayResponse');
-      }.bind(this);
-      this.xhr.onload = done;
-      this.xhr.onerror = done;
-      this.xhr.onabort = done;
-      this.xhr.ontimeout = done;
-
       this.on({
         // All panels
         teardown: function teardown(event) {
@@ -104,28 +95,6 @@ define(function(require) {
           this.set('sendButtonClass', 'default');
           this.set('sendButtonDisabled', true);
 
-          if (this.get('corsEnabled')) {
-            // Directly talk to server
-            this.xhr.open(this.get('method'), this.get('url'), true);
-          } else {
-            // Proxy request using the 'api-host' header
-            var url = this.get('url');
-            if (url.substring(0, 4) !== 'http') {
-              url = 'http://' + url;
-            }
-            var urlParts = url.split('/');
-            var host = urlParts[0] + '//' + urlParts[2];
-            var path = '/' + url.split('/').splice(3).join('/');
-
-            this.xhr.open(this.get('method'), path, true);
-            this.xhr.setRequestHeader('api-host', host);
-
-            // Include the XHR ID so we can increment the call counter
-            if (this.get('id')) {
-              this.xhr.setRequestHeader('api-id', this.get('id'));
-            }
-          }
-
           this.set('callCount', this.get('callCount') + 1);
 
           var headerLines = this.get('headers').split('\n');
@@ -133,56 +102,77 @@ define(function(require) {
             // because callling split on an empty string returns ['']
             headerLines = [];
           }
+          var headers = {
+            'api-id': this.get('id')
+          };
           for (var i = 0; i < headerLines.length; i++) {
             var headerParts = headerLines[i].split(':');
             var header = headerParts[0].trim();
             if (header) {
-              this.xhr.setRequestHeader(header, headerParts.splice(1).join(':').trim());
+              headers[header] = headerParts.splice(1).join(':').trim();
             }
           }
 
-          try {
-            this.xhr.send(this.get('body').trim());
-          } catch (exception) {
-            this.nodes.responseBody.innerHTML = JSON.stringify(exception, null, 2);
+          var url = this.get('url');
+          if (url.indexOf('http') !== 0) {
+            url = 'http://' + url;
           }
+          var apiUri = new URI(url);
+          var suriHost = new URI(window.location.href).host();
+          if (!this.get('corsEnabled') && apiUri.host() !== suriHost) {
+            // Proxy through the suri.io server
+            headers['api-host'] = apiUri.protocol() + '://' + apiUri.host();
+            apiUri.host(suriHost);
+          }
+
+          $.ajax({
+            type: this.get('method'),
+            url: apiUri,
+            headers: headers
+          })
+          .done(function(data, textStatus, jqXHR) {
+            this.fire('displayResponse', jqXHR);
+          }.bind(this))
+          .fail(function(jqXHR, textStatus, errorThrown) {
+            this.fire('displayResponse', jqXHR);
+          }.bind(this));
         },
 
-        displayResponse: function displayResponse() {
+        displayResponse: function displayResponse(jqXHR) {
           // update send button
           this.set('sendButtonDisabled', false);
-          if (this.xhr.status >= 200 && this.xhr.status < 300) {
+          if (jqXHR.status >= 200 && jqXHR.status < 300) {
             this.set('sendButtonClass', 'success');
           } else {
             this.set('sendButtonClass', 'danger');
           }
 
-          // headers, strip the api-status workaround header
-          this.set('responseHeaders', 'HTTP/1.1 ' + this.xhr.status + ' ' + this.xhr.statusText + '\n' + this.xhr.getAllResponseHeaders());
+          // headers
+          this.set('responseHeaders', 'HTTP/1.1 ' + jqXHR.status + ' ' + jqXHR.statusText + '\n' + jqXHR.getAllResponseHeaders());
 
           // body
-          var contentType = this.xhr.getResponseHeader('content-type');
+          var contentType = jqXHR.getResponseHeader('content-type');
           this.set('responseBody', '');
           if (contentType) {
             if (contentType.indexOf('json') !== -1) {
-              this.set('responseBody', utilities.escape(JSON.stringify(JSON.parse(this.xhr.response), null, 2)));
+              this.set('responseBody', utilities.escape(JSON.stringify(jqXHR.responseJSON, null, 2)));
             } else if (contentType.indexOf('javascript') !== -1) {
               var parsedResponse;
               try {
-                parsedResponse = JSON.stringify(JSON.parse(this.xhr.response), null, 2);
+                parsedResponse = JSON.stringify(JSON.parse(jqXHR.responseText), null, 2);
               } catch (e) {
-                parsedResponse = this.xhr.response;
+                parsedResponse = jqXHR.responseText;
               }
               this.set('responseBody', utilities.escape(parsedResponse));
             } else if (contentType.indexOf('xml') !== -1) {
-              this.set('responseBody', utilities.escape(this.xhr.responseXML));
+              this.set('responseBody', utilities.escape(jqXHR.responseText));
             } else if (contentType.indexOf('html') !== -1) {
-              this.set('responseBody', utilities.escape(this.xhr.response));
+              this.set('responseBody', utilities.escape(jqXHR.responseText));
             } else {
-              this.set('responseBody', utilities.escape(this.xhr.response));
+              this.set('responseBody', utilities.escape(jqXHR.responseText));
             }
           } else {
-            this.set('responseBody', utilities.escape(this.xhr.response));
+            this.set('responseBody', utilities.escape(jqXHR.responseText));
           }
 
           if (this.get('responseBody').length > 3000) {

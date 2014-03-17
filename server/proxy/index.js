@@ -7,7 +7,9 @@ var request = require('request');
 module.exports = function apiProxy(req, res, next) {
 
   var apiHost = req.get('api-host');
-  if(apiHost) {
+
+  // Don't proxy if the api-host is suri.io
+  if(apiHost && apiHost.indexOf('localhost') === -1 && apiHost.indexOf('suri.io') === -1) {
 
     // Proxy to the API host!
     req.pipe(request({
