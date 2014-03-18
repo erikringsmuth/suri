@@ -2,13 +2,14 @@
 'use strict';
 var nconf         = require('nconf'),
     elasticsearch = require('elasticsearch'),
-    shortId       = require('shortid'),
-    index         = 'suri-users',
-    type          = 'users';
+    shortId       = require('shortid');
 
 var client = elasticsearch.Client({
   host: nconf.get('ELASTICSEARCH_URL')
 });
+
+var index = nconf.get('USER_INDEX');
+var type = nconf.get('USER_TYPE');
 
 // Create user
 module.exports.createUser = function(user, successCallback, errorCallback) {

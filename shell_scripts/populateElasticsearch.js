@@ -5,10 +5,6 @@ var elasticsearch = require('elasticsearch'),
     xhrs          = require('./xhrs'),
     shortId       = require('shortid'),
     nconf         = require('nconf'),
-    xhrIndex      = 'suri-xhrs',
-    userIndex     = 'suri-users',
-    xhrType       = 'xhrs',
-    userType      = 'users',
     bulkData      = [];
 
 // Load the configuration
@@ -30,13 +26,13 @@ var eriksUserId = 'eyekZd6Qo',
 for (var i = 0; i < xhrs.length; i++) {
   xhrs[i].owner = eriksUserId;
   xhrs[i].ownerMd5 = eriksMd5;
-  bulkData.push({ index:  { _index: xhrIndex, _type: xhrType, _id: shortId.generate() } });
+  bulkData.push({ index:  { _index: nconf.get('XHR_INDEX'), _type: nconf.get('XHR_TYPE'), _id: shortId.generate() } });
   bulkData.push(xhrs[i]);
 }
 
 // Create the users index
 // client.indices.create({
-//   index: userIndex,
+//   index: nconf.get('USER_INDEX'),
 //   body: {
 //     mappings: {
 //       users: {
@@ -56,8 +52,8 @@ for (var i = 0; i < xhrs.length; i++) {
 
 //     // Then add each of the new items
 //     client.index({
-//       index: userIndex,
-//       type: userType,
+//       index: nconf.get('USER_INDEX'),
+//       type: nconf.get('USER_TYPE'),
 //       id: eriksUserId,
 //       body: {
 //         displayName: 'erik.ringsmuth',
@@ -81,12 +77,12 @@ for (var i = 0; i < xhrs.length; i++) {
 
 // Recreate the index and put mappings
 client.indices.delete({
-  index: xhrIndex
+  index: nconf.get('XHR_INDEX')
 }, function() {
   console.log('\nDeleted the index');
 
   client.indices.create({
-    index: xhrIndex,
+    index: nconf.get('XHR_INDEX'),
     body: {
       mappings: {
         xhrs: {

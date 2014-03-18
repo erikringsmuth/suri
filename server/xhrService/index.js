@@ -2,14 +2,14 @@
 'use strict';
 var nconf         = require('nconf'),
     elasticsearch = require('elasticsearch'),
-    shortId       = require('shortid'),
-    index         = 'suri-xhrs',
-    type          = 'xhrs';
+    shortId       = require('shortid');
 
 var client = elasticsearch.Client({
   host: nconf.get('ELASTICSEARCH_URL')
 });
 
+var index = nconf.get('XHR_INDEX');
+var type = nconf.get('XHR_TYPE');
 
 module.exports.create = function(req, res) {
   if(!req.session_state.signedIn) {
