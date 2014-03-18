@@ -19,17 +19,9 @@ define(function(require) {
       myProfile: router.routes.user.active && router.routeArguments().id === config.session.userId
     },
 
-    init: function() {
-      var searchBox = new SearchBox({ el: this.nodes['search-box'] });
-
-      this.on('teardown', function() {
-        searchBox.teardown();
-      });
-    },
-
-    // Components remove info about el which breaks topOffset
     components: {
-      'profile-menu': ProfileMenu
+      'profile-menu': ProfileMenu,
+      'search-box': SearchBox
     }
   });
 });

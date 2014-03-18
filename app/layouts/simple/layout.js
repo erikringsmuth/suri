@@ -18,7 +18,6 @@ define(function(require) {
       myProfile: router.routes.user.active && router.routeArguments().id === config.session.userId
     },
 
-    // Components remove info about el which breaks topOffset
     components: {
       'profile-menu': ProfileMenu
     }
