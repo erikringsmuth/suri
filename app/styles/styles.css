@@ -280,6 +280,8 @@ pre {
   border: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: '';
 }
 .xhr-panel select::-ms-expand {
   display: none;
