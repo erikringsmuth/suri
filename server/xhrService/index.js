@@ -3,7 +3,7 @@
 var nconf         = require('nconf'),
     elasticsearch = require('elasticsearch'),
     shortId       = require('shortid'),
-    index         = 'suri',
+    index         = 'suri-xhrs',
     type          = 'xhrs';
 
 var client = elasticsearch.Client({

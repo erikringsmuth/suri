@@ -5,14 +5,24 @@ var elasticsearch = require('elasticsearch'),
     xhrs          = require('./xhrs'),
     shortId       = require('shortid'),
     nconf         = require('nconf'),
-    index         = 'suri',
-    type          = 'xhrs',
+    xhrIndex      = 'suri-xhrs',
+    userIndex     = 'suri-users',
+    xhrType       = 'xhrs',
+    userType      = 'users',
     bulkData      = [];
 
+// Load the configuration
 nconf
   .argv()
   .env()
   .file({ file: __dirname + './../config.json' });
+
+// Connect to elasticsearch
+var elasticSearchHost = nconf.get('ELASTICSEARCH_URL');
+console.log('\nConnecting to ' + elasticSearchHost);
+var client = elasticsearch.Client({
+  host: elasticSearchHost
+});
 
 // Build up the bulk request
 var eriksUserId = 'eyekZd6Qo',
@@ -20,33 +30,63 @@ var eriksUserId = 'eyekZd6Qo',
 for (var i = 0; i < xhrs.length; i++) {
   xhrs[i].owner = eriksUserId;
   xhrs[i].ownerMd5 = eriksMd5;
-  bulkData.push({ index:  { _index: index, _type: type, _id: shortId.generate() } });
+  bulkData.push({ index:  { _index: xhrIndex, _type: xhrType, _id: shortId.generate() } });
   bulkData.push(xhrs[i]);
 }
 
-// Add my user profile
-bulkData.push({ index:  { _index: index, _type: 'users', _id: eriksUserId } });
-bulkData.push({
-  displayName: 'erik.ringsmuth',
-  emailMd5: eriksMd5,
-  googleIss: 'accounts.google.com',
-  googleSub: '111414135525027275706'
-});
+// Create the users index
+// client.indices.create({
+//   index: userIndex,
+//   body: {
+//     mappings: {
+//       users: {
+//         properties: {
+//           userId: { type: 'string', index: 'not_analyzed' },
+//           googleIss: { type: 'string', index: 'not_analyzed' },
+//           googleSub: { type: 'string', index: 'not_analyzed' },
+//           emailMd5: { type: 'string', index: 'not_analyzed' },
+//           displayName: { type: 'string', index: 'not_analyzed' }
+//         }
+//       }
+//     }
+//   }
+// })
+//   .then(function () {
+//     console.log('\nCreated the suri-users index and put the mapping');
 
-var elasticSearchHost = nconf.get('ELASTICSEARCH_URL');
-console.log('\nConnecting to ' + elasticSearchHost);
-var client = elasticsearch.Client({
-  host: elasticSearchHost
-});
+//     // Then add each of the new items
+//     client.index({
+//       index: userIndex,
+//       type: userType,
+//       id: eriksUserId,
+//       body: {
+//         displayName: 'erik.ringsmuth',
+//         emailMd5: eriksMd5,
+//         googleIss: 'accounts.google.com',
+//         googleSub: '111414135525027275706'
+//       }
+//     })
+//       .then(function (body) {
+//         console.log('\nIndexed user: ' + JSON.stringify(body, null, 2));
+//         process.exit(0);
+//       }, function (error) {
+//         console.log('\nIndex user errored: ' + error);
+//         process.exit(0);
+//       });
+
+//   }, function (error) {
+//     console.log('Failed to create the suri-users index.\nErrored: ' + error);
+//   });
+
 
 // Recreate the index and put mappings
 client.indices.delete({
-  index: index
+  index: xhrIndex
 }, function() {
   console.log('\nDeleted the index');
 
   client.indices.create({
-    index: index,
+    index: xhrIndex,
     body: {
       mappings: {
         xhrs: {
@@ -91,15 +131,6 @@ client.indices.delete({
             ownerMd5: { type: 'string', index: 'not_analyzed' },
             forks: { type: 'string', index: 'not_analyzed' }, // Array
             forkedFrom: { type: 'string', index: 'not_analyzed' }
-          }
-        },
-        users: {
-          properties: {
-            userId: { type: 'string', index: 'not_analyzed' },
-            googleIss: { type: 'string', index: 'not_analyzed' },
-            googleSub: { type: 'string', index: 'not_analyzed' },
-            emailMd5: { type: 'string', index: 'not_analyzed' },
-            displayName: { type: 'string', index: 'not_analyzed' }
           }
         }
       }
