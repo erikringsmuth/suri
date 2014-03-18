@@ -1,15 +1,33 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
-var request = require('request');
+var request = require('request'),
+    URI     = require('URIjs');
 
 // The API proxy forwards requests to the 'api-host' header
 module.exports = function apiProxy(req, res, next) {
 
   var apiHost = req.get('api-host');
 
-  // Don't proxy if the api-host is suri.io or localhost
-  if(apiHost && apiHost.indexOf('suri.io') === -1 && apiHost.indexOf('localhost') === -1) {
+  // Proxy request
+  if(apiHost) {
+    // The api-host + the full path from the original request
+    var uri = new URI(apiHost + req.url).normalize();
+
+    // Requests to suri.io or localhost should not be proxied
+    if (uri.hostname().indexOf('suri.io') !== -1 || uri.hostname().indexOf('localhost') !== -1) {
+      next();
+      return;
+    }
+
+    if (uri.domain() === uri.tld() ||
+        uri.domain() === '' ||
+        uri.tld() === '' ||
+        apiHost.indexOf(' ') !== -1) {
+      res.status(404);
+      res.end('You have to format the URL like http://domain.tld');
+      return;
+    }
 
     // Proxy to the API host!
     req.pipe(request({
