@@ -79,6 +79,12 @@ define(function(require) {
 
         toggleOptions: function() {
           this.set('showOptions', !this.get('showOptions'));
+          this.fire('setupTooltips');
+        },
+
+        setupTooltips: function() {
+          $('.save-button').tooltip();
+          $('.fork-button').tooltip();
         },
 
         scrollToPanel: function scrollToPanel() {
@@ -218,6 +224,8 @@ define(function(require) {
         save: function() {
           this.set('saveButtonClass', 'default');
 
+          if (!this.get('signedIn')) return;
+
           if (this.get('id')) {
             // update
             $.ajax('/xhr/' + this.get('id'), {
@@ -303,6 +311,7 @@ define(function(require) {
 
       // Scroll to the panel when it's created
       this.fire('scrollToPanel');
+      this.fire('setupTooltips');
     }
   });
 

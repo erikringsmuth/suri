@@ -18,9 +18,14 @@
     <div class="row">
       <div class="col-sm-4 pull-right">
         <div class="save-options pull-right">
-          <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}}" disabled="{{!isOwner || !signedIn}}"><i class="fa fa-save"></i> Save</button>
-          <button type="button" id="delete" on-click="delete" class="btn btn-default" disabled="{{!isOwner}}"><i class="fa fa-trash-o"></i> Delete</button>
-          <button type="button" id="fork" on-click="fork" class="btn btn-default"><i class="fa fa-code-fork"></i> Fork</button>
+          {{#signedIn}}
+          <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}} save-button"><i class="fa fa-save"></i> Save</button>
+          {{/signedIn}}
+          {{^signedIn}}
+          <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}} save-button" data-toggle="tooltip" data-placement="bottom" title="You need to sign in to save APIs"><i class="fa fa-save"></i> Save</button>
+          {{/signedIn}}
+          <button type="button" id="delete" on-click="delete" class="btn btn-default delete-button" disabled="{{!isOwner}}"><i class="fa fa-trash-o"></i> Delete</button>
+          <button type="button" id="fork" on-click="fork" class="btn btn-default fork-button" data-toggle="tooltip" data-placement="bottom" title="Copy it!"><i class="fa fa-code-fork"></i> Fork</button>
         </div>
       </div>
       <div class="col-sm-4">
@@ -61,7 +66,6 @@
         <option value="DELETE">DELETE</option>
         <option value="HEAD">HEAD</option>
         <option value="OPTIONS">OPTIONS</option>
-        <option value="TRACE">TRACE</option>
       </select>
       <input id="url" type="text" value="{{url}}" on-keypress="sendOnEnter" placeholder="http://">
       <span class="text-muted pull-right">HTTP/1.1</span>
