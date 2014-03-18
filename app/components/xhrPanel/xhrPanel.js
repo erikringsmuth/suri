@@ -1,7 +1,8 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var Ractive = require('Ractive'),
+  var config = require('config'),
+      Ractive = require('Ractive'),
       xhrPanelTemplate = require('rv!./xhrPanelTemplate'),
       sequence = require('components/apiSequence/sequence'),
       utilities = require('components/util/utilities'),
@@ -31,7 +32,7 @@ define(function(require) {
 
       // State
       starred: false,
-      signedIn: window.suri.session.signedIn,
+      signedIn: config.session.signedIn,
       responseBody: '',
       showOptions: false,
       saveButtonClass: 'default',
@@ -59,9 +60,9 @@ define(function(require) {
       if (typeof(this.get('tags')) === 'undefined') this.set('tags', []);
       if (typeof(this.get('stars')) === 'undefined') this.set('stars', []);
       if (typeof(this.get('forks')) === 'undefined') this.set('forks', []);
-      if (typeof(this.get('owner')) === 'undefined') this.set('owner', window.suri.session.userId);
-      this.set('isOwner', !this.get('id') || window.suri.session.userId === this.get('owner'));
-      if (this.get('stars').indexOf(window.suri.session.userId) !== -1) {
+      if (typeof(this.get('owner')) === 'undefined') this.set('owner', config.session.userId);
+      this.set('isOwner', !this.get('id') || config.session.userId === this.get('owner'));
+      if (this.get('stars').indexOf(config.session.userId) !== -1) {
         this.set('starred', true);
       }
 
@@ -212,7 +213,7 @@ define(function(require) {
           var fork = new XhrPanel({data: this.data});
           fork.set('id', null);
           fork.set('isOwner', true);
-          fork.set('owner', window.suri.session.userId);
+          fork.set('owner', config.session.userId);
           fork.set('callCount', 0);
           fork.set('forks', []);
           fork.set('forkedFrom', this.get('id'));
@@ -273,21 +274,21 @@ define(function(require) {
         star: function() {
           if (this.get('starred')) {
             // Unstar
-            $.ajax('/xhr/' + this.get('id') + '/stars/' + window.suri.session.userId, {
+            $.ajax('/xhr/' + this.get('id') + '/stars/' + config.session.userId, {
               method: 'DELETE'
             })
               .done(function() {
-                this.data.stars.splice(sequence.indexOf(window.suri.session.userId), 1);
+                this.data.stars.splice(sequence.indexOf(config.session.userId), 1);
                 this.set('starred', false);
               }.bind(this));
           } else {
             // Star
             $.ajax('/xhr/' + this.get('id') + '/stars', {
               method: 'POST',
-              data: window.suri.session.userId
+              data: config.session.userId
             })
               .done(function() {
-                this.data.stars.push(window.suri.session.userId);
+                this.data.stars.push(config.session.userId);
                 this.set('starred', true);
               }.bind(this));
           }

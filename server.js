@@ -14,7 +14,7 @@ require('newrelic');
 var express     = require('express'),
     auth        = require('./server/authentication'),
     proxy       = require('./server/proxy'),
-    index       = require('./server/index'),
+    config      = require('./server/config'),
     xhrService  = require('./server/xhrService'),
     userService = require('./server/userService'),
     ipAddress   = require('./server/ipAddress'),
@@ -97,9 +97,8 @@ app.get('/users/:id', userService.getProfile);
 // Browser's IP address
 app.get('/ip', ipAddress);
 
-// All routes should load the index which bootstraps the JS app. This has to be loaded
-// last or it will override the other routes.
-app.get('/*', index);
+// JS app configuration (session vars)
+app.get('/config.js', config);
 
 
 //// START SERVER

@@ -1,0 +1,12 @@
+// Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
+define([], function() {
+  return {
+    session: {
+      signedIn: {{#if signedIn}}true{{else}}false{{/if}},
+      userId: '{{userId}}',
+      displayName: '{{displayName}}',
+      emailMd5: '{{emailMd5}}',
+      authenticationMessage: '{{authenticationMessage}}'
+    }
+  };
+});

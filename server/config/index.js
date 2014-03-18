@@ -1,7 +1,7 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
-// Render views/index.html
+// Render config.js
 module.exports = function (req, res) {
-  res.render('index', req.session_state);
+  res.render('config', req.session_state);
 };

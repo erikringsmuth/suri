@@ -1,7 +1,8 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var Ractive = require('Ractive'),
+  var config = require('config'),
+      Ractive = require('Ractive'),
       userTemplate = require('rv!./userTemplate'),
       Layout = require('layouts/search/layout'),
       router = require('router'),
@@ -14,7 +15,7 @@ define(function(require) {
 
     init: function() {
       this.set('userId', router.routeArguments().id);
-      this.set('myProfile', this.get('userId') === window.suri.session.userId);
+      this.set('myProfile', this.get('userId') === config.session.userId);
 
       $.ajax('/users/' + this.get('userId'))
         .done(function(data) {
