@@ -9,7 +9,7 @@
       <span><i class="fa fa-code-fork"></i> {{forks.length}}</span>
       <button type="button" on-click="toggleOptions" class="btn btn-default"><i class="fa fa-cog options-cog {{showOptions ? 'active' : 'inactive'}}"></i> Options</button>
       <button type="button" on-click="toggleFullscreen"><i class="fa fa-{{fullScreen ? 'minus' : 'plus'}}"></i></button>
-      <button type="button" on-click="teardown" aria-hidden="true"><i class="fa fa-times"></i></button>
+      {{^fullScreen}}<button type="button" on-click="teardown" aria-hidden="true"><i class="fa fa-times"></i></button>{{/fullScreen}}
     </div>
   </div>
 
