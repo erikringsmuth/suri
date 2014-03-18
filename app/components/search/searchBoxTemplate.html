@@ -4,9 +4,9 @@
     <span class="input-group-addon"><i class="fa fa-search"></i></span>
     <input type="text" id="searchInput" class="form-control" placeholder="Search APIs" value="{{searchTerm}}" tabindex="1" autofocus>
   </div>
-  {{#searchResults.length}}
+  {{#searchResults.hits.length}}
   <div id="searchResults" style="width: {{searchResultsWidth}}px">
-    {{#searchResults:index}}
+    {{#searchResults.hits:index}}
     <div class="row searchResultItem" tabindex="{{index + 2}}" on-click="openResult:{{this}}" on-keydown="openResultOnEnter:{{this}}">
       <div class="col-sm-4 name">{{name}}</div>
       <div class="col-sm-8">
@@ -14,7 +14,7 @@
         <span class="url">{{url}}</span>
       </div>
     </div>
-    {{/searchResults}}
+    {{/searchResults.hits}}
   </div>
-  {{/searchResults.length}}
+  {{/searchResults.hits.length}}
 </div>

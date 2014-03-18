@@ -192,11 +192,15 @@ module.exports.search = function(req, res) {
     body: search
   }).then(function (body) {
     // Map the response to an array with the _source field plus the ID
-    var response = body.hits.hits.map(function(result) {
+    var hits = body.hits.hits.map(function(result) {
       result._source.id = result._id;
       return result._source;
     });
-    res.send(response);
+    res.send({
+      total: body.hits.total,
+      returned: hits.length,
+      hits: hits
+    });
   }, function (error) {
     res.status(error.status);
     res.send(error);

@@ -10,8 +10,7 @@ define(function(require) {
     template: searchBoxTemplate,
 
     data: {
-      searchTerm: '',
-      searchResults: []
+      searchTerm: ''
     },
 
     init: function() {
@@ -82,7 +81,7 @@ define(function(require) {
 
     closeSearchResults: function closeSearchResults() {
       this.set('searchTerm', null);
-      this.set('searchResults', []);
+      this.set('searchResults', {});
     }
   });
 });
