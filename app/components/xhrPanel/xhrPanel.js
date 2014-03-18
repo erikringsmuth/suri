@@ -164,7 +164,7 @@ define(function(require) {
           }
           else if (typeof(jqXHR.responseXML) !== 'undefined') {
             // XML
-            this.set('responseBody', new XMLSerializer().serializeToString(jqXHR.responseXML));
+            this.set('responseBody', utilities.escape(new XMLSerializer().serializeToString(jqXHR.responseXML)));
           }
           else {
             var contentType = jqXHR.getResponseHeader('content-type');
