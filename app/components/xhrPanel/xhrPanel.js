@@ -123,8 +123,8 @@ define(function(require) {
           var suriHost = new URI(window.location.href).host();
           if (!this.get('corsEnabled') && apiUri.host() !== suriHost) {
             // Proxy through the suri.io server
-            headers['api-host'] = apiUri.protocol() + '://' + apiUri.host();
-            apiUri.host(suriHost);
+            headers['api-host'] = apiUri.protocol() + '://' + apiUri.authority();
+            apiUri.authority(suriHost);
             apiUri.protocol(window.location.protocol); // Suri doesn't support HTTPS yet
           }
 
@@ -156,12 +156,20 @@ define(function(require) {
           this.set('responseHeaders', 'HTTP/1.1 ' + jqXHR.status + ' ' + jqXHR.statusText + '\n' + jqXHR.getAllResponseHeaders());
 
           // body
-          var contentType = jqXHR.getResponseHeader('content-type');
           this.set('responseBody', '');
-          if (contentType) {
-            if (contentType.indexOf('json') !== -1) {
-              this.set('responseBody', utilities.escape(JSON.stringify(jqXHR.responseJSON, null, 2)));
-            } else if (contentType.indexOf('javascript') !== -1) {
+
+          if (typeof(jqXHR.responseJSON) !== 'undefined') {
+            // JSON
+            this.set('responseBody', utilities.escape(JSON.stringify(jqXHR.responseJSON, null, 2)));
+          }
+          else if (typeof(jqXHR.responseXML) !== 'undefined') {
+            // XML
+            this.set('responseBody', new XMLSerializer().serializeToString(jqXHR.responseXML));
+          }
+          else {
+            var contentType = jqXHR.getResponseHeader('content-type');
+            if (contentType && contentType.indexOf('javascript') !== -1) {
+              // This could still be JSON, Google does this :P
               var parsedResponse;
               try {
                 parsedResponse = JSON.stringify(JSON.parse(jqXHR.responseText), null, 2);
@@ -169,15 +177,11 @@ define(function(require) {
                 parsedResponse = jqXHR.responseText;
               }
               this.set('responseBody', utilities.escape(parsedResponse));
-            } else if (contentType.indexOf('xml') !== -1) {
-              this.set('responseBody', utilities.escape(jqXHR.responseText));
-            } else if (contentType.indexOf('html') !== -1) {
-              this.set('responseBody', utilities.escape(jqXHR.responseText));
-            } else {
+            }
+            else {
+              // Plain text, html, or something
               this.set('responseBody', utilities.escape(jqXHR.responseText));
             }
-          } else {
-            this.set('responseBody', utilities.escape(jqXHR.responseText));
           }
 
           if (this.get('responseBody').length > 3000) {

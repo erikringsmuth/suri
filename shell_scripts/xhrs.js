@@ -166,6 +166,12 @@ var xhrs = [
         required: false
       }
     ]
+  }),
+  new Xhr({
+    name: 'Engadget RSS',
+    method: 'GET',
+    url: 'http://www.engadget.com/rss.xml',
+    tags: ['atom', 'rss', 'feed']
   })
 ];
 
