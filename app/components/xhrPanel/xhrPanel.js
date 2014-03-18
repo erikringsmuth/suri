@@ -83,8 +83,7 @@ define(function(require) {
         },
 
         setupTooltips: function() {
-          $('.save-button').tooltip();
-          $('.fork-button').tooltip();
+          $('.bs-tooltip').tooltip();
         },
 
         scrollToPanel: function scrollToPanel() {

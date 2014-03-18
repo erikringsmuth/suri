@@ -19,17 +19,17 @@
       <div class="col-sm-4 pull-right">
         <div class="save-options pull-right">
           {{#signedIn}}
-          <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}} save-button"><i class="fa fa-save"></i> Save</button>
+          <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}} bs-tooltip"><i class="fa fa-save"></i> Save</button>
           {{/signedIn}}
           {{^signedIn}}
-          <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}} save-button" data-toggle="tooltip" data-placement="bottom" title="You need to sign in to save APIs"><i class="fa fa-save"></i> Save</button>
+          <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}} bs-tooltip" data-toggle="tooltip" data-placement="bottom" title="You need to sign in to save APIs"><i class="fa fa-save"></i> Save</button>
           {{/signedIn}}
-          <button type="button" id="delete" on-click="delete" class="btn btn-default delete-button" disabled="{{!isOwner}}"><i class="fa fa-trash-o"></i> Delete</button>
-          <button type="button" id="fork" on-click="fork" class="btn btn-default fork-button" data-toggle="tooltip" data-placement="bottom" title="Copy it!"><i class="fa fa-code-fork"></i> Fork</button>
+          <button type="button" id="delete" on-click="delete" class="btn btn-default bs-tooltip" disabled="{{!isOwner}}"><i class="fa fa-trash-o"></i> Delete</button>
+          <button type="button" id="fork" on-click="fork" class="btn btn-default bs-tooltip" data-toggle="tooltip" data-placement="bottom" title="Copy it!"><i class="fa fa-code-fork"></i> Fork</button>
         </div>
       </div>
       <div class="col-sm-4">
-        <div><label>id</label> <a href="#/?xhr={{id}}" class="text-muted">{{id}}</a></div>
+        <div><label>id</label> <a href="#/?xhr={{id}}" class="text-muted bs-tooltip" data-toggle="tooltip" data-placement="bottom" title="permalink">{{id}}</a></div>
         <div><label>owner</label> <a href="#/users/{{owner}}" class="text-muted">{{owner}}</a></div>
         {{#forkedFrom}}<div><label>forked from</label> <a href="#/?xhr={{forkedFrom}}" class="text-muted">{{forkedFrom}}</a></div>{{/forkedFrom}}
       </div>
