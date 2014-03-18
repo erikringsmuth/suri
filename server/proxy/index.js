@@ -24,16 +24,25 @@ module.exports = function apiProxy(req, res, next) {
         uri.domain() === '' ||
         uri.tld() === '' ||
         apiHost.indexOf(' ') !== -1) {
-      res.status(404);
-      res.end('You have to format the URL like http://domain.tld');
+
+      res.status(400);
+      res.end('You have to format the URL like [protocol://domain.tld/path?query#hash]');
       return;
     }
 
     // Proxy to the API host!
-    req.pipe(request({
-      uri: apiHost + req.url, // API host + path
-      timeout: 1200 // Timeout quickly so it doesn't take up server resources
-    })).pipe(res);
+    var proxyRequest;
+    req
+      .pipe(proxyRequest = request({
+        uri: uri.protocol() + '://' + uri.authority() + req.url, // API host + path
+        timeout: 1200 // Timeout quickly so it doesn't take up server resources
+      }))
+      .pipe(res);
+
+    proxyRequest.on('error', function() {
+      res.status(400);
+      res.end('Well that didn\'t work');
+    });
   }
   else {
     // Not a proxy request, carry on.
