@@ -1,5 +1,5 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
-<div class="panel panel-default xhr-panel" id="{{panelId}}">
+<div class="panel panel-default xhr-panel {{fullScreen ? 'full-screen' : ''}}" id="{{panelId}}">
 
   <div class="panel-heading">
     <input type="text" class="panel-name" value="{{name}}" placeholder="Name">
@@ -8,6 +8,7 @@
       <button type="button" on-click="star" class="btn btn-default" disabled="{{!id || !signedIn}}"><i class="fa fa-star {{starred ? 'starred' : ''}}"></i> {{stars.length}}</button>
       <span><i class="fa fa-code-fork"></i> {{forks.length}}</span>
       <button type="button" on-click="toggleOptions" class="btn btn-default"><i class="fa fa-cog options-cog {{showOptions ? 'active' : 'inactive'}}"></i> Options</button>
+      <button type="button" on-click="toggleFullscreen"><i class="fa fa-{{fullScreen ? 'minus' : 'plus'}}"></i></button>
       <button type="button" on-click="teardown" aria-hidden="true"><i class="fa fa-times"></i></button>
     </div>
   </div>

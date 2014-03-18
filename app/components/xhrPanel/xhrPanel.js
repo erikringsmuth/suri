@@ -38,6 +38,7 @@ define(function(require) {
       sendButtonClass: 'default',
       sendButtonDisabled: false,
       showMoreButton: false,
+      fullScreen: false,
       formatNumber: function(number) {
         return number.toLocaleString();
       },
@@ -90,6 +91,10 @@ define(function(require) {
           if (event.original.keyCode === 13) {
             this.fire('send');
           }
+        },
+
+        toggleFullscreen: function() {
+          this.set('fullScreen', !this.get('fullScreen'));
         },
 
         send: function send() {
