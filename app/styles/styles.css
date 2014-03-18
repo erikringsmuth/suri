@@ -414,3 +414,7 @@ pre {
 .user-page .api-row .stats>span {
   margin-left: 10px;
 }
+.user-page .total-hits {
+  margin-top: 20px;
+  margin-bottom: -15px;
+}
