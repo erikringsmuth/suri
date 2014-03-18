@@ -5,6 +5,7 @@ define(function(require) {
       Ractive = require('Ractive'),
       layoutTemplate = require('rv!./layoutTemplate'),
       router = require('router'),
+      ProfileMenu = require('components/profileMenu/profileMenu'),
       utilities = require('components/util/utilities');
 
   return Ractive.extend({
@@ -14,13 +15,12 @@ define(function(require) {
       routes: router.routes,
       development: utilities.development,
       session: config.session,
-      myProfile: false
+      myProfile: router.routes.user.active && router.routeArguments().id === config.session.userId
     },
 
-    init: function() {
-      if (router.routes.user.active && router.routeArguments().id === config.session.userId) {
-        this.set('myProfile', true);
-      }
+    // Components remove info about el which breaks topOffset
+    components: {
+      'profile-menu': ProfileMenu
     }
   });
 });

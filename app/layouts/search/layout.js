@@ -6,6 +6,7 @@ define(function(require) {
       layoutTemplate = require('rv!./layoutTemplate'),
       router = require('router'),
       SearchBox = require('components/search/searchBox'),
+      ProfileMenu = require('components/profileMenu/profileMenu'),
       utilities = require('components/util/utilities');
 
   return Ractive.extend({
@@ -15,24 +16,20 @@ define(function(require) {
       routes: router.routes,
       development: utilities.development,
       session: config.session,
-      myProfile: false
+      myProfile: router.routes.user.active && router.routeArguments().id === config.session.userId
     },
 
     init: function() {
-      if (router.routes.user.active && router.routeArguments().id === config.session.userId) {
-        this.set('myProfile', true);
-      }
-
       var searchBox = new SearchBox({ el: this.nodes['search-box'] });
 
       this.on('teardown', function() {
         searchBox.teardown();
       });
-    }
+    },
 
     // Components remove info about el which breaks topOffset
-    // components: {
-    //   'search-box': SearchBox
-    // }
+    components: {
+      'profile-menu': ProfileMenu
+    }
   });
 });
