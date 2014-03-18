@@ -13,11 +13,15 @@ define([], function() {
       'jquery.easing': '/bower_components/jquery-easing/jquery.easing.min',
       'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap.min',
       'prettify': 'bower_components/google-code-prettify/src/prettify',
+      'vkbeautify': 'bower_components/vkBeautify/vkbeautify',
       'Ractive-transitions-slide': '/bower_components/ractive-transitions-slide/Ractive-transitions-slide.min'
     },
     shim: {
       'bootstrap': {
         deps: ['jquery']
+      },
+      'vkbeautify': {
+        exports: 'vkbeautify'
       }
     }
   });

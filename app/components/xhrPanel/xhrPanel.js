@@ -7,6 +7,7 @@ define(function(require) {
       utilities = require('components/util/utilities'),
       prettify = require('prettify'),
       URI = require('bower_components/URIjs/src/URI'),
+      vkbeautify = require('vkbeautify'),
       $ = require('jquery');
   require('Ractive-transitions-slide');
 
@@ -164,7 +165,7 @@ define(function(require) {
           }
           else if (typeof(jqXHR.responseXML) !== 'undefined') {
             // XML
-            this.set('responseBody', utilities.escape(new XMLSerializer().serializeToString(jqXHR.responseXML)));
+            this.set('responseBody', utilities.escape(vkbeautify.xml(new XMLSerializer().serializeToString(jqXHR.responseXML), 2)));
           }
           else {
             var contentType = jqXHR.getResponseHeader('content-type');
