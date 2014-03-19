@@ -374,6 +374,7 @@ pre {
   line-height: .9em;
   margin: 3px;
   cursor: pointer;
+  text-decoration:none;
 }
 .xhr-panel .tags-area .tag:hover {
   background-color: #f0f0f0;

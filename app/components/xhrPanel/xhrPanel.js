@@ -306,10 +306,6 @@ define(function(require) {
 
         deleteTag: function(event, tag) {
           this.get('tags').splice(this.get('tags').indexOf(tag), 1);
-        },
-
-        searchTag: function(event, tag) {
-          window.location.hash = '/search?tags=' + tag;
         }
       });
 
