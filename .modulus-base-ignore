@@ -1,0 +1,14 @@
+.git/
+.modulus-base-ignore
+.modulusignore
+modulus-auto-zip-*
+__MACOSX/
+.DS_Store
+node_modules
+newrelic_agent.log
+elasticsearch/data
+elasticsearch/logs
+elasticsearch/logs/elasticsearch.log
+.env
+config.json
+Thumbs.db
