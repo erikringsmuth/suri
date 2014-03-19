@@ -306,6 +306,7 @@ define(function(require) {
 
         deleteTag: function(event, tag) {
           this.get('tags').splice(this.get('tags').indexOf(tag), 1);
+          event.original.preventDefault();
         }
       });
 
