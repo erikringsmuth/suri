@@ -185,6 +185,13 @@ module.exports.search = function(req, res) {
       }
     };
   }
+  else if (req.query.tags) {
+    search.query.filtered.query = {
+      terms: {
+        tags: req.query.tags.split(',')
+      }
+    };
+  }
 
   client.search({
     index: index,

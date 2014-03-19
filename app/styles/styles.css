@@ -373,6 +373,10 @@ pre {
   padding: 3px;
   line-height: .9em;
   margin: 3px;
+  cursor: pointer;
+}
+.xhr-panel .tags-area .tag:hover {
+  background-color: #f0f0f0;
 }
 .xhr-panel .tags-area .delete-tag {
   border: none;

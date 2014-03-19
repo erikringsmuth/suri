@@ -15,7 +15,11 @@ define(function(require) {
       routes: router.routes,
       development: utilities.development,
       session: config.session,
-      myProfile: router.routes.user.active && router.routeArguments().id === config.session.userId
+      myProfile: false
+    },
+
+    init: function() {
+      this.set('myProfile', router.routes.user.active && router.routeArguments().id === config.session.userId);
     },
 
     components: {

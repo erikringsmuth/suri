@@ -47,7 +47,7 @@
       <h4>tags</h4>
       <div class="tags-area">
         {{#tags}}
-        <span class="tag">{{.}} {{#isOwner}}<button type="button" class="delete-tag" on-click="deleteTag:{{.}}" aria-hidden="true"><i class="fa fa-times"></i></button>{{/isOwner}}</span>
+        <span class="tag" on-click="searchTag:{{.}}">{{.}} {{#isOwner}}<button type="button" class="delete-tag" on-click="deleteTag:{{.}}" aria-hidden="true"><i class="fa fa-times"></i></button>{{/isOwner}}</span>
         {{/tags}}
       </div>
       {{#isOwner}}<input type="text" class="tags-input" placeholder="Add tag" on-keydown="addTagOnEnter"/>{{/isOwner}}
