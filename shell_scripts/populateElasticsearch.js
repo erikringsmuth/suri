@@ -93,23 +93,23 @@ client.indices.delete({
             info: { type: 'string', index: 'not_analyzed' },
             callCount: { type: 'integer', null_value: 0 },
             headers: { type: 'string', index: 'not_analyzed' },
-            headerOptions: { // Array
-              properties: {
-                header: { type: 'string' },
-                values: { type: 'string' }, // Array
-                default: { type: 'string' },
-                required: { type: 'boolean', null_value: false }
-              },
+            headerOptions: {
+              type: 'object',
               index: 'not_analyzed'
+              // properties: {
+              //   options: { type: 'string' }, // Array
+              //   default: { type: 'string' },
+              //   required: { type: 'boolean', null_value: false }
+              // }
             },
-            queryParameters: { // Array
-              properties: {
-                parameter: { type: 'string' },
-                values: { type: 'string' }, // Array
-                default: { type: 'string' },
-                required: { type: 'boolean', null_value: false }
-              },
+            queryParameterOptions: {
+              type: 'object',
               index: 'not_analyzed'
+              // properties: {
+              //   options: { type: 'string' }, // Array
+              //   default: { type: 'string' },
+              //   required: { type: 'boolean', null_value: false }
+              // }
             },
             body: { type: 'string', index: 'not_analyzed' },
             corsEnabled: { type: 'boolean', null_value: false, index: 'not_analyzed' },

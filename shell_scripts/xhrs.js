@@ -21,40 +21,36 @@ var xhrs = [
     name: 'Google Search',
     method: 'GET',
     url: 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}',
-    queryParameterOptions: [
-      {
-        parameter: 'v',
-        values: ['1.0'],
+    queryParameterOptions: {
+      v: {
+        options: ['1.0'],
         default: '1.0',
         required: true
       },
-      {
-        parameter: 'q',
-        values: [],
+      q: {
+        options: [],
         default: '{{searchTerm}}',
         required: true
       }
-    ],
+    },
     tags: ['search', 'google']
   }),
   new Xhr({
     name: 'Google Typeahead',
     method: 'GET',
     url: 'http://suggestqueries.google.com/complete/search?client=firefox&q={{searchTerm}}',
-    queryParameterOptions: [
-      {
-        parameter: 'client',
-        values: ['firefox'],
+    queryParameterOptions: {
+      client: {
+        options: ['firefox'],
         default: 'firefox',
         required: true
       },
-      {
-        parameter: 'q',
-        values: [],
+      q: {
+        options: [],
         default: '{{searchTerm}}',
         required: true
       }
-    ],
+    },
     tags: ['search', 'typeahead', 'google']
   }),
   new Xhr({
@@ -69,26 +65,23 @@ var xhrs = [
     name: 'Google Maps GeoCode',
     method: 'GET',
     url: 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=false',
-    queryParameterOptions: [
-      {
-        parameter: 'address',
-        values: [],
+    queryParameterOptions: {
+      address: {
+        options: [],
         default: '1600+Amphitheatre+Parkway,+Mountain+View,+CA',
         required: true
       },
-      {
-        parameter: 'sensor',
-        values: ['true', 'false'],
+      sensor: {
+        options: ['true', 'false'],
         default: 'false',
         required: true
       },
-      {
-        parameter: 'key',
-        values: [],
+      key: {
+        options: [],
         default: 'API_KEY',
         required: false
       }
-    ],
+    },
     tags: ['maps', 'location', 'geolocation']
   }),
   new Xhr({
@@ -102,34 +95,31 @@ var xhrs = [
     name: 'Weather Forecast',
     method: 'GET',
     url: 'http://api.openweathermap.org/data/2.5/weather?q=Minneapolis,MN',
-    queryParameterOptions: [
-      {
-        parameter: 'q',
-        values: [],
+    queryParameterOptions: {
+      q: {
+        options: [],
         default: 'Minneapolis,MN',
         required: true
       }
-    ],
+    },
     tags: ['weather', 'forecast', 'temperature']
   }),
   new Xhr({
     name: 'Google RSS Feed Loader',
     method: 'GET',
     url: 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.digg.com/rss/index.xml',
-    queryParameterOptions: [
-      {
-        parameter: 'v',
-        values: ['1.0'],
+    queryParameterOptions: {
+      v: {
+        options: ['1.0'],
         default: '1.0',
         required: true
       },
-      {
-        parameter: 'q',
-        values: [],
+      q: {
+        options: [],
         default: 'http://www.digg.com/rss/index.xml',
         required: true
       }
-    ],
+    },
     tags: ['rss', 'atom', 'feed', 'reader']
   }),
   new Xhr({
@@ -137,20 +127,18 @@ var xhrs = [
     method: 'GET',
     url: 'https://api.github.com/user',
     headers: 'Authorization: token ',
-    headerOptions: [
-      {
-        parameter: 'Content-Type',
-        values: ['application/json'],
+    headerOptions: {
+      'Content-Type': {
+        options: ['application/json'],
         default: 'application/json',
         required: false
       },
-      {
-        parameter: 'Authorization',
-        values: ['token '],
+      Authorization: {
+        options: ['token '],
         default: 'token ',
         required: true
       }
-    ],
+    },
     tags: ['github', 'user', 'authentication']
   }),
   new Xhr({
@@ -158,14 +146,13 @@ var xhrs = [
     method: 'GET',
     url: 'http://www.meethue.com/api/nupnp',
     headers: 'Content-Type: application/json',
-    headerOptions: [
-      {
-        parameter: 'Content-Type',
-        values: ['application/json'],
+    headerOptions: {
+      'Content-Type': {
+        options: ['application/json'],
         default: 'application/json',
         required: false
       }
-    ]
+    }
   }),
   new Xhr({
     name: 'Engadget RSS',

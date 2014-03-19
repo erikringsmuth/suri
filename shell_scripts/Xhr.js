@@ -8,26 +8,24 @@ module.exports = function Xhr(xhr) {
   this.info = xhr.info || null;
   this.callCount = xhr.callCount || 0;
 
-  // headerOptions: [
-  //   {
-  //     header: 'Content-Type',
-  //     values: ['application/json', 'application/xml'],
+  // headerOptions: {
+  //   'Content-Type': {
+  //     options: ['application/json', 'application/xml'],
   //     default: 'application/json',
   //     required: false
   //   }
-  // ],
-  this.headerOptions = xhr.headerOptions || [];
+  // },
+  this.headerOptions = xhr.headerOptions || {};
   this.headers = xhr.headers || '';
 
-  // queryParameterOptions: [
-  //   {
-  //     parameter: 'key',
-  //     values: [],
+  // queryParameterOptions: {
+  //   queryParam: {
+  //     options: [],
   //     default: 'API_KEY',
   //     required: false
   //   }
-  // ]
-  this.queryParameterOptions = xhr.queryParameterOptions || [];
+  // }
+  this.queryParameterOptions = xhr.queryParameterOptions || {};
   this.body = xhr.body || '';
   this.corsEnabled = xhr.corsEnabled || false;
   this.depricated = xhr.depricated || false;
