@@ -384,6 +384,21 @@ pre {
   background: none;
   padding: 0px;
 }
+.xhr-panel .header-line {
+  display: inline-block;
+  height: 0px;
+  width: 95%;
+}
+.xhr-panel .header-line .header-key {
+  width: 20%;
+}
+.xhr-panel .header-line .header-value {
+  width: 47%;
+}
+.xhr-panel .request-headers button {
+  background: none;
+  border: none;
+}
 .xhr-panel #showMoreButton {
   width: 100%;
 }

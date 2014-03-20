@@ -8,24 +8,23 @@ module.exports = function Xhr(xhr) {
   this.info = xhr.info || null;
   this.callCount = xhr.callCount || 0;
 
-  // headerOptions: {
+  // headers: {
   //   'Content-Type': {
   //     options: ['application/json', 'application/xml'],
-  //     default: 'application/json',
+  //     selected: 'application/json',
   //     required: false
   //   }
   // },
-  this.headerOptions = xhr.headerOptions || {};
-  this.headers = xhr.headers || '';
+  this.headers = xhr.headers || {};
 
-  // queryParameterOptions: {
+  // queryParameters: {
   //   queryParam: {
   //     options: [],
-  //     default: 'API_KEY',
+  //     selected: 'API_KEY',
   //     required: false
   //   }
   // }
-  this.queryParameterOptions = xhr.queryParameterOptions || {};
+  this.queryParameters = xhr.queryParameters || {};
   this.body = xhr.body || '';
   this.corsEnabled = xhr.corsEnabled || false;
   this.depricated = xhr.depricated || false;

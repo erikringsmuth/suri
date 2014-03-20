@@ -21,15 +21,22 @@ var xhrs = [
     name: 'Google Search',
     method: 'GET',
     url: 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}',
-    queryParameterOptions: {
+    headers: {
+      'Content-Type': {
+        options: ['application/json', 'application/xml'],
+        selected: 'application/json',
+        required: false
+      }
+    },
+    queryParameters: {
       v: {
         options: ['1.0'],
-        default: '1.0',
+        selected: '1.0',
         required: true
       },
       q: {
         options: [],
-        default: '{{searchTerm}}',
+        selected: '{{searchTerm}}',
         required: true
       }
     },
@@ -39,15 +46,22 @@ var xhrs = [
     name: 'Google Typeahead',
     method: 'GET',
     url: 'http://suggestqueries.google.com/complete/search?client=firefox&q={{searchTerm}}',
-    queryParameterOptions: {
+    headers: {
+      'Content-Type': {
+        options: ['application/json', 'application/xml'],
+        selected: 'application/json',
+        required: false
+      }
+    },
+    queryParameters: {
       client: {
         options: ['firefox'],
-        default: 'firefox',
+        selected: 'firefox',
         required: true
       },
       q: {
         options: [],
-        default: '{{searchTerm}}',
+        selected: '{{searchTerm}}',
         required: true
       }
     },
@@ -65,20 +79,20 @@ var xhrs = [
     name: 'Google Maps GeoCode',
     method: 'GET',
     url: 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=false',
-    queryParameterOptions: {
+    queryParameters: {
       address: {
         options: [],
-        default: '1600+Amphitheatre+Parkway,+Mountain+View,+CA',
+        selected: '1600+Amphitheatre+Parkway,+Mountain+View,+CA',
         required: true
       },
       sensor: {
         options: ['true', 'false'],
-        default: 'false',
+        selected: 'false',
         required: true
       },
       key: {
         options: [],
-        default: 'API_KEY',
+        selected: 'API_KEY',
         required: false
       }
     },
@@ -95,11 +109,18 @@ var xhrs = [
     name: 'Weather Forecast',
     method: 'GET',
     url: 'http://api.openweathermap.org/data/2.5/weather?q=Minneapolis,MN',
-    queryParameterOptions: {
+    queryParameters: {
       q: {
         options: [],
-        default: 'Minneapolis,MN',
+        selected: 'Minneapolis,MN',
         required: true
+      }
+    },
+    headers: {
+      'Content-Type': {
+        options: ['application/json'],
+        selected: 'application/json',
+        required: false
       }
     },
     tags: ['weather', 'forecast', 'temperature']
@@ -108,15 +129,15 @@ var xhrs = [
     name: 'Google RSS Feed Loader',
     method: 'GET',
     url: 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.digg.com/rss/index.xml',
-    queryParameterOptions: {
+    queryParameters: {
       v: {
         options: ['1.0'],
-        default: '1.0',
+        selected: '1.0',
         required: true
       },
       q: {
         options: [],
-        default: 'http://www.digg.com/rss/index.xml',
+        selected: 'http://www.digg.com/rss/index.xml',
         required: true
       }
     },
@@ -126,16 +147,15 @@ var xhrs = [
     name: 'GitHub User',
     method: 'GET',
     url: 'https://api.github.com/user',
-    headers: 'Authorization: token ',
-    headerOptions: {
+    headers: {
       'Content-Type': {
         options: ['application/json'],
-        default: 'application/json',
+        selected: 'application/json',
         required: false
       },
       Authorization: {
         options: ['token '],
-        default: 'token ',
+        selected: 'token ',
         required: true
       }
     },
@@ -145,11 +165,10 @@ var xhrs = [
     name: 'Hue Lights Discover',
     method: 'GET',
     url: 'http://www.meethue.com/api/nupnp',
-    headers: 'Content-Type: application/json',
-    headerOptions: {
+    headers: {
       'Content-Type': {
         options: ['application/json'],
-        default: 'application/json',
+        selected: 'application/json',
         required: false
       }
     }

@@ -92,8 +92,7 @@ client.indices.delete({
             url: { type: 'string', index: 'not_analyzed' },
             info: { type: 'string', index: 'not_analyzed' },
             callCount: { type: 'integer', null_value: 0 },
-            headers: { type: 'string', index: 'not_analyzed' },
-            headerOptions: {
+            headers: {
               type: 'object',
               index: 'not_analyzed'
               // properties: {
@@ -102,7 +101,7 @@ client.indices.delete({
               //   required: { type: 'boolean', null_value: false }
               // }
             },
-            queryParameterOptions: {
+            queryParameters: {
               type: 'object',
               index: 'not_analyzed'
               // properties: {

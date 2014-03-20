@@ -23,7 +23,6 @@ define(function(require) {
     data: {
       id: null,
       isPublic: true,
-      headers: '',
       body: '',
       corsEnabled: false,
       depricated: false,
@@ -55,8 +54,8 @@ define(function(require) {
       if (typeof(this.get('name')) === 'undefined') this.set('name', 'XHR');
       if (typeof(this.get('method')) === 'undefined') this.set('method', 'GET');
       if (typeof(this.get('url')) === 'undefined') this.set('url', 'http://www.suri.io/');
-      if (typeof(this.get('headerOptions')) === 'undefined') this.set('headerOptions', {});
-      if (typeof(this.get('queryParameterOptions')) === 'undefined') this.set('queryParameterOptions', {});
+      if (typeof(this.get('headers')) === 'undefined') this.set('headers', {});
+      if (typeof(this.get('queryParameters')) === 'undefined') this.set('queryParameters', {});
       if (typeof(this.get('tags')) === 'undefined') this.set('tags', []);
       if (typeof(this.get('stars')) === 'undefined') this.set('stars', []);
       if (typeof(this.get('forks')) === 'undefined') this.set('forks', []);
@@ -93,14 +92,14 @@ define(function(require) {
           }, 200, 'easeOutQuint');
         },
 
+        toggleFullscreen: function() {
+          this.set('fullScreen', !this.get('fullScreen'));
+        },
+
         sendOnEnter: function sendOnEnter(event) {
           if (event.original.keyCode === 13) {
             this.fire('send');
           }
-        },
-
-        toggleFullscreen: function() {
-          this.set('fullScreen', !this.get('fullScreen'));
         },
 
         send: function send() {
@@ -108,23 +107,17 @@ define(function(require) {
           this.set('sendButtonClass', 'default');
           this.set('sendButtonDisabled', true);
 
-          // Parse the raw header text
-          var headerLines = this.get('headers').split('\n');
-          if (headerLines.length === 1 && headerLines[0].trim() === '') {
-            headerLines = []; // because callling split on an empty string returns ['']
-          }
-          var headers = {};
-          for (var i = 0; i < headerLines.length; i++) {
-            var headerParts = headerLines[i].split(':');
-            var header = headerParts[0].trim();
-            if (header) {
-              headers[header] = headerParts.splice(1).join(':').trim();
-            }
-          }
-
           // Increment the call count locally, this gets set server-side by the api-id header
           this.set('callCount', this.get('callCount') + 1);
-          headers['api-id'] = this.get('id');
+
+          // Get the selected headers
+          var headers = this.get('headers');
+          var requestHeaders = {};
+          for (var header in headers) {
+            if (headers.hasOwnProperty(header) && headers[header].selected) {
+              requestHeaders[header] = headers[header].selected;
+            }
+          }
 
           // Make sure URL the protocol is included otherwise default to HTTP
           var url = this.get('url');
@@ -135,7 +128,8 @@ define(function(require) {
           var suriHost = new URI(window.location.href).host();
           if (!this.get('corsEnabled') && apiUri.host() !== suriHost) {
             // Proxy through the suri.io server
-            headers['api-host'] = apiUri.protocol() + '://' + apiUri.authority();
+            requestHeaders['api-host'] = apiUri.protocol() + '://' + apiUri.authority();
+            requestHeaders['api-id'] = this.get('id');
             apiUri.authority(suriHost);
             apiUri.protocol(window.location.protocol); // Suri doesn't support HTTPS yet
           }
@@ -144,7 +138,7 @@ define(function(require) {
           $.ajax({
             type: this.get('method'),
             url: apiUri,
-            headers: headers,
+            headers: requestHeaders,
             data: this.get('body')
           })
           .done(function(data, textStatus, jqXHR) {
@@ -307,6 +301,50 @@ define(function(require) {
         deleteTag: function(event, tag) {
           this.get('tags').splice(this.get('tags').indexOf(tag), 1);
           event.original.preventDefault();
+        },
+
+        addBlankHeader: function() {
+          var headers = this.get('headers');
+          headers[''] = {
+            options: [],
+            selected: '',
+            required: false
+          };
+          this.set('headers', headers);
+        },
+
+        removeHeader: function(event, key) {
+          var headers = this.get('headers');
+          var updatedHeaders = {};
+          for (var header in headers) {
+            if (headers.hasOwnProperty(header) && header !== key) {
+              updatedHeaders[header] = headers[header];
+            }
+          }
+          this.set('headers', updatedHeaders);
+        },
+
+        updateHeader: function(event, key) {
+          this.set('headers.' + key + '.selected', event.node.value);
+        },
+
+        updateHeaderKey: function(event, oldKey, headerOptions) {
+          var newKey = event.node.value;
+          var headers = this.get('headers');
+          var updatedHeaders = {};
+
+          // populate the updated headers with everything but the old key
+          for (var header in headers) {
+            if (headers.hasOwnProperty(header) && header !== oldKey) {
+              updatedHeaders[header] = headers[header];
+            }
+          }
+
+          // now set the new key to the value of the old key
+          updatedHeaders[newKey] = headerOptions;
+
+          // then updated the headers object
+          this.set('headers', updatedHeaders);
         }
       });
 
