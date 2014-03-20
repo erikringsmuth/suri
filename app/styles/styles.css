@@ -386,7 +386,6 @@ pre {
 }
 .xhr-panel .header-line {
   display: inline-block;
-  height: 0px;
   width: 95%;
 }
 .xhr-panel .header-line .header-key {
