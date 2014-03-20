@@ -49,7 +49,7 @@ define(function(require) {
     },
 
     init: function() {
-      // non-prototype defaults
+      // set non-prototype defaults
       this.set('panelId', utilities.guid());
       if (typeof(this.get('name')) === 'undefined') this.set('name', 'XHR');
       if (typeof(this.get('method')) === 'undefined') this.set('method', 'GET');
@@ -65,10 +65,10 @@ define(function(require) {
         this.set('starred', true);
       }
 
+      // add this XHR to the api sequence
       sequence.add(this);
 
       this.on({
-        // All panels
         teardown: function teardown(event) {
           this.detach();
           sequence.remove(this);
@@ -77,23 +77,136 @@ define(function(require) {
           }
         },
 
-        toggleOptions: function() {
-          this.set('showOptions', !this.get('showOptions'));
-          this.fire('setupTooltips');
-        },
-
-        setupTooltips: function() {
-          $('.bs-tooltip').tooltip();
-        },
-
         scrollToPanel: function scrollToPanel() {
           $('html,body').animate({
             scrollTop: document.getElementById(this.get('panelId')).offsetTop + $('#api-sequence').offset().top - 15
           }, 200, 'easeOutQuint');
         },
 
+        setupTooltips: function() {
+          $('.bs-tooltip').tooltip();
+        },
+
+        toggleOptions: function() {
+          this.set('showOptions', !this.get('showOptions'));
+          this.fire('setupTooltips');
+        },
+
         toggleFullscreen: function() {
           this.set('fullScreen', !this.get('fullScreen'));
+        },
+
+        star: function() {
+          if (this.get('starred')) {
+            // Unstar
+            $.ajax('/xhr/' + this.get('id') + '/stars/' + config.session.userId, {
+              method: 'DELETE'
+            })
+              .done(function() {
+                this.data.stars.splice(sequence.indexOf(config.session.userId), 1);
+                this.set('starred', false);
+              }.bind(this));
+          } else {
+            // Star
+            $.ajax('/xhr/' + this.get('id') + '/stars', {
+              method: 'POST',
+              data: config.session.userId
+            })
+              .done(function() {
+                this.data.stars.push(config.session.userId);
+                this.set('starred', true);
+              }.bind(this));
+          }
+        },
+
+        save: function() {
+          this.set('saveButtonClass', 'default');
+
+          if (!this.get('signedIn')) return;
+
+          if (this.get('id')) {
+            // update
+            $.ajax('/xhr/' + this.get('id'), {
+              type: 'PUT',
+              contentType: 'application/json',
+              data: JSON.stringify(this.data)
+            })
+              .done(function() {
+                this.set('saveButtonClass', 'success');
+              }.bind(this))
+              .fail(function() {
+                this.set('saveButtonClass', 'danger');
+              }.bind(this));
+          }
+          else {
+            // save
+            $.ajax('/xhr', {
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify(this.data)
+            })
+              .done(function(data) {
+                this.set('saveButtonClass', 'success');
+                this.set('id', data._id);
+              }.bind(this))
+              .fail(function() {
+                this.set('saveButtonClass', 'danger');
+              }.bind(this));
+          }
+        },
+
+        delete: function() {
+          if (!this.get('id')) {
+            // This was never saved, remove the panel
+            this.teardown();
+          } else {
+            $.ajax('/xhr/' + this.get('id'), {
+              type: 'DELETE'
+            })
+              .done(function() {
+                this.teardown();
+              }.bind(this));
+          }
+        },
+
+        fork: function() {
+          var fork = new XhrPanel({data: this.data});
+          fork.set('id', null);
+          fork.set('isOwner', true);
+          fork.set('owner', config.session.userId);
+          fork.set('callCount', 0);
+          fork.set('forks', []);
+          fork.set('forkedFrom', this.get('id'));
+          fork.fire('save');
+          this.data.forks.push(''); // increment the forks count, this is faking out what's happening server side
+        },
+
+        addTagOnEnter: function(event) {
+          if (event.original.keyCode === 13) {
+            var tag = event.node.value.replace(/\s/g, '').toLowerCase();
+            if (this.get('tags').indexOf(tag) === -1) {
+              this.get('tags').push(tag);
+              event.node.value = '';
+            }
+          }
+        },
+
+        deleteTag: function(event, tag) {
+          this.get('tags').splice(this.get('tags').indexOf(tag), 1);
+          event.original.preventDefault();
+        },
+
+        addBlankHeader: function() {
+          this.get('headers').push({
+            header: '',
+            options: [],
+            selected: '',
+            required: false
+          });
+        },
+
+        removeHeader: function(event, header) {
+          this.get('headers').splice(this.get('headers').indexOf(header), 1);
         },
 
         sendOnEnter: function sendOnEnter(event) {
@@ -199,119 +312,6 @@ define(function(require) {
         displayEntireResponse: function displayEntireResponse() {
           this.nodes.responseBody.innerHTML = prettify.prettyPrintOne(this.get('responseBody'));
           this.set('showMoreButton', false);
-        },
-
-        fork: function() {
-          var fork = new XhrPanel({data: this.data});
-          fork.set('id', null);
-          fork.set('isOwner', true);
-          fork.set('owner', config.session.userId);
-          fork.set('callCount', 0);
-          fork.set('forks', []);
-          fork.set('forkedFrom', this.get('id'));
-          fork.fire('save');
-          this.data.forks.push(''); // increment the forks count, this is faking out what's happening server side
-        },
-
-        save: function() {
-          this.set('saveButtonClass', 'default');
-
-          if (!this.get('signedIn')) return;
-
-          if (this.get('id')) {
-            // update
-            $.ajax('/xhr/' + this.get('id'), {
-              type: 'PUT',
-              contentType: 'application/json',
-              data: JSON.stringify(this.data)
-            })
-              .done(function() {
-                this.set('saveButtonClass', 'success');
-              }.bind(this))
-              .fail(function() {
-                this.set('saveButtonClass', 'danger');
-              }.bind(this));
-          }
-          else {
-            // save
-            $.ajax('/xhr', {
-              type: 'POST',
-              contentType: 'application/json',
-              data: JSON.stringify(this.data)
-            })
-              .done(function(data) {
-                this.set('saveButtonClass', 'success');
-                this.set('id', data._id);
-              }.bind(this))
-              .fail(function() {
-                this.set('saveButtonClass', 'danger');
-              }.bind(this));
-          }
-        },
-
-        delete: function() {
-          if (!this.get('id')) {
-            // This was never saved, remove the panel
-            this.teardown();
-          } else {
-            $.ajax('/xhr/' + this.get('id'), {
-              type: 'DELETE'
-            })
-              .done(function() {
-                this.teardown();
-              }.bind(this));
-          }
-        },
-
-        star: function() {
-          if (this.get('starred')) {
-            // Unstar
-            $.ajax('/xhr/' + this.get('id') + '/stars/' + config.session.userId, {
-              method: 'DELETE'
-            })
-              .done(function() {
-                this.data.stars.splice(sequence.indexOf(config.session.userId), 1);
-                this.set('starred', false);
-              }.bind(this));
-          } else {
-            // Star
-            $.ajax('/xhr/' + this.get('id') + '/stars', {
-              method: 'POST',
-              data: config.session.userId
-            })
-              .done(function() {
-                this.data.stars.push(config.session.userId);
-                this.set('starred', true);
-              }.bind(this));
-          }
-        },
-
-        addTagOnEnter: function(event) {
-          if (event.original.keyCode === 13) {
-            var tag = event.node.value.replace(/\s/g, '').toLowerCase();
-            if (this.get('tags').indexOf(tag) === -1) {
-              this.get('tags').push(tag);
-              event.node.value = '';
-            }
-          }
-        },
-
-        deleteTag: function(event, tag) {
-          this.get('tags').splice(this.get('tags').indexOf(tag), 1);
-          event.original.preventDefault();
-        },
-
-        addBlankHeader: function() {
-          this.get('headers').push({
-            header: '',
-            options: [],
-            selected: '',
-            required: false
-          });
-        },
-
-        removeHeader: function(event, header) {
-          this.get('headers').splice(this.get('headers').indexOf(header), 1);
         }
       });
 
