@@ -394,6 +394,14 @@ pre {
 .xhr-panel .header-line .header-value {
   width: 47%;
 }
+@media(max-width:991px) {
+  .xhr-panel .header-line .header-key {
+    width: 30%;
+  }
+  .xhr-panel .header-line .header-value {
+    width: 60%;
+  }
+}
 .xhr-panel .request-headers button {
   background: none;
   border: none;
