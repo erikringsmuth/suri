@@ -21,50 +21,56 @@ var xhrs = [
     name: 'Google Search',
     method: 'GET',
     url: 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}',
-    headers: {
-      'Content-Type': {
+    headers: [
+      {
+        header: 'Content-Type',
         options: ['application/json', 'application/xml'],
         selected: 'application/json',
         required: false
       }
-    },
-    queryParameters: {
-      v: {
+    ],
+    queryParameters: [
+      {
+        header: 'v',
         options: ['1.0'],
         selected: '1.0',
         required: true
       },
-      q: {
+      {
+        header: 'q',
         options: [],
         selected: '{{searchTerm}}',
         required: true
       }
-    },
+    ],
     tags: ['search', 'google']
   }),
   new Xhr({
     name: 'Google Typeahead',
     method: 'GET',
     url: 'http://suggestqueries.google.com/complete/search?client=firefox&q={{searchTerm}}',
-    headers: {
-      'Content-Type': {
+    headers: [
+      {
+        header: 'Content-Type',
         options: ['application/json', 'application/xml'],
         selected: 'application/json',
         required: false
       }
-    },
-    queryParameters: {
-      client: {
+    ],
+    queryParameters: [
+      {
+        queryParameter: 'client',
         options: ['firefox'],
         selected: 'firefox',
         required: true
       },
-      q: {
+      {
+        queryParameter: 'q',
         options: [],
         selected: '{{searchTerm}}',
         required: true
       }
-    },
+    ],
     tags: ['search', 'typeahead', 'google']
   }),
   new Xhr({
@@ -79,23 +85,26 @@ var xhrs = [
     name: 'Google Maps GeoCode',
     method: 'GET',
     url: 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=false',
-    queryParameters: {
-      address: {
+    queryParameters: [
+      {
+        queryParameter: 'address',
         options: [],
         selected: '1600+Amphitheatre+Parkway,+Mountain+View,+CA',
         required: true
       },
-      sensor: {
+      {
+        queryParameter: 'sensor',
         options: ['true', 'false'],
         selected: 'false',
         required: true
       },
-      key: {
+      {
+        queryParameter: 'key',
         options: [],
         selected: 'API_KEY',
         required: false
       }
-    },
+    ],
     tags: ['maps', 'location', 'geolocation']
   }),
   new Xhr({
@@ -109,69 +118,76 @@ var xhrs = [
     name: 'Weather Forecast',
     method: 'GET',
     url: 'http://api.openweathermap.org/data/2.5/weather?q=Minneapolis,MN',
-    queryParameters: {
-      q: {
+    queryParameters: [
+      {
+        queryParameter: 'q',
         options: [],
         selected: 'Minneapolis,MN',
         required: true
       }
-    },
-    headers: {
-      'Content-Type': {
+    ],
+    headers: [
+      {
+        header: 'Content-Type',
         options: ['application/json'],
         selected: 'application/json',
         required: false
       }
-    },
+    ],
     tags: ['weather', 'forecast', 'temperature']
   }),
   new Xhr({
     name: 'Google RSS Feed Loader',
     method: 'GET',
     url: 'https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&q=http://www.digg.com/rss/index.xml',
-    queryParameters: {
-      v: {
+    queryParameters: [
+      {
+        queryParameter: 'v',
         options: ['1.0'],
         selected: '1.0',
         required: true
       },
-      q: {
+      {
+        queryParameter: 'q',
         options: [],
         selected: 'http://www.digg.com/rss/index.xml',
         required: true
       }
-    },
+    ],
     tags: ['rss', 'atom', 'feed', 'reader']
   }),
   new Xhr({
     name: 'GitHub User',
     method: 'GET',
     url: 'https://api.github.com/user',
-    headers: {
-      'Content-Type': {
+    headers: [
+      {
+        header: 'Content-Type',
         options: ['application/json'],
         selected: 'application/json',
         required: false
       },
-      Authorization: {
+      {
+        header: 'Authorization',
         options: ['token '],
         selected: 'token ',
         required: true
       }
-    },
+    ],
     tags: ['github', 'user', 'authentication']
   }),
   new Xhr({
     name: 'Hue Lights Discover',
     method: 'GET',
     url: 'http://www.meethue.com/api/nupnp',
-    headers: {
-      'Content-Type': {
+    headers: [
+      {
+        header: 'Content-Type',
         options: ['application/json'],
         selected: 'application/json',
         required: false
       }
-    }
+    ]
   }),
   new Xhr({
     name: 'Engadget RSS',

@@ -71,7 +71,7 @@
       <span class="text-muted pull-right">HTTP/1.1</span>
     </div>
     <h4>request headers</h4>
-    <pre class="request-headers">{{#headers:key}}<span class="header-line"><input type="text" class="header-key" value="{{key}}" on-change="updateHeaderKey:{{key}},{{.}}">: <input type="text" class="header-value" value="{{selected}}" on-keypress="updateHeader:{{key}}"><button type="button" on-click="removeHeader:{{key}}" aria-hidden="true"><i class="fa fa-minus"></i></button></span>
+    <pre class="request-headers">{{#headers:index}}<span class="header-line"><input type="text" class="header-key" value="{{header}}">: <input type="text" class="header-value" value="{{selected}}"><button type="button" on-click="removeHeader:{{.}}" aria-hidden="true"><i class="fa fa-minus"></i></button></span>
 {{/headers}}<button type="button" on-click="addBlankHeader" aria-hidden="true"><i class="fa fa-plus"></i></button></pre>
     <h4>request body</h4>
     <textarea value="{{body}}"></textarea>

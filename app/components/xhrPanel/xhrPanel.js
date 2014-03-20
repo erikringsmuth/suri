@@ -113,11 +113,9 @@ define(function(require) {
           // Get the selected headers
           var headers = this.get('headers');
           var requestHeaders = {};
-          for (var header in headers) {
-            if (headers.hasOwnProperty(header) && headers[header].selected) {
-              requestHeaders[header] = headers[header].selected;
-            }
-          }
+          headers.forEach(function(header) {
+            requestHeaders[header.header] = header.selected;
+          });
 
           // Make sure URL the protocol is included otherwise default to HTTP
           var url = this.get('url');
@@ -304,47 +302,16 @@ define(function(require) {
         },
 
         addBlankHeader: function() {
-          var headers = this.get('headers');
-          headers[''] = {
+          this.get('headers').push({
+            header: '',
             options: [],
             selected: '',
             required: false
-          };
-          this.set('headers', headers);
+          });
         },
 
-        removeHeader: function(event, key) {
-          var headers = this.get('headers');
-          var updatedHeaders = {};
-          for (var header in headers) {
-            if (headers.hasOwnProperty(header) && header !== key) {
-              updatedHeaders[header] = headers[header];
-            }
-          }
-          this.set('headers', updatedHeaders);
-        },
-
-        updateHeader: function(event, key) {
-          this.set('headers.' + key + '.selected', event.node.value);
-        },
-
-        updateHeaderKey: function(event, oldKey, headerOptions) {
-          var newKey = event.node.value;
-          var headers = this.get('headers');
-          var updatedHeaders = {};
-
-          // populate the updated headers with everything but the old key
-          for (var header in headers) {
-            if (headers.hasOwnProperty(header) && header !== oldKey) {
-              updatedHeaders[header] = headers[header];
-            }
-          }
-
-          // now set the new key to the value of the old key
-          updatedHeaders[newKey] = headerOptions;
-
-          // then updated the headers object
-          this.set('headers', updatedHeaders);
+        removeHeader: function(event, header) {
+          this.get('headers').splice(this.get('headers').indexOf(header), 1);
         }
       });
 

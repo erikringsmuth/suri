@@ -8,35 +8,32 @@ module.exports = function Xhr(xhr) {
   this.info = xhr.info || null;
   this.callCount = xhr.callCount || 0;
 
-  // headers: {
-  //   'Content-Type': {
+  // headers: [
+  //   {
+  //     header: 'Content-Type',
   //     options: ['application/json', 'application/xml'],
   //     selected: 'application/json',
   //     required: false
   //   }
-  // },
-  this.headers = xhr.headers || {};
+  // ],
+  this.headers = xhr.headers || [];
 
-  // queryParameters: {
-  //   queryParam: {
+  // queryParameters: [
+  //   {
+  //     queryParameter: 'Authorization',
   //     options: [],
   //     selected: 'API_KEY',
   //     required: false
   //   }
-  // }
-  this.queryParameters = xhr.queryParameters || {};
+  // ]
+  this.queryParameters = xhr.queryParameters || [];
   this.body = xhr.body || '';
   this.corsEnabled = xhr.corsEnabled || false;
   this.depricated = xhr.depricated || false;
   this.isPublic = xhr.isPublic || true;
   this.tags = xhr.tags || [];
 
-  // stars: [
-  //   {
-  //     user: '',
-  //     date: Date.now()
-  //   }
-  // ]
+  // stars: ['userId']
   this.stars = xhr.stars || [];
 
   // user GUID
