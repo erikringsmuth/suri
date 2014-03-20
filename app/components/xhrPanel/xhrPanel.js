@@ -54,8 +54,8 @@ define(function(require) {
       if (typeof(this.get('name')) === 'undefined') this.set('name', 'XHR');
       if (typeof(this.get('method')) === 'undefined') this.set('method', 'GET');
       if (typeof(this.get('url')) === 'undefined') this.set('url', 'http://www.suri.io/');
-      if (typeof(this.get('headers')) === 'undefined') this.set('headers', {});
-      if (typeof(this.get('queryParameters')) === 'undefined') this.set('queryParameters', {});
+      if (typeof(this.get('headers')) === 'undefined') this.set('headers', []);
+      if (typeof(this.get('queryParameters')) === 'undefined') this.set('queryParameters', []);
       if (typeof(this.get('tags')) === 'undefined') this.set('tags', []);
       if (typeof(this.get('stars')) === 'undefined') this.set('stars', []);
       if (typeof(this.get('forks')) === 'undefined') this.set('forks', []);
