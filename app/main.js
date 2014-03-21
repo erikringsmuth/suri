@@ -41,15 +41,10 @@ define([], function() {
       })
       .on('routeload', function onRouteLoad(View) {
         // When a route loads, render the view and attach it to the document
-        var render = function() {
-          view = new View({ el: 'body' });
-        };
-
-        if (view) {
-          view.teardown(render);
-        } else {
-          render();
+        if (view && typeof(view.teardown) === 'function') {
+          view.teardown();
         }
+        view = new View({ el: 'body' });
         scroll(0, 0);
       })
       .init(); // Run the app!

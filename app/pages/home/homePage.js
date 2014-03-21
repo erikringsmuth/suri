@@ -19,7 +19,7 @@ define(function(require) {
       if (uri.fragment()) {
         // hash path '#/?q=...'
         uri = new URI(uri.fragment());
-        if (uri.toString() !== '/') {
+        if (uri.toString().indexOf('q=') !== -1) {
           $.ajax('/xhr' + uri.search())
             .done(function(data) {
               this.set('xhrs', data);
