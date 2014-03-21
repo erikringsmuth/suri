@@ -4,7 +4,10 @@ define(function(require) {
   var Ractive = require('Ractive'),
       homeTemplate = require('rv!./homeTemplate'),
       Layout = require('layouts/search/layout'),
-      ApiSequence = require('components/apiSequence/apiSequence');
+      ApiSequence = require('components/apiSequence/apiSequence'),
+      XhrPanel = require('components/xhrPanel/xhrPanel'),
+      URI = require('bower_components/URIjs/src/URI'),
+      $ = require('jquery');
 
   var HomePage = Ractive.extend({
     template: homeTemplate,
@@ -12,15 +15,28 @@ define(function(require) {
     init: function() {
       var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
 
-      this.on('teardown', function() {
-        apiSequence.teardown();
+      var uri = new URI(window.location.href);
+      if (uri.fragment()) {
+        // hash path '#/?q=...'
+        uri = new URI(uri.fragment());
+        if (uri.toString() !== '/') {
+          $.ajax('/xhr' + uri.search())
+            .done(function(data) {
+              this.set('xhrs', data);
+            }.bind(this));
+        }
+      }
+
+      this.on({
+        teardown: function() {
+          apiSequence.teardown();
+        },
+
+        openResult: function openResult(event, item) {
+          new XhrPanel({data: item});
+        }
       });
     }
-
-    // Components remove info about el which breaks topOffset
-    // components: {
-    //   'api-sequence': ApiSequence
-    // }
   });
 
   return Layout.extend({

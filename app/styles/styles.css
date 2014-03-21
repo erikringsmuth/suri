@@ -138,6 +138,13 @@ pre {
   overflow-y: overlay;
 }
 
+/* Bottom divider */
+.divider-bottom {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 40px;
+  margin-bottom: 20px;
+}
+
 /* Search */
 #search {
   margin-bottom: 10px;
@@ -180,6 +187,30 @@ pre {
 }
 #search .searchResultItem .name {
   color: #777;
+}
+
+/* search results */
+.search-results .api-row {
+  padding: 10px 2px;
+}
+.search-results .api-row:hover {
+  background-color: #ebebeb;
+  outline-style: none;
+}
+.search-results .api-row .name,
+.api-row .stats {
+  display: inline-block;
+  color: #777;
+}
+.search-results .api-row .stats {
+  float: right;
+}
+.search-results .api-row .stats>span {
+  margin-left: 10px;
+}
+.search-results .total-hits {
+  margin-top: 20px;
+  margin-bottom: -15px;
 }
 
 /* API Sequence */
@@ -419,31 +450,4 @@ pre {
 }
 .user-page .apis-filter {
   margin-top: 15px;
-}
-.user-page .profile-row {
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 40px;
-  margin-bottom: 20px;
-}
-.user-page .api-row {
-  padding: 10px 2px;
-}
-.user-page .api-row:hover {
-  background-color: #ebebeb;
-  outline-style: none;
-}
-.user-page .api-row .name,
-.user-page .api-row .stats {
-  display: inline-block;
-  color: #777;
-}
-.user-page .api-row .stats {
-  float: right;
-}
-.user-page .api-row .stats>span {
-  margin-left: 10px;
-}
-.user-page .total-hits {
-  margin-top: 20px;
-  margin-bottom: -15px;
 }
