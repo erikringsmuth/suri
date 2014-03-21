@@ -21,15 +21,6 @@ define(function(require) {
 
     // prototype
     data: {
-      id: null,
-      isPublic: true,
-      body: '',
-      corsEnabled: false,
-      depricated: false,
-      callCount: 0,
-      forkedFrom: null,
-
-      // State
       starred: false,
       signedIn: config.session.signedIn,
       responseBody: '',
@@ -56,6 +47,10 @@ define(function(require) {
       if (typeof(this.get('url')) === 'undefined') this.set('url', 'http://www.suri.io/');
       if (typeof(this.get('headers')) === 'undefined') this.set('headers', []);
       if (typeof(this.get('queryParameters')) === 'undefined') this.set('queryParameters', []);
+      if (typeof(this.get('body')) === 'undefined') this.set('body', '');
+      if (typeof(this.get('corsEnabled')) === 'undefined') this.set('corsEnabled', false);
+      if (typeof(this.get('isPublic')) === 'undefined') this.set('isPublic', true);
+      if (typeof(this.get('callCount')) === 'undefined') this.set('callCount', 0);
       if (typeof(this.get('tags')) === 'undefined') this.set('tags', []);
       if (typeof(this.get('stars')) === 'undefined') this.set('stars', []);
       if (typeof(this.get('forks')) === 'undefined') this.set('forks', []);
