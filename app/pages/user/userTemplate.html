@@ -5,13 +5,24 @@
     <div class="col-sm-4 col-md-3">
       {{#myProfile}}
       <a href="http://gravatar.com/emails/" class="gravatar-link">
-        <img class="profile-image img-rounded" src="http://www.gravatar.com/avatar/{{emailMd5}}.jpg?s=400" data-toggle="tooltip" data-placement="bottom" title="Change your picture at gravatar.com"/>
+        <img class="profile-image bs-tooltip img-rounded" src="http://www.gravatar.com/avatar/{{emailMd5}}.jpg?s=400" data-toggle="tooltip" data-placement="bottom" title="Change your picture at gravatar.com"/>
       </a>
+      <div class="display-name edit-name">
+        {{^editDisplayName}}
+        <span>{{displayName}}</span>
+        <button type="button" class="bs-tooltip edit-name-button" on-click="editDisplayName" data-toggle="tooltip" data-placement="bottom" title="Edit display name"><i class="fa fa-pencil"></i></button>
+        {{/editDisplayName}}
+        {{#editDisplayName}}
+        <input type="text" value="{{displayName}}">
+        <button type="button" class="btn btn-default" on-click="cancelEditDisplayName"><i class="fa fa-times"></i> Cancel</button>
+        <button type="button" class="btn btn-default" on-click="saveDisplayName"><i class="fa fa-pencil"></i> Save</button>
+        {{/editDisplayName}}
+      </div>
       {{/myProfile}}
       {{^myProfile}}
       <img class="profile-image img-rounded" src="http://www.gravatar.com/avatar/{{emailMd5}}.jpg?s=400"/>
+      <div class="display-name"><span>{{displayName}}</span></div>
       {{/myProfile}}
-      <h2>{{displayName}}</h2>
     </div>
 
     <div class="search-results col-sm-8 col-md-9">

@@ -451,3 +451,25 @@ pre {
 .user-page .apis-filter {
   margin-top: 15px;
 }
+.user-page .display-name {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.user-page .display-name > span {
+  font-size: 30px;
+  font-weight: 500;
+}
+.user-page .edit-name input {
+  font-size: 1.3em;
+  margin-bottom: 5px;
+}
+.user-page .edit-name > .edit-name-button {
+  border: none;
+  background: none;
+  display: none;
+  position: relative;
+  top: -3px;
+}
+.user-page .edit-name:hover button {
+  display: inline-block;
+}

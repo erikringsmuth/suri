@@ -93,6 +93,7 @@ app.delete('/xhr/:id/stars/:userId', xhrService.unstar);
 
 // Users
 app.get('/users/:id', userService.getProfile);
+app.put('/users/:id/displayname', userService.updateDisplayName);
 
 // Browser's IP address
 app.get('/ip', ipAddress);

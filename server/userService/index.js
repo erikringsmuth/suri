@@ -90,15 +90,36 @@ module.exports.getProfile = function(req, res) {
 };
 
 // Set user display name
-module.exports.updateDisplayName = function(id, displayName, successCallback, errorCallback) {
-  client.update({
-    index: index,
-    type: type,
-    id: id,
-    body: {
-      doc: {
-        displayName: displayName
+module.exports.updateDisplayName = function(req, res) {
+  if (req.params.id !== req.session_state.userId) {
+    res.status(401);
+    res.send('Unauthorized. You can only change your own display name.');
+  }
+  else if (typeof(req.body.displayName) !== 'string') {
+    res.status(400);
+    res.send('The display name must be a string');
+  }
+  else if (req.body.displayName.length > 30) {
+    res.status(400);
+    res.send('The display name is a maximum of 30 characters');
+  }
+  else {
+    client.update({
+      index: index,
+      type: type,
+      id: req.session_state.userId,
+      body: {
+        doc: {
+          displayName: req.body.displayName
+        }
       }
-    }
-  }).then(successCallback, errorCallback);
+    })
+    .then(function () {
+      req.session_state.displayName = req.body.displayName;
+      res.send(req.body);
+    }, function () {
+      res.status(500);
+      res.send('Failed to update display name');
+    });
+  }
 };

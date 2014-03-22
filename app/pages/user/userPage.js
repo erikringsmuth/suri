@@ -16,12 +16,13 @@ define(function(require) {
     init: function() {
       this.set('userId', router.routeArguments().id);
       this.set('myProfile', this.get('userId') === config.session.userId);
+      $('.bs-tooltip').tooltip();
 
       $.ajax('/users/' + this.get('userId'))
         .done(function(data) {
           this.set('emailMd5', data.emailMd5);
           this.set('displayName', data.displayName);
-          $('.profile-image').tooltip();
+          $('.bs-tooltip').tooltip();
         }.bind(this));
 
       $.ajax('/xhr?owner=' + this.get('userId'))
@@ -48,6 +49,31 @@ define(function(require) {
 
         openResult: function openResult(event, item) {
           new XhrPanel({data: item});
+        },
+
+        editDisplayName: function() {
+          this.set('editDisplayName', true);
+        },
+
+        saveDisplayName: function() {
+          this.set('editDisplayName', false);
+
+          $.ajax('/users/' + this.get('userId') + '/displayname', {
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify({ displayName: this.get('displayName') })
+          })
+            .done(function() {
+              config.session.displayName = this.get('displayName');
+            }.bind(this))
+            .fail(function() {
+              this.set('displayName', config.session.displayName);
+            }.bind(this));
+        },
+
+        cancelEditDisplayName: function() {
+          this.set('displayName', config.session.displayName);
+          this.set('editDisplayName', false);
         }
       });
     },
