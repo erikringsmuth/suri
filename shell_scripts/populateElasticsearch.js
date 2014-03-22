@@ -21,11 +21,9 @@ var client = elasticsearch.Client({
 });
 
 // Build up the bulk request
-var eriksUserId = 'eyekZd6Qo',
-    eriksMd5    = '5491ac2e7c74eb1253df058e3d8d3e83';
+var eriksUserId = 'eyekZd6Qo';
 for (var i = 0; i < xhrs.length; i++) {
   xhrs[i].owner = eriksUserId;
-  xhrs[i].ownerMd5 = eriksMd5;
   bulkData.push({ index:  { _index: nconf.get('XHR_INDEX'), _type: nconf.get('XHR_TYPE'), _id: shortId.generate() } });
   bulkData.push(xhrs[i]);
 }
@@ -57,7 +55,7 @@ for (var i = 0; i < xhrs.length; i++) {
 //       id: eriksUserId,
 //       body: {
 //         displayName: 'erik.ringsmuth',
-//         emailMd5: eriksMd5,
+//         emailMd5: '5491ac2e7c74eb1253df058e3d8d3e83',
 //         googleIss: 'accounts.google.com',
 //         googleSub: '111414135525027275706'
 //       }
@@ -123,7 +121,6 @@ client.indices.delete({
                 indexed: { type: 'string' },
               }
             },
-            ownerMd5: { type: 'string', index: 'not_analyzed' },
             forks: { type: 'string', index: 'not_analyzed' }, // Array
             forkedFrom: { type: 'string', index: 'not_analyzed' }
           }
