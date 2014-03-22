@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="col-sm-4">
-        <div><label>id</label> <a href="#/?xhr={{id}}" class="text-muted bs-tooltip" data-toggle="tooltip" data-placement="bottom" title="permalink">{{id}}</a></div>
+        {{#id}}<div><label>id</label> <a href="#/?xhr={{id}}" class="text-muted bs-tooltip" data-toggle="tooltip" data-placement="bottom" title="permalink">{{id}}</a></div>{{/id}}
         <div><label>owner</label> <a href="#/users/{{owner}}" class="text-muted">{{owner}}</a></div>
         {{#forkedFrom}}<div><label>forked from</label> <a href="#/?xhr={{forkedFrom}}" class="text-muted">{{forkedFrom}}</a></div>{{/forkedFrom}}
       </div>
