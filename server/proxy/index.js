@@ -35,7 +35,7 @@ module.exports = function apiProxy(req, res, next) {
     req
       .pipe(proxyRequest = request({
         uri: uri.protocol() + '://' + uri.authority() + req.url, // API host + path
-        timeout: 3000 // Timeout quickly so it doesn't take up server resources
+        timeout: 4000 // Timeout quickly so it doesn't take up server resources
       }))
       .pipe(res);
 

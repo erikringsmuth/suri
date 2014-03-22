@@ -23,7 +23,7 @@ var xhrs = [
     url: 'https://ajax.googleapis.com/ajax/services/search/web?v=1.0&q={{searchTerm}}',
     headers: [
       {
-        header: 'Content-Type',
+        header: 'Accept',
         options: ['application/json', 'application/xml'],
         selected: 'application/json',
         required: false
@@ -51,7 +51,7 @@ var xhrs = [
     url: 'http://suggestqueries.google.com/complete/search?client=firefox&q={{searchTerm}}',
     headers: [
       {
-        header: 'Content-Type',
+        header: 'Accept',
         options: ['application/json', 'application/xml'],
         selected: 'application/json',
         required: false
@@ -128,7 +128,7 @@ var xhrs = [
     ],
     headers: [
       {
-        header: 'Content-Type',
+        header: 'Accept',
         options: ['application/json'],
         selected: 'application/json',
         required: false
@@ -162,7 +162,7 @@ var xhrs = [
     url: 'https://api.github.com/user',
     headers: [
       {
-        header: 'Content-Type',
+        header: 'Accept',
         options: ['application/json'],
         selected: 'application/json',
         required: false
@@ -182,7 +182,7 @@ var xhrs = [
     url: 'http://www.meethue.com/api/nupnp',
     headers: [
       {
-        header: 'Content-Type',
+        header: 'Accept',
         options: ['application/json'],
         selected: 'application/json',
         required: false
@@ -199,9 +199,17 @@ var xhrs = [
     name: 'XBox Live Profile',
     method: 'GET',
     url: 'http://www.xboxleaders.com/api/profile.json?gamertag={gamerTag}',
+    queryParameters: [
+      {
+        header: 'gamertag',
+        options: [],
+        selected: '{gamerTag}',
+        required: true
+      }
+    ],
     headers: [
       {
-        header: 'Content-Type',
+        header: 'Accept',
         options: ['application/json'],
         selected: 'application/json',
         required: false
@@ -213,9 +221,17 @@ var xhrs = [
     name: 'XBox Live Friends',
     method: 'GET',
     url: 'http://www.xboxleaders.com/api/friends.json?gamertag={gamerTag}',
+    queryParameters: [
+      {
+        header: 'gamertag',
+        options: [],
+        selected: '{gamerTag}',
+        required: true
+      }
+    ],
     headers: [
       {
-        header: 'Content-Type',
+        header: 'Accept',
         options: ['application/json'],
         selected: 'application/json',
         required: false
@@ -227,9 +243,17 @@ var xhrs = [
     name: 'XBox Live Games',
     method: 'GET',
     url: 'http://www.xboxleaders.com/api/games.json?gamertag={gamerTag}',
+    queryParameters: [
+      {
+        header: 'gamertag',
+        options: [],
+        selected: '{gamerTag}',
+        required: true
+      }
+    ],
     headers: [
       {
-        header: 'Content-Type',
+        header: 'Accept',
         options: ['application/json'],
         selected: 'application/json',
         required: false
@@ -241,9 +265,23 @@ var xhrs = [
     name: 'XBox Live Game Achievements',
     method: 'GET',
     url: 'http://www.xboxleaders.com/achievements.json?gamertag={gamerTag}&gameid={gameId}',
+    queryParameters: [
+      {
+        header: 'gameid',
+        options: [],
+        selected: '{gameId}',
+        required: true
+      },
+      {
+        header: 'gamertag',
+        options: [],
+        selected: '{gamerTag}',
+        required: true
+      }
+    ],
     headers: [
       {
-        header: 'Content-Type',
+        header: 'Accept',
         options: ['application/json'],
         selected: 'application/json',
         required: false
@@ -257,7 +295,7 @@ var xhrs = [
     url: 'https://api.twitch.tv/',
     headers: [
       {
-        header: 'Content-Type',
+        header: 'Accept',
         options: ['application/vnd.twitchtv.v2+json'],
         selected: 'application/vnd.twitchtv.v2+json',
         required: false
