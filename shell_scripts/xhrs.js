@@ -198,7 +198,57 @@ var xhrs = [
   new Xhr({
     name: 'XBox Live Profile',
     method: 'GET',
-    url: 'http://www.xboxleaders.com/api/profile.json?gamertag=',
+    url: 'http://www.xboxleaders.com/api/profile.json?gamertag={gamerTag}',
+    headers: [
+      {
+        header: 'Content-Type',
+        options: ['application/json'],
+        selected: 'application/json',
+        required: false
+      }
+    ],
+    tags: ['xbox', 'games', 'gamer']
+  }),
+  new Xhr({
+    name: 'XBox Live Friends',
+    method: 'GET',
+    url: 'http://www.xboxleaders.com/api/friends.json?gamertag={gamerTag}',
+    headers: [
+      {
+        header: 'Content-Type',
+        options: ['application/json'],
+        selected: 'application/json',
+        required: false
+      }
+    ],
+    tags: ['xbox', 'games', 'gamer']
+  }),
+  new Xhr({
+    name: 'XBox Live Games',
+    method: 'GET',
+    url: 'http://www.xboxleaders.com/api/games.json?gamertag={gamerTag}',
+    headers: [
+      {
+        header: 'Content-Type',
+        options: ['application/json'],
+        selected: 'application/json',
+        required: false
+      }
+    ],
+    tags: ['xbox', 'games', 'gamer']
+  }),
+  new Xhr({
+    name: 'XBox Live Game Achievements',
+    method: 'GET',
+    url: 'http://www.xboxleaders.com/achievements.json?gamertag={gamerTag}&gameid={gameId}',
+    headers: [
+      {
+        header: 'Content-Type',
+        options: ['application/json'],
+        selected: 'application/json',
+        required: false
+      }
+    ],
     tags: ['xbox', 'games', 'gamer']
   }),
   new Xhr({
