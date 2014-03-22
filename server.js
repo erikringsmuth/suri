@@ -49,16 +49,20 @@ app.configure(function() {
   app.engine('handlebars', handlebars());
   app.set('view engine', 'handlebars');
 
+  // Serve /app dir as static content, it will look like the root dir
+  // user /app in development, /app-built in prod
+  if (nconf.get('ENV') === 'production') {
+    app.use(express.static(__dirname + '/app-built'));
+  } else {
+    app.use(express.static(__dirname + '/app'));
+  }
+
   // Parse body to JSON which is available using req.body
   app.use(express.json());
 });
 
 app.configure('development', function() {
   console.log('ELASTICSEARCH_URL: ' + nconf.get('ELASTICSEARCH_URL'));
-
-  // Serve /app dir as static content, it will look like the root dir
-  // user /app in development, /app-built in prod
-  app.use(express.static(__dirname + '/app'));
 
   // Error handling
   app.use(function(err, req, res, next) {
@@ -68,11 +72,6 @@ app.configure('development', function() {
 });
 
 app.configure('production', function() {
-
-  // Serve /app dir as static content, it will look like the root dir
-  // user /app in development, /app-built in prod
-  app.use(express.static(__dirname + '/app-built'));
-
   // Error handling
   app.use(function(err, req, res, next) {
     //do logging and user-friendly error message display
