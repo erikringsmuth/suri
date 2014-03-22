@@ -5,8 +5,8 @@ define(function(require) {
       homeTemplate = require('rv!./homeTemplate'),
       Layout = require('layouts/search/layout'),
       ApiSequence = require('components/apiSequence/apiSequence'),
+      router = require('router'),
       XhrPanel = require('components/xhrPanel/xhrPanel'),
-      URI = require('bower_components/URIjs/src/URI'),
       $ = require('jquery');
 
   var HomePage = Ractive.extend({
@@ -15,12 +15,17 @@ define(function(require) {
     init: function() {
       var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
 
-      var uri = new URI(window.location.href);
-      if (uri.fragment()) {
-        // hash path '#/?q=...'
-        uri = new URI(uri.fragment());
-        if (uri.toString().indexOf('q=') !== -1) {
-          $.ajax('/xhr' + uri.search())
+      // #/search?q={queryTerm}
+      if (router.routes.search.active) {
+        var routeArgs = router.routeArguments();
+        if (typeof(routeArgs.q) !== 'undefined') {
+          $.ajax('/xhr?q=' + routeArgs.q)
+            .done(function(data) {
+              this.set('xhrs', data);
+            }.bind(this));
+        }
+        else if (typeof(routeArgs.tags) !== 'undefined') {
+          $.ajax('/xhr?tags=' + routeArgs.tags)
             .done(function(data) {
               this.set('xhrs', data);
             }.bind(this));

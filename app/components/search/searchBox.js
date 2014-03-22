@@ -74,7 +74,7 @@ define(function(require) {
 
         searchOnEnter: function(event) {
           if (event.original.keyCode === 13) {
-            window.location.hash = '/?q=' + event.node.value;
+            window.location.hash = '/search?q=' + event.node.value;
           }
         },
 

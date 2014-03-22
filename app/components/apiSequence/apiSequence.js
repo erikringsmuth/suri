@@ -19,10 +19,9 @@ define(function(require) {
     },
 
     init: function() {
-      // Load XHR from the query parameters
-      var xhr = router.routeArguments().xhr;
-      if (xhr) {
-        $.ajax('/xhr/' + xhr)
+      // #/api/:api loads the XHR
+      if (router.routes.api.active) {
+        $.ajax('/xhr/' + router.routeArguments().api)
           .done(function(data) {
             new XhrPanel({data: data});
           });
