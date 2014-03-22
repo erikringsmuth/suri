@@ -1,0 +1,1 @@
+define(["utils/parseComponentDefinition","load/load","build/build"],function(e,t,n){return amdLoader("rvc","html",function(r,i,s,o,u,a){var f=e(i);a.isBuild?n(r,f,o):t(s,f,o)})});

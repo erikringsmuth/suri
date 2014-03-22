@@ -5,16 +5,16 @@ define([], function() {
   require.config({
     paths: {
       'text': 'bower_components/requirejs-text/text',
-      'router': 'bower_components/requirejs-router/router.min',
+      'router': 'bower_components/requirejs-router/router',
       'amd-loader': 'bower_components/requirejs-ractive/amd-loader',
       'rv': 'bower_components/requirejs-ractive/rv',
-      'Ractive': 'bower_components/ractive/build/Ractive.min',
-      'jquery': 'bower_components/jquery/dist/jquery.min',
-      'jquery.easing': '/bower_components/jquery-easing/jquery.easing.min',
-      'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap.min',
+      'Ractive': 'bower_components/ractive/build/Ractive',
+      'jquery': 'bower_components/jquery/dist/jquery',
+      'jquery.easing': '/bower_components/jquery-easing/jquery.easing',
+      'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
       'prettify': 'bower_components/google-code-prettify/src/prettify',
       'vkbeautify': 'bower_components/vkBeautify/vkbeautify',
-      'Ractive-transitions-slide': '/bower_components/ractive-transitions-slide/Ractive-transitions-slide.min'
+      'Ractive-transitions-slide': '/bower_components/ractive-transitions-slide/Ractive-transitions-slide'
     },
     shim: {
       'bootstrap': {

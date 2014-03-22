@@ -1,0 +1,66 @@
+<!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
+<div class="user-page">
+  <div class="row divider-bottom">
+
+    <div class="col-sm-4 col-md-3">
+      {{#myProfile}}
+      <a href="http://gravatar.com/emails/" class="gravatar-link">
+        <img class="profile-image bs-tooltip img-rounded" src="http://www.gravatar.com/avatar/{{emailMd5}}.jpg?s=400" data-toggle="tooltip" data-placement="bottom" title="Change your picture at gravatar.com"/>
+      </a>
+      <div class="display-name edit-name">
+        {{^editDisplayName}}
+        <span>{{displayName}}</span>
+        <button type="button" class="bs-tooltip edit-name-button" on-click="editDisplayName" data-toggle="tooltip" data-placement="bottom" title="Edit display name"><i class="fa fa-pencil"></i></button>
+        {{/editDisplayName}}
+        {{#editDisplayName}}
+        <input type="text" value="{{displayName}}">
+        <button type="button" class="btn btn-default" on-click="cancelEditDisplayName"><i class="fa fa-times"></i> Cancel</button>
+        <button type="button" class="btn btn-default" on-click="saveDisplayName"><i class="fa fa-pencil"></i> Save</button>
+        {{/editDisplayName}}
+      </div>
+      {{/myProfile}}
+      {{^myProfile}}
+      <img class="profile-image img-rounded" src="http://www.gravatar.com/avatar/{{emailMd5}}.jpg?s=400"/>
+      <div class="display-name"><span>{{displayName}}</span></div>
+      {{/myProfile}}
+    </div>
+
+    <div class="search-results col-sm-8 col-md-9">
+      <div class="apis">
+        <div class="row">
+          <div class="col-sm-7">
+            <h2 class="apis-header">{{displayName}}'s APIs</h2>
+          </div>
+          <div class="col-sm-5">
+            <div class="apis-filter input-group">
+              <span class="input-group-addon"><i class="fa fa-search"></i></span>
+              <input type="text" id="searchInput" class="form-control" value="{{filter}}" placeholder="Filter {{displayName}}'s APIs">
+            </div>
+          </div>
+        </div>
+        {{#xhrs.hits}}
+        <div class="api-row" on-click="openResult:{{this}}">
+          <div class="name">{{name}}</div>
+          <div class="stats">
+            <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>
+            <span><i class="fa fa-star"></i> {{stars.length}}</span>
+            <span><i class="fa fa-code-fork"></i> {{forks.length}}</span>
+          </div>
+          <div class="url">
+            <span class="method">{{method}}</span>
+            <span class="url">{{url}}</span>
+          </div>
+        </div>
+        {{/xhrs.hits}}
+        <div class="total-hits text-muted">Showing {{xhrs.returned}} of {{xhrs.total}}</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <api-sequence id="api-sequence"/>
+    <div>
+  </div>
+</div>

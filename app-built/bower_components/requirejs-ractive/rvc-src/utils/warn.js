@@ -1,0 +1,1 @@
+define([],function(){return console&&typeof console.warn=="function"?function(){console.warn.apply(console,arguments)}:function(){}});

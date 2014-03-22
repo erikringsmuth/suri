@@ -1,0 +1,1 @@
+define([],function(){return function(t,n){return new Ractive.Promise(function(e,r){var i={};if(!n.modules.length){e(i);return}t(n.modules,function(){var t=Array.prototype.slice.call(arguments);n.modules.forEach(function(e,n){i[e]=t[n]}),e(i)},r)})}});

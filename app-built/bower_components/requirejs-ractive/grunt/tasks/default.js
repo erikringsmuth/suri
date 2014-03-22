@@ -1,0 +1,1 @@
+module.exports=function(e){e.registerTask("default",["jshint","requirejs","concat","jsbeautifier"])};

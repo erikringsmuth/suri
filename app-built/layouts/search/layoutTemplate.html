@@ -1,0 +1,51 @@
+<!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
+<a class="sr-only" href="#content">Skip to main content</a>
+
+<div id="wrap">
+  <header class="navbar navbar-default navbar-static-top" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#/" class="navbar-brand"><i class="fa fa-cloud"></i> suri.io <span class="beta">beta</span></a>
+      </div>
+      <nav class="collapse navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="{{routes.about.active ? 'active' : ''}}"><a href="#/about">About</a></li>
+          {{#session.signedIn}}<li class="{{myProfile ? 'active' : ''}}"><a href="#/users/{{session.userId}}">Profile</a></li>{{/session.signedIn}}
+          <profile-menu/>
+        </ul>
+      </nav>
+      <search-box/>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <content-placeholder/>
+  </main>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6">
+        <p class="text-muted text-center">&#169; Copyright 2014 <a href="http://erikringsmuth.github.io/">Erik Ringsmuth</a>.</p>
+        <p class="text-muted text-center">Found a bug? Report it with the <a href="https://github.com/erikringsmuth/suri-issue-tracker">issue tracker</a>.</p>
+      </div>
+      <div class="col-xs-6">
+        <ul class="list-inline">
+          <li><a href="https://github.com/erikringsmuth"><i class="fa fa-github"></i> GitHub</a></li>
+          <li><a href="https://twitter.com/ErikRingsmuth"><i class="fa fa-twitter"></i> Twitter</a></li>
+          <li><a href="http://stackoverflow.com/users/3148201/erik-ringsmuth"><i class="fa fa-stack-overflow"></i> StackOverflow</a></li>
+          <li><a href="http://www.linkedin.com/in/erikringsmuth"><i class="fa fa-linkedin"></i> LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

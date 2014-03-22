@@ -1,0 +1,26 @@
+<!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
+<div class="row">
+  <div class="col-sm-3">
+    <div id="api-sequence-menu">
+      <h2>APIs</h2>
+      <ul>
+        {{#apiSequence}}
+        <li on-click="scrollToPanel:{{this}}">
+          {{this.get('name')}}<button type="button" class="close" on-click="removePanel:{{this}}" aria-hidden="true">&times;</button>
+        </li>
+        {{/apiSequence}}
+      </ul>
+      <button type="button" class="btn btn-default" on-click="newXhrPanel"><i class="fa fa-plus"></i> XHR</button>
+    </div>
+  </div>
+  <div id="api-sequence-placeholder" class="col-sm-9">
+    {{^disableTutorial}}
+    {{#displayTutorial}}
+    <div class="jumbotron">
+      <h2>Explore REST APIs!</h2>
+      <p>The ultimate AJAX playground. Search for APIs or create your own.</p>
+    </div>
+    {{/displayTutorial}}
+    {{/disableTutorial}}
+  </div>
+</div>
