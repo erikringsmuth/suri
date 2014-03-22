@@ -194,6 +194,26 @@ var xhrs = [
     method: 'GET',
     url: 'http://www.engadget.com/rss.xml',
     tags: ['atom', 'rss', 'feed']
+  }),
+  new Xhr({
+    name: 'XBox Live Profile',
+    method: 'GET',
+    url: 'http://www.xboxleaders.com/api/profile.json?gamertag=',
+    tags: ['xbox', 'games', 'gamer']
+  }),
+  new Xhr({
+    name: 'Twitch TV',
+    method: 'GET',
+    url: 'https://api.twitch.tv/',
+    headers: [
+      {
+        header: 'Content-Type',
+        options: ['application/vnd.twitchtv.v2+json'],
+        selected: 'application/vnd.twitchtv.v2+json',
+        required: false
+      }
+    ],
+    tags: ['games', 'gamer', 'streaming']
   })
 ];
 
