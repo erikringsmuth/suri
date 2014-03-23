@@ -1,9 +1,18 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
 <div class="trending-page">
-  {{#xhrs.hits.length}}
+  <h2>Trending APIs</h2>
+
+  <div class="row tags-row">
+    <div class="search-results col-xs-12">
+        {{#tags.tags.buckets}}
+        <a href="#/search?tags={{key}}" class="tag">{{key}}</a>
+        {{/tags.tags.buckets}}
+      </div>
+    </div>
+  </div>
+
   <div class="row divider-bottom">
     <div class="search-results col-xs-12">
-        <h2>Trending APIs</h2>
         {{#xhrs.hits}}
         <div class="api-row" on-tap="openResult:{{this}}">
           <div class="name">{{name}}</div>
@@ -21,7 +30,7 @@
       </div>
     </div>
   </div>
-  {{/xhrs.hits.length}}
+
   <div class="row">
     <div class="col-xs-12">
       <api-sequence id="api-sequence"/>

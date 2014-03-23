@@ -145,6 +145,29 @@ pre {
   margin-bottom: 20px;
 }
 
+/* tags */
+.tag {
+  color: #555;
+  background-color: #fdfdfd;
+  border: #e1e1e8 1px solid;
+  border-radius: 3px;
+  padding: 3px 8px;
+  line-height: 2em;
+  margin-right: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.tag:hover {
+  color: #555;
+  background-color: #f0f0f0;
+  text-decoration: none;
+}
+.tag .delete-tag {
+  border: none;
+  background: none;
+  padding: 0px;
+}
+
 /* Search */
 #search {
   margin-bottom: 10px;
@@ -395,26 +418,6 @@ pre {
 .xhr-panel .tags-input {
   display: inline-block;
 }
-.xhr-panel .tags-area .tag {
-  color: #555;
-  background-color: #fdfdfd;
-  display: inline-block;
-  border: #e1e1e8 1px solid;
-  border-radius: 3px;
-  padding: 3px;
-  line-height: .9em;
-  margin: 3px;
-  cursor: pointer;
-  text-decoration:none;
-}
-.xhr-panel .tags-area .tag:hover {
-  background-color: #f0f0f0;
-}
-.xhr-panel .tags-area .delete-tag {
-  border: none;
-  background: none;
-  padding: 0px;
-}
 .xhr-panel .header-line {
   display: inline-block;
   width: 95%;
@@ -472,4 +475,10 @@ pre {
 }
 .user-page .edit-name:hover button {
   display: inline-block;
+}
+
+/* Trending page */
+.trending-page .tags-row {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }

@@ -231,6 +231,27 @@ module.exports.search = function(req, res) {
   });
 };
 
+module.exports.tagsAggregation = function(req, res) {
+  // fitler isPublic, start count gte 1
+  var body = {
+    filter: { term: { isPublic: true } },
+    aggregations: {
+      tags: { terms: { field: 'tags' } }
+    }
+  };
+
+  client.search({
+    index: index,
+    type: type,
+    body: body
+  }).then(function (body) {
+    res.send(body.aggregations);
+  }, function (error) {
+    res.status(error.status);
+    res.send(error);
+  });
+};
+
 module.exports.incrementCallCount = function(req, res, next) {
   var xhrId = req.get('api-id');
   if (xhrId) {

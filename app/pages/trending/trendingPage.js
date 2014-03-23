@@ -11,11 +11,22 @@ define(function(require) {
   var HomePage = Ractive.extend({
     template: trendingTemplate,
 
+    data: {
+      xhrs: null,
+      tags: null
+    },
+
     init: function() {
       var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
       apiSequence.set('disableTutorial', true);
 
-      // #/trending
+      // Top tags
+      $.ajax('/xhr/tags/_count')
+        .done(function(data) {
+          this.set('tags', data);
+        }.bind(this));
+
+      // Top APIs
       $.ajax('/xhr')
         .done(function(data) {
           this.set('xhrs', data);
