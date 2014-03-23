@@ -193,7 +193,7 @@ module.exports.search = function(req, res) {
     };
   }
 
-  // Sort the response by call count
+  // Sort the response by number of stars and call count
   search.sort = [
     {
       starCount: {

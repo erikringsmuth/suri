@@ -26,7 +26,7 @@ module.exports = function apiProxy(req, res, next) {
         apiHost.indexOf(' ') !== -1) {
 
       res.status(400);
-      res.end('You have to format the URL like [protocol://domain.tld/path?query#hash]');
+      res.end('You have to format the URI like [protocol://domain.tld/path?query#hash]');
       return;
     }
 
@@ -40,8 +40,8 @@ module.exports = function apiProxy(req, res, next) {
       .pipe(res);
 
     proxyRequest.on('error', function() {
-      res.status(400);
-      res.end('Well that didn\'t work');
+      res.status(500);
+      res.end('suri.io failed to proxy the request');
     });
   }
   else {
