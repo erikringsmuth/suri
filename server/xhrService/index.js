@@ -193,6 +193,17 @@ module.exports.search = function(req, res) {
     };
   }
 
+  // Sort the response by call count
+  search.sort = [
+    {
+      callCount: {
+        mode: 'max',
+        order: 'desc'
+      }
+    },
+    '_score'
+  ];
+
   client.search({
     index: index,
     type: type,
