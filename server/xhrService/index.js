@@ -196,6 +196,12 @@ module.exports.search = function(req, res) {
   // Sort the response by call count
   search.sort = [
     {
+      starCount: {
+        mode: 'max',
+        order: 'desc'
+      }
+    },
+    {
       callCount: {
         mode: 'max',
         order: 'desc'
