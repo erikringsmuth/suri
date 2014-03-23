@@ -10,12 +10,12 @@
       <div class="display-name edit-name">
         {{^editDisplayName}}
         <span>{{displayName}}</span>
-        <button type="button" class="bs-tooltip edit-name-button" on-click="editDisplayName" data-toggle="tooltip" data-placement="bottom" title="Edit display name"><i class="fa fa-pencil"></i></button>
+        <button type="button" class="bs-tooltip edit-name-button" on-tap="editDisplayName" data-toggle="tooltip" data-placement="bottom" title="Edit display name"><i class="fa fa-pencil"></i></button>
         {{/editDisplayName}}
         {{#editDisplayName}}
         <input type="text" value="{{displayName}}">
-        <button type="button" class="btn btn-default" on-click="cancelEditDisplayName"><i class="fa fa-times"></i> Cancel</button>
-        <button type="button" class="btn btn-default" on-click="saveDisplayName"><i class="fa fa-pencil"></i> Save</button>
+        <button type="button" class="btn btn-default" on-tap="cancelEditDisplayName"><i class="fa fa-times"></i> Cancel</button>
+        <button type="button" class="btn btn-default" on-tap="saveDisplayName"><i class="fa fa-pencil"></i> Save</button>
         {{/editDisplayName}}
       </div>
       {{/myProfile}}
@@ -39,7 +39,7 @@
           </div>
         </div>
         {{#xhrs.hits}}
-        <div class="api-row" on-click="openResult:{{this}}">
+        <div class="api-row" on-tap="openResult:{{this}}">
           <div class="name">{{name}}</div>
           <div class="stats">
             <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>

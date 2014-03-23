@@ -14,7 +14,8 @@ define([], function() {
       'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
       'prettify': 'bower_components/google-code-prettify/src/prettify',
       'vkbeautify': 'bower_components/vkBeautify/vkbeautify',
-      'Ractive-transitions-slide': '/bower_components/ractive-transitions-slide/Ractive-transitions-slide'
+      'Ractive-transitions-slide': '/bower_components/ractive-transitions-slide/Ractive-transitions-slide',
+      'ractive-events-tap': '/bower_components/ractive-events-tap/Ractive-events-tap'
     },
     shim: {
       'bootstrap': {
@@ -27,7 +28,7 @@ define([], function() {
   });
 
   // Load the router, Bootstrap CSS JS
-  require(['router', 'bootstrap'], function(router) {
+  require(['router', 'bootstrap', 'ractive-events-tap'], function(router) {
 
     // Keep track of the currently loaded view so we can run teardown before loading the new view
     var view;

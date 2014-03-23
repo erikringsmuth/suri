@@ -5,11 +5,11 @@
     <input type="text" class="panel-name" value="{{name}}" placeholder="Name">
     <div class="panel-heading-options pull-right">
       <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>
-      <button type="button" on-click="star" class="btn btn-default" disabled="{{!id || !signedIn}}"><i class="fa fa-star {{starred ? 'starred' : ''}}"></i> {{stars.length}}</button>
+      <button type="button" on-tap="star" class="btn btn-default" disabled="{{!id || !signedIn}}"><i class="fa fa-star {{starred ? 'starred' : ''}}"></i> {{stars.length}}</button>
       <span><i class="fa fa-code-fork"></i> {{forks.length}}</span>
-      <button type="button" on-click="toggleOptions" class="btn btn-default"><i class="fa fa-cog options-cog {{showOptions ? 'active' : 'inactive'}}"></i> Options</button>
-      <button type="button" on-click="toggleFullscreen"><i class="fa fa-{{fullScreen ? 'minus' : 'plus'}}"></i></button>
-      {{^fullScreen}}<button type="button" on-click="teardown" aria-hidden="true"><i class="fa fa-times"></i></button>{{/fullScreen}}
+      <button type="button" on-tap="toggleOptions" class="btn btn-default"><i class="fa fa-cog options-cog {{showOptions ? 'active' : 'inactive'}}"></i> Options</button>
+      <button type="button" on-tap="toggleFullscreen"><i class="fa fa-{{fullScreen ? 'minus' : 'plus'}}"></i></button>
+      {{^fullScreen}}<button type="button" on-tap="teardown" aria-hidden="true"><i class="fa fa-times"></i></button>{{/fullScreen}}
     </div>
   </div>
 
@@ -19,13 +19,13 @@
       <div class="col-sm-4 pull-right">
         <div class="save-options pull-right">
           {{#signedIn}}
-          <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}} bs-tooltip"><i class="fa fa-save"></i> Save</button>
+          <button type="button" id="save" on-tap="save" class="btn btn-{{saveButtonClass}} bs-tooltip"><i class="fa fa-save"></i> Save</button>
           {{/signedIn}}
           {{^signedIn}}
-          <button type="button" id="save" on-click="save" class="btn btn-{{saveButtonClass}} bs-tooltip" data-toggle="tooltip" data-placement="bottom" title="You need to sign in to save APIs"><i class="fa fa-save"></i> Save</button>
+          <button type="button" id="save" on-tap="save" class="btn btn-{{saveButtonClass}} bs-tooltip" data-toggle="tooltip" data-placement="bottom" title="You need to sign in to save APIs"><i class="fa fa-save"></i> Save</button>
           {{/signedIn}}
-          <button type="button" id="delete" on-click="delete" class="btn btn-default bs-tooltip" disabled="{{!isOwner}}"><i class="fa fa-trash-o"></i> Delete</button>
-          <button type="button" id="fork" on-click="fork" class="btn btn-default bs-tooltip" data-toggle="tooltip" data-placement="bottom" title="Copy it!"><i class="fa fa-code-fork"></i> Fork</button>
+          <button type="button" id="delete" on-tap="delete" class="btn btn-default bs-tooltip" disabled="{{!isOwner}}"><i class="fa fa-trash-o"></i> Delete</button>
+          <button type="button" id="fork" on-tap="fork" class="btn btn-default bs-tooltip" data-toggle="tooltip" data-placement="bottom" title="Copy it!"><i class="fa fa-code-fork"></i> Fork</button>
         </div>
       </div>
       <div class="col-sm-4">
@@ -47,7 +47,7 @@
       <h4>tags</h4>
       <div class="tags-area">
         {{#tags}}
-        <a href="#/search?tags={{.}}" class="tag">{{.}} {{#isOwner}}<button type="button" class="delete-tag" on-click="deleteTag:{{.}}" aria-hidden="true"><i class="fa fa-times"></i></button>{{/isOwner}}</a>
+        <a href="#/search?tags={{.}}" class="tag">{{.}} {{#isOwner}}<button type="button" class="delete-tag" on-tap="deleteTag:{{.}}" aria-hidden="true"><i class="fa fa-times"></i></button>{{/isOwner}}</a>
         {{/tags}}
       </div>
       {{#isOwner}}<input type="text" class="tags-input" placeholder="Add tag" on-keydown="addTagOnEnter"/>{{/isOwner}}
@@ -71,18 +71,18 @@
       <span class="text-muted pull-right">HTTP/1.1</span>
     </div>
     <h4>request headers</h4>
-    <pre class="request-headers">{{#headers:index}}<span class="header-line"><input type="text" class="header-key" value="{{header}}">: <input type="text" class="header-value" value="{{selected}}"><button type="button" on-click="removeHeader:{{.}}" aria-hidden="true"><i class="fa fa-minus"></i></button></span>
-{{/headers}}<button type="button" on-click="addBlankHeader" aria-hidden="true"><i class="fa fa-plus"></i></button></pre>
+    <pre class="request-headers">{{#headers:index}}<span class="header-line"><input type="text" class="header-key" value="{{header}}">: <input type="text" class="header-value" value="{{selected}}"><button type="button" on-tap="removeHeader:{{.}}" aria-hidden="true"><i class="fa fa-minus"></i></button></span>
+{{/headers}}<button type="button" on-tap="addBlankHeader" aria-hidden="true"><i class="fa fa-plus"></i></button></pre>
     <h4>request body</h4>
     <textarea value="{{body}}"></textarea>
-    <button id="send" on-click="send" type="button" class="btn btn-{{sendButtonClass}}" disabled="{{sendButtonDisabled}}">Send&nbsp;&nbsp;<i class="fa fa-caret-square-o-right"></i></button>
+    <button id="send" on-tap="send" type="button" class="btn btn-{{sendButtonClass}}" disabled="{{sendButtonDisabled}}">Send&nbsp;&nbsp;<i class="fa fa-caret-square-o-right"></i></button>
     <h4>response headers</h4>
 <pre><code id="responseHeaders">{{responseHeaders}}</code></pre>
 
     <h4>response body</h4>
 <pre><code id="responseBody"></code></pre>
     {{#showMoreButton}}
-    <button id="showMoreButton" on-click="displayEntireResponse" type="button" class="btn btn-default">Show full response ({{formatNumber(responseBody.length)}} characters)</button>
+    <button id="showMoreButton" on-tap="displayEntireResponse" type="button" class="btn btn-default">Show full response ({{formatNumber(responseBody.length)}} characters)</button>
     {{/showMoreButton}}
 
   </div>

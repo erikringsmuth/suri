@@ -5,7 +5,7 @@
     <div class="search-results col-xs-12">
         <h2>{{header}}</h2>
         {{#xhrs.hits}}
-        <div class="api-row" on-click="openResult:{{this}}">
+        <div class="api-row" on-tap="openResult:{{this}}">
           <div class="name">{{name}}</div>
           <div class="stats">
             <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>
