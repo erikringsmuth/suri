@@ -13,6 +13,7 @@ define(function(require) {
 
     init: function() {
       var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
+      apiSequence.set('disableTutorial', true);
 
       // #/trending
       $.ajax('/xhr')

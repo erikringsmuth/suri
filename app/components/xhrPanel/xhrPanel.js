@@ -235,10 +235,12 @@ define(function(require) {
           if (!this.get('corsEnabled') && apiUri.host() !== suriHost) {
             // Proxy through the suri.io server
             requestHeaders['api-host'] = apiUri.protocol() + '://' + apiUri.authority();
-            requestHeaders['api-id'] = this.get('id');
             apiUri.authority(suriHost);
             apiUri.protocol(window.location.protocol); // Suri doesn't support HTTPS yet
           }
+
+          // Set the api-id to log the call counts
+          requestHeaders['api-id'] = this.get('id');
 
           // Send the request
           $.ajax({
