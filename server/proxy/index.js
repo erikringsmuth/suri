@@ -2,7 +2,8 @@
 'use strict';
 
 var request = require('request'),
-    URI     = require('URIjs');
+    URI     = require('URIjs'),
+    strings = require('../strings');
 
 // The API proxy forwards requests to the 'api-host' header
 module.exports = function apiProxy(req, res, next) {
@@ -26,7 +27,7 @@ module.exports = function apiProxy(req, res, next) {
         apiHost.indexOf(' ') !== -1) {
 
       res.status(400);
-      res.end('You have to format the URI like [protocol://domain.tld/path?query#hash]');
+      res.end(strings.error + '\n\nYou have to format the URI like [protocol://domain.tld/path?query#hash]');
       return;
     }
 
@@ -41,7 +42,7 @@ module.exports = function apiProxy(req, res, next) {
 
     proxyRequest.on('error', function() {
       res.status(500);
-      res.end('suri.io failed to proxy the request');
+      res.end(strings.error + '\n\nsuri.io failed to proxy the request');
     });
   }
   else {
