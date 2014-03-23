@@ -35,6 +35,7 @@ module.exports = function Xhr(xhr) {
 
   // stars: ['userId']
   this.stars = xhr.stars || [];
+  this.starCount = 0;
 
   // user GUID
   this.owner = xhr.owner || null;
@@ -43,5 +44,6 @@ module.exports = function Xhr(xhr) {
   //   'forkedId'
   // ],
   this.forks = xhr.forks || [];
+  this.forkCount = 0;
   this.forkedFrom = xhr.forkedFrom || null;
 };

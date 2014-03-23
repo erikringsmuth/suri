@@ -53,7 +53,9 @@ define(function(require) {
       if (typeof(this.get('callCount')) === 'undefined') this.set('callCount', 0);
       if (typeof(this.get('tags')) === 'undefined') this.set('tags', []);
       if (typeof(this.get('stars')) === 'undefined') this.set('stars', []);
+      if (typeof(this.get('starCount')) === 'undefined') this.set('starCount', 0);
       if (typeof(this.get('forks')) === 'undefined') this.set('forks', []);
+      if (typeof(this.get('forkCount')) === 'undefined') this.set('forkCount', 0);
       if (typeof(this.get('owner')) === 'undefined') this.set('owner', config.session.userId);
       this.set('isOwner', !this.get('id') || config.session.userId === this.get('owner'));
       if (this.get('stars').indexOf(config.session.userId) !== -1) {
