@@ -1,0 +1,3 @@
+// Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
+
+define(["require","Ractive","rv!./trendingTemplate","layouts/search/layout","components/apiSequence/apiSequence","components/xhrPanel/xhrPanel","jquery"],function(e){var t=e("Ractive"),n=e("rv!./trendingTemplate"),r=e("layouts/search/layout"),i=e("components/apiSequence/apiSequence"),s=e("components/xhrPanel/xhrPanel"),o=e("jquery"),u=t.extend({template:n,init:function(){var e=new i({el:this.nodes["api-sequence"]});o.ajax("/xhr").done(function(e){this.set("xhrs",e)}.bind(this)),this.on({teardown:function(){e.teardown()},openResult:function(t,n){new s({data:n})}})}});return r.extend({components:{"content-placeholder":u}})});

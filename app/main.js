@@ -36,7 +36,8 @@ define([], function() {
       .registerRoutes({
         home: { path: '/', moduleId: 'pages/home/homePage' },
         api: { path: '/apis/:api', moduleId: 'pages/home/homePage' },
-        search: { path: '/search', moduleId: 'pages/home/homePage' },
+        search: { path: '/search', moduleId: 'pages/search/searchPage' },
+        trending: { path: '/trending', moduleId: 'pages/trending/trendingPage' },
         about: { path: '/about', moduleId: 'pages/about/aboutPage' },
         user: { path: '/users/:id', moduleId: 'pages/user/userPage' },
         notFound: { path: '*', moduleId: 'pages/notFound/notFoundPage' }

@@ -19,14 +19,6 @@ define(function(require) {
     },
 
     init: function() {
-      // #/api/:api loads the XHR
-      if (router.routes.api.active) {
-        $.ajax('/xhr/' + router.routeArguments().api)
-          .done(function(data) {
-            new XhrPanel({data: data});
-          });
-      }
-
       // Keep the menu aligned as you scroll
       var scrollEventHandler = function() {
         if (window.pageYOffset > $('#api-sequence').offset().top) {

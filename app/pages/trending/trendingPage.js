@@ -2,26 +2,23 @@
 define(function(require) {
   'use strict';
   var Ractive = require('Ractive'),
-      homeTemplate = require('rv!./homeTemplate'),
+      trendingTemplate = require('rv!./trendingTemplate'),
       Layout = require('layouts/search/layout'),
       ApiSequence = require('components/apiSequence/apiSequence'),
-      router = require('router'),
       XhrPanel = require('components/xhrPanel/xhrPanel'),
       $ = require('jquery');
 
   var HomePage = Ractive.extend({
-    template: homeTemplate,
+    template: trendingTemplate,
 
     init: function() {
       var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
 
-      // #/api/:api loads the XHR
-      if (router.routes.api.active) {
-        $.ajax('/xhr/' + router.routeArguments().api)
-          .done(function(data) {
-            new XhrPanel({data: data});
-          });
-      }
+      // #/trending
+      $.ajax('/xhr')
+        .done(function(data) {
+          this.set('xhrs', data);
+        }.bind(this));
 
       this.on({
         teardown: function() {

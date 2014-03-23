@@ -17,6 +17,7 @@
         <ul class="nav navbar-nav">
         </ul>
         <ul class="nav navbar-nav navbar-right">
+          <li class="{{routes.trending.active ? 'active' : ''}}"><a href="#/trending">Top APIs</a></li>
           <li class="{{routes.about.active ? 'active' : ''}}"><a href="#/about">About</a></li>
           {{#session.signedIn}}<li class="{{myProfile ? 'active' : ''}}"><a href="#/users/{{session.userId}}">Profile</a></li>{{/session.signedIn}}
           <profile-menu/>
