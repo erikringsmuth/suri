@@ -1,1 +1,1 @@
-ctx._source.stars += userId
+ctx._source.stars += userId; if (ctx._source.stars != null) { ctx._source.starCount = ctx._source.stars.size(); } else { ctx._source.starCount = 0; }
