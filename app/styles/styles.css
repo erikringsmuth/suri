@@ -152,10 +152,11 @@ pre {
   border: #e1e1e8 1px solid;
   border-radius: 3px;
   padding: 3px 8px;
-  line-height: 2em;
+  line-height: 1.3em;
   margin-right: 4px;
   cursor: pointer;
   text-decoration: none;
+  display: inline-block;
 }
 .tag:hover {
   color: #555;
