@@ -114,13 +114,7 @@ client.indices.delete({
             isPublic: { type: 'boolean', null_value: false, index: 'not_analyzed' },
             tags: { type: 'string' }, // Array
             stars: { type: 'string', index: 'not_analyzed' }, // Array
-            owner: {
-              type: 'multi_field',
-              fields: {
-                owner: { type: 'string', index: 'not_analyzed' },
-                indexed: { type: 'string' },
-              }
-            },
+            owner: { type: 'string', index: 'not_analyzed' },
             forks: { type: 'string', index: 'not_analyzed' }, // Array
             forkedFrom: { type: 'string', index: 'not_analyzed' }
           }
