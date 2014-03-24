@@ -146,7 +146,7 @@ pre {
 }
 
 /* tags */
-.tag {
+a.tag {
   color: #555;
   background-color: #fdfdfd;
   border: #e1e1e8 1px solid;
@@ -158,12 +158,12 @@ pre {
   text-decoration: none;
   display: inline-block;
 }
-.tag:hover {
+a.tag:hover {
   color: #555;
   background-color: #f0f0f0;
   text-decoration: none;
 }
-.tag .delete-tag {
+a.tag .delete-tag {
   border: none;
   background: none;
   padding: 0px;
