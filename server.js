@@ -95,7 +95,7 @@ app.put('/xhr/:id', xhrService.update);
 app.delete('/xhr/:id', xhrService.delete);
 app.post('/xhr/:id/stars', xhrService.star);
 app.delete('/xhr/:id/stars/:userId', xhrService.unstar);
-app.get('/xhr/tags/_count', xhrService.tagsAggregation);
+app.get('/tags', xhrService.tagsAggregation);
 
 // Users
 app.get('/users/:id', userService.getProfile);

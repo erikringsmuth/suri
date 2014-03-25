@@ -28,7 +28,7 @@ define(function(require) {
       apiSequence.set('disableTutorial', true);
 
       // Top tags
-      $.ajax('/xhr/tags/_count')
+      $.ajax('/tags')
         .done(function(data) {
           this.set('tags', data);
         }.bind(this));
