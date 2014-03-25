@@ -18,6 +18,11 @@ define(function(require) {
       size: 10
     },
 
+    computed: {
+      showPreviousButton: '${xhrs.from} > 0',
+      showNextButton: '${xhrs.to} < ${xhrs.of} - 1'
+    },
+
     init: function() {
       var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
       apiSequence.set('disableTutorial', true);
@@ -51,8 +56,6 @@ define(function(require) {
       $.ajax('/xhr?from=' + this.get('from'))
         .done(function(data) {
           this.set('xhrs', data);
-          this.set('showPreviousButton', data.from > 0);
-          this.set('showNextButton', data.to < data.of - 1);
         }.bind(this));
     }
   });

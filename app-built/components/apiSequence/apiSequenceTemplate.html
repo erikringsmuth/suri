@@ -4,11 +4,11 @@
     <div id="api-sequence-menu">
       <h2>APIs</h2>
       <ul>
-        {{#apiSequence}}
+        {{#apiSequence.sequence}}
         <li on-tap="scrollToPanel:{{this}}">
           {{this.get('name')}}<button type="button" class="close" on-tap="removePanel:{{this}}" aria-hidden="true">&times;</button>
         </li>
-        {{/apiSequence}}
+        {{/apiSequence.sequence}}
       </ul>
       <button type="button" class="btn btn-default" on-tap="newXhrPanel"><i class="fa fa-plus"></i> XHR</button>
     </div>

@@ -1,3 +1,3 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 
-define([],function(){var e=[];return e.clear=function(){e.splice(0,e.length)},e.add=function(n){e.push(n)},e.remove=function(n){e.splice(e.indexOf(n),1)},e});
+define([],function(){var e={sequence:[]};return e.clear=function(){e.sequence.splice(0,e.sequence.length)},e.add=function(n){e.sequence.push(n)},e.remove=function(n){e.sequence.splice(e.sequence.indexOf(n),1)},e});

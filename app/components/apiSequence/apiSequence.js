@@ -5,7 +5,6 @@ define(function(require) {
       apiSequenceTemplate = require('rv!./apiSequenceTemplate'),
       sequence = require('components/apiSequence/sequence'),
       XhrPanel = require('components/xhrPanel/xhrPanel'),
-      router = require('router'),
       $ = require('jquery');
   require('jquery.easing');
 
@@ -33,8 +32,8 @@ define(function(require) {
 
       this.observe({
         // Toggle the tutorial as panels are added and removed
-        apiSequence: function(apiSequence) {
-          if (apiSequence.length === 0) {
+        'apiSequence.sequence': function(sequence) {
+          if (sequence.length === 0) {
             this.set('displayTutorial', true);
           } else {
             this.set('displayTutorial', false);
