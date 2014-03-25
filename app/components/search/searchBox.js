@@ -24,7 +24,7 @@ define(function(require) {
         }
       };
       var setSearchResultsWidth = function() {
-        that.set('searchResultsWidth', $('#search').width() - 2 * that.el.offsetLeft - 37);
+        that.set('searchResultsWidth', $('#search').width() - 37);
       };
       window.addEventListener('keydown', keydownOnEscapeHandler, true);
       window.addEventListener('resize', setSearchResultsWidth, true);

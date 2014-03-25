@@ -95,8 +95,15 @@ footer ul a, footer .text-muted {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.navbar .profile.signed-in {
-  padding-left: 40px;
+@media(max-width:767px) {
+  .navbar .profile.signed-in {
+    padding-left: 15px;
+  }
+}
+@media(min-width:767px) {
+  .navbar .profile.signed-in {
+    padding-left: 40px;
+  }
 }
 .navbar .profile > a,
 .navbar .profile > .dropdown > a {
