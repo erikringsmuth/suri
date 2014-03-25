@@ -13,10 +13,19 @@ define(function(require) {
   var UserPage = Ractive.extend({
     template: userTemplate,
 
+    data: {
+      from: 0,
+      size: 10,
+      filter: ''
+    },
+
     init: function() {
       this.set('userId', router.routeArguments().id);
       this.set('myProfile', this.get('userId') === config.session.userId);
       $('.bs-tooltip').tooltip();
+
+      var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
+      apiSequence.set('disableTutorial', true);
 
       $.ajax('/users/' + this.get('userId'))
         .done(function(data) {
@@ -25,20 +34,10 @@ define(function(require) {
           $('.bs-tooltip').tooltip();
         }.bind(this));
 
-      $.ajax('/xhr?owner=' + this.get('userId'))
-        .done(function(data) {
-          this.set('xhrs', data);
-        }.bind(this));
-
-      var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
-      apiSequence.set('disableTutorial', true);
-
       this.observe({
-        filter: function(filter) {
-          $.ajax('/xhr?owner=' + this.get('userId') + '&q=' + filter.trim())
-            .done(function(data) {
-              this.set('xhrs', data);
-            }.bind(this));
+        filter: function() {
+          this.set('from', 0);
+          this.search();
         }
       });
 
@@ -49,6 +48,11 @@ define(function(require) {
 
         openResult: function openResult(event, item) {
           new XhrPanel({data: item});
+        },
+
+        setFrom: function(event, from) {
+          this.set('from', from);
+          this.search();
         },
 
         editDisplayName: function() {
@@ -76,9 +80,17 @@ define(function(require) {
           this.set('editDisplayName', false);
         }
       });
+
+      this.search();
     },
 
-    components: {
+    search: function() {
+      $.ajax('/xhr?from=' + this.get('from') + '&owner=' + this.get('userId') + '&q=' + this.get('filter').trim())
+        .done(function(data) {
+          this.set('xhrs', data);
+          this.set('showPreviousButton', data.from > 0);
+          this.set('showNextButton', data.to < data.of - 1);
+        }.bind(this));
     }
   });
 

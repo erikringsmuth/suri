@@ -199,8 +199,17 @@ a.tag .delete-tag {
   margin-left: 10px;
 }
 .search-results .total-hits {
+  display: inline-block;
   margin-top: 20px;
+  margin-right: 20px;
   margin-bottom: -15px;
+}
+.search-results .pager {
+  display: inline-block;
+  margin-bottom: 0px;
+}
+.search-results .pager a {
+  cursor: default;
 }
 #api-sequence-menu {
   white-space: nowrap;

@@ -13,28 +13,14 @@ define(function(require) {
     template: searchTemplate,
 
     data: {
-      header: 'Results'
+      header: 'Results',
+      from: 0,
+      size: 10
     },
 
     init: function() {
       var apiSequence = new ApiSequence({ el: this.nodes['api-sequence'] });
       apiSequence.set('disableTutorial', true);
-
-      // #/search?q={queryTerm}
-      var routeArgs = router.routeArguments();
-      if (typeof(routeArgs.q) !== 'undefined') {
-        $.ajax('/xhr?q=' + routeArgs.q)
-          .done(function(data) {
-            this.set('xhrs', data);
-          }.bind(this));
-      }
-      else if (typeof(routeArgs.tags) !== 'undefined') {
-        this.set('header', routeArgs.tags.split(',').join(', '));
-        $.ajax('/xhr?tags=' + routeArgs.tags)
-          .done(function(data) {
-            this.set('xhrs', data);
-          }.bind(this));
-      }
 
       this.on({
         teardown: function() {
@@ -43,8 +29,39 @@ define(function(require) {
 
         openResult: function openResult(event, item) {
           new XhrPanel({data: item});
+        },
+
+        setFrom: function(event, from) {
+          this.set('from', from);
+          this.search();
         }
       });
+
+      this.search();
+    },
+
+    search: function() {
+      var routeArgs = router.routeArguments();
+
+      if (typeof(routeArgs.q) !== 'undefined') {
+        // #/search?q={queryTerm}
+        $.ajax('/xhr?from=' + this.get('from') + '&q=' + routeArgs.q)
+          .done(function(data) {
+            this.set('xhrs', data);
+            this.set('showPreviousButton', data.from > 0);
+            this.set('showNextButton', data.to < data.of - 1);
+          }.bind(this));
+      }
+      else if (typeof(routeArgs.tags) !== 'undefined') {
+        // #/search?tags={tags}
+        this.set('header', routeArgs.tags.split(',').join(', '));
+        $.ajax('/xhr?from=' + this.get('from') + '&tags=' + routeArgs.tags)
+          .done(function(data) {
+            this.set('xhrs', data);
+            this.set('showPreviousButton', data.from > 0);
+            this.set('showNextButton', data.to < data.of - 1);
+          }.bind(this));
+      }
     }
   });
 

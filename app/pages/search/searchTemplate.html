@@ -1,28 +1,36 @@
 <!-- Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com> -->
 <div class="search-page">
-  {{#xhrs.hits.length}}
   <div class="row divider-bottom">
     <div class="search-results col-xs-12">
-        <h2>{{header}}</h2>
-        {{#xhrs.hits}}
-        <div class="api-row" on-tap="openResult:{{this}}">
-          <div class="name">{{name}}</div>
-          <div class="stats">
-            <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>
-            <span><i class="fa fa-star"></i> {{stars.length}}</span>
-            <span><i class="fa fa-code-fork"></i> {{forks.length}}</span>
-          </div>
-          <div class="url">
-            <span class="method">{{method}}</span>
-            <span class="url">{{url}}</span>
-          </div>
+      {{#xhrs.hits.length}}
+      <h2>{{header}}</h2>
+      {{#xhrs.hits}}
+      <div class="api-row" on-tap="openResult:{{this}}">
+        <div class="name">{{name}}</div>
+        <div class="stats">
+          <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>
+          <span><i class="fa fa-star"></i> {{stars.length}}</span>
+          <span><i class="fa fa-code-fork"></i> {{forks.length}}</span>
         </div>
-        {{/xhrs.hits}}
-        <div class="total-hits text-muted">Showing {{xhrs.returned}} of {{xhrs.total}}</div>
+        <div class="url">
+          <span class="method">{{method}}</span>
+          <span class="url">{{url}}</span>
+        </div>
       </div>
+      {{/xhrs.hits}}
+      <div class="total-hits text-muted">
+        Showing {{xhrs.from + 1}} to {{xhrs.to + 1}} of {{xhrs.of}}
+      </div>
+      <ul class="pager">
+        {{#showPreviousButton}}<li><a on-click="setFrom:{{xhrs.from - size}}">Previous</a></li>{{/showPreviousButton}}
+        {{#showNextButton}}<li><a on-click="setFrom:{{xhrs.to + 1}}">Next</a></li>{{/showNextButton}}
+      </ul>
+      {{/xhrs.hits.length}}
+      {{^xhrs.hits.length}}
+      <h2>No matching results</h2>
+      {{/xhrs.hits.length}}
     </div>
   </div>
-  {{/xhrs.hits.length}}
   <div class="row">
     <div class="col-xs-12">
       <api-sequence id="api-sequence"/>

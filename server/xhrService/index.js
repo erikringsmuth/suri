@@ -210,6 +210,18 @@ module.exports.search = function(req, res) {
     '_score'
   ];
 
+  // Pagination
+  var from = 0;
+  var size = 10;
+  if (req.query.from) {
+    from = parseInt(req.query.from);
+    search.from = from;
+  }
+  if (req.query.size) {
+    size = parseInt(req.query.size);
+    search.size = size;
+  }
+
   client.search({
     index: index,
     type: type,
@@ -221,8 +233,10 @@ module.exports.search = function(req, res) {
       return result._source;
     });
     res.send({
-      total: body.hits.total,
-      returned: hits.length,
+      from: from,
+      to: from + hits.length - 1,
+      of: body.hits.total,
+      page: Math.floor(from / size) + 1,
       hits: hits
     });
   }, function (error) {
