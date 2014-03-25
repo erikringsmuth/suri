@@ -13,7 +13,9 @@ define(function(require) {
 
     data: {
       xhrs: null,
-      tags: null
+      tags: null,
+      from: 0,
+      size: 10
     },
 
     init: function() {
@@ -26,12 +28,6 @@ define(function(require) {
           this.set('tags', data);
         }.bind(this));
 
-      // Top APIs
-      $.ajax('/xhr')
-        .done(function(data) {
-          this.set('xhrs', data);
-        }.bind(this));
-
       this.on({
         teardown: function() {
           apiSequence.teardown();
@@ -39,8 +35,25 @@ define(function(require) {
 
         openResult: function openResult(event, item) {
           new XhrPanel({data: item});
+        },
+
+        setFrom: function(event, from) {
+          this.set('from', from);
+          this.search();
         }
       });
+
+      this.search();
+    },
+
+    search: function() {
+      // Top APIs
+      $.ajax('/xhr?from=' + this.get('from'))
+        .done(function(data) {
+          this.set('xhrs', data);
+          this.set('showPreviousButton', data.from > 0);
+          this.set('showNextButton', data.to < data.of - 1);
+        }.bind(this));
     }
   });
 

@@ -27,6 +27,13 @@
           </div>
         </div>
         {{/xhrs.hits}}
+        <div class="total-hits text-muted">
+          Showing {{xhrs.from + 1}} to {{parseInt(xhrs.to) + 1}} of {{xhrs.of}}
+        </div>
+        <ul class="pager">
+          {{#showPreviousButton}}<li><a on-click="setFrom:{{xhrs.from - size}}">Previous</a></li>{{/showPreviousButton}}
+          {{#showNextButton}}<li><a on-click="setFrom:{{xhrs.to + 1}}">Next</a></li>{{/showNextButton}}
+        </ul>
       </div>
     </div>
   </div>
