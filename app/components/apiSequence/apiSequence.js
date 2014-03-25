@@ -17,6 +17,10 @@ define(function(require) {
       disableTutorial: false
     },
 
+    computed: {
+      displayTutorial: '${apiSequence.sequence.length} === 0 && !${disableTutorial}'
+    },
+
     init: function() {
       // Keep the menu aligned as you scroll
       var scrollEventHandler = function() {
@@ -29,17 +33,6 @@ define(function(require) {
         }
       }.bind(this);
       window.addEventListener('scroll', scrollEventHandler, true);
-
-      this.observe({
-        // Toggle the tutorial as panels are added and removed
-        'apiSequence.sequence': function(sequence) {
-          if (sequence.length === 0) {
-            this.set('displayTutorial', true);
-          } else {
-            this.set('displayTutorial', false);
-          }
-        }
-      });
 
       this.on({
         // When you click an item in the menu, scroll to the panel
