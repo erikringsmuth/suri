@@ -5,7 +5,7 @@
     <input type="text" class="panel-name" value="{{name}}" placeholder="Name">
     <div class="panel-heading-options pull-right">
       <span><i class="fa fa-caret-square-o-right"></i> {{callCount}}</span>
-      <button type="button" on-tap="star" class="btn btn-default" disabled="{{!id || !signedIn}}"><i class="fa fa-star {{starred ? 'starred' : ''}}"></i> {{stars.length}}</button>
+      <button type="button" on-tap="star" class="btn btn-default" disabled="{{!id || !signedIn}}"><i class="fa fa-star {{starred ? 'starred' : ''}}"></i> {{starCount}}</button>
       <span><i class="fa fa-code-fork"></i> {{forks.length}}</span>
       <button type="button" on-tap="toggleOptions" class="btn btn-default"><i class="fa fa-cog options-cog {{showOptions ? 'active' : 'inactive'}}"></i> Options</button>
       <button type="button" on-tap="toggleFullscreen"><i class="fa fa-{{fullScreen ? 'minus' : 'plus'}}"></i></button>

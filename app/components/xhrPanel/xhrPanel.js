@@ -21,6 +21,16 @@ define(function(require) {
 
     // prototype
     data: {
+      name: 'XHR',
+      method: 'GET',
+      url: 'http://www.suri.io/',
+      body: '',
+      corsEnabled: false,
+      isPublic: true,
+      callCount: 0,
+      starCount: 0,
+      forkCount: 0,
+      owner: config.session.userId,
       starred: false,
       signedIn: config.session.signedIn,
       responseBody: '',
@@ -42,21 +52,11 @@ define(function(require) {
     init: function() {
       // set non-prototype defaults
       this.set('panelId', utilities.guid());
-      if (typeof(this.get('name')) === 'undefined') this.set('name', 'XHR');
-      if (typeof(this.get('method')) === 'undefined') this.set('method', 'GET');
-      if (typeof(this.get('url')) === 'undefined') this.set('url', 'http://www.suri.io/');
-      if (typeof(this.get('headers')) === 'undefined') this.set('headers', []);
-      if (typeof(this.get('queryParameters')) === 'undefined') this.set('queryParameters', []);
-      if (typeof(this.get('body')) === 'undefined') this.set('body', '');
-      if (typeof(this.get('corsEnabled')) === 'undefined') this.set('corsEnabled', false);
-      if (typeof(this.get('isPublic')) === 'undefined') this.set('isPublic', true);
-      if (typeof(this.get('callCount')) === 'undefined') this.set('callCount', 0);
-      if (typeof(this.get('tags')) === 'undefined') this.set('tags', []);
-      if (typeof(this.get('stars')) === 'undefined') this.set('stars', []);
-      if (typeof(this.get('starCount')) === 'undefined') this.set('starCount', 0);
-      if (typeof(this.get('forks')) === 'undefined') this.set('forks', []);
-      if (typeof(this.get('forkCount')) === 'undefined') this.set('forkCount', 0);
-      if (typeof(this.get('owner')) === 'undefined') this.set('owner', config.session.userId);
+      if (!this.data.hasOwnProperty('headers')) this.set('headers', []);
+      if (!this.data.hasOwnProperty('queryParameters')) this.set('queryParameters', []);
+      if (!this.data.hasOwnProperty('tags')) this.set('tags', []);
+      if (!this.data.hasOwnProperty('stars')) this.set('stars', []);
+      if (!this.data.hasOwnProperty('forks')) this.set('forks', []);
       this.set('isOwner', !this.get('id') || config.session.userId === this.get('owner'));
       if (this.get('stars').indexOf(config.session.userId) !== -1) {
         this.set('starred', true);
@@ -101,6 +101,7 @@ define(function(require) {
             })
               .done(function() {
                 this.data.stars.splice(sequence.indexOf(config.session.userId), 1);
+                this.set('starCount', this.get('starCount') - 1);
                 this.set('starred', false);
               }.bind(this));
           } else {
@@ -111,6 +112,7 @@ define(function(require) {
             })
               .done(function() {
                 this.data.stars.push(config.session.userId);
+                this.set('starCount', this.get('starCount') + 1);
                 this.set('starred', true);
               }.bind(this));
           }
@@ -126,7 +128,7 @@ define(function(require) {
             $.ajax('/xhr/' + this.get('id'), {
               type: 'PUT',
               contentType: 'application/json',
-              data: JSON.stringify(this.data)
+              data: this.toJSON()
             })
               .done(function() {
                 this.set('saveButtonClass', 'success');
@@ -140,7 +142,7 @@ define(function(require) {
             $.ajax('/xhr', {
               type: 'POST',
               contentType: 'application/json',
-              data: JSON.stringify(this.data)
+              data: this.toJSON()
             })
               .done(function(data) {
                 this.set('saveButtonClass', 'success');
@@ -167,13 +169,17 @@ define(function(require) {
         },
 
         fork: function() {
-          var fork = new XhrPanel({data: this.data});
-          fork.set('id', null);
-          fork.set('isOwner', true);
-          fork.set('owner', config.session.userId);
-          fork.set('callCount', 0);
-          fork.set('forks', []);
-          fork.set('forkedFrom', this.get('id'));
+          var fork = new XhrPanel({data: JSON.parse(this.toJSON())});
+          fork.set({
+            id: null,
+            isOwner: true,
+            owner: config.session.userId,
+            callCount: 0,
+            starCount: 0,
+            forkCount: 0,
+            forks: [],
+            forkedFrom: this.get('id')
+          });
           fork.fire('save');
           this.data.forks.push(''); // increment the forks count, this is faking out what's happening server side
         },
@@ -317,6 +323,17 @@ define(function(require) {
       // Scroll to the panel when it's created
       this.fire('scrollToPanel');
       this.fire('setupTooltips');
+    },
+
+    // Return the Ractive object data as JSON including the default data properties which are on the prototype
+    toJSON: function() {
+      var json = {};
+      for (var property in this.data) {
+        if (typeof(property) !== 'function') {
+          json[property] = this.data[property];
+        }
+      }
+      return JSON.stringify(json);
     }
   });
 
