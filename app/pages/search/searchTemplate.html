@@ -19,7 +19,7 @@
       </div>
       {{/xhrs.hits}}
       <div class="total-hits text-muted">
-        Showing {{xhrs.from + 1}} to {{xhrs.to + 1}} of {{xhrs.of}}
+        Showing {{xhrs.from}} to {{xhrs.to}} of {{xhrs.of}}
       </div>
       <ul class="pager">
         {{#showPreviousButton}}<li><a on-click="setFrom:{{xhrs.from - size}}">Previous</a></li>{{/showPreviousButton}}

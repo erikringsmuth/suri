@@ -14,14 +14,14 @@ define(function(require) {
     template: userTemplate,
 
     data: {
-      from: 0,
+      from: 1,
       size: 10,
       filter: ''
     },
 
     computed: {
-      showPreviousButton: '${xhrs.from} > 0',
-      showNextButton: '${xhrs.to} < ${xhrs.of} - 1'
+      showPreviousButton: '${xhrs.from} > 1',
+      showNextButton: '${xhrs.to} < ${xhrs.of}'
     },
 
     init: function() {
@@ -41,7 +41,7 @@ define(function(require) {
 
       this.observe({
         filter: function() {
-          this.set('from', 0);
+          this.set('from', 1);
           this.search();
         }
       });

@@ -14,13 +14,13 @@ define(function(require) {
     data: {
       xhrs: null,
       tags: null,
-      from: 0,
+      from: 1,
       size: 10
     },
 
     computed: {
-      showPreviousButton: '${xhrs.from} > 0',
-      showNextButton: '${xhrs.to} < ${xhrs.of} - 1'
+      showPreviousButton: '${xhrs.from} > 1',
+      showNextButton: '${xhrs.to} < ${xhrs.of}'
     },
 
     init: function() {

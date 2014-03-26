@@ -211,11 +211,11 @@ module.exports.search = function(req, res) {
   ];
 
   // Pagination
-  var from = 0;
+  var from = 1;
   var size = 10;
   if (req.query.from) {
     from = parseInt(req.query.from);
-    search.from = from;
+    search.from = from - 1;
   }
   if (req.query.size) {
     size = parseInt(req.query.size);
@@ -234,7 +234,7 @@ module.exports.search = function(req, res) {
     });
     res.send({
       from: from,
-      to: from + hits.length - 1,
+      to: hits.length === 0 ? from : from + hits.length - 1,
       of: body.hits.total,
       page: Math.floor(from / size) + 1,
       hits: hits
