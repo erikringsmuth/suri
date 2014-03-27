@@ -29,7 +29,8 @@
     "URIjs": "~1.12.1",
     "requirejs": "~2.1.11",
     "compression": "~1.0.1",
-    "body-parser": "~1.0.1"
+    "body-parser": "~1.0.1",
+    "morgan": "~1.0.0"
   },
   "engines": {
     "node": "0.10.x"

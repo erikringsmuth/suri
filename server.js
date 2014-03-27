@@ -14,6 +14,7 @@ require('newrelic');
 var express     = require('express'),
     compression = require('compression'),
     bodyParser  = require('body-parser'),
+    logger      = require('morgan'),
     auth        = require('./server/authentication'),
     proxy       = require('./server/proxy'),
     config      = require('./server/config'),
@@ -64,12 +65,16 @@ app.use(bodyParser());
 if (nconf.get('ENV') === 'production') {
   app.use(express.static(__dirname + '/app-built'));
 
+  app.use(logger());
+
   // Error handling
   app.use(function(err, req, res, next) {
     res.send(500, { status:500, message: 'internal error' });
   });
 } else {
   app.use(express.static(__dirname + '/app'));
+
+  app.use(logger('dev'));
 
   // Error handling
   app.use(function(err, req, res, next) {
