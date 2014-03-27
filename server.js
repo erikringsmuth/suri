@@ -12,6 +12,8 @@ nconf
 require('newrelic');
 
 var express     = require('express'),
+    compression = require('compression'),
+    bodyParser  = require('body-parser'),
     auth        = require('./server/authentication'),
     proxy       = require('./server/proxy'),
     config      = require('./server/config'),
@@ -25,59 +27,58 @@ var express     = require('express'),
 
 //// CONFIG
 
-app.configure(function() {
-  // Don't add the X-Powered-By header
-  app.disable('x-powered-by');
+// Don't add the X-Powered-By header
+app.disable('x-powered-by');
 
-  // gzip traffic
-  app.use(express.compress());
+// gzip traffic
+app.use(compression());
 
-  // Proxy requests with 'api-host' header
-  app.use(xhrService.incrementCallCount);
-  app.use(proxy);
+// Proxy requests with 'api-host' header
+app.use(xhrService.incrementCallCount);
+app.use(proxy);
 
-  // Client session
-  app.use(sessions({
-    cookieName: 'session_state', // cookie name dictates the key name added to the request object
-    secret: nconf.get('SESSION_SECRET'), // should be a large unguessable string
-    duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
-    activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
-  }));
+// Client session
+app.use(sessions({
+  cookieName: 'session_state', // cookie name dictates the key name added to the request object
+  secret: nconf.get('SESSION_SECRET'), // should be a large unguessable string
+  duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
+  activeDuration: 1000 * 60 * 5 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
+}));
 
-  // View engine
-  app.set('views', __dirname + '/views');
-  app.engine('handlebars', handlebars());
-  app.set('view engine', 'handlebars');
+// View engine
+app.set('views', __dirname + '/views');
+app.engine('handlebars', handlebars());
+app.set('view engine', 'handlebars');
 
-  // Serve /app dir as static content, it will look like the root dir
-  // user /app in development, /app-built in prod
-  if (nconf.get('ENV') === 'production') {
-    app.use(express.static(__dirname + '/app-built'));
-  } else {
-    app.use(express.static(__dirname + '/app'));
-  }
+// Serve /app dir as static content, it will look like the root dir
+// user /app in development, /app-built in prod
+if (nconf.get('ENV') === 'production') {
+  app.use(express.static(__dirname + '/app-built'));
+} else {
+  app.use(express.static(__dirname + '/app'));
+}
 
-  // Parse body to JSON which is available using req.body
-  app.use(express.json());
-});
+// Parse body to JSON which is available using req.body
+app.use(bodyParser());
 
-app.configure('development', function() {
-  console.log('ELASTICSEARCH_URL: ' + nconf.get('ELASTICSEARCH_URL'));
+if (nconf.get('ENV') === 'production') {
+  app.use(express.static(__dirname + '/app-built'));
+
+  // Error handling
+  app.use(function(err, req, res, next) {
+    res.send(500, { status:500, message: 'internal error' });
+  });
+} else {
+  app.use(express.static(__dirname + '/app'));
 
   // Error handling
   app.use(function(err, req, res, next) {
     console.error(err);
     res.send(500, { status:500, message: 'internal error', error: err });
   });
-});
 
-app.configure('production', function() {
-  // Error handling
-  app.use(function(err, req, res, next) {
-    //do logging and user-friendly error message display
-    res.send(500, { status:500, message: 'internal error' });
-  });
-});
+  console.log('ELASTICSEARCH_URL: ' + nconf.get('ELASTICSEARCH_URL'));
+}
 
 
 //// ROUTES
