@@ -3,7 +3,7 @@
 
 var request = require('request'),
     URI     = require('URIjs'),
-    strings = require('../strings');
+    strings = require('../services/strings.js');
 
 // The API proxy forwards requests to the 'api-host' header
 module.exports = function apiProxy(req, res, next) {
