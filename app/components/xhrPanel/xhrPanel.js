@@ -100,7 +100,7 @@ define(function(require) {
               method: 'DELETE'
             })
               .done(function() {
-                this.data.stars.splice(sequence.indexOf(config.session.userId), 1);
+                this.data.stars.splice(this.data.stars.indexOf(config.session.userId), 1);
                 this.set('starCount', this.get('starCount') - 1);
                 this.set('starred', false);
               }.bind(this));

@@ -18,7 +18,7 @@ var express     = require('express'),
     auth        = require('./server/authentication'),
     proxy       = require('./server/proxy'),
     config      = require('./server/config'),
-    xhrService  = require('./server/xhrService'),
+    xhrRoutes   = require('./routes/xhrRoutes.js'),
     userService = require('./server/userService'),
     ipAddress   = require('./server/ipAddress'),
     handlebars  = require('express3-handlebars'),
@@ -35,7 +35,7 @@ app.disable('x-powered-by');
 app.use(compression());
 
 // Proxy requests with 'api-host' header
-app.use(xhrService.incrementCallCount);
+app.use(xhrRoutes.incrementCallCount);
 app.use(proxy);
 
 // Client session
@@ -94,14 +94,14 @@ app.get('/logout', auth.logout);
 app.get('/oauth2callback', auth.oAuth2Callback);
 
 // XHR
-app.get('/xhr/:id', xhrService.get);
-app.get('/xhr', xhrService.search);
-app.post('/xhr', xhrService.create);
-app.put('/xhr/:id', xhrService.update);
-app.delete('/xhr/:id', xhrService.delete);
-app.post('/xhr/:id/stars', xhrService.star);
-app.delete('/xhr/:id/stars/:userId', xhrService.unstar);
-app.get('/tags', xhrService.tagsAggregation);
+app.get('/xhr/:id', xhrRoutes.get);
+app.get('/xhr', xhrRoutes.search);
+app.post('/xhr', xhrRoutes.create);
+app.put('/xhr/:id', xhrRoutes.update);
+app.delete('/xhr/:id', xhrRoutes.delete);
+app.post('/xhr/:id/stars', xhrRoutes.star);
+app.delete('/xhr/:id/stars/:userId', xhrRoutes.unstar);
+app.get('/tags', xhrRoutes.tagsAggregation);
 
 // Users
 app.get('/users/:id', userService.getProfile);
