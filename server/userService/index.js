@@ -35,15 +35,13 @@ module.exports.getGoogleUserByIssAndSub = function(iss, sub, successCallback, er
     type: type,
     body: {
       query: {
-        bool: {
-          must: [
-            {
-              term: { googleIss: iss }
-            },
-            {
-              term: { googleSub: sub }
-            }
-          ]
+        filtered: {
+          filter: {
+            and: [
+              { term: { googleIss: iss } },
+              { term: { googleSub: sub } }
+            ]
+          }
         }
       }
     }
