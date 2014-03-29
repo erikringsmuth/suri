@@ -29,48 +29,54 @@ for (var i = 0; i < xhrs.length; i++) {
 }
 
 // Create the users index
-// client.indices.create({
-//   index: nconf.get('USER_INDEX'),
-//   body: {
-//     mappings: {
-//       users: {
-//         properties: {
-//           userId: { type: 'string', index: 'not_analyzed' },
-//           googleIss: { type: 'string', index: 'not_analyzed' },
-//           googleSub: { type: 'string', index: 'not_analyzed' },
-//           emailMd5: { type: 'string', index: 'not_analyzed' },
-//           displayName: { type: 'string', index: 'not_analyzed' }
+// client.indices.delete({
+//   index: nconf.get('USER_INDEX')
+// }, function() {
+//   console.log('\nDeleted the index');
+
+//   client.indices.create({
+//     index: nconf.get('USER_INDEX'),
+//     body: {
+//       mappings: {
+//         users: {
+//           properties: {
+//             userId: { type: 'string', index: 'not_analyzed' },
+//             googleIss: { type: 'string', index: 'not_analyzed' },
+//             googleSub: { type: 'string', index: 'not_analyzed' },
+//             emailMd5: { type: 'string', index: 'not_analyzed' },
+//             displayName: { type: 'string', index: 'not_analyzed' }
+//           }
 //         }
 //       }
 //     }
-//   }
-// })
-//   .then(function () {
-//     console.log('\nCreated the suri-users index and put the mapping');
+//   })
+//     .then(function () {
+//       console.log('\nCreated the suri-users index and put the mapping');
 
-//     // Then add each of the new items
-//     client.index({
-//       index: nconf.get('USER_INDEX'),
-//       type: nconf.get('USER_TYPE'),
-//       id: eriksUserId,
-//       body: {
-//         displayName: 'erik.ringsmuth',
-//         emailMd5: '5491ac2e7c74eb1253df058e3d8d3e83',
-//         googleIss: 'accounts.google.com',
-//         googleSub: '111414135525027275706'
-//       }
-//     })
-//       .then(function (body) {
-//         console.log('\nIndexed user: ' + JSON.stringify(body, null, 2));
-//         process.exit(0);
-//       }, function (error) {
-//         console.log('\nIndex user errored: ' + error);
-//         process.exit(0);
-//       });
+//       // Then add each of the new items
+//       client.index({
+//         index: nconf.get('USER_INDEX'),
+//         type: nconf.get('USER_TYPE'),
+//         id: eriksUserId,
+//         body: {
+//           displayName: 'erik.ringsmuth',
+//           emailMd5: '5491ac2e7c74eb1253df058e3d8d3e83',
+//           googleIss: 'accounts.google.com',
+//           googleSub: '111414135525027275706'
+//         }
+//       })
+//         .then(function (body) {
+//           console.log('\nIndexed user: ' + JSON.stringify(body, null, 2));
+//           process.exit(0);
+//         }, function (error) {
+//           console.log('\nIndex user errored: ' + error);
+//           process.exit(0);
+//         });
 
-//   }, function (error) {
-//     console.log('Failed to create the suri-users index.\nErrored: ' + error);
-//   });
+//     }, function (error) {
+//       console.log('Failed to create the suri-users index.\nErrored: ' + error);
+//     });
+// });
 
 
 // Recreate the index and put mappings

@@ -2,7 +2,8 @@
 'use strict';
 var nconf         = require('nconf'),
     elasticsearch = require('elasticsearch'),
-    shortId       = require('shortid');
+    shortId       = require('shortid'),
+    Q             = require('q');
 
 var client = elasticsearch.Client({
   host: nconf.get('ELASTICSEARCH_URL')
@@ -12,7 +13,7 @@ var index = nconf.get('USER_INDEX');
 var type = nconf.get('USER_TYPE');
 
 // Create user
-module.exports.createUser = function(user, successCallback, errorCallback) {
+module.exports.createUser = function(user) {
   var data = {
     googleIss: user.googleIss,
     googleSub: user.googleSub,
@@ -20,53 +21,45 @@ module.exports.createUser = function(user, successCallback, errorCallback) {
     displayName: user.displayName || ''
   };
 
-  client.create({
+  // It's a promise
+  return client.create({
     index: index,
     type: type,
     id: shortId.generate(),
     body: data
-  }).then(successCallback, errorCallback);
+  });
 };
 
 // Get user with iss and sub
-module.exports.getGoogleUserByIssAndSub = function(iss, sub, successCallback, errorCallback) {
-  client.search({
-    index: index,
-    type: type,
-    body: {
-      query: {
-        filtered: {
-          filter: {
-            and: [
-              { term: { googleIss: iss } },
-              { term: { googleSub: sub } }
-            ]
+module.exports.getGoogleUserByIssAndSub = function(iss, sub) {
+  var deferred = Q.defer();
+  client
+    .search({
+      index: index,
+      type: type,
+      body: {
+        query: {
+          filtered: {
+            filter: {
+              and: [
+                { term: { googleIss: iss } },
+                { term: { googleSub: sub } }
+              ]
+            }
           }
         }
       }
-    }
-  }).then(function (body) {
-    var user = body.hits.hits[0];
-    if (user) {
-      user._source.userId = user._id;
-      successCallback(user._source);
-    } else {
-      errorCallback('User not found.');
-    }
-  }, errorCallback);
-};
-
-// Get user by userId
-module.exports.getUserById = function(userId, successCallback, errorCallback) {
-  client.get({
-    index: index,
-    type: type,
-    id: userId
-  }).then(function (body) {
-    successCallback(body._source);
-  }, function () {
-    errorCallback('User not found.');
-  });
+    })
+    .then(function (body) {
+      var user = body.hits.hits[0];
+      if (user) {
+        user._source.userId = user._id;
+        deferred.resolve(user._source);
+      } else {
+        deferred.reject('User not found.');
+      }
+    }, deferred.reject);
+  return deferred.promise;
 };
 
 // Get user profile

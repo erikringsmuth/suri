@@ -5,6 +5,7 @@ var nconf        = require('nconf'),
     googleOAuth2 = require('./googleOAuth2'),
     crypto       = require('crypto'),
     userService  = require('../userService'),
+    Q            = require('q'),
     clientId     = nconf.get('CLIENT_ID'),
     clientSecret = nconf.get('CLIENT_SECRET');
 
@@ -43,21 +44,26 @@ module.exports.login = function login(req, res) {
 
 
 // The iss and sub must be set when this is called
-var getOrCreateUserProfile = function getOrCreateUserProfile(options, successCallback, errorCallback) {
-  userService.getGoogleUserByIssAndSub(options.googleIss, options.googleSub, successCallback, function() {
-    // In error callback, need to create a new user
-    var user = {
-      googleIss: options.googleIss,
-      googleSub: options.googleSub,
-      emailMd5: options.emailMd5,
-      displayName: options.email.split('@')[0]
-    };
-    userService.createUser(user, function(body) {
-      // User created, return the user
-      user.userId = body._id;
-      successCallback(user);
-    }, errorCallback);
-  });
+var getOrCreateUserProfile = function getOrCreateUserProfile(options) {
+  var deferred = Q.defer();
+  userService
+    .getGoogleUserByIssAndSub(options.googleIss, options.googleSub)
+    .then(deferred.resolve, function() {
+      // In error callback, need to create a new user
+      var user = {
+        googleIss: options.googleIss,
+        googleSub: options.googleSub,
+        emailMd5: options.emailMd5,
+        displayName: options.email.split('@')[0]
+      };
+      userService.createUser(user)
+        .then(function(body) {
+          // User created, return the user
+          user.userId = body._id;
+          deferred.resolve(user);
+        }, deferred.reject);
+    });
+  return deferred.promise;
 };
 
 
@@ -102,30 +108,33 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
     clientSecret: clientSecret,
     code: req.query.code,
     redirectUri: redirectUri
-  }, function(oauthResult) {
-    // Create a session
-    //
-    // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
-    req.session_state.email = oauthResult.decoded_id_token.email;
-    req.session_state.emailMd5 = crypto.createHash('md5').update(req.session_state.email || '').digest('hex');
-    req.session_state.signedIn = true;
-    req.session_state.authenticationMessage = 'Signed in.';
+  })
+    .then(function(oauthResult) {
+      // Create a session
+      //
+      // 6. https://developers.google.com/accounts/docs/OAuth2Login#authuser
+      req.session_state.email = oauthResult.decoded_id_token.email;
+      req.session_state.emailMd5 = crypto.createHash('md5').update(req.session_state.email || '').digest('hex');
+      req.session_state.signedIn = true;
+      req.session_state.authenticationMessage = 'Signed in.';
 
-    getOrCreateUserProfile({
-      googleIss: oauthResult.decoded_id_token.iss,
-      googleSub: oauthResult.decoded_id_token.sub,
-      email: req.session_state.email,
-      emailMd5: req.session_state.emailMd5
-    }, function(userProfileResult) {
-      req.session_state.userId = userProfileResult.userId;
-      req.session_state.displayName = userProfileResult.displayName;
-      res.redirect('/');
-    }, function() {
-      resetSession(req.session_state, 'Failed to create user profile.');
+      getOrCreateUserProfile({
+        googleIss: oauthResult.decoded_id_token.iss,
+        googleSub: oauthResult.decoded_id_token.sub,
+        email: req.session_state.email,
+        emailMd5: req.session_state.emailMd5
+      })
+        .then(function(userProfileResult) {
+          req.session_state.userId = userProfileResult.userId;
+          req.session_state.displayName = userProfileResult.displayName;
+          res.redirect('/');
+        }, function() {
+          resetSession(req.session_state, 'Failed to create user profile.');
+          res.redirect('/');
+        });
+    })
+    .fail(function(error) {
+      resetSession(req.session_state, error);
       res.redirect('/');
     });
-  }, function(error) {
-    resetSession(req.session_state, error);
-    res.redirect('/');
-  });
 };
