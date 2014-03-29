@@ -138,6 +138,13 @@ module.exports.search = function(req, res) {
   var search = {
     query: {
       filtered: {}
+    },
+    highlight: {
+      fields: {
+        name: {}
+      },
+      pre_tags: ['<strong>'],
+      post_tags: ['</strong>']
     }
   };
 
@@ -230,6 +237,9 @@ module.exports.search = function(req, res) {
     // Map the response to an array with the _source field plus the ID
     var hits = body.hits.hits.map(function(result) {
       result._source.id = result._id;
+      if (typeof result.highlight !== 'undefined' && typeof result.highlight.name !== 'undefined') {
+        result._source.highlightedName = result.highlight.name[0];
+      }
       return result._source;
     });
     res.send({
