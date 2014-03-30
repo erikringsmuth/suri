@@ -19,7 +19,7 @@ var express     = require('express'),
     proxy       = require('./routes/proxy.js'),
     config      = require('./routes/config.js'),
     xhrRoutes   = require('./routes/xhrRoutes.js'),
-    userService = require('./server/userService'),
+    userRoutes  = require('./routes/userRoutes'),
     ipAddress   = require('./routes/ipAddress.js'),
     handlebars  = require('express3-handlebars'),
     sessions    = require('client-sessions'),
@@ -104,8 +104,8 @@ app.delete('/xhr/:id/stars/:userId', xhrRoutes.unstar);
 app.get('/tags', xhrRoutes.tagsAggregation);
 
 // Users
-app.get('/users/:id', userService.getProfile);
-app.put('/users/:id/displayname', userService.updateDisplayName);
+app.get('/users/:id', userRoutes.getProfile);
+app.put('/users/:id/displayname', userRoutes.updateDisplayName);
 
 // Browser's IP address
 app.get('/ip', ipAddress);

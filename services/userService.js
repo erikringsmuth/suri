@@ -33,6 +33,7 @@ module.exports.createUser = function(user) {
 // Get user with iss and sub
 module.exports.getGoogleUserByIssAndSub = function(iss, sub) {
   var deferred = Q.defer();
+
   client
     .search({
       index: index,
@@ -59,58 +60,75 @@ module.exports.getGoogleUserByIssAndSub = function(iss, sub) {
         deferred.reject('User not found.');
       }
     }, deferred.reject);
+
   return deferred.promise;
 };
 
 // Get user profile
-module.exports.getProfile = function(req, res) {
-  client.get({
-    index: index,
-    type: type,
-    id: req.params.id
-  }).then(function (body) {
-    res.send({
-      userId: body._id,
-      emailMd5: body._source.emailMd5,
-      displayName: body._source.displayName
+module.exports.getProfile = function(id) {
+  var deferred = Q.defer();
+
+  client
+    .get({
+      index: index,
+      type: type,
+      id: id
+    })
+    .then(function (body) {
+      deferred.resolve({
+        userId: body._id,
+        emailMd5: body._source.emailMd5,
+        displayName: body._source.displayName
+      });
+    }, function () {
+      deferred.reject({
+        status: 404,
+        message: 'Not found'
+      });
     });
-  }, function () {
-    res.status(404);
-    res.send('Not found');
-  });
+
+  return deferred.promise;
 };
 
 // Set user display name
-module.exports.updateDisplayName = function(req, res) {
-  if (req.params.id !== req.session_state.userId) {
-    res.status(401);
-    res.send('Unauthorized. You can only change your own display name.');
-  }
-  else if (typeof(req.body.displayName) !== 'string') {
-    res.status(400);
-    res.send('The display name must be a string');
-  }
-  else if (req.body.displayName.length > 30) {
-    res.status(400);
-    res.send('The display name is a maximum of 30 characters');
-  }
-  else {
-    client.update({
-      index: index,
-      type: type,
-      id: req.session_state.userId,
-      body: {
-        doc: {
-          displayName: req.body.displayName
-        }
-      }
-    })
-    .then(function () {
-      req.session_state.displayName = req.body.displayName;
-      res.send(req.body);
-    }, function () {
-      res.status(500);
-      res.send('Failed to update display name');
+module.exports.updateDisplayName = function(userId, displayName) {
+  var deferred = Q.defer();
+
+  if (typeof(displayName) !== 'string') {
+    deferred.reject({
+      status: 400,
+      message: 'The display name must be a string'
     });
   }
+  else if (displayName.length > 30) {
+    deferred.reject({
+      status: 400,
+      message: 'The display name is a maximum of 30 characters'
+    });
+  }
+  else {
+    client
+      .update({
+        index: index,
+        type: type,
+        id: userId,
+        body: {
+          doc: {
+            displayName: displayName
+          }
+        }
+      })
+      .then(function () {
+        deferred.resolve({
+          displayName: displayName
+        });
+      }, function () {
+        deferred.reject({
+          status: 500,
+          message: 'Failed to update display name'
+        });
+      });
+  }
+
+  return deferred.promise;
 };

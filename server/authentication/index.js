@@ -4,7 +4,7 @@
 var nconf        = require('nconf'),
     googleOAuth2 = require('./googleOAuth2'),
     crypto       = require('crypto'),
-    userService  = require('../userService'),
+    userService  = require('../../services/userService.js'),
     Q            = require('q'),
     clientId     = nconf.get('CLIENT_ID'),
     clientSecret = nconf.get('CLIENT_SECRET');

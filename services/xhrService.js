@@ -77,9 +77,17 @@ module.exports.get = function(id, userId) {
         body._source.id = body._id;
         deferred.resolve(body._source);
       } else {
-        deferred.reject();
+        deferred.reject({
+          status: 404,
+          message: 'Not found'
+        });
       }
-    }, deferred.reject);
+    }, function () {
+      deferred.reject({
+        status: 404,
+        message: 'Not found'
+      });
+    });
 
   return deferred.promise;
 };

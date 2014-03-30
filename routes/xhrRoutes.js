@@ -27,9 +27,9 @@ module.exports.get = function(req, res) {
     .then(function (xhr) {
       res.send(xhr);
     })
-    .fail(function () {
-      res.status(404);
-      res.send('Not found');
+    .fail(function (error) {
+      res.status(error.status);
+      res.send(error);
     });
 };
 
