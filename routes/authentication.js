@@ -2,20 +2,19 @@
 'use strict';
 
 var nconf        = require('nconf'),
-    googleOAuth2 = require('../services/googleOAuth2.js'),
+    googleOAuth2 = require('../services/googleOAuth2'),
     crypto       = require('crypto'),
-    userService  = require('../services/userService.js'),
+    userService  = require('../services/userService'),
+    guid         = require('../utilities/guid'),
     clientId     = nconf.get('CLIENT_ID'),
     clientSecret = nconf.get('CLIENT_SECRET');
 
 
-function guid() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-    return v.toString(16);
-  });
-}
-
+var resetSession = function resetSession(session_state, message) {
+  session_state.reset();
+  session_state.signedIn = false;
+  session_state.authenticationMessage = message;
+};
 
 module.exports.login = function login(req, res) {
   // Redirect to Google for authentication
@@ -42,18 +41,10 @@ module.exports.login = function login(req, res) {
 };
 
 
-var resetSession = function resetSession(session_state, message) {
-  session_state.reset();
-  session_state.signedIn = false;
-  session_state.authenticationMessage = message;
-};
-
-
 module.exports.logout = function logout(req, res) {
   resetSession(req.session_state, 'Signed out.');
   res.redirect('/');
 };
-
 
 module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
 

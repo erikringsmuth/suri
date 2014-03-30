@@ -1,7 +1,7 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
-var xhrService    = require('../services/xhrService.js'),
-    searchService    = require('../services/searchService.js');
+var xhrService    = require('../services/xhrService'),
+    searchService    = require('../services/searchService');
 
 module.exports.create = function(req, res) {
   if(!req.session_state.signedIn) {
