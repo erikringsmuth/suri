@@ -90,6 +90,34 @@ module.exports.getProfile = function(id) {
   return deferred.promise;
 };
 
+// The iss and sub must be set when this is called
+module.exports.getOrCreateUserProfile = function(options) {
+  var deferred = Q.defer();
+
+  module.exports
+    .getGoogleUserByIssAndSub(options.googleIss, options.googleSub)
+    .then(deferred.resolve)
+    .fail(function() {
+      // Didn't find an existing user, create a new user
+      var user = {
+        googleIss: options.googleIss,
+        googleSub: options.googleSub,
+        emailMd5: options.emailMd5,
+        displayName: options.email.split('@')[0]
+      };
+      module.exports
+        .createUser(user)
+        .then(function(body) {
+          // User created, return the user
+          user.userId = body._id;
+          deferred.resolve(user);
+        })
+        .fail(deferred.reject);
+    });
+
+  return deferred.promise;
+};
+
 // Set user display name
 module.exports.updateDisplayName = function(userId, displayName) {
   var deferred = Q.defer();

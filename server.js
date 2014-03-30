@@ -15,7 +15,7 @@ var express     = require('express'),
     compression = require('compression'),
     bodyParser  = require('body-parser'),
     logger      = require('morgan'),
-    auth        = require('./server/authentication'),
+    auth        = require('./routes/authentication'),
     proxy       = require('./routes/proxy.js'),
     config      = require('./routes/config.js'),
     xhrRoutes   = require('./routes/xhrRoutes.js'),
@@ -69,7 +69,7 @@ if (nconf.get('ENV') === 'production') {
 
   // Error handling
   app.use(function(err, req, res, next) {
-    res.send(500, { status:500, message: 'internal error' });
+    res.send(500, { status: 500, message: 'internal error' });
   });
 } else {
   app.use(express.static(__dirname + '/app'));
@@ -79,7 +79,7 @@ if (nconf.get('ENV') === 'production') {
   // Error handling
   app.use(function(err, req, res, next) {
     console.error(err);
-    res.send(500, { status:500, message: 'internal error', error: err });
+    res.send(500, { status: 500, message: 'internal error', error: err });
   });
 
   console.log('ELASTICSEARCH_URL: ' + nconf.get('ELASTICSEARCH_URL'));

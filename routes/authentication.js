@@ -2,10 +2,9 @@
 'use strict';
 
 var nconf        = require('nconf'),
-    googleOAuth2 = require('./googleOAuth2'),
+    googleOAuth2 = require('../services/googleOAuth2.js'),
     crypto       = require('crypto'),
-    userService  = require('../../services/userService.js'),
-    Q            = require('q'),
+    userService  = require('../services/userService.js'),
     clientId     = nconf.get('CLIENT_ID'),
     clientSecret = nconf.get('CLIENT_SECRET');
 
@@ -40,30 +39,6 @@ module.exports.login = function login(req, res) {
                 '&client_id=' + clientId +
                 '&response_type=code' +
                 '&redirect_uri=' + redirectUri);
-};
-
-
-// The iss and sub must be set when this is called
-var getOrCreateUserProfile = function getOrCreateUserProfile(options) {
-  var deferred = Q.defer();
-  userService
-    .getGoogleUserByIssAndSub(options.googleIss, options.googleSub)
-    .then(deferred.resolve, function() {
-      // In error callback, need to create a new user
-      var user = {
-        googleIss: options.googleIss,
-        googleSub: options.googleSub,
-        emailMd5: options.emailMd5,
-        displayName: options.email.split('@')[0]
-      };
-      userService.createUser(user)
-        .then(function(body) {
-          // User created, return the user
-          user.userId = body._id;
-          deferred.resolve(user);
-        }, deferred.reject);
-    });
-  return deferred.promise;
 };
 
 
@@ -103,12 +78,13 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
   var redirectUri = 'http://' + req.header('host') + '/oauth2callback';
 
   // Exchange an OAuth2 one-time authorization code for an OpenID Connect id_token
-  googleOAuth2.createOpenIdConnectTokens({
-    clientId: clientId,
-    clientSecret: clientSecret,
-    code: req.query.code,
-    redirectUri: redirectUri
-  })
+  googleOAuth2
+    .createOpenIdConnectTokens({
+      clientId: clientId,
+      clientSecret: clientSecret,
+      code: req.query.code,
+      redirectUri: redirectUri
+    })
     .then(function(oauthResult) {
       // Create a session
       //
@@ -118,17 +94,19 @@ module.exports.oAuth2Callback = function oAuth2Callback(req, res) {
       req.session_state.signedIn = true;
       req.session_state.authenticationMessage = 'Signed in.';
 
-      getOrCreateUserProfile({
-        googleIss: oauthResult.decoded_id_token.iss,
-        googleSub: oauthResult.decoded_id_token.sub,
-        email: req.session_state.email,
-        emailMd5: req.session_state.emailMd5
-      })
+      userService
+        .getOrCreateUserProfile({
+          googleIss: oauthResult.decoded_id_token.iss,
+          googleSub: oauthResult.decoded_id_token.sub,
+          email: req.session_state.email,
+          emailMd5: req.session_state.emailMd5
+        })
         .then(function(userProfileResult) {
           req.session_state.userId = userProfileResult.userId;
           req.session_state.displayName = userProfileResult.displayName;
           res.redirect('/');
-        }, function() {
+        })
+        .fail(function() {
           resetSession(req.session_state, 'Failed to create user profile.');
           res.redirect('/');
         });
