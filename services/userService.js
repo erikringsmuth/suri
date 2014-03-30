@@ -128,10 +128,10 @@ module.exports.updateDisplayName = function(userId, displayName) {
       message: 'The display name must be a string'
     });
   }
-  else if (displayName.length > 30) {
+  else if (displayName.length > 30 || displayName.length < 3) {
     deferred.reject({
       status: 400,
-      message: 'The display name is a maximum of 30 characters'
+      message: 'The display name must be between 3 and 30 characters'
     });
   }
   else {
