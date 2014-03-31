@@ -70,6 +70,7 @@ if (nconf.get('ENV') === 'production') {
   // Error handling
   app.use(function(err, req, res, next) {
     res.send(500, { status: 500, message: 'internal error' });
+    next();
   });
 } else {
   app.use(express.static(__dirname + '/app'));
@@ -80,6 +81,7 @@ if (nconf.get('ENV') === 'production') {
   app.use(function(err, req, res, next) {
     console.error(err);
     res.send(500, { status: 500, message: 'internal error', error: err });
+    next();
   });
 
   console.log('ELASTICSEARCH_URL: ' + nconf.get('ELASTICSEARCH_URL'));

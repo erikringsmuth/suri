@@ -9,7 +9,13 @@
   // Relaxing options
   "globals": {
     "define": true,
-    "require": true
+    "require": true,
+    "describe": true,
+    "it": true,
+    "before": true,
+    "after": true,
+    "beforeEach": true,
+    "afterEach": true
   },
   "globalstrict": true,
   "loopfunc": true,
