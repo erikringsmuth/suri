@@ -1,1 +1,0 @@
-supervisor -w ../server.js,../services,../routes --debug ../server.js
