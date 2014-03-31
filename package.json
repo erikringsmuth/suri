@@ -30,7 +30,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha -R spec"
+    "test": "mocha -R spec",
+    "build": "node r.js -o app.build.js"
   },
   "devDependencies": {
     "supervisor": "~0.5.7",
