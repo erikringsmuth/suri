@@ -1,12 +1,18 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 
-var request = require('request'),
-    URI     = require('URIjs'),
-    strings = require('../utilities/strings');
+var request     = require('request'),
+    URI         = require('URIjs'),
+    xhrService  = require('../services/xhrService'),
+    strings     = require('../utilities/strings');
 
 // The API proxy forwards requests to the 'api-host' header
 module.exports = function apiProxy(req, res, next) {
+
+  // Increment the XHR callCount
+  if (req.get('api-id')) {
+    xhrService.incrementCallCount(req.get('api-id'));
+  }
 
   var apiHost = req.get('api-host');
 

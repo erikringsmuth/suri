@@ -7,6 +7,7 @@ var codeFiles = [
   'server.js',
   'routes/**/*.js',
   'services/**/*.js',
+  'middleware/**/*.js',
   'utilities/**/*.js',
   'app/*.js',
   'app/components/**/*.js',

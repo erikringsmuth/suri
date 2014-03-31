@@ -1,7 +1,7 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
 var xhrService    = require('../services/xhrService'),
-    searchService    = require('../services/searchService');
+    searchService = require('../services/searchService');
 
 module.exports.create = function(req, res) {
   if(!req.session_state.signedIn) {
@@ -68,13 +68,6 @@ module.exports.tagsAggregation = function(req, res) {
       res.status(error.status);
       res.send(error);
     });
-};
-
-module.exports.incrementCallCount = function(req, res, next) {
-  if (req.get('api-id')) {
-    xhrService.incrementCallCount(req.get('api-id'));
-  }
-  next();
 };
 
 module.exports.delete = function(req, res) {

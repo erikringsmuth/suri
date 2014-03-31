@@ -45,6 +45,6 @@
     "start": "node server.js",
     "test": "mocha -R spec",
     "build": "node r.js -o app.build.js",
-    "local": "supervisor -w services,routes,utilities,server.js --debug server.js"
+    "local": "supervisor -w services,routes,middleware,utilities,server.js --debug server.js"
   }
 }

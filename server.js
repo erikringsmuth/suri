@@ -16,11 +16,11 @@ var express     = require('express'),
     bodyParser  = require('body-parser'),
     logger      = require('morgan'),
     auth        = require('./routes/authentication'),
-    proxy       = require('./routes/proxy.js'),
-    config      = require('./routes/config.js'),
-    xhrRoutes   = require('./routes/xhrRoutes.js'),
+    config      = require('./routes/config'),
+    xhrRoutes   = require('./routes/xhrRoutes'),
     userRoutes  = require('./routes/userRoutes'),
-    ipAddress   = require('./routes/ipAddress.js'),
+    ipAddress   = require('./routes/ipAddress'),
+    proxy       = require('./middleware/proxy'),
     handlebars  = require('express3-handlebars'),
     sessions    = require('client-sessions'),
     app         = express();
@@ -35,7 +35,6 @@ app.disable('x-powered-by');
 app.use(compression());
 
 // Proxy requests with 'api-host' header
-app.use(xhrRoutes.incrementCallCount);
 app.use(proxy);
 
 // Client session
