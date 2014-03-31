@@ -6,3 +6,4 @@ elasticsearch/logs/elasticsearch.log
 config.json
 node_modules
 Thumbs.db
+npm-debug.log
