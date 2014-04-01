@@ -1,9 +1,11 @@
+// Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 'use strict';
-var assert = require('assert'),
+
+var expect = require('chai').expect,
     guid   = require('../utilities/guid');
 
-describe('guid', function(){
-  it('should have 36 characters', function(){
-    assert.equal(36, guid().length);
+describe('guid', function() {
+  it('should have 36 characters', function() {
+    expect(guid().length).to.equal(36);
   });
 });

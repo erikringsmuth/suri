@@ -57,7 +57,10 @@ module.exports.getGoogleUserByIssAndSub = function(iss, sub) {
         user._source.userId = user._id;
         deferred.resolve(user._source);
       } else {
-        deferred.reject('User not found.');
+        deferred.reject({
+          status: 404,
+          message: 'User not found.'
+        });
       }
     }, deferred.reject);
 
@@ -65,7 +68,7 @@ module.exports.getGoogleUserByIssAndSub = function(iss, sub) {
 };
 
 // Get user profile
-module.exports.getProfile = function(id) {
+module.exports.getProfile = function (id) {
   var deferred = Q.defer();
 
   client
