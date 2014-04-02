@@ -8,7 +8,6 @@ var chai    = require('chai'),
 
 // configure chai
 // jshint expr:true
-chai.should();
 chai.use(require('chai-as-promised'));
 chai.use(require('sinon-chai'));
 
@@ -28,7 +27,7 @@ beforeEach(function() {
 
 
 describe('userService.createUser(user)', function () {
-  it('should call client.create() with the user', function () {
+  it('should call client.create() with the user', function (done) {
     // arrange
     client.create = sinon.stub();
     var user = {
@@ -45,9 +44,10 @@ describe('userService.createUser(user)', function () {
     expect(client.create).to.have.been.called;
     expect(client.create.getCall(0).args[0].id).to.exist;
     expect(client.create.getCall(0).args[0].body).to.deep.equal(user);
+    done();
   });
 
-  it('should return the client.create() promise', function () {
+  it('should return the client.create() promise', function (done) {
     // arrange
     var createDeferred = Q.defer();
     client.create = sinon.stub().returns(createDeferred.promise);
@@ -57,6 +57,7 @@ describe('userService.createUser(user)', function () {
 
     // assert
     expect(promise).to.equal(createDeferred.promise);
+    done();
   });
 });
 
@@ -128,8 +129,46 @@ describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
 
 
 describe('userService.getProfile(id)', function () {
-  it('should return the subset of data any user can see on a user\'s profile');
-  it('should return a 404 when the user does not exist');
+  it('should return the subset of data any user can see on a user\'s profile', function (done) {
+    // arrange
+    var getDeferred = Q.defer();
+    client.get = sinon.stub().returns(getDeferred.promise);
+    getDeferred.resolve({
+      _id: '123',
+      _source: {
+        emailMd5: 'abc',
+        displayName: 'Jon',
+        otherProperty: '789'
+      }
+    });
+
+    // act
+    var promise = userService.getProfile('123');
+
+    // assert
+    expect(promise).to.become({
+      userId: '123',
+      emailMd5: 'abc',
+      displayName: 'Jon'
+    }).and.notify(done);
+  });
+
+  it('should return a 404 when the user does not exist', function (done) {
+    // arrange
+    var getDeferred = Q.defer();
+    client.get = sinon.stub().returns(getDeferred.promise);
+    getDeferred.reject();
+
+    // act
+    userService
+      .getProfile('123')
+      .then(null, function (error) {
+        // assert
+        expect(error).to.have.property('status', 404);
+        done();
+      })
+      .done();
+  });
 });
 
 
