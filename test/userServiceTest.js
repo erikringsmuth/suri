@@ -125,3 +125,25 @@ describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
     expect(promise).to.be.rejected.and.notify(done);
   });
 });
+
+
+describe('userService.getProfile(id)', function () {
+  it('should return the subset of data any user can see on a user\'s profile');
+  it('should return a 404 when the user does not exist');
+});
+
+
+describe('userService.getOrCreateUserProfile(options)', function () {
+  it('should look up the user by iss and sub');
+  it('should return the user without any mapping if they exist');
+  it('should create a new user if they don\'t already exist');
+  it('should reject the promise if creating a user fails');
+});
+
+
+describe('userService.updateDisplayName(userId, displayName)', function () {
+  it('should enforce that the displayName is a string');
+  it('should enforce that the displayName is between 3 and 30 characters');
+  it('should return an object with the display name when done updating');
+  it('should return a 500 if the update fails in elasticsearch');
+});
