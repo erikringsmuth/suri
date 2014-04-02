@@ -1,28 +1,35 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
-/* jshint expr:true */
 'use strict';
-var expect  = require('chai').expect,
+var chai    = require('chai'),
     sinon   = require('sinon'),
-    injectr = require('injectr');
-    //Q       = require('q');
+    injectr = require('injectr'),
+    Q       = require('q'),
+    expect  = chai.expect;
 
-var client, userService;
+// configure chai
+// jshint expr:true
+chai.use(require('chai-as-promised'));
+chai.use(require('sinon-chai'));
+
+
+// set up the userService and stub it's dependencies
+var userService, client;
 
 beforeEach(function() {
-  client = {
-    create: sinon.stub(),
-    search: sinon.stub()
-  };
+  client = {};
   userService = injectr('services/userService.js', {
+    // stub elasticsearch module
     'elasticsearch': {
       Client: sinon.stub().returns(client)
     }
   });
 });
 
+
 describe('userService.createUser(user)', function () {
   it('should call client.create() with the user', function () {
     // arrange
+    client.create = sinon.stub();
     var user = {
       googleIss: 'iss',
       googleSub: 'sub',
@@ -34,68 +41,53 @@ describe('userService.createUser(user)', function () {
     userService.createUser(user);
 
     // assert
-    expect(client.create.called).to.be.true;
+    expect(client.create).to.have.been.called;
     expect(client.create.getCall(0).args[0].id).to.exist;
     expect(client.create.getCall(0).args[0].body).to.deep.equal(user);
   });
 });
 
-// describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
-//   it('should get the user by issuer and subscriber', function (done) {
-//     // arrange
-//     var searchDeferred = Q.defer();
-//     client.search.returns(searchDeferred.promise);
 
-//     var searchResult = {
-//       hits: {
-//         hits: [
-//           {
-//             _id: '123',
-//             source: {
-//               name: 'Jon'
-//             }
-//           }
-//         ]
-//       }
-//     };
+describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
+  it('should get the user by issuer and subscriber', function () {
+    // arrange
+    var searchDeferred = Q.defer();
+    client.search = sinon.stub().returns(searchDeferred.promise);
 
-//     // act
-//     userService
-//       .getGoogleUserByIssAndSub('google', '123')
-//       .then(function (user) {
-//         // assert
-//         expect(user).to.deep.equal({
-//           userId: '123',
-//           name: 'Jon'
-//         });
-//         done();
-//       })
-//       .fail(function(error) {
-//         // Fail on purpose
-//         expect('Couldn\'t resolve promise').to.be.null;
-//         done();
-//       })
-//       .done();
+    var searchResult = {
+      hits: {
+        hits: [
+          {
+            _id: '123',
+            source: {
+              name: 'Jon'
+            }
+          }
+        ]
+      }
+    };
 
-//     searchDeferred.resolve(searchResult);
-//   });
-// });
+    // act
+    var promise = userService.getGoogleUserByIssAndSub('google', '123');
+    searchDeferred.resolve(searchResult);
 
-// describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
-//   it('should return a 404 when the user is not found', function (done) {
-//     // arrange
-//     var searchDeferred = Q.defer();
-//     client.search.returns(searchDeferred.promise);
+    // assert
+    expect(promise).to.become({
+      userId: '123',
+      name: 'Jon'
+    });
+  });
 
-//     // act
-//     userService
-//       .getGoogleUserByIssAndSub('google', '123')
-//       .then(function (actual) {
-//         // assert
-//         expect(actual.status).to.equal(404);
-//         done();
-//       });
+  it('should return a 404 when the user is not found', function () {
+    // arrange
+    var searchDeferred = Q.defer();
+    client.search = sinon.stub().returns(searchDeferred.promise);
 
-//     searchDeferred.reject();
-//   });
-// });
+    // act
+    var promise = userService.getGoogleUserByIssAndSub('google', '123');
+    searchDeferred.reject();
+
+    // assert
+    expect(promise).to.be.rejected;
+  });
+});
