@@ -72,7 +72,7 @@ describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
         hits: [
           {
             _id: '123',
-            source: {
+            _source: {
               name: 'Jon'
             }
           }
@@ -81,26 +81,13 @@ describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
     });
 
     // act
-    userService
-      .getGoogleUserByIssAndSub('google', '123')
-      .then(function (result) {
-        // assert
-        expect(result).to.deep.equal({
-          userId: '124',
-          name: 'Jon'
-        });
-        done();
-      })
-      .done();
+    var promise = userService.getGoogleUserByIssAndSub('google', '123');
 
-    // // act
-    // var promise = userService.getGoogleUserByIssAndSub('google', '123');
-
-    // // assert
-    // expect(promise).to.become({
-    //   userId: '123',
-    //   name: 'Jon'
-    // }).and.notify(done);
+    // assert
+    expect(promise).to.become({
+      userId: '123',
+      name: 'Jon'
+    }).and.notify(done);
   });
 
   it('should return a 404 when the user is not found', function (done) {
@@ -125,7 +112,7 @@ describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
       .done();
   });
 
-  it('should pass through a rejected promise from the elasticsearch client', function () {
+  it('should pass through a rejected promise from the elasticsearch client', function (done) {
     // arrange
     var searchDeferred = Q.defer();
     client.search = sinon.stub().returns(searchDeferred.promise);
@@ -135,6 +122,6 @@ describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
     var promise = userService.getGoogleUserByIssAndSub('google', '123');
 
     // assert
-    expect(promise).to.be.rejected;
+    expect(promise).to.be.rejected.and.notify(done);
   });
 });
