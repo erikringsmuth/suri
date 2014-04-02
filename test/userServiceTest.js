@@ -8,6 +8,7 @@ var chai    = require('chai'),
 
 // configure chai
 // jshint expr:true
+chai.should();
 chai.use(require('chai-as-promised'));
 chai.use(require('sinon-chai'));
 
@@ -61,7 +62,7 @@ describe('userService.createUser(user)', function () {
 
 
 describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
-  it('should map the _id from the elasticsearch response to the body', function () {
+  it('should map the _id from the elasticsearch response to the body', function (done) {
     // arrange
     var searchDeferred = Q.defer();
     client.search = sinon.stub().returns(searchDeferred.promise);
@@ -80,16 +81,51 @@ describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
     });
 
     // act
-    var promise = userService.getGoogleUserByIssAndSub('google', '123');
+    userService
+      .getGoogleUserByIssAndSub('google', '123')
+      .then(function (result) {
+        // assert
+        expect(result).to.deep.equal({
+          userId: '124',
+          name: 'Jon'
+        });
+        done();
+      })
+      .done();
 
-    // assert
-    expect(promise).to.become({
-      userId: '123',
-      name: 'Jon'
-    });
+    // // act
+    // var promise = userService.getGoogleUserByIssAndSub('google', '123');
+
+    // // assert
+    // expect(promise).to.become({
+    //   userId: '123',
+    //   name: 'Jon'
+    // }).and.notify(done);
   });
 
-  it('should return a 404 when the user is not found', function () {
+  it('should return a 404 when the user is not found', function (done) {
+    // arrange
+    var searchDeferred = Q.defer();
+    client.search = sinon.stub().returns(searchDeferred.promise);
+
+    searchDeferred.resolve({
+      hits: {
+        hits: []
+      }
+    });
+
+    // act
+    userService
+      .getGoogleUserByIssAndSub('google', '123')
+      .then(null, function (error) {
+        // assert
+        expect(error).to.have.property('status', 404);
+        done();
+      })
+      .done();
+  });
+
+  it('should pass through a rejected promise from the elasticsearch client', function () {
     // arrange
     var searchDeferred = Q.defer();
     client.search = sinon.stub().returns(searchDeferred.promise);
