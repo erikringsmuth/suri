@@ -277,8 +277,59 @@ describe('userService.getOrCreateUserProfile(options)', function () {
 
 
 describe('userService.updateDisplayName(userId, displayName)', function () {
-  it('should enforce that the displayName is a string');
-  it('should enforce that the displayName is between 3 and 30 characters');
-  it('should return an object with the display name when done updating');
-  it('should return a 500 if the update fails in elasticsearch');
+  it('should enforce that the displayName is a string', function (done) {
+    // act
+    var promise = userService.updateDisplayName('123', null);
+
+    // assert
+    expect(promise).to.be.rejected.and.notify(done);
+  });
+
+  it('should enforce that the displayName is greater than 3 characters', function (done) {
+    // act
+    var promise = userService.updateDisplayName('123', '12');
+
+    // assert
+    expect(promise).to.be.rejected.and.notify(done);
+  });
+
+  it('should enforce that the displayName is less than 30 characters', function (done) {
+    // act
+    var promise = userService.updateDisplayName('123', '1234567890123456789012345678901');
+
+    // assert
+    expect(promise).to.be.rejected.and.notify(done);
+  });
+
+  it('should return an object with the display name when done updating', function (done) {
+    // arrange
+    var updateDeferred = Q.defer();
+    client.update = sinon.stub().returns(updateDeferred.promise);
+    updateDeferred.resolve();
+
+    // act
+    var promise = userService.updateDisplayName('123', 'Jane Doe');
+
+    // assert
+    expect(promise).to.become({
+      displayName: 'Jane Doe'
+    }).and.notify(done);
+  });
+
+  it('should return a 500 if the update fails in elasticsearch', function (done) {
+    // arrange
+    var updateDeferred = Q.defer();
+    client.update = sinon.stub().returns(updateDeferred.promise);
+    updateDeferred.reject();
+
+    // act
+    userService
+      .updateDisplayName('123', 'Jane Doe')
+      .then(null, function (error) {
+        // assert
+        expect(error).to.have.property('status', 500);
+        done();
+      })
+      .done();
+  });
 });

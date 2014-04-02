@@ -125,7 +125,7 @@ module.exports.getOrCreateUserProfile = function(options) {
 module.exports.updateDisplayName = function(userId, displayName) {
   var deferred = Q.defer();
 
-  if (typeof(displayName) !== 'string') {
+  if (typeof displayName !== 'string') {
     deferred.reject({
       status: 400,
       message: 'The display name must be a string'
