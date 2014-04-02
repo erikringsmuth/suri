@@ -173,10 +173,106 @@ describe('userService.getProfile(id)', function () {
 
 
 describe('userService.getOrCreateUserProfile(options)', function () {
-  it('should look up the user by iss and sub');
-  it('should return the user without any mapping if they exist');
-  it('should create a new user if they don\'t already exist');
-  it('should reject the promise if creating a user fails');
+  it('should look up the user by iss and sub', function (done) {
+    // arrange
+    var deferred = Q.defer();
+    var stub = sinon.stub(userService, 'getGoogleUserByIssAndSub').returns(deferred.promise);
+    deferred.resolve({
+      userId: '123',
+      emailMd5: 'abc',
+      displayName: 'Jon'
+    });
+
+    // act
+    userService
+      .getOrCreateUserProfile({
+        googleIss: 'iss',
+        googleSub: 'sub'
+      })
+      .then(function () {
+        // assert
+        expect(stub).to.have.been.called;
+        done();
+      })
+      .done();
+  });
+
+  it('should return the user without any mapping if they exist', function (done) {
+    // arrange
+    var deferred = Q.defer();
+    sinon.stub(userService, 'getGoogleUserByIssAndSub').returns(deferred.promise);
+    deferred.resolve({
+      userId: '123',
+      emailMd5: 'abc',
+      displayName: 'Jon'
+    });
+
+    // act
+    var promise = userService
+      .getOrCreateUserProfile({
+        googleIss: 'iss',
+        googleSub: 'sub'
+      });
+
+    // assert
+    expect(promise).to.become({
+      userId: '123',
+      emailMd5: 'abc',
+      displayName: 'Jon'
+    }).and.notify(done);
+  });
+
+  it('should create a new user if they don\'t already exist', function (done) {
+    // arrange
+    var getUserDeferred = Q.defer();
+    var createUserDeferred = Q.defer();
+    sinon.stub(userService, 'getGoogleUserByIssAndSub').returns(getUserDeferred.promise);
+    sinon.stub(userService, 'createUser').returns(getUserDeferred.promise);
+    getUserDeferred.reject();
+    createUserDeferred.resolve({
+      _id: 'newUserId'
+    });
+
+    // act
+    var promise = userService
+      .getOrCreateUserProfile({
+        googleIss: 'iss',
+        googleSub: 'sub',
+        emailMd5: 'abc',
+        email: 'jon@gmail.com'
+      });
+
+    // assert
+    expect(promise).to.become({
+      userId: 'newUserId',
+      googleIss: 'iss',
+      googleSub: 'sub',
+      emailMd5: 'abc',
+      displayName: 'jon'
+    }).and.notify(done);
+  });
+
+  it('should reject the promise if creating a user fails', function (done) {
+    // arrange
+    var getUserDeferred = Q.defer();
+    var createUserDeferred = Q.defer();
+    sinon.stub(userService, 'getGoogleUserByIssAndSub').returns(getUserDeferred.promise);
+    sinon.stub(userService, 'createUser').returns(getUserDeferred.promise);
+    getUserDeferred.reject();
+    createUserDeferred.reject();
+
+    // act
+    var promise = userService
+      .getOrCreateUserProfile({
+        googleIss: 'iss',
+        googleSub: 'sub',
+        emailMd5: 'abc',
+        email: 'jon@gmail.com'
+      });
+
+    // assert
+    expect(promise).to.be.rejected.and.notify(done);
+  });
 });
 
 
