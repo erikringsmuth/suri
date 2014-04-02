@@ -45,16 +45,28 @@ describe('userService.createUser(user)', function () {
     expect(client.create.getCall(0).args[0].id).to.exist;
     expect(client.create.getCall(0).args[0].body).to.deep.equal(user);
   });
+
+  it('should return the client.create() promise', function () {
+    // arrange
+    var createDeferred = Q.defer();
+    client.create = sinon.stub().returns(createDeferred.promise);
+
+    // act
+    var promise = userService.createUser({});
+
+    // assert
+    expect(promise).to.equal(createDeferred.promise);
+  });
 });
 
 
 describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
-  it('should get the user by issuer and subscriber', function () {
+  it('should map the _id from the elasticsearch response to the body', function () {
     // arrange
     var searchDeferred = Q.defer();
     client.search = sinon.stub().returns(searchDeferred.promise);
 
-    var searchResult = {
+    searchDeferred.resolve({
       hits: {
         hits: [
           {
@@ -65,11 +77,10 @@ describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
           }
         ]
       }
-    };
+    });
 
     // act
     var promise = userService.getGoogleUserByIssAndSub('google', '123');
-    searchDeferred.resolve(searchResult);
 
     // assert
     expect(promise).to.become({
@@ -82,10 +93,10 @@ describe('userService.getGoogleUserByIssAndSub(iss, sub)', function () {
     // arrange
     var searchDeferred = Q.defer();
     client.search = sinon.stub().returns(searchDeferred.promise);
+    searchDeferred.reject();
 
     // act
     var promise = userService.getGoogleUserByIssAndSub('google', '123');
-    searchDeferred.reject();
 
     // assert
     expect(promise).to.be.rejected;
