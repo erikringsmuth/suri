@@ -13,7 +13,7 @@ var codeFiles = [
   'app/components/**/*.js',
   'app/pages/**/*.js',
   'app/layouts/**/*.js',
-  'test/*.js'
+  'test/**/*.js'
 ];
 var testFiles = 'test/**/*.js';
 
@@ -21,6 +21,12 @@ gulp.task('test', function () {
   gulp
     .src(testFiles)
     .pipe(mocha({ reporter: 'spec' }));
+});
+
+gulp.task('test-dot', function () {
+  gulp
+    .src(testFiles)
+    .pipe(mocha({ reporter: 'dot' }));
 });
 
 gulp.task('lint', function() {
@@ -32,8 +38,8 @@ gulp.task('lint', function() {
 
 gulp.task('watch', function () {
   gulp.watch(codeFiles, function() {
-    gulp.run('test', 'lint');
+    gulp.run('test-dot', 'lint');
   });
 });
 
-gulp.task('default', ['test', 'lint', 'watch']);
+gulp.task('default', ['test-dot', 'lint', 'watch']);
