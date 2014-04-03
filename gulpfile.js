@@ -15,7 +15,7 @@ var codeFiles = [
   'app/layouts/**/*.js',
   'test/*.js'
 ];
-var testFiles = 'test/*.js';
+var testFiles = 'test/**/*.js';
 
 gulp.task('test', function () {
   gulp
