@@ -84,8 +84,8 @@ module.exports.get = function(id, userId) {
       }
     }, function () {
       deferred.reject({
-        status: 404,
-        message: 'Not found'
+        status: 500,
+        message: 'Failed to look up XHR in elasticsearch'
       });
     });
 
