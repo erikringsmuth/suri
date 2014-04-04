@@ -48,7 +48,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha -R spec",
+    "test": "mocha",
     "build": "node r.js -o app.build.js",
     "local": "supervisor -w services,routes,middleware,utilities,server.js --debug server.js"
   }
