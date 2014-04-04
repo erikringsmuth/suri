@@ -11,6 +11,7 @@ var chai    = require('chai');
 chai.use(require('chai-as-promised'));
 chai.use(require('sinon-chai'));
 
+
 describe('userRoutes.getProfile(req, res)', function () {
   it('should call userServices.getProfile(id)');
 });
