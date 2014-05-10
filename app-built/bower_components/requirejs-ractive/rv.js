@@ -1,0 +1,1 @@
+define(["amd-loader","ractive"],function(e,t){return e("rv","html",function(e,n,r,i,s,o){var u=t.parse(n);o.isBuild?i('define("rv!'+e+'",function(){return '+JSON.stringify(u)+";})"):i(u)})});
