@@ -1,1 +1,0 @@
-define(["rcu.amd","load","build"],function(e,t,n){return e.init(Ractive),amdLoader("rvc","html",function(e,r,i,s,o,u){u.isBuild?n(e,r,s):t(i,r,s)})});

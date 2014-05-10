@@ -1,1 +1,0 @@
-module.exports=function(e){return{bundle:{src:"tmp/rvc.js",dest:"rvc.js"},options:{process:!0,banner:e.file.read("rvc-wrapper/banner.js"),footer:e.file.read("rvc-wrapper/footer.js")}}};

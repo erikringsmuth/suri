@@ -1,1 +1,0 @@
-module.exports={files:"rvc.js",options:{js:{indentWithTabs:!0,spaceBeforeConditional:!0,spaceInParen:!0}}};

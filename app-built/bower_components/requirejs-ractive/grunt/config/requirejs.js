@@ -1,1 +1,0 @@
-module.exports={compile:{options:{out:"tmp/rvc.js",baseUrl:"rvc-src/",name:"rvc",optimize:"none",logLevel:2,onBuildWrite:function(e,t,n){return require("amdclean").clean({code:n,prefixTransform:function(e){return e.substring(e.lastIndexOf("_")+1)}})+"\n"}}}};

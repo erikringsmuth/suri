@@ -1,1 +1,0 @@
-module.exports=function(e){var t,n;t={pkg:e.file.readJSON("package.json")},e.file.expand("grunt/config/*.js").forEach(function(n){var r=/grunt\/config\/(.+)\.js/.exec(n)[1],i=require("./"+n);t[r]=typeof i=="function"?i(e):i}),e.initConfig(t);for(n in t.pkg.devDependencies)/^grunt-/.test(n)&&e.loadNpmTasks(n);e.loadTasks("grunt/tasks")};
