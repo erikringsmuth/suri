@@ -75,18 +75,6 @@ bower_components/google-code-prettify/styles/sunburst.css
 ----------------
 bower_components/google-code-prettify/styles/sunburst.css
 
-bower_components/ractive-events-tap/demo/main.css
-----------------
-bower_components/ractive-events-tap/demo/main.css
-
-bower_components/ractive-transitions-slide/demo/main.css
-----------------
-bower_components/ractive-transitions-slide/demo/main.css
-
-bower_components/ractive-transitions-slide/demo/prettyprint.css
-----------------
-bower_components/ractive-transitions-slide/demo/prettyprint.css
-
 bower_components/vkBeautify/main.css
 ----------------
 bower_components/vkBeautify/main.css

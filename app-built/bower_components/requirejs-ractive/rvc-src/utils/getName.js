@@ -1,1 +1,0 @@
-define([],function(){return function(t){var n,r,i;return n=t.split("/"),r=n.pop(),i=r.lastIndexOf("."),i!==-1&&(r=r.substr(0,i)),r}});

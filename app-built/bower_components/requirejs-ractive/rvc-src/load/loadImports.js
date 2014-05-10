@@ -1,1 +1,0 @@
-define([],function(){return function(t,n){return new Ractive.Promise(function(e,r){var i={},s=n.imports.length;if(!s){e(i);return}n.imports.forEach(function(n){t(["rvc!"+n.href.replace(/\.html$/,"")],function(t){i[n.name]=t,--s||e(i)},r)})})}});

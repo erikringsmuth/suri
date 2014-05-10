@@ -31,6 +31,6 @@
     "commit": "ced6da42d3395be3081c6d8f43393e470de34c43"
   },
   "_source": "git://github.com/erikringsmuth/requirejs-router.git",
-  "_target": "~0.7.3",
+  "_target": "^0.7.3",
   "_originalSource": "requirejs-router"
 }

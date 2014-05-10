@@ -1,25 +1,19 @@
 {
   "name": "ractive",
-  "version": "0.3.9",
-  "main": "build/Ractive.js",
+  "version": "0.4.0",
+  "main": "ractive.js",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "release",
-    "sandbox",
-    "src",
-    "test",
-    "wrapper",
-    "Gruntfile.js"
+    ".*",
+    "bower.json"
   ],
-  "homepage": "https://github.com/Rich-Harris/Ractive",
-  "_release": "0.3.9",
+  "homepage": "https://github.com/ractivejs/ractive",
+  "_release": "0.4.0",
   "_resolution": {
     "type": "version",
-    "tag": "v0.3.9",
-    "commit": "a412482ef28bef9d82486ec926ff6a500c2ec066"
+    "tag": "v0.4.0",
+    "commit": "18734ec4403d6cad56bbf2ba89a639d958fd9275"
   },
-  "_source": "git://github.com/Rich-Harris/Ractive.git",
-  "_target": "~0.3.9",
+  "_source": "git://github.com/ractivejs/ractive.git",
+  "_target": "^0.4.0",
   "_originalSource": "ractive"
 }

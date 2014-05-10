@@ -1,0 +1,1 @@
+define(["rcu.amd"],function(e){return e.init(Ractive),function(n,r,i){e.make(r,{loadImport:function(e,t,r){n(["rvc!"+t.replace(/\.html$/,"")],r)},loadModule:function(e,t,r){n([t],r)},require:function(e){return n(e)}},i)}});

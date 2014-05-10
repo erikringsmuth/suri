@@ -1,7 +1,7 @@
 {
   "name": "requirejs-ractive",
   "description": "RequireJS plugin to load and optimise Ractive components",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": "Rich Harris",
   "license": "MIT",
   "main": [
@@ -24,13 +24,13 @@
     "templates"
   ],
   "homepage": "https://github.com/Rich-Harris/require-ractive-plugin",
-  "_release": "0.1.4",
+  "_release": "0.1.5",
   "_resolution": {
     "type": "version",
-    "tag": "v0.1.4",
-    "commit": "e3abce0c2476d19e94142cecaa694b4f4e4f2cec"
+    "tag": "v0.1.5",
+    "commit": "33333f088d7da08f3f1aa6f75ae998d4aa116230"
   },
   "_source": "git://github.com/Rich-Harris/require-ractive-plugin.git",
-  "_target": "~0.1.4",
+  "_target": "^0.1.5",
   "_originalSource": "requirejs-ractive"
 }
