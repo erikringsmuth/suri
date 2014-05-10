@@ -1,23 +1,32 @@
 {
   "name": "ractive-transitions-slide",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Rich Harris",
-  "main": "Ractive-transitions-slide.js",
+  "main": "ractive-transitions-slide.js",
   "ignore": [
-    "**/.*",
-    "src",
-    "test",
-    "Gruntfile.js"
+    ".git/",
+    ".*",
+    "demo/",
+    "grunt/",
+    "lib/",
+    "scripts/",
+    "src/",
+    "test/",
+    ".gitignore",
+    "*.json",
+    "Gruntfile.js",
+    "index.html",
+    "ractive-transitions-slide.min.js",
+    "README.md"
   ],
   "homepage": "https://github.com/RactiveJS/Ractive-transitions-slide",
-  "_release": "0.1.1",
+  "_release": "0.1.2",
   "_resolution": {
     "type": "version",
-    "tag": "v0.1.1",
-    "commit": "55da6b4779a1ea7d56811aef8c68c85e5b1f92f9"
+    "tag": "v0.1.2",
+    "commit": "5da7df356a928bb79facc4d35ba6d133184d3259"
   },
   "_source": "git://github.com/RactiveJS/Ractive-transitions-slide.git",
-  "_target": "~0.1.1",
-  "_originalSource": "RactiveJS/Ractive-transitions-slide",
-  "_direct": true
+  "_target": "^0.1.1",
+  "_originalSource": "RactiveJS/Ractive-transitions-slide"
 }

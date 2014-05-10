@@ -2,7 +2,7 @@
 define(function(require) {
   'use strict';
   var config = require('config'),
-      Ractive = require('Ractive'),
+      Ractive = require('ractive'),
       userTemplate = require('rv!./userTemplate'),
       Layout = require('layouts/search/layout'),
       router = require('router'),

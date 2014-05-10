@@ -2,7 +2,7 @@
 define(function(require) {
   'use strict';
   var config = require('config'),
-      Ractive = require('Ractive'),
+      Ractive = require('ractive'),
       xhrPanelTemplate = require('rv!./xhrPanelTemplate'),
       sequence = require('components/apiSequence/sequence'),
       utilities = require('components/util/utilities'),
@@ -10,7 +10,7 @@ define(function(require) {
       URI = require('bower_components/URIjs/src/URI'),
       vkbeautify = require('vkbeautify'),
       $ = require('jquery');
-  require('Ractive-transitions-slide');
+  require('ractive-transitions-slide');
 
   var XhrPanel = Ractive.extend({
     template: xhrPanelTemplate,

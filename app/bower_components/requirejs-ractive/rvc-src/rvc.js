@@ -1,23 +1,22 @@
 define([
-	'utils/parseComponentDefinition',
-	'load/load',
-	'build/build'
+	'rcu.amd',
+	'load',
+	'build'
 ], function (
-	parseComponentDefinition,
+	rcu,
 	load,
 	build
 ) {
 
 	'use strict';
 
+	rcu.init( Ractive );
+
 	return amdLoader( 'rvc', 'html', function( name, source, req, callback, errback, config ) {
-
-		var definition = parseComponentDefinition( source );
-
 		if ( config.isBuild ) {
-			build( name, definition, callback );
+			build( name, source, callback );
 		} else {
-			load( req, definition, callback );
+			load( req, source, callback );
 		}
 	});
 

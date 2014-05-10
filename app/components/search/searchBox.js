@@ -1,7 +1,7 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var Ractive = require('Ractive'),
+  var Ractive = require('ractive'),
       searchBoxTemplate = require('rv!./searchBoxTemplate'),
       XhrPanel = require('components/xhrPanel/xhrPanel'),
       $ = require('jquery');

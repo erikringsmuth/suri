@@ -2,7 +2,7 @@
 define(function(require) {
   'use strict';
   var config = require('config'),
-      Ractive = require('Ractive'),
+      Ractive = require('ractive'),
       profileMenuTemplate = require('rv!./profileMenuTemplate');
 
   return Ractive.extend({
