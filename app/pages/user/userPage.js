@@ -1,14 +1,14 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var config = require('config'),
-      Ractive = require('ractive'),
-      userTemplate = require('rv!./userTemplate'),
-      Layout = require('layouts/search/layout'),
-      router = require('router'),
-      XhrPanel = require('components/xhrPanel/xhrPanel'),
-      ApiSequence = require('components/apiSequence/apiSequence'),
-      $ = require('jquery');
+  var config        = require('config'),
+      Ractive       = require('ractive'),
+      userTemplate  = require('rv!./userTemplate'),
+      Layout        = require('layouts/search/layout'),
+      router        = require('router'),
+      XhrPanel      = require('components/xhrPanel/xhrPanel'),
+      ApiSequence   = require('components/apiSequence/apiSequence'),
+      $             = require('jquery');
 
   var UserPage = Ractive.extend({
     template: userTemplate,

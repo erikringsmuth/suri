@@ -1,13 +1,13 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var config = require('config'),
-      Ractive = require('ractive'),
-      layoutTemplate = require('rv!./layoutTemplate'),
-      router = require('router'),
-      SearchBox = require('components/search/searchBox'),
-      ProfileMenu = require('components/profileMenu/profileMenu'),
-      utilities = require('components/util/utilities');
+  var config          = require('config'),
+      Ractive         = require('ractive'),
+      layoutTemplate  = require('rv!./layoutTemplate'),
+      router          = require('router'),
+      SearchBox       = require('components/search/searchBox'),
+      ProfileMenu     = require('components/profileMenu/profileMenu'),
+      utilities       = require('components/util/utilities');
 
   return Ractive.extend({
     template: layoutTemplate,

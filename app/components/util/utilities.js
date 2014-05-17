@@ -1,8 +1,8 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var $ = require('jquery'),
-      prettify = require('prettify');
+  var $         = require('jquery'),
+      prettify  = require('prettify');
 
   var utilities = {
     // True in a development environment

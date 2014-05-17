@@ -1,15 +1,15 @@
 // Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
 define(function(require) {
   'use strict';
-  var config = require('config'),
-      Ractive = require('ractive'),
-      xhrPanelTemplate = require('rv!./xhrPanelTemplate'),
-      sequence = require('components/apiSequence/sequence'),
-      utilities = require('components/util/utilities'),
-      prettify = require('prettify'),
-      URI = require('bower_components/URIjs/src/URI'),
-      vkbeautify = require('vkbeautify'),
-      $ = require('jquery');
+  var config            = require('config'),
+      Ractive           = require('ractive'),
+      xhrPanelTemplate  = require('rv!./xhrPanelTemplate'),
+      sequence          = require('components/apiSequence/sequence'),
+      utilities         = require('components/util/utilities'),
+      prettify          = require('prettify'),
+      URI               = require('bower_components/URIjs/src/URI'),
+      vkbeautify        = require('vkbeautify'),
+      $                 = require('jquery');
   require('ractive-transitions-slide');
 
   var XhrPanel = Ractive.extend({
