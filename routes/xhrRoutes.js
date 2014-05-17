@@ -1,4 +1,4 @@
-// Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
+// Copyright (C) 2014 Erik Ringsmuth - MIT license
 'use strict';
 var xhrService    = require('../services/xhrService'),
     searchService = require('../services/searchService');

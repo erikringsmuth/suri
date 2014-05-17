@@ -1,3 +1,3 @@
-// Copyright (C) 2014 Erik Ringsmuth <erik.ringsmuth@gmail.com>
+// Copyright (C) 2014 Erik Ringsmuth - MIT license
 
 define(["require","ractive","rv!./homeTemplate","layouts/search/layout","components/apiSequence/apiSequence","router","components/xhrPanel/xhrPanel","jquery"],function(e){var t=e("ractive"),n=e("rv!./homeTemplate"),r=e("layouts/search/layout"),i=e("components/apiSequence/apiSequence"),s=e("router"),o=e("components/xhrPanel/xhrPanel"),u=e("jquery"),a=t.extend({template:n,init:function(){var e=new i({el:this.nodes["api-sequence"]});s.routes.api.active&&u.ajax("/xhr/"+s.routeArguments().api).done(function(e){new o({data:e})}),this.on({teardown:function(){e.teardown()},openResult:function(t,n){new o({data:n})}})}});return r.extend({components:{"content-placeholder":a}})});

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "homepage": "http://suri.io",
   "authors": [
-    "Erik Ringsmuth <erik.ringsmuth@gmail.com>"
+    "Erik Ringsmuth - MIT license"
   ],
   "description": "Explore REST APIs!",
   "main": "app/index.html",

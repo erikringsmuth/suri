@@ -3,7 +3,7 @@
   "version": "0.7.3",
   "homepage": "https://github.com/erikringsmuth/requirejs-router",
   "authors": [
-    "Erik Ringsmuth <erik.ringsmuth@gmail.com>"
+    "Erik Ringsmuth - MIT license"
   ],
   "description": "A scalable, lazy loading, AMD router.",
   "main": "router.js",
