@@ -16,7 +16,7 @@ This is the code that powers [http://www.suri.io/](http://www.suri.io/). The sou
 - [ ] Redirect to current page on sign-on
 - [ ] Switch all CSS to SASS and build with gulp task
 
-## Build and run
+## Build [![Build Status](https://travis-ci.org/erikringsmuth/suri.png)](https://travis-ci.org/erikringsmuth/suri)
 
 #### Set Up
 - Create a `config.json` with these environment variables
