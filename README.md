@@ -2,7 +2,7 @@
 
 > Explore REST APIs!
 
-This is the code that powers [http://www.suri.io/](http://www.suri.io/). The source is released under the MIT license. Explore to your heart's content.
+This is the code that powers [http://www.suri.io/](http://www.suri.io/). The source is released under the MIT license. Explore to your heart's content. You can run your own instance as a private API explorer.
 
 ## To-do
 - [ ] Choose from pre-populated list of headers with autocomplete
@@ -14,24 +14,38 @@ This is the code that powers [http://www.suri.io/](http://www.suri.io/). The sou
 - [ ] Search or filter by host name
 - [ ] Pipe output from API to variables in next API in the sequence
 - [ ] Redirect to current page on sign-on
+- [ ] Switch all CSS to SASS and build with gulp task
 
 ## Build and run
-Set Up
-- Create a `config.json` with these environment variables: ENV, LOCAL_ELASTICSEARCH_URL, PROD_ELASTICSEARCH_URL, ELASTICSEARCH_URL, SESSION_SECRET, CLIENT_ID, CLIENT_SECRET, NEW_RELIC_LICENSE_KEY, XHR_INDEX, USER_INDEX, XHR_TYPE, USER_TYPE
+
+#### Set Up
+- Create a `config.json` with these environment variables
+  - ENV
+  - LOCAL_ELASTICSEARCH_URL
+  - PROD_ELASTICSEARCH_URL
+  - ELASTICSEARCH_URL
+  - SESSION_SECRET
+  - CLIENT_ID
+  - CLIENT_SECRET
+  - NEW_RELIC_LICENSE_KEY
+  - XHR_INDEX
+  - USER_INDEX
+  - XHR_TYPE
+  - USER_TYPE
 - Start an elasticsearch instance
 - Create indexes and populate example content with `node ./shell_scripts/populateElasticsearch.js`
 
-Run
+#### Run
 `npm run-script local`
 
-Test, lint, watch
+#### Test, lint, watch
 `gulp`
 
-Test only
+#### Test only
 `mocha`
 
-Optimize client-side code
+#### Optimize client-side RequireJS code
 `node r.js -o app.build.js`
 
 ## License
-Source code released under the MIT license.
+Released under the MIT license.
