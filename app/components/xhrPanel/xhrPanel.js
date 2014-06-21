@@ -359,6 +359,7 @@ define(function(require) {
             responseBody = jqXHR.responseText;
           }
 
+          this.set('responseLength', responseBody.length);
           if (responseBody.length > 3000) {
             responseBodyEditor.setValue(responseBody.substring(0, 3000), -1);
             this.set('showMoreButton', true);
