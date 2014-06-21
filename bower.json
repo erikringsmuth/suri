@@ -22,6 +22,7 @@
     "ractive-transitions-slide": "RactiveJS/Ractive-transitions-slide#^0.1.1",
     "URIjs": "^1.12.1",
     "vkBeautify": "vkiryukhin/vkBeautify",
-    "ractive-events-tap": "RactiveJS/Ractive-events-tap#^0.1.0"
+    "ractive-events-tap": "RactiveJS/Ractive-events-tap#^0.1.0",
+    "ace": "^1.1.3"
   }
 }

@@ -9,6 +9,7 @@ define(function(require) {
       prettify          = require('prettify'),
       URI               = require('bower_components/URIjs/src/URI'),
       vkbeautify        = require('vkbeautify'),
+      ace               = require('ace/ace'),
       $                 = require('jquery');
   require('ractive-transitions-slide');
 
@@ -64,6 +65,20 @@ define(function(require) {
 
       // add this XHR to the api sequence
       sequence.add(this);
+
+      // set up the request body ace editor
+      var editor = ace.edit(this.nodes.requestBody);
+      editor.getSession().setMode('ace/mode/json');
+      editor.setOption('minLines', 4);
+      editor.setOption('maxLines', 50);
+      editor.setAutoScrollEditorIntoView(true);
+      editor.renderer.setShowGutter(false);
+      editor.setShowPrintMargin(false);
+      editor.getSession().setTabSize(2);
+      editor.setValue(this.get('body'));
+      editor.on('change', function (data) {
+        this.set('body', editor.getValue());
+      }.bind(this));
 
       this.on({
         teardown: function teardown(event) {

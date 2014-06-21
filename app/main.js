@@ -15,7 +15,8 @@ define([], function() {
       'prettify': 'bower_components/google-code-prettify/src/prettify',
       'vkbeautify': 'bower_components/vkBeautify/vkbeautify',
       'ractive-transitions-slide': '/bower_components/ractive-transitions-slide/ractive-transitions-slide',
-      'ractive-events-tap': '/bower_components/ractive-events-tap/ractive-events-tap'
+      'ractive-events-tap': '/bower_components/ractive-events-tap/ractive-events-tap',
+      'ace': '/bower_components/ace/lib/ace'
     },
     shim: {
       'bootstrap': {

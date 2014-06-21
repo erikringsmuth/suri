@@ -460,6 +460,11 @@ a.tag .delete-tag {
 .xhr-panel #showMoreButton {
   width: 100%;
 }
+.xhr-panel .request-body-wrapper {
+  border: #e1e1e8 1px solid;
+  border-radius: 3px;
+  margin-bottom: 5px;
+}
 
 /* User page */
 .user-page .profile-image {
