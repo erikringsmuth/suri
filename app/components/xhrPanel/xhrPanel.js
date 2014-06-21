@@ -329,7 +329,7 @@ define(function(require) {
     toJSON: function() {
       var json = {};
       for (var property in this.data) {
-        if (typeof(property) !== 'function') {
+        if (typeof(property) !== 'function' && property !== 'responseBody' && property !== 'responseHeaders') {
           json[property] = this.data[property];
         }
       }
