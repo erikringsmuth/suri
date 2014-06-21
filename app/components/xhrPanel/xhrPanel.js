@@ -245,10 +245,10 @@ define(function(require) {
             requestHeaders['api-host'] = apiUri.protocol() + '://' + apiUri.authority();
             apiUri.authority(suriHost);
             apiUri.protocol(window.location.protocol); // Suri doesn't support HTTPS yet
-          }
 
-          // Set the api-id to log the call counts
-          requestHeaders['api-id'] = this.get('id');
+            // Set the api-id to log the call counts
+            requestHeaders['api-id'] = this.get('id');
+          }
 
           // Send the request
           $.ajax({
