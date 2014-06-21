@@ -74,15 +74,20 @@
     <pre class="request-headers">{{#headers:index}}<span class="header-line"><input type="text" class="header-key" value="{{header}}">: <input type="text" class="header-value" value="{{selected}}"><button type="button" on-tap="removeHeader:{{.}}" aria-hidden="true"><i class="fa fa-minus"></i></button></span>
 {{/headers}}<button type="button" on-tap="addBlankHeader" aria-hidden="true"><i class="fa fa-plus"></i></button></pre>
     <h4>request body</h4>
-    <div class="request-body-wrapper">
+    <div class="ace-editor-wrapper">
       <div id="requestBody"></div>
     </div>
     <button id="send" on-tap="send" type="button" class="btn btn-{{sendButtonClass}}" disabled="{{sendButtonDisabled}}">Send&nbsp;&nbsp;<i class="fa fa-caret-square-o-right"></i></button>
+
     <h4>response headers</h4>
-<pre><code id="responseHeaders">{{responseHeaders}}</code></pre>
+    <div class="ace-editor-wrapper">
+      <div id="responseHeaders"></div>
+    </div>
 
     <h4>response body</h4>
-<pre><code id="responseBody"></code></pre>
+    <div class="ace-editor-wrapper">
+      <div id="responseBody"></div>
+    </div>
     {{#showMoreButton}}
     <button id="showMoreButton" on-tap="displayEntireResponse" type="button" class="btn btn-default">Show full response ({{formatNumber(responseBody.length)}} characters)</button>
     {{/showMoreButton}}

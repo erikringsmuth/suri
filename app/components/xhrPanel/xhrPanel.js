@@ -6,7 +6,6 @@ define(function(require) {
       xhrPanelTemplate  = require('rv!./xhrPanelTemplate'),
       sequence          = require('components/apiSequence/sequence'),
       utilities         = require('components/util/utilities'),
-      prettify          = require('prettify'),
       URI               = require('bower_components/URIjs/src/URI'),
       vkbeautify        = require('vkbeautify'),
       ace               = require('ace/ace'),
@@ -66,19 +65,46 @@ define(function(require) {
       // add this XHR to the api sequence
       sequence.add(this);
 
-      // set up the request body ace editor
-      var editor = ace.edit(this.nodes.requestBody);
-      editor.getSession().setMode('ace/mode/json');
-      editor.setOption('minLines', 4);
-      editor.setOption('maxLines', 50);
-      editor.setAutoScrollEditorIntoView(true);
-      editor.renderer.setShowGutter(false);
-      editor.setShowPrintMargin(false);
-      editor.getSession().setTabSize(2);
-      editor.setValue(this.get('body'));
-      editor.on('change', function (data) {
-        this.set('body', editor.getValue());
+      // request body ace editor
+      var requestBodyEditor = ace.edit(this.nodes.requestBody);
+      requestBodyEditor.getSession().setMode('ace/mode/json');
+      requestBodyEditor.setOption('minLines', 4);
+      requestBodyEditor.setOption('maxLines', 10000);
+      requestBodyEditor.setAutoScrollEditorIntoView(true);
+      requestBodyEditor.renderer.setShowGutter(false);
+      requestBodyEditor.renderer.setPadding(7);
+      requestBodyEditor.renderer.setScrollMargin(5, 5);
+      requestBodyEditor.setShowPrintMargin(false);
+      requestBodyEditor.getSession().setTabSize(2);
+      requestBodyEditor.getSession().setUseWrapMode(true);
+      requestBodyEditor.setValue(this.get('body'), -1);
+      requestBodyEditor.on('change', function (data) {
+        this.set('body', requestBodyEditor.getValue());
       }.bind(this));
+
+      // response headers ace editor
+      var responseHeadersEditor = ace.edit(this.nodes.responseHeaders);
+      responseHeadersEditor.setReadOnly(true);
+      responseHeadersEditor.setOption('minLines', 0);
+      responseHeadersEditor.setOption('maxLines', 10000);
+      responseHeadersEditor.renderer.setShowGutter(false);
+      responseHeadersEditor.renderer.setPadding(7);
+      responseHeadersEditor.renderer.setScrollMargin(5, 5);
+      responseHeadersEditor.setShowPrintMargin(false);
+      responseHeadersEditor.setHighlightGutterLine(false);
+      responseHeadersEditor.getSession().setUseWrapMode(true);
+
+      // response body ace editor
+      var responseBodyEditor = ace.edit(this.nodes.responseBody);
+      responseBodyEditor.setReadOnly(true);
+      responseBodyEditor.setOption('minLines', 0);
+      responseBodyEditor.setOption('maxLines', 10000);
+      responseBodyEditor.renderer.setShowGutter(false);
+      responseBodyEditor.renderer.setPadding(7);
+      responseBodyEditor.renderer.setScrollMargin(5, 5);
+      responseBodyEditor.setShowPrintMargin(false);
+      responseBodyEditor.getSession().setTabSize(2);
+      responseBodyEditor.getSession().setUseWrapMode(true);
 
       this.on({
         teardown: function teardown(event) {
@@ -290,18 +316,20 @@ define(function(require) {
           }
 
           // headers
-          this.set('responseHeaders', 'HTTP/1.1 ' + jqXHR.status + ' ' + jqXHR.statusText + '\n' + jqXHR.getAllResponseHeaders());
+          responseHeadersEditor.setValue('HTTP/1.1 ' + jqXHR.status + ' ' + jqXHR.statusText + '\n' + jqXHR.getAllResponseHeaders().trim(), -1);
 
           // body
           this.set('responseBody', '');
 
           if (typeof(jqXHR.responseJSON) !== 'undefined') {
             // JSON
-            this.set('responseBody', utilities.escape(JSON.stringify(jqXHR.responseJSON, null, 2)));
+            this.set('responseBody', JSON.stringify(jqXHR.responseJSON, null, 2));
+            responseBodyEditor.getSession().setMode('ace/mode/json');
           }
           else if (typeof(jqXHR.responseXML) !== 'undefined') {
             // XML
-            this.set('responseBody', utilities.escape(vkbeautify.xml(new XMLSerializer().serializeToString(jqXHR.responseXML), 2)));
+            this.set('responseBody', vkbeautify.xml(new XMLSerializer().serializeToString(jqXHR.responseXML), 2));
+            responseBodyEditor.getSession().setMode('ace/mode/xml');
           }
           else {
             var contentType = jqXHR.getResponseHeader('content-type');
@@ -313,16 +341,21 @@ define(function(require) {
               } catch (e) {
                 parsedResponse = jqXHR.responseText;
               }
-              this.set('responseBody', utilities.escape(parsedResponse));
+              this.set('responseBody', parsedResponse);
+              responseBodyEditor.getSession().setMode('ace/mode/javascript');
             }
             else {
               // Plain text, html, or something
-              this.set('responseBody', utilities.escape(jqXHR.responseText));
+              this.set('responseBody', jqXHR.responseText);
+
+              if (contentType && contentType.indexOf('html') !== -1) {
+                responseBodyEditor.getSession().setMode('ace/mode/html');
+              }
             }
           }
 
           if (this.get('responseBody').length > 3000) {
-            this.nodes.responseBody.innerHTML = prettify.prettyPrintOne(this.get('responseBody').substring(0, 3000));
+            responseBodyEditor.setValue(this.get('responseBody').substring(0, 3000), -1);
             this.set('showMoreButton', true);
           } else {
             this.fire('displayEntireResponse');
@@ -330,7 +363,7 @@ define(function(require) {
         },
 
         displayEntireResponse: function displayEntireResponse() {
-          this.nodes.responseBody.innerHTML = prettify.prettyPrintOne(this.get('responseBody'));
+          responseBodyEditor.setValue(this.get('responseBody'), -1);
           this.set('showMoreButton', false);
         }
       });
@@ -344,7 +377,7 @@ define(function(require) {
     toJSON: function() {
       var json = {};
       for (var property in this.data) {
-        if (typeof(property) !== 'function' && property !== 'responseBody' && property !== 'responseHeaders') {
+        if (typeof(property) !== 'function' && property !== 'responseBody') {
           json[property] = this.data[property];
         }
       }

@@ -235,29 +235,9 @@ bower_components/font-awesome/src/assets/css/pygments.css
 ----------------
 bower_components/font-awesome/src/assets/css/pygments.css
 
-bower_components/google-code-prettify/src/prettify.css
-----------------
-bower_components/google-code-prettify/src/prettify.css
-
-bower_components/google-code-prettify/styles/desert.css
-----------------
-bower_components/google-code-prettify/styles/desert.css
-
-bower_components/google-code-prettify/styles/sons-of-obsidian.css
-----------------
-bower_components/google-code-prettify/styles/sons-of-obsidian.css
-
-bower_components/google-code-prettify/styles/sunburst.css
-----------------
-bower_components/google-code-prettify/styles/sunburst.css
-
 bower_components/vkBeautify/main.css
 ----------------
 bower_components/vkBeautify/main.css
-
-styles/prettify-bootstrap-light.css
-----------------
-styles/prettify-bootstrap-light.css
 
 styles/styles.css
 ----------------

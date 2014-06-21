@@ -420,10 +420,16 @@ a.tag .delete-tag {
 .xhr-panel #showMoreButton {
   width: 100%;
 }
-.xhr-panel .request-body-wrapper {
+.xhr-panel .ace-editor-wrapper {
   border: #e1e1e8 1px solid;
   border-radius: 3px;
   margin-bottom: 5px;
+}
+.xhr-panel .ace-tm .ace_marker-layer .ace_active-line {
+  background: none;
+}
+.ace_hidden-cursors {
+  opacity:0
 }
 .user-page .profile-image {
   height: 200px;

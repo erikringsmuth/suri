@@ -12,7 +12,6 @@ define([], function() {
       'jquery': 'bower_components/jquery/dist/jquery',
       'jquery.easing': '/bower_components/jquery-easing/jquery.easing',
       'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
-      'prettify': 'bower_components/google-code-prettify/src/prettify',
       'vkbeautify': 'bower_components/vkBeautify/vkbeautify',
       'ractive-transitions-slide': '/bower_components/ractive-transitions-slide/ractive-transitions-slide',
       'ractive-events-tap': '/bower_components/ractive-events-tap/ractive-events-tap',

@@ -1,24 +1,10 @@
 // Copyright (C) 2014 Erik Ringsmuth - MIT license
 define(function(require) {
   'use strict';
-  var $         = require('jquery'),
-      prettify  = require('prettify');
 
   var utilities = {
     // True in a development environment
     development: window.location.hostname === 'localhost',
-
-    // Format code for readability. This will look for every code block in the element and format it.
-    formatCode: function formatCode(element) {
-      $(element).find('code').each(function() {
-        var $el = $(this);
-        // If the code block has class 'pln' don't format the code
-        if (!$el.hasClass('pln')) {
-          $el.html(prettify.prettyPrintOne($el.html()));
-        }
-      });
-      return element;
-    },
 
     // GUID generator
     guid: function guid() {
