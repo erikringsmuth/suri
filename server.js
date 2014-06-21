@@ -35,8 +35,8 @@ app.use(proxy);
 app.use(sessions({
   cookieName: 'session_state', // cookie name dictates the key name added to the request object
   secret: nconf.get('SESSION_SECRET'), // should be a large unguessable string
-  duration: 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
-  activeDuration: 12 * 60 * 60 * 1000 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
+  duration: 8 * 24 * 60 * 60 * 1000, // how long the session will stay valid in ms
+  activeDuration: 7 * 24 * 60 * 60 * 1000 // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
 }));
 
 // View engine
