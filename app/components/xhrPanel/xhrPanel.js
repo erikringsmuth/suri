@@ -61,6 +61,7 @@ define(function(require) {
       if (this.get('stars').indexOf(config.session.userId) !== -1) {
         this.set('starred', true);
       }
+      var responseBody = '';
 
       // add this XHR to the api sequence
       sequence.add(this);
@@ -68,6 +69,7 @@ define(function(require) {
       // request body ace editor
       var requestBodyEditor = ace.edit(this.nodes.requestBody);
       requestBodyEditor.getSession().setMode('ace/mode/json');
+      requestBodyEditor.setTheme('ace/theme/chrome');
       requestBodyEditor.setOption('minLines', 4);
       requestBodyEditor.setOption('maxLines', 10000);
       requestBodyEditor.setAutoScrollEditorIntoView(true);
@@ -85,6 +87,7 @@ define(function(require) {
       // response headers ace editor
       var responseHeadersEditor = ace.edit(this.nodes.responseHeaders);
       responseHeadersEditor.setReadOnly(true);
+      responseHeadersEditor.setTheme('ace/theme/chrome');
       responseHeadersEditor.setOption('minLines', 0);
       responseHeadersEditor.setOption('maxLines', 10000);
       responseHeadersEditor.renderer.setShowGutter(false);
@@ -97,6 +100,7 @@ define(function(require) {
       // response body ace editor
       var responseBodyEditor = ace.edit(this.nodes.responseBody);
       responseBodyEditor.setReadOnly(true);
+      responseBodyEditor.setTheme('ace/theme/chrome');
       responseBodyEditor.setOption('minLines', 0);
       responseBodyEditor.setOption('maxLines', 10000);
       responseBodyEditor.renderer.setShowGutter(false);
@@ -315,47 +319,48 @@ define(function(require) {
             this.set('sendButtonClass', 'danger');
           }
 
-          // headers
           responseHeadersEditor.setValue('HTTP/1.1 ' + jqXHR.status + ' ' + jqXHR.statusText + '\n' + jqXHR.getAllResponseHeaders().trim(), -1);
 
-          // body
-          this.set('responseBody', '');
+          var contentType = jqXHR.getResponseHeader('content-type');
+          var mode = 'text';
+          if (contentType) {
+            if (contentType.indexOf('json') !== -1) {
+              mode = 'json';
+            } else if (contentType.indexOf('html') !== -1) {
+              mode = 'html';
+            } else if (contentType.indexOf('javascript') !== -1) {
+              mode = 'javascript';
+            } else if (contentType.indexOf('xml') !== -1) {
+              mode = 'xml';
+            } else if (contentType.indexOf('css') !== -1) {
+              mode = 'css';
+            }
+          }
+          responseBodyEditor.getSession().setMode('ace/mode/' + mode);
 
           if (typeof(jqXHR.responseJSON) !== 'undefined') {
             // JSON
-            this.set('responseBody', JSON.stringify(jqXHR.responseJSON, null, 2));
-            responseBodyEditor.getSession().setMode('ace/mode/json');
+            responseBody = JSON.stringify(jqXHR.responseJSON, null, 2);
           }
           else if (typeof(jqXHR.responseXML) !== 'undefined') {
             // XML
-            this.set('responseBody', vkbeautify.xml(new XMLSerializer().serializeToString(jqXHR.responseXML), 2));
-            responseBodyEditor.getSession().setMode('ace/mode/xml');
+            responseBody = vkbeautify.xml(new XMLSerializer().serializeToString(jqXHR.responseXML), 2);
+          }
+          else if (contentType && contentType.indexOf('javascript') !== -1) {
+            // This could still be JSON, Google does this :P
+            try {
+              responseBody = JSON.stringify(JSON.parse(jqXHR.responseText), null, 2);
+            } catch (e) {
+              responseBody = jqXHR.responseText;
+            }
           }
           else {
-            var contentType = jqXHR.getResponseHeader('content-type');
-            if (contentType && contentType.indexOf('javascript') !== -1) {
-              // This could still be JSON, Google does this :P
-              var parsedResponse;
-              try {
-                parsedResponse = JSON.stringify(JSON.parse(jqXHR.responseText), null, 2);
-              } catch (e) {
-                parsedResponse = jqXHR.responseText;
-              }
-              this.set('responseBody', parsedResponse);
-              responseBodyEditor.getSession().setMode('ace/mode/javascript');
-            }
-            else {
-              // Plain text, html, or something
-              this.set('responseBody', jqXHR.responseText);
-
-              if (contentType && contentType.indexOf('html') !== -1) {
-                responseBodyEditor.getSession().setMode('ace/mode/html');
-              }
-            }
+            // Plain text, html, or something
+            responseBody = jqXHR.responseText;
           }
 
-          if (this.get('responseBody').length > 3000) {
-            responseBodyEditor.setValue(this.get('responseBody').substring(0, 3000), -1);
+          if (responseBody.length > 3000) {
+            responseBodyEditor.setValue(responseBody.substring(0, 3000), -1);
             this.set('showMoreButton', true);
           } else {
             this.fire('displayEntireResponse');
@@ -363,7 +368,7 @@ define(function(require) {
         },
 
         displayEntireResponse: function displayEntireResponse() {
-          responseBodyEditor.setValue(this.get('responseBody'), -1);
+          responseBodyEditor.setValue(responseBody, -1);
           this.set('showMoreButton', false);
         }
       });
@@ -377,7 +382,7 @@ define(function(require) {
     toJSON: function() {
       var json = {};
       for (var property in this.data) {
-        if (typeof(property) !== 'function' && property !== 'responseBody') {
+        if (typeof(property) !== 'function') {
           json[property] = this.data[property];
         }
       }

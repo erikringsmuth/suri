@@ -465,7 +465,7 @@ a.tag .delete-tag {
   border-radius: 3px;
   margin-bottom: 5px;
 }
-.xhr-panel .ace-tm .ace_marker-layer .ace_active-line {
+.xhr-panel .ace-chrome .ace_marker-layer .ace_active-line {
   background: none;
 }
 .ace_hidden-cursors {
