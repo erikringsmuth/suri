@@ -16,6 +16,7 @@ describe('config(req, res)', function () {
       session_state: { signedIn: true }
     };
     var res = {
+      type: sinon.stub(),
       render: sinon.stub()
     };
 
@@ -23,6 +24,7 @@ describe('config(req, res)', function () {
     config(req, res);
 
     // assert
+    expect(res.type).to.have.been.calledWith('application/javascript');
     expect(res.render).to.have.been.calledWith('config', req.session_state);
   });
 });
