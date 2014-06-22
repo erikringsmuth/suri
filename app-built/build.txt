@@ -245,12 +245,12 @@ styles/styles.css
 
 main.js
 ----------------
-main.js
 bower_components/requirejs-router/router.js
 bower_components/jquery/dist/jquery.js
 bower_components/bootstrap/dist/js/bootstrap.js
 bower_components/ractive/ractive.js
 bower_components/ractive-events-tap/ractive-events-tap.js
+main.js
 bower_components/requirejs-ractive/amd-loader.js
 bower_components/requirejs-ractive/rv.js
 

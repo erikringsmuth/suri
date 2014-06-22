@@ -3,6 +3,8 @@
   baseUrl: '.',
   dir: 'app-built',
   mainConfigFile : 'app/main.js',
+  findNestedDependencies : true,
+  optimizeAllPluginResources: true,
   modules: [
     {
       // inline common modules in main.js

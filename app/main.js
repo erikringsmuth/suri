@@ -4,18 +4,22 @@ define([], function() {
   // Configure require.js paths and shims
   require.config({
     paths: {
-      'text': 'bower_components/requirejs-text/text',
-      'router': 'bower_components/requirejs-router/router',
-      'amd-loader': 'bower_components/requirejs-ractive/amd-loader',
-      'rv': 'bower_components/requirejs-ractive/rv',
-      'ractive': 'bower_components/ractive/ractive',
+      'ace': 'bower_components/ace/lib/ace',
+      'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
       'jquery': 'bower_components/jquery/dist/jquery',
       'jquery.easing': '/bower_components/jquery-easing/jquery.easing',
-      'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
-      'vkbeautify': 'bower_components/vkBeautify/vkbeautify',
-      'ractive-transitions-slide': 'bower_components/ractive-transitions-slide/ractive-transitions-slide',
-      'ractive-events-tap': 'bower_components/ractive-events-tap/ractive-events-tap',
-      'ace': 'bower_components/ace/lib/ace'
+      'vkbeautify': 'bower_components/vkBeautify/vkbeautify'
+    },
+    map: {
+      '*': {
+        'amd-loader': 'bower_components/requirejs-ractive/amd-loader',
+        'ractive': 'bower_components/ractive/ractive',
+        'ractive-transitions-slide': 'bower_components/ractive-transitions-slide/ractive-transitions-slide',
+        'ractive-events-tap': 'bower_components/ractive-events-tap/ractive-events-tap',
+        'router': 'bower_components/requirejs-router/router',
+        'rv': 'bower_components/requirejs-ractive/rv',
+        'text': 'bower_components/requirejs-text/text'
+      }
     },
     shim: {
       'bootstrap': {
