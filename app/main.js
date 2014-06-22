@@ -13,9 +13,9 @@ define([], function() {
       'jquery.easing': '/bower_components/jquery-easing/jquery.easing',
       'bootstrap': 'bower_components/bootstrap/dist/js/bootstrap',
       'vkbeautify': 'bower_components/vkBeautify/vkbeautify',
-      'ractive-transitions-slide': '/bower_components/ractive-transitions-slide/ractive-transitions-slide',
-      'ractive-events-tap': '/bower_components/ractive-events-tap/ractive-events-tap',
-      'ace': '/bower_components/ace/lib/ace'
+      'ractive-transitions-slide': 'bower_components/ractive-transitions-slide/ractive-transitions-slide',
+      'ractive-events-tap': 'bower_components/ractive-events-tap/ractive-events-tap',
+      'ace': 'bower_components/ace/lib/ace'
     },
     shim: {
       'bootstrap': {

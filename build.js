@@ -2,13 +2,18 @@
   appDir: 'app',
   baseUrl: '.',
   dir: 'app-built',
-  paths: {
-    'text': 'bower_components/requirejs-text/text',
-    'ace': 'bower_components/ace/lib/ace'
-  },
+  mainConfigFile : 'app/main.js',
   modules: [
     {
+      // inline common modules in main.js
+      name: 'main',
+      include: ['router', 'bootstrap', 'ractive-events-tap', 'rv', 'amd-loader']
+    },
+    {
       name: 'ace/ace'
+    },
+    {
+      name: 'bower_components/URIjs/src/URI'
     }
   ]
 })

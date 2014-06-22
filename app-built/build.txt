@@ -243,6 +243,17 @@ styles/styles.css
 ----------------
 styles/styles.css
 
+main.js
+----------------
+main.js
+bower_components/requirejs-router/router.js
+bower_components/jquery/dist/jquery.js
+bower_components/bootstrap/dist/js/bootstrap.js
+bower_components/ractive/ractive.js
+bower_components/ractive-events-tap/ractive-events-tap.js
+bower_components/requirejs-ractive/amd-loader.js
+bower_components/requirejs-ractive/rv.js
+
 bower_components/ace/lib/ace/ace.js
 ----------------
 bower_components/ace/lib/ace/lib/regexp.js
@@ -311,3 +322,10 @@ bower_components/ace/lib/ace/theme/textmate.js
 bower_components/ace/lib/ace/line_widgets.js
 bower_components/ace/lib/ace/ext/error_marker.js
 bower_components/ace/lib/ace/ace.js
+
+bower_components/URIjs/src/URI.js
+----------------
+bower_components/URIjs/src/punycode.js
+bower_components/URIjs/src/IPv6.js
+bower_components/URIjs/src/SecondLevelDomains.js
+bower_components/URIjs/src/URI.js
