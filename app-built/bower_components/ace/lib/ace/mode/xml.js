@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./xml_highlight_rules","./behaviour/xml","./folding/xml"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./xml_highlight_rules").XmlHighlightRules,u=e("./behaviour/xml").XmlBehaviour,a=e("./folding/xml").FoldMode,f=function(){this.HighlightRules=o,this.$behaviour=new u,this.foldingRules=new a};r.inherits(f,i),function(){this.blockComment={start:"<!--",end:"-->"},this.$id="ace/mode/xml"}.call(f.prototype),t.Mode=f});
+define(["require","exports","module","../lib/oop","../lib/lang","./text","./xml_highlight_rules","./behaviour/xml","./folding/xml"],function(e,t,n){var r=e("../lib/oop"),i=e("../lib/lang"),s=e("./text").Mode,o=e("./xml_highlight_rules").XmlHighlightRules,u=e("./behaviour/xml").XmlBehaviour,a=e("./folding/xml").FoldMode,f=function(){this.HighlightRules=o,this.$behaviour=new u,this.foldingRules=new a};r.inherits(f,s),function(){this.voidElements=i.arrayToMap([]),this.blockComment={start:"<!--",end:"-->"},this.$id="ace/mode/xml"}.call(f.prototype),t.Mode=f});

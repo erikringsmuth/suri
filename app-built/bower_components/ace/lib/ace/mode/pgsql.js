@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","../mode/text","../tokenizer","./pgsql_highlight_rules","../range"],function(e,t,n){var r=e("../lib/oop"),i=e("../mode/text").Mode,s=e("../tokenizer").Tokenizer,o=e("./pgsql_highlight_rules").PgsqlHighlightRules,u=e("../range").Range,a=function(){this.HighlightRules=o};r.inherits(a,i),function(){this.lineCommentStart="--",this.blockComment={start:"/*",end:"*/"},this.getNextLineIndent=function(e,t,n){return e=="start"||e=="keyword.statementEnd"?"":this.$getIndent(t)},this.$id="ace/mode/pgsql"}.call(a.prototype),t.Mode=a});
+define(["require","exports","module","../lib/oop","../mode/text","./pgsql_highlight_rules","../range"],function(e,t,n){var r=e("../lib/oop"),i=e("../mode/text").Mode,s=e("./pgsql_highlight_rules").PgsqlHighlightRules,o=e("../range").Range,u=function(){this.HighlightRules=s};r.inherits(u,i),function(){this.lineCommentStart="--",this.blockComment={start:"/*",end:"*/"},this.getNextLineIndent=function(e,t,n){return e=="start"||e=="keyword.statementEnd"?"":this.$getIndent(t)},this.$id="ace/mode/pgsql"}.call(u.prototype),t.Mode=u});

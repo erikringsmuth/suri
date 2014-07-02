@@ -33,4 +33,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./batchfile_highlight_rules","./folding/cstyle"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./batchfile_highlight_rules").BatchFileHighlightRules,u=e("./folding/cstyle").FoldMode,a=function(){this.HighlightRules=o,this.foldingRules=new u};r.inherits(a,i),function(){this.lineCommentStart="::",this.blockComment="",this.$id="ace/mode/batchfile"}.call(a.prototype),t.Mode=a});
+define(["require","exports","module","../lib/oop","./text","./batchfile_highlight_rules","./folding/cstyle"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./batchfile_highlight_rules").BatchFileHighlightRules,o=e("./folding/cstyle").FoldMode,u=function(){this.HighlightRules=s,this.foldingRules=new o};r.inherits(u,i),function(){this.lineCommentStart="::",this.blockComment="",this.$id="ace/mode/batchfile"}.call(u.prototype),t.Mode=u});

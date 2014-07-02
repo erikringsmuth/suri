@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./cobol_highlight_rules","../range"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./cobol_highlight_rules").CobolHighlightRules,u=e("../range").Range,a=function(){this.HighlightRules=o};r.inherits(a,i),function(){this.lineCommentStart="*",this.$id="ace/mode/cobol"}.call(a.prototype),t.Mode=a});
+define(["require","exports","module","../lib/oop","./text","./cobol_highlight_rules","../range"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./cobol_highlight_rules").CobolHighlightRules,o=e("../range").Range,u=function(){this.HighlightRules=s};r.inherits(u,i),function(){this.lineCommentStart="*",this.$id="ace/mode/cobol"}.call(u.prototype),t.Mode=u});

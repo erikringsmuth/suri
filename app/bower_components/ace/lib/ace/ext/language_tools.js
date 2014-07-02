@@ -34,6 +34,7 @@ define(function(require, exports, module) {
 var snippetManager = require("../snippets").snippetManager;
 var Autocomplete = require("../autocomplete").Autocomplete;
 var config = require("../config");
+var util = require("../autocomplete/util");
 
 var textCompleter = require("../autocomplete/text_completer");
 var keyWordCompleter = {
@@ -71,6 +72,11 @@ exports.addCompleter = function(completer) {
     completers.push(completer);
 };
 
+// Exports existing completer so that user can construct his own set of completers.
+exports.textCompleter = textCompleter;
+exports.keyWordCompleter = keyWordCompleter;
+exports.snippetCompleter = snippetCompleter;
+
 var expandSnippet = {
     name: "expandSnippet",
     exec: function(editor) {
@@ -78,7 +84,7 @@ var expandSnippet = {
         if (!success)
             editor.execCommand("indent");
     },
-    bindKey: "tab"
+    bindKey: "Tab"
 };
 
 var onChangeMode = function(e, editor) {
@@ -102,8 +108,9 @@ var loadSnippetFile = function(id) {
     config.loadModule(snippetFilePath, function(m) {
         if (m) {
             snippetManager.files[id] = m;
-            m.snippets = snippetManager.parseSnippetFile(m.snippetText);
-            snippetManager.register(m.snippets, m.scope);
+            if (!m.snippets && m.snippetText)
+                m.snippets = snippetManager.parseSnippetFile(m.snippetText);
+            snippetManager.register(m.snippets || [], m.scope);
             if (m.includeScopes) {
                 snippetManager.snippetMap[m.scope].includeScopes = m.includeScopes;
                 m.includeScopes.forEach(function(x) {
@@ -114,15 +121,81 @@ var loadSnippetFile = function(id) {
     });
 };
 
+function getCompletionPrefix(editor) {
+    var pos = editor.getCursorPosition();
+    var line = editor.session.getLine(pos.row);
+    var prefix = util.retrievePrecedingIdentifier(line, pos.column);
+    // Try to find custom prefixes on the completers
+    editor.completers.forEach(function(completer) {
+        if (completer.identifierRegexps) {
+            completer.identifierRegexps.forEach(function(identifierRegex) {
+                if (!prefix && identifierRegex)
+                    prefix = util.retrievePrecedingIdentifier(line, pos.column, identifierRegex);
+            });
+        }
+    });
+    return prefix;
+}
+
+var doLiveAutocomplete = function(e) {
+    var editor = e.editor;
+    var text = e.args || "";
+    var hasCompleter = editor.completer && editor.completer.activated;
+
+
+
+    // We don't want to autocomplete with no prefix
+    if (e.command.name === "backspace") {
+        if (hasCompleter && !getCompletionPrefix(editor))
+            editor.completer.detach();
+    }
+    else if (e.command.name === "insertstring") {
+        var prefix = getCompletionPrefix(editor);
+        // Only autocomplete if there's a prefix that can be matched
+        if (prefix && !hasCompleter) {
+            if (!editor.completer) {
+                // Create new autocompleter
+                editor.completer = new Autocomplete();
+            }
+            // Disable autoInsert
+            editor.completer.autoSelect = false;
+            editor.completer.autoInsert = false;
+            editor.completer.showPopup(editor);
+        } else if (!prefix && hasCompleter) {
+            // When the prefix is empty
+            // close the autocomplete dialog
+            editor.completer.detach();
+        }
+    }
+};
+
 var Editor = require("../editor").Editor;
 require("../config").defineOptions(Editor.prototype, "editor", {
     enableBasicAutocompletion: {
         set: function(val) {
             if (val) {
-                this.completers = completers;
+                if (!this.completers)
+                    this.completers = Array.isArray(val)? val: completers;
                 this.commands.addCommand(Autocomplete.startCommand);
             } else {
                 this.commands.removeCommand(Autocomplete.startCommand);
+            }
+        },
+        value: false
+    },
+    /**
+     * Enable live autocomplete. If the value is an array, it is assumed to be an array of completers
+     * and will use them instead of the default completers.
+     */
+    enableLiveAutocompletion: {
+        set: function(val) {
+            if (val) {
+                if (!this.completers)
+                    this.completers = Array.isArray(val)? val: completers;
+                // On each change automatically trigger the autocomplete
+                this.commands.on('afterExec', doLiveAutocomplete);
+            } else {
+                this.commands.removeListener('afterExec', doLiveAutocomplete);
             }
         },
         value: false
@@ -141,5 +214,4 @@ require("../config").defineOptions(Editor.prototype, "editor", {
         value: false
     }
 });
-
 });

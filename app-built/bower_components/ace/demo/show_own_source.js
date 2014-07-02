@@ -1,1 +1,1 @@
-ace.require("ace/lib/net").get(document.baseURI,function(e){editor.setValue(e,1)});
+function setValue(){require("ace/lib/net").get(document.baseURI,function(e){var t=document.getElementById("editor");t.env.editor.setValue(e,1)})}typeof ace=="undefined"&&typeof require=="undefined"?document.body.innerHTML="<p style='padding: 20px 50px;'>couldn't find ace.js file, <br>to build it run <code>node Makefile.dryice.js full<code>":typeof ace=="undefined"&&typeof require!="undefined"?require(["ace/ace"],setValue):(require=ace.require,setValue());

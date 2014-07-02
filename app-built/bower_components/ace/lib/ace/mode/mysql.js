@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","../mode/text","../tokenizer","./mysql_highlight_rules","../range"],function(e,t,n){var r=e("../lib/oop"),i=e("../mode/text").Mode,s=e("../tokenizer").Tokenizer,o=e("./mysql_highlight_rules").MysqlHighlightRules,u=e("../range").Range,a=function(){this.HighlightRules=o};r.inherits(a,i),function(){this.lineCommentStart=["--","#"],this.blockComment={start:"/*",end:"*/"},this.$id="ace/mode/mysql"}.call(a.prototype),t.Mode=a});
+define(["require","exports","module","../lib/oop","../mode/text","./mysql_highlight_rules","../range"],function(e,t,n){var r=e("../lib/oop"),i=e("../mode/text").Mode,s=e("./mysql_highlight_rules").MysqlHighlightRules,o=e("../range").Range,u=function(){this.HighlightRules=s};r.inherits(u,i),function(){this.lineCommentStart=["--","#"],this.blockComment={start:"/*",end:"*/"},this.$id="ace/mode/mysql"}.call(u.prototype),t.Mode=u});

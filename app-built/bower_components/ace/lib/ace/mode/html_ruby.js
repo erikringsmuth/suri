@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","../tokenizer","./html_ruby_highlight_rules","./html","./javascript","./css","./ruby"],function(e,t,n){var r=e("../lib/oop"),i=e("../tokenizer").Tokenizer,s=e("./html_ruby_highlight_rules").HtmlRubyHighlightRules,o=e("./html").Mode,u=e("./javascript").Mode,a=e("./css").Mode,f=e("./ruby").Mode,l=function(){o.call(this),this.HighlightRules=s,this.createModeDelegates({"js-":u,"css-":a,"ruby-":f})};r.inherits(l,o),function(){this.$id="ace/mode/html_ruby"}.call(l.prototype),t.Mode=l});
+define(["require","exports","module","../lib/oop","./html_ruby_highlight_rules","./html","./javascript","./css","./ruby"],function(e,t,n){var r=e("../lib/oop"),i=e("./html_ruby_highlight_rules").HtmlRubyHighlightRules,s=e("./html").Mode,o=e("./javascript").Mode,u=e("./css").Mode,a=e("./ruby").Mode,f=function(){s.call(this),this.HighlightRules=i,this.createModeDelegates({"js-":o,"css-":u,"ruby-":a})};r.inherits(f,s),function(){this.$id="ace/mode/html_ruby"}.call(f.prototype),t.Mode=f});

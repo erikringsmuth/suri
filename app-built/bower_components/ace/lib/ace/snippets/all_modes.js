@@ -1,0 +1,1 @@
+define(["require","exports","module","../requirejs/text!./all_modes.snippets"],function(e,t,n){t.snippetText=e("../requirejs/text!./all_modes.snippets"),t.scope="all_modes"});

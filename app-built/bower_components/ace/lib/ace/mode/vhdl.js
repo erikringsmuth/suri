@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./vhdl_highlight_rules","../range"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./vhdl_highlight_rules").VHDLHighlightRules,u=e("../range").Range,a=function(){this.HighlightRules=o};r.inherits(a,i),function(){this.lineCommentStart="--",this.$id="ace/mode/vhdl"}.call(a.prototype),t.Mode=a});
+define(["require","exports","module","../lib/oop","./text","./vhdl_highlight_rules","../range"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./vhdl_highlight_rules").VHDLHighlightRules,o=e("../range").Range,u=function(){this.HighlightRules=s};r.inherits(u,i),function(){this.lineCommentStart="--",this.$id="ace/mode/vhdl"}.call(u.prototype),t.Mode=u});

@@ -102,8 +102,8 @@ var Keys = (function() {
            73: 'i',  74: 'j',  75: 'k',  76: 'l',  77: 'm',  78: 'n', 79:  'o',
            80: 'p',  81: 'q',  82: 'r',  83: 's',  84: 't',  85: 'u', 86:  'v',
            87: 'w',  88: 'x',  89: 'y',  90: 'z', 107: '+', 109: '-', 110: '.',
-          188: ',', 190: '.', 191: '/', 192: '`', 219: '[', 220: '\\',
-          221: ']', 222: '\''
+          187: '=', 188: ',', 189: '-', 190: '.', 191: '/', 192: '`', 219: '[',
+          220: '\\',221: ']', 222: '\''
         }
     };
 
@@ -130,7 +130,7 @@ var Keys = (function() {
     ret.enter = ret["return"];
     ret.escape = ret.esc;
     ret.del = ret["delete"];
-    
+
     // workaround for firefox bug
     ret[173] = '-';
     
@@ -148,7 +148,11 @@ var Keys = (function() {
 oop.mixin(exports, Keys);
 
 exports.keyCodeToString = function(keyCode) {
-    return (Keys[keyCode] || String.fromCharCode(keyCode)).toLowerCase();
+    // Language-switching keystroke in Chrome/Linux emits keyCode 0.
+    var keyString = Keys[keyCode];
+    if (typeof keyString != "string")
+        keyString = String.fromCharCode(keyCode);
+    return keyString.toLowerCase();
 };
 
 });

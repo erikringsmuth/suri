@@ -114,7 +114,11 @@ var Tokenizer = function(rules) {
             // makes property access faster
             if (!rule.onMatch)
                 rule.onMatch = null;
-            rule.__proto__ = null;
+        }
+        
+        if (!ruleRegExps.length) {
+            mapping[0] = 0;
+            ruleRegExps.push("$");
         }
         
         splitterRurles.forEach(function(rule) {

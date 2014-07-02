@@ -33,4 +33,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./forth_highlight_rules","./folding/cstyle"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./forth_highlight_rules").ForthHighlightRules,u=e("./folding/cstyle").FoldMode,a=function(){this.HighlightRules=o,this.foldingRules=new u};r.inherits(a,i),function(){this.lineCommentStart="(?<=^|\\s)\\.?\\( [^)]*\\)",this.blockComment={start:"/*",end:"*/"},this.$id="ace/mode/forth"}.call(a.prototype),t.Mode=a});
+define(["require","exports","module","../lib/oop","./text","./forth_highlight_rules","./folding/cstyle"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./forth_highlight_rules").ForthHighlightRules,o=e("./folding/cstyle").FoldMode,u=function(){this.HighlightRules=s,this.foldingRules=new o};r.inherits(u,i),function(){this.lineCommentStart="(?<=^|\\s)\\.?\\( [^)]*\\)",this.blockComment={start:"/*",end:"*/"},this.$id="ace/mode/forth"}.call(u.prototype),t.Mode=u});

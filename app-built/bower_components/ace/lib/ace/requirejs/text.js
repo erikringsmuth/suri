@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-(function(){var e=typeof require!="undefined"&&require;define(["require","exports","module","../lib/net"],function(t,n,r){n.load=function(n,r,i,s){e&&e.nodeRequire?i(e.nodeRequire("fs").readFileSync(r.toUrl(n),"utf8")):t("../lib/net").get(r.toUrl(n),i)}})})();
+(function(){var e=typeof require!="undefined"&&require;if(typeof define!="function")return module.exports=function(e){return e};define(["require","exports","module","../lib/net"],function(t,n,r){e&&e.nodeRequire?r.exports=e.nodeRequire(t.toUrl("./text_build")):n.load=function(e,n,r,i){t("../lib/net").get(n.toUrl(e),r)}})})();

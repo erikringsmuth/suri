@@ -37,7 +37,6 @@ var EventEmitter = require("./lib/event_emitter").EventEmitter;
 var Range = require("./range").Range;
 
 /**
- *
  * Contains the cursor position and the text selection of an edit session.
  *
  * The row/columns used in the selection are in document coordinates representing ths coordinates as thez appear in the document before applying soft wrap and folding.
@@ -49,22 +48,16 @@ var Range = require("./range").Range;
  * Emitted when the cursor position changes.
  * @event changeCursor
  *
- *
- *
 **/
 /**
  * Emitted when the cursor selection changes.
+ * 
  *  @event changeSelection
- *
- *
- *
 **/
 /**
  * Creates a new `Selection` object.
  * @param {EditSession} session The session to use
- *
- *
- *
+ * 
  * @constructor
  **/
 var Selection = function(session) {
@@ -119,8 +112,8 @@ var Selection = function(session) {
     };
 
     /**
-    * Gets the current position of the cursor.
-    * @returns {Number}
+    * Returns an object containing the `row` and `column` current position of the cursor.
+    * @returns {Object}
     **/
     this.getCursor = function() {
         return this.lead.getPosition();
@@ -887,6 +880,27 @@ var Selection = function(session) {
         range.cursor = this.isBackwards() ? range.start : range.end;
         range.desiredColumn = this.$desiredColumn;
         return range;
+    }
+
+    /**
+    * Saves the current cursor position and calls `func` that can change the cursor
+    * postion. The result is the range of the starting and eventual cursor position.
+    * Will reset the cursor position.
+    * @param {Function} The callback that should change the cursor position
+    * @returns {Range}
+    *
+    **/
+    this.getRangeOfMovements = function(func) {
+        var start = this.getCursor();
+        try {
+            func.call(null, this);
+            var end = this.getCursor();
+            return Range.fromPoints(start,end);
+        } catch(e) {
+            return Range.fromPoints(start,start);
+        } finally {
+            this.moveCursorToPosition(start);
+        }
     }
 
     this.toJSON = function() {

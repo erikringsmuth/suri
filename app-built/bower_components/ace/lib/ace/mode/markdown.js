@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2010, Ajax.org B.V.
  * All rights reserved.
- * 
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
@@ -14,7 +14,7 @@
  *     * Neither the name of Ajax.org B.V. nor the
  *       names of its contributors may be used to endorse or promote products
  *       derived from this software without specific prior written permission.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","./javascript","./xml","./html","../tokenizer","./markdown_highlight_rules","./folding/markdown"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./javascript").Mode,o=e("./xml").Mode,u=e("./html").Mode,a=e("../tokenizer").Tokenizer,f=e("./markdown_highlight_rules").MarkdownHighlightRules,l=e("./folding/markdown").FoldMode,c=function(){this.HighlightRules=f,this.createModeDelegates({"js-":s,"xml-":o,"html-":u}),this.foldingRules=new l};r.inherits(c,i),function(){this.type="text",this.lineCommentStart=">",this.getNextLineIndent=function(e,t,n){if(e=="listblock"){var r=/^(\s*)(?:([-+*])|(\d+)\.)(\s+)/.exec(t);if(!r)return"";var i=r[2];return i||(i=parseInt(r[3],10)+1+"."),r[1]+i+r[4]}return this.$getIndent(t)},this.$id="ace/mode/markdown"}.call(c.prototype),t.Mode=c});
+define(["require","exports","module","../lib/oop","./text","./javascript","./xml","./html","./markdown_highlight_rules","./folding/markdown"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./javascript").Mode,o=e("./xml").Mode,u=e("./html").Mode,a=e("./markdown_highlight_rules").MarkdownHighlightRules,f=e("./folding/markdown").FoldMode,l=function(){this.HighlightRules=a,this.createModeDelegates({"js-":s,"xml-":o,"html-":u}),this.foldingRules=new f};r.inherits(l,i),function(){this.type="text",this.blockComment={start:"<!--",end:"-->"},this.getNextLineIndent=function(e,t,n){if(e=="listblock"){var r=/^(\s*)(?:([-+*])|(\d+)\.)(\s+)/.exec(t);if(!r)return"";var i=r[2];return i||(i=parseInt(r[3],10)+1+"."),r[1]+i+r[4]}return this.$getIndent(t)},this.$id="ace/mode/markdown"}.call(l.prototype),t.Mode=l});

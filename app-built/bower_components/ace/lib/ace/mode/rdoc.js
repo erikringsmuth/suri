@@ -36,4 +36,4 @@
  *
  */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./text_highlight_rules","./rdoc_highlight_rules","./matching_brace_outdent"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./text_highlight_rules").TextHighlightRules,u=e("./rdoc_highlight_rules").RDocHighlightRules,a=e("./matching_brace_outdent").MatchingBraceOutdent,f=function(e){this.HighlightRules=u,this.$outdent=new a};r.inherits(f,i),function(){this.getNextLineIndent=function(e,t,n){return this.$getIndent(t)},this.$id="ace/mode/rdoc"}.call(f.prototype),t.Mode=f});
+define(["require","exports","module","../lib/oop","./text","./text_highlight_rules","./rdoc_highlight_rules","./matching_brace_outdent"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./text_highlight_rules").TextHighlightRules,o=e("./rdoc_highlight_rules").RDocHighlightRules,u=e("./matching_brace_outdent").MatchingBraceOutdent,a=function(e){this.HighlightRules=o,this.$outdent=new u};r.inherits(a,i),function(){this.getNextLineIndent=function(e,t,n){return this.$getIndent(t)},this.$id="ace/mode/rdoc"}.call(a.prototype),t.Mode=a});

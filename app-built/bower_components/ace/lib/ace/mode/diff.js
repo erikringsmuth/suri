@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./diff_highlight_rules","./folding/diff"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./diff_highlight_rules").DiffHighlightRules,u=e("./folding/diff").FoldMode,a=function(){this.HighlightRules=o,this.foldingRules=new u(["diff","index","\\+{3}","@@|\\*{5}"],"i")};r.inherits(a,i),function(){this.$id="ace/mode/diff"}.call(a.prototype),t.Mode=a});
+define(["require","exports","module","../lib/oop","./text","./diff_highlight_rules","./folding/diff"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./diff_highlight_rules").DiffHighlightRules,o=e("./folding/diff").FoldMode,u=function(){this.HighlightRules=s,this.foldingRules=new o(["diff","index","\\+{3}","@@|\\*{5}"],"i")};r.inherits(u,i),function(){this.$id="ace/mode/diff"}.call(u.prototype),t.Mode=u});

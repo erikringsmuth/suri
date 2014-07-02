@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./mel_highlight_rules","./behaviour/cstyle","./folding/cstyle"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./mel_highlight_rules").MELHighlightRules,u=e("./behaviour/cstyle").CstyleBehaviour,a=e("./folding/cstyle").FoldMode,f=function(){this.HighlightRules=o,this.$behaviour=new u,this.foldingRules=new a};r.inherits(f,i),function(){this.lineCommentStart="//",this.blockComment={start:"/*",end:"*/"},this.$id="ace/mode/mel"}.call(f.prototype),t.Mode=f});
+define(["require","exports","module","../lib/oop","./text","./mel_highlight_rules","./behaviour/cstyle","./folding/cstyle"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./mel_highlight_rules").MELHighlightRules,o=e("./behaviour/cstyle").CstyleBehaviour,u=e("./folding/cstyle").FoldMode,a=function(){this.HighlightRules=s,this.$behaviour=new o,this.foldingRules=new u};r.inherits(a,i),function(){this.lineCommentStart="//",this.blockComment={start:"/*",end:"*/"},this.$id="ace/mode/mel"}.call(a.prototype),t.Mode=a});

@@ -29,4 +29,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./lisp_highlight_rules"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./lisp_highlight_rules").LispHighlightRules,u=function(){this.HighlightRules=o};r.inherits(u,i),function(){this.lineCommentStart=";",this.$id="ace/mode/lisp"}.call(u.prototype),t.Mode=u});
+define(["require","exports","module","../lib/oop","./text","./lisp_highlight_rules"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./lisp_highlight_rules").LispHighlightRules,o=function(){this.HighlightRules=s};r.inherits(o,i),function(){this.lineCommentStart=";",this.$id="ace/mode/lisp"}.call(o.prototype),t.Mode=o});

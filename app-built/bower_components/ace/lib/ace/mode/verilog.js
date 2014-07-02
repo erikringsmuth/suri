@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./verilog_highlight_rules","../range"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./verilog_highlight_rules").VerilogHighlightRules,u=e("../range").Range,a=function(){this.HighlightRules=o};r.inherits(a,i),function(){this.lineCommentStart="//",this.blockComment={start:"/*",end:"*/"},this.$id="ace/mode/verilog"}.call(a.prototype),t.Mode=a});
+define(["require","exports","module","../lib/oop","./text","./verilog_highlight_rules","../range"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./verilog_highlight_rules").VerilogHighlightRules,o=e("../range").Range,u=function(){this.HighlightRules=s};r.inherits(u,i),function(){this.lineCommentStart="//",this.blockComment={start:"/*",end:"*/"},this.$id="ace/mode/verilog"}.call(u.prototype),t.Mode=u});

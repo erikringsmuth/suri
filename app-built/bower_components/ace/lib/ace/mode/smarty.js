@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./html","../tokenizer","./smarty_highlight_rules","./behaviour/html","./folding/html"],function(e,t,n){var r=e("../lib/oop"),i=e("./html").Mode,s=e("../tokenizer").Tokenizer,o=e("./smarty_highlight_rules").SmartyHighlightRules,u=e("./behaviour/html").HtmlBehaviour,a=e("./folding/html").FoldMode,f=function(){i.call(this),this.HighlightRules=o,this.$behaviour=new u,this.foldingRules=new a};r.inherits(f,i),function(){this.$id="ace/mode/smarty"}.call(f.prototype),t.Mode=f});
+define(["require","exports","module","../lib/oop","./html","./smarty_highlight_rules"],function(e,t,n){var r=e("../lib/oop"),i=e("./html").Mode,s=e("./smarty_highlight_rules").SmartyHighlightRules,o=function(){i.call(this),this.HighlightRules=s};r.inherits(o,i),function(){this.$id="ace/mode/smarty"}.call(o.prototype),t.Mode=o});

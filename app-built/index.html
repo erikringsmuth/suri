@@ -13,6 +13,49 @@
     <script data-main="main" src="bower_components/requirejs/require.js"></script>
   </head>
   <body>
-    <!-- main.js bootstraps the javascript app and inserts it here -->
+    <!-- main.js bootstraps the javascript app and replaces the body -->
+    <a class="sr-only" href="#content">Skip to main content</a>
+
+    <div id="wrap">
+      <header class="navbar navbar-default navbar-static-top" role="banner">
+        <div class="container">
+          <div class="navbar-header">
+            <a href="#/" class="navbar-brand"><i class="fa fa-cloud"></i> suri.io <span class="beta">beta</span></a>
+          </div>
+        </div>
+      </header>
+
+      <main class="container" role="main">
+        <div class="gmb-table">
+          <div class="gmb-cell">
+            <div class="gmb-loader">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-6">
+            <p class="text-muted text-center">&#169; Copyright 2014 <a href="http://erikringsmuth.github.io/">Erik Ringsmuth</a>.</p>
+            <p class="text-muted text-center">It's a beta! Report bugs or ideas with the <a href="https://github.com/erikringsmuth/suri/issues">issue tracker</a>.</p>
+          </div>
+          <div class="col-xs-6">
+            <ul class="list-inline">
+              <li><a href="https://github.com/erikringsmuth/suri"><i class="fa fa-github"></i> GitHub</a></li>
+              <li><a href="https://twitter.com/ErikRingsmuth"><i class="fa fa-twitter"></i> Twitter</a></li>
+              <li><a href="http://stackoverflow.com/users/3148201/erik-ringsmuth"><i class="fa fa-stack-overflow"></i> StackOverflow</a></li>
+              <li><a href="http://www.linkedin.com/in/erikringsmuth"><i class="fa fa-linkedin"></i> LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
   </body>
 </html>

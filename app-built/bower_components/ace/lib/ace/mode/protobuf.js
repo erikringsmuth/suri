@@ -33,4 +33,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./c_cpp","../tokenizer","./protobuf_highlight_rules","./folding/cstyle"],function(e,t,n){var r=e("../lib/oop"),i=e("./c_cpp").Mode,s=e("../tokenizer").Tokenizer,o=e("./protobuf_highlight_rules").ProtobufHighlightRules,u=e("./folding/cstyle").FoldMode,a=function(){i.call(this);var e=new o;this.foldingRules=new u,this.$tokenizer=new s(e.getRules()),this.$keywordList=e.$keywordList};r.inherits(a,i),function(){this.lineCommentStart="//",this.blockComment={start:"/*",end:"*/"},this.$id="ace/mode/protobuf"}.call(a.prototype),t.Mode=a});
+define(["require","exports","module","../lib/oop","./c_cpp","./protobuf_highlight_rules","./folding/cstyle"],function(e,t,n){var r=e("../lib/oop"),i=e("./c_cpp").Mode,s=e("./protobuf_highlight_rules").ProtobufHighlightRules,o=e("./folding/cstyle").FoldMode,u=function(){i.call(this),this.foldingRules=new o,this.HighlightRules=s};r.inherits(u,i),function(){this.lineCommentStart="//",this.blockComment={start:"/*",end:"*/"},this.$id="ace/mode/protobuf"}.call(u.prototype),t.Mode=u});

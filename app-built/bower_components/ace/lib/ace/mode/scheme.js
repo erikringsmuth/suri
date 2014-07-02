@@ -33,4 +33,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../lib/oop","./text","../tokenizer","./scheme_highlight_rules"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("../tokenizer").Tokenizer,o=e("./scheme_highlight_rules").SchemeHighlightRules,u=function(){this.HighlightRules=o};r.inherits(u,i),function(){this.lineCommentStart=";",this.$id="ace/mode/scheme"}.call(u.prototype),t.Mode=u});
+define(["require","exports","module","../lib/oop","./text","./scheme_highlight_rules"],function(e,t,n){var r=e("../lib/oop"),i=e("./text").Mode,s=e("./scheme_highlight_rules").SchemeHighlightRules,o=function(){this.HighlightRules=s};r.inherits(o,i),function(){this.lineCommentStart=";",this.$id="ace/mode/scheme"}.call(o.prototype),t.Mode=o});

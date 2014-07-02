@@ -28,4 +28,4 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-define(["require","exports","module","../../lib/oop","./mixed","./xml","./cstyle"],function(e,t,n){var r=e("../../lib/oop"),i=e("./mixed").FoldMode,s=e("./xml").FoldMode,o=e("./cstyle").FoldMode,u=t.FoldMode=function(){i.call(this,new s({area:1,base:1,br:1,col:1,command:1,embed:1,hr:1,img:1,input:1,keygen:1,link:1,meta:1,param:1,source:1,track:1,wbr:1,li:1,dt:1,dd:1,p:1,rt:1,rp:1,optgroup:1,option:1,colgroup:1,td:1,th:1}),{"js-":new o,"css-":new o})};r.inherits(u,i)});
+define(["require","exports","module","../../lib/oop","./mixed","./xml","./cstyle"],function(e,t,n){var r=e("../../lib/oop"),i=e("./mixed").FoldMode,s=e("./xml").FoldMode,o=e("./cstyle").FoldMode,u=t.FoldMode=function(e,t){i.call(this,new s(e,t),{"js-":new o,"css-":new o})};r.inherits(u,i)});

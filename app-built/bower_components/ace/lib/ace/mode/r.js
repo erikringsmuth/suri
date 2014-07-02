@@ -36,4 +36,4 @@
  *
  */
 
-define(["require","exports","module","../range","../lib/oop","./text","../tokenizer","./text_highlight_rules","./r_highlight_rules","./matching_brace_outdent","../unicode"],function(e,t,n){var r=e("../range").Range,i=e("../lib/oop"),s=e("./text").Mode,o=e("../tokenizer").Tokenizer,u=e("./text_highlight_rules").TextHighlightRules,a=e("./r_highlight_rules").RHighlightRules,f=e("./matching_brace_outdent").MatchingBraceOutdent,l=e("../unicode"),c=function(){this.HighlightRules=a,this.$outdent=new f};i.inherits(c,s),function(){this.lineCommentStart="#",this.$id="ace/mode/r"}.call(c.prototype),t.Mode=c});
+define(["require","exports","module","../range","../lib/oop","./text","./text_highlight_rules","./r_highlight_rules","./matching_brace_outdent","../unicode"],function(e,t,n){var r=e("../range").Range,i=e("../lib/oop"),s=e("./text").Mode,o=e("./text_highlight_rules").TextHighlightRules,u=e("./r_highlight_rules").RHighlightRules,a=e("./matching_brace_outdent").MatchingBraceOutdent,f=e("../unicode"),l=function(){this.HighlightRules=u,this.$outdent=new a};i.inherits(l,s),function(){this.lineCommentStart="#",this.$id="ace/mode/r"}.call(l.prototype),t.Mode=l});
