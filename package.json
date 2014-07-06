@@ -49,7 +49,7 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha",
-    "build": "node r.js -o app.build.js",
+    "build": "node r.js -o build.js",
     "local": "supervisor -w services,routes,middleware,utilities,server.js --debug server.js"
   }
 }

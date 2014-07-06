@@ -31,6 +31,6 @@
     "commit": "2bf5d3d4103909c721da19e4dc9ce7e32e29f328"
   },
   "_source": "git://github.com/RactiveJS/Ractive-events-tap.git",
-  "_target": "^0.1.0",
+  "_target": "^0.1.1",
   "_originalSource": "RactiveJS/Ractive-events-tap"
 }

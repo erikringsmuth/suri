@@ -1,1 +1,1 @@
-define(["./deletedIds"],function(e){return e.push});
+define(["./arr"],function(e){return e.push});

@@ -196,6 +196,7 @@ If you don't like URI.js, you may like one of the following libraries. (If yours
 
 #### URI Template ####
 
+* [uri-template](https://github.com/rezigned/uri-template.js) (supporting extraction as well) by Rezigne
 * [uri-templates](https://github.com/geraintluff/uri-templates) (supporting extraction as well) by Geraint Luff
 * [uri-templates](https://github.com/marc-portier/uri-templates) by Marc Portier
 * [uri-templates](https://github.com/geraintluff/uri-templates) by Geraint Luff (including reverse operation)
@@ -227,6 +228,10 @@ URI.js is published under the [MIT license](http://www.opensource.org/licenses/m
 
 
 ## Changelog ##
+
+### 1.13.2 (May 29th 2014) ###
+
+* changes to package management manifests only
 
 ### 1.13.1 (April 16th 2014) ###
 

@@ -27,6 +27,6 @@
     "commit": "5da7df356a928bb79facc4d35ba6d133184d3259"
   },
   "_source": "git://github.com/RactiveJS/Ractive-transitions-slide.git",
-  "_target": "^0.1.1",
+  "_target": "^0.1.2",
   "_originalSource": "RactiveJS/Ractive-transitions-slide"
 }

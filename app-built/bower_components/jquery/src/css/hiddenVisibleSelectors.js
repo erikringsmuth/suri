@@ -1,1 +1,1 @@
-define(["../core","./support","../selector","../css"],function(e,t){e.expr.filters.hidden=function(n){return n.offsetWidth<=0&&n.offsetHeight<=0||!t.reliableHiddenOffsets()&&(n.style&&n.style.display||e.css(n,"display"))==="none"},e.expr.filters.visible=function(t){return!e.expr.filters.hidden(t)}});
+define(["../core","../selector"],function(e){e.expr.filters.hidden=function(e){return e.offsetWidth<=0&&e.offsetHeight<=0},e.expr.filters.visible=function(t){return!e.expr.filters.hidden(t)}});

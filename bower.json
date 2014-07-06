@@ -9,19 +9,19 @@
   "description": "Explore REST APIs!",
   "main": "app/index.html",
   "dependencies": {
-    "requirejs": "^2.1.11",
-    "requirejs-text": "^2.0.10",
+    "requirejs": "^2.1.14",
+    "requirejs-text": "^2.0.12",
     "requirejs-ractive": "^0.1.5",
     "requirejs-router": "^0.7.3",
     "ractive": "^0.4.0",
-    "bootstrap": "^3.1.1",
-    "jquery": "^1.11.0",
+    "bootstrap": "^3.2.0",
+    "jquery": "^2.1.1",
     "jquery-easing": "*",
     "font-awesome": "^4.1.0",
-    "ractive-transitions-slide": "RactiveJS/Ractive-transitions-slide#^0.1.1",
-    "URIjs": "^1.12.1",
+    "ractive-transitions-slide": "RactiveJS/Ractive-transitions-slide#^0.1.2",
+    "URIjs": "^1.13.2",
     "vkBeautify": "vkiryukhin/vkBeautify",
-    "ractive-events-tap": "RactiveJS/Ractive-events-tap#^0.1.0",
-    "ace": "^1.1.3"
+    "ractive-events-tap": "RactiveJS/Ractive-events-tap#^0.1.1",
+    "ace": "^1.1.4"
   }
 }

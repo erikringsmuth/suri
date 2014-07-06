@@ -1,1 +1,1 @@
-define([],function(){function e(e,t){return{get:function(){var n=e();if(n==null)return;if(n){delete this.get;return}return(this.get=t).apply(this,arguments)}}}return e});
+define([],function(){function e(e,t){return{get:function(){if(e()){delete this.get;return}return(this.get=t).apply(this,arguments)}}}return e});

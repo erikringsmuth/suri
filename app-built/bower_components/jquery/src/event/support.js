@@ -1,1 +1,1 @@
-define(["../var/support"],function(e){return function(){var t,n,r=document.createElement("div");for(t in{submit:!0,change:!0,focusin:!0})n="on"+t,(e[t+"Bubbles"]=n in window)||(r.setAttribute(n,"t"),e[t+"Bubbles"]=r.attributes[n].expando===!1);r=null}(),e});
+define(["../var/support"],function(e){return e.focusinBubbles="onfocusin"in window,e});
